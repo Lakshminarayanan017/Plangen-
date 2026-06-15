@@ -1,0 +1,4 @@
+sources/.env
+venv/
+__pycache__/
+extracted data/
