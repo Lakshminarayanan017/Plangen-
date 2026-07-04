@@ -455,6 +455,16 @@ class ImageAnalyzer:
             )
 
             try:
+                # [FIX] Strip unsupported 'default' keys from JSON schema
+                schema = BuildingRequirements.model_json_schema()
+                def remove_defaults(d):
+                    if isinstance(d, dict):
+                        return {k: remove_defaults(v) for k, v in d.items() if k != "default"}
+                    elif isinstance(d, list):
+                        return [remove_defaults(v) for v in d]
+                    return d
+                clean_schema = remove_defaults(schema)
+
                 response = self.config.client.models.generate_content(
                     model=self.config.VISION_MODEL,
                     contents=content_parts,
@@ -462,7 +472,7 @@ class ImageAnalyzer:
                         system_instruction=self.config.IMAGE_SYSTEM_INSTRUCTION,
                         temperature=self.config.TEMPERATURE,
                         response_mime_type="application/json",
-                        response_schema=BuildingRequirements,
+                        response_schema=clean_schema,
                     ),
                 )
 

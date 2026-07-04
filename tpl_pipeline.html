@@ -1,0 +1,135 @@
+
+
+<!-- Background Watermark -->
+<div class="fixed inset-0 pointer-events-none z-0 opacity-2 flex items-center justify-center overflow-hidden">
+<svg class="w-full h-auto min-w-[1000px]" fill="none" viewbox="0 0 1440 300" xmlns="http://www.w3.org/2000/svg">
+<!-- Eiffel Tower -->
+<path d="M100 280 L130 280 M115 280 L115 100 M105 280 L115 100 L125 280 M108 220 L122 220 M112 160 L118 160" opacity="0.8" stroke="white" stroke-width="1"></path>
+<!-- Taj Mahal -->
+<path d="M250 280 H350 V240 H250 V280 M270 240 V200 Q300 160 330 200 V240 M260 240 V220 Q270 210 280 220 V240 M320 240 V220 Q330 210 340 220 V240" opacity="0.8" stroke="white" stroke-width="1"></path>
+<path d="M245 280 V180 M355 280 V180" opacity="0.8" stroke="white" stroke-width="1"></path>
+<!-- Colosseum -->
+<path d="M450 280 Q500 240 550 280 M450 260 Q500 220 550 260 M460 280 V260 M480 275 V255 M500 270 V250 M520 275 V255 M540 280 V260" opacity="0.8" stroke="white" stroke-width="1"></path>
+<!-- Petronas Towers -->
+<path d="M650 280 V80 H670 V280 M690 280 V80 H710 V280 M670 150 H690" opacity="0.8" stroke="white" stroke-width="1"></path>
+<!-- Sydney Opera House -->
+<path d="M800 280 Q820 200 860 280 Q880 180 940 280 Q960 220 1000 280" opacity="0.8" stroke="white" stroke-width="1"></path>
+<!-- Burj Khalifa -->
+<path d="M1100 280 L1110 40 L1120 280 M1105 220 H1115 M1108 160 H1112 M1102 260 H1118" opacity="0.8" stroke="white" stroke-width="1"></path>
+<!-- Parthenon -->
+<path d="M1250 280 H1350 V270 H1250 V280 M1255 270 V220 H1345 V270 M1250 220 L1300 190 L1350 220 M1270 270 V220 M1290 270 V220 M1310 270 V220 M1330 270 V220" opacity="0.8" stroke="white" stroke-width="1"></path>
+</svg>
+</div>
+<!-- Top Navigation (Hidden as per context, but included structure if needed) -->
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center relative z-10 px-8 py-16 w-full max-w-7xl mx-auto">
+<!-- Header Section -->
+<header class="text-center mb-24 w-full">
+<h1 class="font-headline text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">Generating Your Floor Plan</h1>
+<p class="font-body text-white/50 text-lg md:text-xl">Our AI is analyzing 4,983 reference plans...</p>
+</header>
+<!-- Pipeline Stepper Section -->
+<section class="w-full md:w-[85%] lg:w-[80%] mx-auto mb-24 relative">
+<div class="flex items-center justify-between relative z-10">
+<!-- Step 1: PARSE (Completed) -->
+<div class="flex flex-col items-center relative group w-24">
+<div class="w-12 h-12 rounded-full bg-status-success flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(45,107,63,0.4)] transition-transform duration-300 group-hover:scale-105">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label uppercase text-[11px] font-medium tracking-[0.08em] text-white/90">Parse</span>
+</div>
+<!-- Connector 1-2 (Completed) -->
+<div class="flex-1 h-[2px] bg-gold -mx-6 mb-8 relative z-0"></div>
+<!-- Step 2: MATCH (Completed) -->
+<div class="flex flex-col items-center relative group w-24">
+<div class="w-12 h-12 rounded-full bg-status-success flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(45,107,63,0.4)] transition-transform duration-300 group-hover:scale-105">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label uppercase text-[11px] font-medium tracking-[0.08em] text-white/90">Match</span>
+</div>
+<!-- Connector 2-3 (Active/Animated) -->
+<div class="flex-1 h-[2px] -mx-6 mb-8 relative z-0 opacity-80 flex items-center">
+<svg height="2" preserveaspectratio="none" width="100%">
+<line class="animated-connector" stroke="#C4956A" stroke-width="2" x1="0" x2="100%" y1="1" y2="1"></line>
+</svg>
+</div>
+<!-- Step 3: ENRICH (Active) -->
+<div class="flex flex-col items-center relative group w-24">
+<!-- Pulsing ring container -->
+<div class="relative mb-3">
+<div class="absolute inset-0 rounded-full border-2 border-gold opacity-20"></div>
+<div class="w-12 h-12 rounded-full bg-base-panel border-2 border-gold flex items-center justify-center active-step-ring">
+<span class="material-symbols-outlined text-gold animate-spin-slow">auto_awesome</span>
+</div>
+</div>
+<span class="font-label uppercase text-[11px] font-bold tracking-[0.08em] text-gold">Enrich</span>
+<!-- Active Description Tooltip/Label -->
+<div class="absolute top-16 w-48 text-center">
+<p class="font-body text-xs text-white/70 leading-tight">Gap-filling rooms with NBC standards + Gemini AI...</p>
+</div>
+</div>
+<!-- Connector 3-4 (Pending) -->
+<div class="flex-1 h-[2px] bg-white/10 -mx-6 mb-8 relative z-0 border-t border-dashed border-white/20"></div>
+<!-- Step 4: GENERATE (Pending) -->
+<div class="flex flex-col items-center relative group w-24">
+<div class="w-12 h-12 rounded-full bg-base-surface border border-[#1F1F1F] flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-white/30">grid_view</span>
+</div>
+<span class="font-label uppercase text-[11px] font-medium tracking-[0.08em] text-white/30">Generate</span>
+</div>
+<!-- Connector 4-5 (Pending) -->
+<div class="flex-1 h-[2px] bg-white/10 -mx-6 mb-8 relative z-0 border-t border-dashed border-white/20"></div>
+<!-- Step 5: RENDER (Pending) -->
+<div class="flex flex-col items-center relative group w-24">
+<div class="w-12 h-12 rounded-full bg-base-surface border border-[#1F1F1F] flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-white/30">image</span>
+</div>
+<span class="font-label uppercase text-[11px] font-medium tracking-[0.08em] text-white/30">Render</span>
+</div>
+</div>
+</section>
+<!-- Lower Section Grid -->
+<div class="w-full grid grid-cols-1 lg:grid-cols-4 gap-8">
+<!-- Terminal Log Window -->
+<div class="lg:col-span-3 bg-[#0D0D0D] border border-[#1F1F1F] rounded-lg p-6 relative overflow-hidden h-48 font-mono text-sm leading-relaxed shadow-lg">
+<!-- CRT Effects -->
+<div class="terminal-scanline"></div>
+<div class="terminal-glow"></div>
+<div class="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] z-10 opacity-20"></div>
+<div class="relative z-20 flex flex-col justify-end h-full">
+<div class="space-y-2 text-[#7AC97A]">
+<p class="opacity-70">[14:22:01] <span class="text-white/50">SYS:</span> Initiating PlanGen Engine v3.4.2</p>
+<p class="opacity-80">[14:22:03] <span class="text-white/50">PARSE:</span> Blueprint boundaries detected. Extracted 12 nodes.</p>
+<p class="opacity-90">[14:22:04] <span class="text-[#D4A937]">WARN:</span> <span class="text-white/70">Node 4 (Corridor) dimension confidence 82%. Applying structural heuristics.</span></p>
+<p class="opacity-90">[14:22:05] <span class="text-white/50">MATCH:</span> Correlated structural footprint against 4,983 reference models.</p>
+<div class="text-gold font-medium">
+<span class="typewriter-text">[14:22:06] <span class="text-white/50">ENRICH:</span> Injecting NBC compliance constraints. Calculating load-bearing distribution...</span>
+</div>
+<p class="text-white/40 animate-pulse">_</p>
+</div>
+</div>
+</div>
+<!-- Progress Indicator -->
+<div class="lg:col-span-1 bg-base-surface border border-[#1F1F1F] rounded-lg p-6 flex flex-col items-center justify-center relative">
+<!-- Circular Progress -->
+<div class="relative w-24 h-24 mb-4">
+<!-- Background circle -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="40" stroke="#1F1F1F" stroke-width="6"></circle>
+<!-- Progress circle (60% for 3/5) -->
+<circle class="transition-all duration-1000 ease-out" cx="50" cy="50" fill="none" r="40" stroke="#C4956A" stroke-dasharray="251.2" stroke-dashoffset="100.48" stroke-width="6"></circle>
+</svg>
+<!-- Text inside circle -->
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="font-mono text-xl font-bold text-white">3/5</span>
+</div>
+</div>
+<!-- ETA Text -->
+<div class="text-center">
+<p class="font-mono text-sm text-white/50 mb-1">Estimated Time</p>
+<p class="font-body text-lg text-white">~8s remaining</p>
+</div>
+</div>
+</div>
+</main>
+

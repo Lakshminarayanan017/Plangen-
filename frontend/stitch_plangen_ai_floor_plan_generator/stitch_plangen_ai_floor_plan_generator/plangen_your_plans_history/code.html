@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PlanGen - Your Plans</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@700&amp;family=Public+Sans:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        base: {
+                            DEFAULT: "#0A0A0A",
+                            surface: "#141414",
+                            elevated: "#1C1C1C"
+                        },
+                        brand: {
+                            gold: "#C4956A",
+                            blue: "#1E3A5F",
+                            green: "#2D6B3F",
+                            amber: "#8B6914",
+                            red: "#8B2A2A",
+                            canvas: "#FAFAF8"
+                        }
+                    },
+                    fontFamily: {
+                        headline: ["Playfair Display", "serif"],
+                        display: ["Public Sans", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        mono: ["JetBrains Mono", "monospace"],
+                        label: ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        lg: "0.75rem", // 12px for cards
+                        xl: "1rem",
+                        full: "9999px"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .card-hover-effect {
+            transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 300ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 300ms ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            border-color: #C4956A;
+        }
+        
+        .bg-watermark {
+            background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLvn47ADDj6dikSfo3pOAPzLhTsj5rphQoGQsH8hirx3zsbr3ZpWQoonhdEjto6CHyw23II__ovOuBjJCFS2fmq0c0X3H6nc6yB5YhXgwh3t2QlsXIGg28OSPIEZ-7w2grJ1EHgr5RMdlb36y3tOpHGOCbvjtPRSdbBtEFhR0N06tJZu-PYeaV3rkJ8D7x-NK_rpmUdHY1TDwMlOBUWKeSY5NGpHLZJY61QEq3F-pC1p74H-DYS4Px4N2ns');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-base text-white/90 font-body min-h-screen flex flex-col relative overflow-x-hidden selection:bg-brand-gold/30 selection:text-brand-gold">
+<!-- Background Watermark -->
+<div class="fixed inset-0 w-full h-full bg-watermark"></div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-4 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-[#1F1F1F]">
+<div class="flex items-center gap-8">
+<a class="font-headline text-2xl font-bold text-[#C4956A]" href="#">PlanGen</a>
+<div class="hidden md:flex items-center gap-6">
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors" href="#">Gallery</a>
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors" href="#">Technology</a>
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors" href="#">Pricing</a>
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors" href="#">About</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg bg-transparent border border-white/20 text-sm font-medium hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-[20px]">login</span>
+                Login
+            </button>
+<button class="flex items-center gap-2 px-5 py-2 rounded-lg bg-brand-blue text-white text-sm font-medium hover:bg-brand-blue/90 hover:scale-[1.02] transition-all duration-150">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                New Plan
+            </button>
+<button class="p-2 rounded-full hover:bg-white/10 transition-colors text-white/70 hover:text-white">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-28 pb-20 px-6 md:px-12 max-w-7xl mx-auto w-full relative z-10">
+<!-- Header -->
+<header class="mb-12">
+<h1 class="font-headline text-4xl md:text-5xl text-white mb-2 tracking-tight">Your Plans</h1>
+<p class="font-body text-white/50 text-base">3 floor plans generated</p>
+</header>
+<!-- Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1: Latest -->
+<article class="bg-base-surface rounded-lg border border-[#1F1F1F] overflow-hidden card-hover-effect flex flex-col group">
+<!-- Thumbnail -->
+<div class="h-48 bg-brand-canvas relative p-4 flex items-center justify-center border-b border-[#1F1F1F]">
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(#1E3A5F_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<!-- Blueprint visual representation -->
+<div class="relative w-full h-full border-2 border-brand-blue/30 grid grid-cols-3 grid-rows-2 gap-1 p-1 bg-white">
+<div class="bg-brand-blue/10 border border-brand-blue/20 col-span-2 row-span-1"></div>
+<div class="bg-brand-gold/10 border border-brand-gold/20 col-span-1 row-span-2"></div>
+<div class="bg-brand-green/10 border border-brand-green/20 col-span-1 row-span-1"></div>
+<div class="bg-white border border-brand-blue/20 col-span-1 row-span-1"></div>
+</div>
+<div class="absolute top-3 left-3 bg-brand-gold text-base px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-black">Latest</div>
+</div>
+<!-- Content -->
+<div class="p-5 flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h2 class="font-body font-semibold text-lg text-white">3BHK North-Facing</h2>
+<span class="text-xs font-mono text-white/40">Today, 2:30 PM</span>
+</div>
+<div class="font-mono text-xs text-white/60 mb-4 flex flex-wrap gap-x-2 gap-y-1">
+<span>30 × 40 ft</span>
+<span class="text-white/20">|</span>
+<span>2 Floors</span>
+<span class="text-white/20">|</span>
+<span>12 Rooms</span>
+</div>
+<div class="space-y-2 mb-6 mt-auto">
+<div class="flex justify-between items-center text-sm">
+<span class="text-white/50">Quality</span>
+<div class="flex items-center gap-2 font-mono">
+<div class="w-2 h-2 rounded-full bg-brand-green shadow-[0_0_8px_rgba(45,107,63,0.6)]"></div>
+<span>0.72</span>
+</div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-white/50">Solver</span>
+<span class="font-mono text-brand-gold/90">Autoregressive</span>
+</div>
+</div>
+<div class="flex gap-3 pt-4 border-t border-[#1F1F1F]">
+<button class="flex-grow py-2 rounded-lg border border-[#333] text-sm font-medium hover:bg-white/5 transition-colors">View</button>
+<button class="p-2 rounded-lg border border-[#333] text-white/50 hover:text-brand-red hover:border-brand-red/50 hover:bg-brand-red/10 transition-colors group-hover:border-[#333]">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-base-surface rounded-lg border border-[#1F1F1F] overflow-hidden card-hover-effect flex flex-col">
+<!-- Thumbnail -->
+<div class="h-48 bg-brand-canvas relative p-4 flex items-center justify-center border-b border-[#1F1F1F]">
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(#1E3A5F_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<div class="relative w-full h-full border-2 border-brand-blue/30 grid grid-cols-2 grid-rows-2 gap-1 p-1 bg-white">
+<div class="bg-brand-blue/10 border border-brand-blue/20 col-span-1 row-span-2"></div>
+<div class="bg-white border border-brand-blue/20 col-span-1 row-span-1"></div>
+<div class="bg-brand-amber/10 border border-brand-amber/20 col-span-1 row-span-1"></div>
+</div>
+</div>
+<!-- Content -->
+<div class="p-5 flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h2 class="font-body font-semibold text-lg text-white">2BHK East-Facing</h2>
+<span class="text-xs font-mono text-white/40">Yesterday, 10:15 AM</span>
+</div>
+<div class="font-mono text-xs text-white/60 mb-4 flex flex-wrap gap-x-2 gap-y-1">
+<span>25 × 30 ft</span>
+<span class="text-white/20">|</span>
+<span>1 Floor</span>
+<span class="text-white/20">|</span>
+<span>8 Rooms</span>
+</div>
+<div class="space-y-2 mb-6 mt-auto">
+<div class="flex justify-between items-center text-sm">
+<span class="text-white/50">Quality</span>
+<div class="flex items-center gap-2 font-mono">
+<div class="w-2 h-2 rounded-full bg-brand-amber shadow-[0_0_8px_rgba(139,105,20,0.6)]"></div>
+<span>0.65</span>
+</div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-white/50">Solver</span>
+<span class="font-mono text-brand-gold/90">CP-SAT</span>
+</div>
+</div>
+<div class="flex gap-3 pt-4 border-t border-[#1F1F1F]">
+<button class="flex-grow py-2 rounded-lg border border-[#333] text-sm font-medium hover:bg-white/5 transition-colors">View</button>
+<button class="p-2 rounded-lg border border-[#333] text-white/50 hover:text-brand-red hover:border-brand-red/50 hover:bg-brand-red/10 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-base-surface rounded-lg border border-[#1F1F1F] overflow-hidden card-hover-effect flex flex-col">
+<!-- Thumbnail -->
+<div class="h-48 bg-brand-canvas relative p-4 flex items-center justify-center border-b border-[#1F1F1F]">
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(#1E3A5F_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<div class="relative w-full h-full border-2 border-brand-blue/30 grid grid-cols-4 grid-rows-3 gap-1 p-1 bg-white">
+<div class="bg-brand-blue/10 border border-brand-blue/20 col-span-2 row-span-2"></div>
+<div class="bg-white border border-brand-blue/20 col-span-2 row-span-1"></div>
+<div class="bg-brand-green/10 border border-brand-green/20 col-span-1 row-span-2"></div>
+<div class="bg-brand-gold/10 border border-brand-gold/20 col-span-1 row-span-1"></div>
+<div class="bg-white border border-brand-blue/20 col-span-2 row-span-1"></div>
+</div>
+<div class="absolute top-3 left-3 bg-brand-green/20 border border-brand-green text-brand-green px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Vastu</div>
+</div>
+<!-- Content -->
+<div class="p-5 flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h2 class="font-body font-semibold text-lg text-white">4BHK Vastu Home</h2>
+<span class="text-xs font-mono text-white/40">Jun 30, 4:45 PM</span>
+</div>
+<div class="font-mono text-xs text-white/60 mb-4 flex flex-wrap gap-x-2 gap-y-1">
+<span>40 × 50 ft</span>
+<span class="text-white/20">|</span>
+<span>3 Floors</span>
+<span class="text-white/20">|</span>
+<span>18 Rooms</span>
+</div>
+<div class="space-y-2 mb-6 mt-auto">
+<div class="flex justify-between items-center text-sm">
+<span class="text-white/50">Quality</span>
+<div class="flex items-center gap-2 font-mono">
+<div class="w-2 h-2 rounded-full bg-brand-green shadow-[0_0_8px_rgba(45,107,63,0.6)]"></div>
+<span>0.81</span>
+</div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-white/50">Solver</span>
+<span class="font-mono text-brand-gold/90">Autoregressive</span>
+</div>
+</div>
+<div class="flex gap-3 pt-4 border-t border-[#1F1F1F]">
+<button class="flex-grow py-2 rounded-lg border border-[#333] text-sm font-medium hover:bg-white/5 transition-colors">View</button>
+<button class="p-2 rounded-lg border border-[#333] text-white/50 hover:text-brand-red hover:border-brand-red/50 hover:bg-brand-red/10 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<div class="mt-12 flex justify-center">
+<button class="px-6 py-2.5 rounded-lg border border-white/20 text-white/70 font-medium hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-150 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+                Load More
+            </button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 flex flex-col items-center gap-6 bg-[#0A0A0A] border-t border-[#1F1F1F] relative z-10">
+<a class="font-headline text-lg font-bold text-[#C4956A] opacity-80 hover:opacity-100 transition-opacity" href="#">PlanGen</a>
+<div class="flex gap-6 font-body text-xs text-white/50">
+<span class="font-mono opacity-60">PlanGen v2.1.0 | Powered by AR Transformer + CP-SAT</span>
+</div>
+<div class="flex flex-wrap justify-center gap-6 font-body text-xs text-white/50">
+<a class="text-white/40 hover:text-white hover:text-[#C4956A] transition-colors" href="#">Terms of Service</a>
+<a class="text-white/40 hover:text-white hover:text-[#C4956A] transition-colors" href="#">Privacy Policy</a>
+<a class="text-white/40 hover:text-white hover:text-[#C4956A] transition-colors" href="#">Contact Support</a>
+<a class="text-white/40 hover:text-white hover:text-[#C4956A] transition-colors" href="#">Documentation</a>
+</div>
+<p class="font-body text-xs text-white/50">© 2024 PlanGen Architectural AI. Precision by Design.</p>
+</footer>
+</body></html>

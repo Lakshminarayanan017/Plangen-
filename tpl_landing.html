@@ -1,0 +1,98 @@
+
+
+<!-- Top Navigation -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-4 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-[#1F1F1F]">
+<div class="font-headline text-2xl font-bold text-[#C4956A]">
+            PlanGen
+        </div>
+<!-- Web Nav -->
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors" href="#">Gallery</a>
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors" href="#">Technology</a>
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors" href="#">Pricing</a>
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors" href="#">About</a>
+</div>
+<div class="flex gap-4 items-center">
+<a class="hidden md:block font-body text-sm font-medium text-white/70 hover:text-white transition-colors" href="#">Login</a>
+<button class="font-body text-sm tracking-wide uppercase font-medium bg-accent-blue text-white px-6 py-2 rounded-lg hover:scale-105 transition-transform duration-150 active:scale-95">
+                Get Started
+            </button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col justify-center items-center content-wrapper pt-24 pb-32">
+<!-- Hero Section -->
+<div class="text-center max-w-4xl mx-auto px-4 flex flex-col items-center z-10">
+<!-- Logo Header -->
+<div class="mb-6 relative inline-block group cursor-default">
+<h1 class="font-headline text-6xl md:text-7xl lg:text-8xl text-white tracking-tight leading-tight">
+                    PlanGen
+                </h1>
+<!-- Animated Gold Underline -->
+<div class="h-1 bg-accent-gold mt-2 mx-auto rounded-full origin-left w-0 transition-all duration-1000 ease-out group-hover:w-full opacity-75"></div>
+<!-- Initial load animation applied via JS below -->
+<div class="absolute bottom-0 left-0 h-1 bg-accent-gold rounded-full w-full opacity-75 animate-underline-grow" id="initial-underline"></div>
+</div>
+<!-- Tagline -->
+<p class="font-body text-xl md:text-2xl text-[#8A8A8A] mb-12 max-w-2xl mx-auto font-light tracking-wide">
+                AI-Powered Floor Plans. Architect-Grade Quality.
+            </p>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-6 mb-16 w-full sm:w-auto">
+<button class="px-8 py-4 bg-accent-blue text-white rounded-full font-body font-medium text-lg tracking-wide hover:scale-[1.02] transition-all duration-150 shadow-[0_0_20px_rgba(30,58,95,0.4)] hover:shadow-[0_0_30px_rgba(30,58,95,0.6)] flex items-center justify-center gap-2 group">
+                    Start Designing
+                    <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="px-8 py-4 border border-white/20 text-white rounded-full font-body font-medium text-lg tracking-wide hover:bg-white/5 hover:border-white/40 transition-all duration-150 flex items-center justify-center gap-2">
+                    View Sample Plans
+                </button>
+</div>
+<!-- Features Chips -->
+<div class="flex flex-wrap justify-center gap-3 md:gap-4 mt-8 opacity-80 hover:opacity-100 transition-opacity duration-300">
+<span class="px-4 py-2 bg-base-elevated rounded-full border border-[#1F1F1F] font-body text-xs md:text-sm text-white/80 uppercase tracking-widest font-medium flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-status-green"></span>
+                    Vastu Compliant
+                </span>
+<span class="px-4 py-2 bg-base-elevated rounded-full border border-[#1F1F1F] font-body text-xs md:text-sm text-white/80 uppercase tracking-widest font-medium flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-status-green"></span>
+                    NBC Standards
+                </span>
+<span class="px-4 py-2 bg-base-elevated rounded-full border border-[#1F1F1F] font-body text-xs md:text-sm text-white/80 uppercase tracking-widest font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-accent-gold">memory</span>
+                    AI + Constraint Solver
+                </span>
+<span class="px-4 py-2 bg-base-elevated rounded-full border border-[#1F1F1F] font-body text-xs md:text-sm text-white/80 uppercase tracking-widest font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-accent-blue">polyline</span>
+                    SVG Export
+                </span>
+</div>
+</div>
+</main>
+<!-- Background Skyline Image -->
+<div class="skyline-bg"></div>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 flex flex-col items-center gap-6 bg-[#0A0A0A] border-t border-[#1F1F1F] relative z-10">
+<div class="font-headline text-lg font-bold text-[#C4956A]">
+            PlanGen
+        </div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="font-body text-xs text-white/40 hover:text-white transition-colors" href="#">Terms of Service</a>
+<a class="font-body text-xs text-white/40 hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="font-body text-xs text-white/40 hover:text-white transition-colors" href="#">Contact Support</a>
+<a class="font-body text-xs text-white/40 hover:text-white transition-colors" href="#">Documentation</a>
+</div>
+<p class="font-body text-xs text-white/50 text-center">
+            © 2024 PlanGen Architectural AI. Precision by Design.
+        </p>
+</footer>
+<script>
+        // Remove the initial load animation class after it completes to allow hover effects
+        setTimeout(() => {
+            const underline = document.getElementById('initial-underline');
+            if(underline) {
+                underline.classList.remove('animate-underline-grow');
+                underline.classList.add('hidden'); // Hide the standalone initial bar so the hover one takes over
+            }
+        }, 1100);
+    </script>
+

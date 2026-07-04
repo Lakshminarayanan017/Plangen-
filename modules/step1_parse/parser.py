@@ -20,6 +20,14 @@ from google.genai import types
 # Multi-key rotation for 429 rate-limit mitigation
 from sources.key_rotator import GeminiKeyRotator
 
+# Anthropic SDK — used as structural fallback when Gemini is unavailable
+try:
+    import anthropic as _anthropic_sdk
+    import instructor as _instructor_sdk
+    _ANTHROPIC_AVAILABLE = True
+except ImportError:
+    _ANTHROPIC_AVAILABLE = False
+
 # Import your existing Pydantic data models
 from models import BuildingRequirements
 
@@ -111,11 +119,11 @@ class ArchitectGatekeeper:
             missing_tier2.append("Number of floors (Ground only, G+1, or G+2)")
 
         is_valid = len(missing_tier1) == 0
-        
+
         # Build the architect conversational response via Gemini Flash
         clarification_prompt = self._generate_architect_response(
-            is_valid=is_valid, 
-            missing_tier1=missing_tier1, 
+            is_valid=is_valid,
+            missing_tier1=missing_tier1,
             missing_tier2=missing_tier2
         )
 
@@ -129,7 +137,7 @@ class ArchitectGatekeeper:
     def _generate_architect_response(self, is_valid: bool, missing_tier1: List[str], missing_tier2: List[str]) -> str:
         """Generates conversational responses matching a formal senior Indian architect persona."""
         from docs.prompts.loader import load_prompt
-        
+
         # Load the persona template and inject runtime context
         persona_template = load_prompt("step1_gatekeeper_persona.md")
 
@@ -145,11 +153,11 @@ class ArchitectGatekeeper:
             client, slot_idx = self.config.key_rotator.get_client()
             try:
                 response = client.models.generate_content(
-                    model=self.config.FLASH_MODEL,
+                    model='gemini-2.5-flash',
                     contents=persona_prompt,
                     config=types.GenerateContentConfig(
                         temperature=0.6,  # Slightly warmer for human conversation flows
-                        max_output_tokens=300
+                        max_output_tokens=500
                     )
                 )
                 return response.text.strip()
@@ -162,10 +170,38 @@ class ArchitectGatekeeper:
                 logger.error(f"Failed to generate persona-driven prompt: {e}")
                 break  # non-429 error, fall through to static fallback
 
-        # Fallback static responses if all keys fail
+        # ── Anthropic fallback for gatekeeper persona ──
+        anthropic_resp = self._try_anthropic_gatekeeper(persona_prompt)
+        if anthropic_resp:
+            return anthropic_resp
+
+        # Final static fallback — no API available at all
         if not is_valid:
             return f"Namaste. To map out your floor plan accurately, I will need a few missing details: {', '.join(missing_tier1)}. Could you provide these?"
         return "Excellent. I have the baseline requirements. Shall I assume a single-floor (Ground only) layout, or do you intend to build G+1/G+2?"
+
+    def _try_anthropic_gatekeeper(self, persona_prompt: str) -> Optional[str]:
+        """
+        Anthropic claude-sonnet-4-5 fallback for the gatekeeper persona response.
+        Returns None if key is missing, SDK unavailable, or call fails.
+        """
+        if not _ANTHROPIC_AVAILABLE:
+            return None
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if not api_key:
+            return None
+        try:
+            raw_client = _anthropic_sdk.Anthropic(api_key=api_key)
+            logger.info("Gatekeeper: using Anthropic claude-sonnet-4-5 fallback.")
+            response = raw_client.messages.create(
+                model="claude-sonnet-4-5",
+                max_tokens=300,
+                messages=[{"role": "user", "content": persona_prompt}],
+            )
+            return response.content[0].text.strip()
+        except Exception as e:
+            logger.error("Anthropic gatekeeper fallback failed: %s", e)
+            return None
 
 
 # =====================================================================
@@ -204,6 +240,16 @@ class ArchitectureParser:
             logger.info(f"Attempt {attempt}/{self.config.MAX_RETRIES} using key slot {slot_idx}")
 
             try:
+                # [FIX] Strip unsupported 'default' keys from JSON schema
+                schema = BuildingRequirements.model_json_schema()
+                def remove_defaults(d):
+                    if isinstance(d, dict):
+                        return {k: remove_defaults(v) for k, v in d.items() if k != "default"}
+                    elif isinstance(d, list):
+                        return [remove_defaults(v) for v in d]
+                    return d
+                clean_schema = remove_defaults(schema)
+
                 # Direct implementation of Gemini's native structured JSON engine
                 response = client.models.generate_content(
                     model=self.config.PRIMARY_MODEL,
@@ -212,7 +258,7 @@ class ArchitectureParser:
                         system_instruction=self.config.PARSER_SYSTEM_INSTRUCTION,
                         temperature=self.config.TEMPERATURE,
                         response_mime_type="application/json",
-                        response_schema=BuildingRequirements,  # Strict structural enforcement
+                        response_schema=clean_schema,  # Strict structural enforcement
                     )
                 )
 
@@ -256,8 +302,57 @@ class ArchitectureParser:
                     time.sleep(self.config.RETRY_DELAY_BASE ** attempt)  # Exponential backoff for API errors
                 else:
                     logger.error("Max retry limits exhausted on parser pipeline execution.")
-                    return None
+                    break   # fall through to Anthropic fallback
 
+        # ── Anthropic fallback — fires when ALL Gemini keys are exhausted ──
+        logger.info("All Gemini keys exhausted — attempting Anthropic claude-sonnet-4-5 fallback...")
+        return self._parse_with_anthropic(user_text)
+
+    def _parse_with_anthropic(self, user_text: str) -> Optional[BuildingRequirements]:
+        """
+        Anthropic claude-sonnet-4-5 structured extraction fallback.
+
+        Uses the `instructor` library patched onto the Anthropic client so we get
+        the same Pydantic model output as the Gemini path.  Falls back to raw JSON
+        parsing when instructor is unavailable.
+
+        Returns None only if the API key is missing or every attempt fails.
+        """
+        if not _ANTHROPIC_AVAILABLE:
+            logger.warning("anthropic/instructor not installed — Anthropic fallback skipped.")
+            return None
+
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if not api_key:
+            logger.warning("ANTHROPIC_API_KEY not set in environment — Anthropic fallback skipped.")
+            return None
+
+        logger.info("Anthropic fallback: using claude-sonnet-4-5 for structured extraction.")
+        for attempt in range(1, 3):  # 2 attempts max
+            try:
+                raw_client = _anthropic_sdk.Anthropic(api_key=api_key)
+                client = _instructor_sdk.from_anthropic(raw_client)
+
+                result: BuildingRequirements = client.messages.create(
+                    model="claude-sonnet-4-5",
+                    max_tokens=4096,
+                    system=self.config.PARSER_SYSTEM_INSTRUCTION,
+                    messages=[{"role": "user", "content": user_text}],
+                    response_model=BuildingRequirements,
+                )
+                logger.info("Anthropic fallback succeeded on attempt %d.", attempt)
+                return result
+
+            except (json.JSONDecodeError, ValidationError) as ve:
+                logger.warning("Anthropic schema validation failed (attempt %d): %s", attempt, ve)
+                if attempt < 2:
+                    time.sleep(2.0)
+            except Exception as e:
+                logger.error("Anthropic fallback error (attempt %d): %s", attempt, e)
+                if attempt < 2:
+                    time.sleep(2.0)
+
+        logger.error("Anthropic fallback exhausted — returning None.")
         return None
 
     def merge_and_reparse(self, original_input: str, followup_input: str, existing_data: Dict[str, Any]) -> Optional[BuildingRequirements]:
@@ -630,7 +725,7 @@ if __name__ == "__main__":
     print(f"JSON outputs will be saved to:\n  {_output_dir}\n")
     try:
         pipeline = Module1Pipeline()
-        
+
         # ──────────────────────────────────────────────────────────────
         # Test Case 1: Incomplete shorthand — should ask for plot size
         # ──────────────────────────────────────────────────────────────

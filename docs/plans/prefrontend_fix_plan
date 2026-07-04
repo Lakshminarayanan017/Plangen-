@@ -1,0 +1,99 @@
+# Fix Generator Pipeline to MNC Quality + Complete End-to-End Flow
+
+The Step 4 generator pipeline (generator.py → autoregressive_engine.py → renderer.py) runs without errors but produces **garbage output** with the current placeholder weights, and the main.py pipeline ends without rendering visual SVGs. This plan fixes both the code quality issues and connects the full pipeline.
+
+## Problem Analysis (from live test)
+
+Running the full generator with a 6-room test plan produces:
+
+| Room | Target Area | **Actual Area** | Issue |
+|---|---|---|---|
+| Living Room | 168 sqft | **90 sqft** | Clamped to NBC min — too small |
+| Master Bedroom | 144 sqft | **217 sqft** | 50% oversize |
+| Kitchen | 72 sqft | **114 sqft** | 58% oversize |
+| Bathroom 1 | 35 sqft | **122 sqft** | 4.0 × 30.4 ft — absurd shape |
+| Bathroom 2 | 35 sqft | **177 sqft** | 22.3 × 8.0 ft — insane |
+
+- **Quality score: 0.190** (adjacency 0.100, zone 0.280) — unusable
+- **No SVG output** — main.py never calls the renderer
+
+## Root Causes
+
+1. **No post-placement validation in `autoregressive_engine.py`**: After the AR model predicts room sizes, there's NBC min enforcement but **no max enforcement**. Rooms balloon to fill any space the model assigns.
+
+2. **No aspect-ratio enforcement**: Bathrooms end up 4×30 ft — the model outputs garbage and nothing stops it from becoming a hallway-shaped bathroom.
+
+3. **No quality gate**: If the AR engine returns a terrible layout (score < 0.3), the generator should fall back to CP-SAT instead of serving garbage.
+
+4. **`main.py` doesn't render**: The pipeline stops at JSON. No SVG → no visual output → no way for users or the frontend to display the floor plan.
+
+5. **Heuristic fallback is weak**: The strip-packing heuristic doesn't clamp room dimensions to `max_area_sqft` either.
+
+---
+
+## Proposed Changes
+
+### Autoregressive Engine
+
+#### [MODIFY] [autoregressive_engine.py](file:///c:/Users/Welcome/Desktop/PlanGen/modules/step4_generate/autoregressive_engine.py)
+
+**1. Add max_area + aspect-ratio clamping after AR predictions** (lines 560–575):
+- After NBC min enforcement, add max enforcement: `if w*h > r.max_area_sqft`, scale both dimensions down proportionally
+- Enforce reasonable aspect ratios: rooms must have width/length ratio between 0.4 and 2.5 (NBC guidance for habitable rooms is roughly 1:2 max)
+- Bathrooms and utility rooms can be slightly more elongated (0.3–3.0) but not 1:7
+
+**2. Add the same clamping in the heuristic fallback** (`_place_heuristic`, lines 608–634):
+- Apply identical max_area + aspect enforcement after strip packing
+
+**3. Add min buildable dimension check in `_to_placed_rooms`** (lines 664–704):
+- If any room is smaller than 50% of its min_area_sqft after overlap resolution, flag as a warning
+
+---
+
+### Generator (Orchestrator)
+
+#### [MODIFY] [generator.py](file:///c:/Users/Welcome/Desktop/PlanGen/modules/step4_generate/generator.py)
+
+**1. Add quality-gate after AR placement** (in `_solve_floor`, after line 323):
+- After getting AR placements, compute a quick quality score
+- If quality < 0.25, log a warning and fall through to CP-SAT (instead of returning garbage)
+- This is the "MNC-quality" check — professional outputs should score ≥ 0.40
+
+**2. Add AR-to-CP-SAT quality comparison** (for debugging / metrics):
+- Log both the AR quality score and note when CP-SAT is used as fallback
+
+---
+
+### Main Pipeline
+
+#### [MODIFY] [main.py](file:///c:/Users/Welcome/Desktop/PlanGen/main.py)
+
+**1. Add Step 5: Render SVGs** (after line 232):
+- Import `FloorPlanRenderer`
+- Create output directory: `output/<run_id>/`
+- Call `renderer.render_all()` → produces one SVG per floor
+- Log the rendered SVG paths
+- Print the file paths to the user
+
+**2. Return a richer result** (the `run_pipeline` function):
+- Return both the `LayoutPlan` and list of SVG paths so the frontend can use them
+
+---
+
+## Verification Plan
+
+### Automated Tests
+```bash
+python -c "
+from modules.step4_generate.autoregressive_engine import AutoregressiveLayoutEngine
+# ... (same test as above, check that no room exceeds max_area_sqft and aspect ratios are sane)
+"
+```
+
+### Manual Verification
+- Run the full pipeline and verify:
+  1. Room dimensions are within `[min_area, max_area]` bounds
+  2. No room has an aspect ratio worse than 1:3
+  3. Quality score is ≥ 0.30 (even with placeholder weights, clamping should improve it)
+  4. SVG files are generated in `output/<run_id>/`
+  5. The SVG visually looks like a reasonable floor plan

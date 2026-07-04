@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PlanGen - Export Panel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@700&amp;family=Public+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#0A0A0A',
+                        surface: '#141414',
+                        elevated: '#1C1C1C',
+                        primary: '#C4956A',
+                        action: '#1E3A5F',
+                        success: '#2D6B3F',
+                        warning: '#8B6914',
+                        error: '#8B2A2A',
+                        canvas: '#FAFAF8',
+                        border: '#1F1F1F',
+                        muted: '#666666'
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "12px",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Playfair Display", "serif"],
+                        "display": ["Playfair Display", "serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Public Sans", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    animation: {
+                        'dropdown': 'dropdown 250ms ease-out forwards',
+                    },
+                    keyframes: {
+                        dropdown: {
+                            '0%': { opacity: '0', transform: 'translateY(-10px) scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            /* Faint watermark pattern representing the architectural landmarks panorama */
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 90 L50 10 L90 90 Z' fill='none' stroke='%23ffffff' stroke-width='0.5' stroke-opacity='0.03'/%3E%3C/svg%3E");
+        }
+        
+        /* Triangle pointer for the dropdown */
+        .triangle-pointer::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            right: 24px;
+            width: 12px;
+            height: 12px;
+            background-color: #141414;
+            border-top: 1px solid #1F1F1F;
+            border-left: 1px solid #1F1F1F;
+            transform: rotate(45deg);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="font-body text-white antialiased h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation Anchor (Simulated context) -->
+<header class="bg-background flex justify-between items-center w-full px-6 h-16 border-b border-border z-50 relative">
+<div class="flex items-center gap-4">
+<span class="text-xl font-headline font-bold text-primary tracking-tight uppercase">PlanGen</span>
+<nav class="hidden md:flex gap-6 ml-8">
+<a class="text-white/60 hover:text-white transition-colors text-sm font-medium uppercase tracking-widest" href="#">Site Plan</a>
+<a class="text-white/60 hover:text-white transition-colors text-sm font-medium uppercase tracking-widest" href="#">Ground Floor</a>
+<a class="text-white/60 hover:text-white transition-colors text-sm font-medium uppercase tracking-widest" href="#">First Floor</a>
+</nav>
+</div>
+<div class="flex items-center gap-4 relative">
+<button class="text-white/60 hover:text-white transition-colors p-2 rounded hover:bg-elevated">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="flex items-center gap-2 bg-elevated text-primary border-b-2 border-primary pb-1 font-medium px-4 py-2 rounded-t-lg transition-all duration-150 relative z-20" id="export-trigger">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+<span class="uppercase tracking-widest text-sm">Export</span>
+</button>
+<button class="text-white/60 hover:text-white transition-colors p-2 rounded hover:bg-elevated ml-2">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+<!-- Export Panel Dropdown -->
+<div class="absolute top-[calc(100%+8px)] right-[50px] w-[400px] bg-surface rounded-lg border border-border shadow-2xl animate-dropdown origin-top-right triangle-pointer z-50 flex flex-col">
+<!-- Header -->
+<div class="p-5 border-b border-border flex items-start gap-4">
+<div class="p-2 bg-elevated rounded-lg text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]" data-icon="cloud_download">cloud_download</span>
+</div>
+<div>
+<h2 class="font-body text-[18px] font-semibold text-white">Export &amp; Download</h2>
+<p class="font-mono text-[11px] text-muted mt-1 uppercase">Run ID: 20260702_143022</p>
+</div>
+</div>
+<div class="overflow-y-auto max-h-[614px] custom-scrollbar">
+<!-- SVG FILES Section -->
+<div class="p-4 border-b border-border">
+<h3 class="font-body text-xs font-semibold uppercase tracking-[0.08em] text-muted mb-3">SVG Files</h3>
+<div class="flex flex-col gap-1">
+<!-- Row 1 -->
+<div class="flex items-center justify-between p-2 rounded-DEFAULT hover:bg-elevated transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-muted group-hover:text-primary transition-colors text-[20px]" data-icon="image">image</span>
+<span class="font-body text-sm text-white/90">Ground Floor Plan</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-mono text-xs text-muted">142 KB</span>
+<button class="border border-border hover:border-primary text-white/80 hover:text-primary px-3 py-1 rounded text-xs transition-all duration-150 font-medium">Download SVG</button>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center justify-between p-2 rounded-DEFAULT hover:bg-elevated transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-muted group-hover:text-primary transition-colors text-[20px]" data-icon="image">image</span>
+<span class="font-body text-sm text-white/90">First Floor Plan</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-mono text-xs text-muted">118 KB</span>
+<button class="border border-border hover:border-primary text-white/80 hover:text-primary px-3 py-1 rounded text-xs transition-all duration-150 font-medium">Download SVG</button>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="flex items-center justify-between p-2 rounded-DEFAULT hover:bg-elevated transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-muted group-hover:text-primary transition-colors text-[20px]" data-icon="image">image</span>
+<span class="font-body text-sm text-white/90">Site Plan</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-mono text-xs text-muted">89 KB</span>
+<button class="border border-border hover:border-primary text-white/80 hover:text-primary px-3 py-1 rounded text-xs transition-all duration-150 font-medium">Download SVG</button>
+</div>
+</div>
+</div>
+</div>
+<!-- DATA FILES Section -->
+<div class="p-4 border-b border-border">
+<h3 class="font-body text-xs font-semibold uppercase tracking-[0.08em] text-muted mb-3">Data Files</h3>
+<div class="flex flex-col gap-1 mb-4">
+<!-- Row 1 -->
+<div class="flex items-center justify-between p-2 rounded-DEFAULT hover:bg-elevated transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-muted group-hover:text-primary transition-colors text-[20px]" data-icon="data_object">data_object</span>
+<span class="font-body text-sm text-white/90">Step 1 — Requirements</span>
+</div>
+<button class="text-muted hover:text-primary transition-colors p-1 rounded hover:bg-surface">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+</button>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center justify-between p-2 rounded-DEFAULT hover:bg-elevated transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-muted group-hover:text-primary transition-colors text-[20px]" data-icon="data_object">data_object</span>
+<span class="font-body text-sm text-white/90">Step 2 — Knowledge Bundle</span>
+</div>
+<button class="text-muted hover:text-primary transition-colors p-1 rounded hover:bg-surface">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+</button>
+</div>
+<!-- Row 3 -->
+<div class="flex items-center justify-between p-2 rounded-DEFAULT hover:bg-elevated transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-muted group-hover:text-primary transition-colors text-[20px]" data-icon="data_object">data_object</span>
+<span class="font-body text-sm text-white/90">Step 3 — Enriched Plan</span>
+</div>
+<button class="text-muted hover:text-primary transition-colors p-1 rounded hover:bg-surface">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+</button>
+</div>
+<!-- Row 4 -->
+<div class="flex items-center justify-between p-2 rounded-DEFAULT hover:bg-elevated transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-muted group-hover:text-primary transition-colors text-[20px]" data-icon="data_object">data_object</span>
+<span class="font-body text-sm text-white/90">Step 4 — Layout Plan</span>
+</div>
+<button class="text-muted hover:text-primary transition-colors p-1 rounded hover:bg-surface">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<!-- CTA -->
+<button class="w-full bg-action hover:bg-[#254877] text-white font-medium py-3 rounded-DEFAULT flex items-center justify-center gap-2 transition-all duration-150 hover:scale-[1.02]">
+<span class="material-symbols-outlined text-[20px]" data-icon="folder_zip">folder_zip</span>
+                            Download All (ZIP)
+                        </button>
+</div>
+<!-- QUICK ACTIONS Section -->
+<div class="p-4">
+<h3 class="font-body text-xs font-semibold uppercase tracking-[0.08em] text-muted mb-3">Quick Actions</h3>
+<div class="flex flex-col gap-1">
+<!-- Row 1 -->
+<div class="flex items-center justify-between p-2 rounded-DEFAULT hover:bg-elevated transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-muted group-hover:text-white transition-colors text-[20px]" data-icon="content_copy">content_copy</span>
+<span class="font-body text-sm text-white/90 group-hover:text-white transition-colors">Copy Plan Summary to Clipboard</span>
+</div>
+<button class="text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center justify-between p-2 rounded-DEFAULT opacity-60 cursor-not-allowed">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-muted text-[20px]" data-icon="link">link</span>
+<span class="font-body text-sm text-white/90">Share Link</span>
+</div>
+<span class="text-[10px] uppercase tracking-wider bg-elevated px-2 py-1 rounded text-muted">Coming Soon</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="p-4 border-t border-border bg-[#0d0d0d] rounded-b-lg text-center">
+<p class="font-body text-[11px] text-muted">Downloaded files include full pipeline output</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas (Empty to show overlay) -->
+<main class="flex-1 relative bg-canvas/5 overflow-hidden flex items-center justify-center">
+<!-- Placeholder for background map/content -->
+<div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[200px]" data-icon="architecture" data-weight="fill">architecture</span>
+</div>
+<div class="text-center z-10 p-8">
+<h1 class="text-4xl font-headline text-white/20 mb-4">Floor Plan Viewer Canvas</h1>
+<p class="text-muted font-body">Interact with the Export button top right.</p>
+</div>
+</main>
+<style>
+        /* Custom Scrollbar for dropdown */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #1F1F1F;
+            border-radius: 10px;
+        }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+            background-color: #333;
+        }
+    </style>
+</body></html>

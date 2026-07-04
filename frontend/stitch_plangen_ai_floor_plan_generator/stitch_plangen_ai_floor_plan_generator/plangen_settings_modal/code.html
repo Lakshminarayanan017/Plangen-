@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PlanGen Studio - Settings</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Outfit:wght@500;600;700&amp;family=Public+Sans:wght@700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        base: {
+                            100: '#0A0A0A',
+                            200: '#141414',
+                            300: '#1C1C1C',
+                            border: '#1F1F1F'
+                        },
+                        accent: {
+                            gold: '#C4956A',
+                            blue: '#1E3A5F',
+                            green: '#2D6B3F',
+                            amber: '#8B6914',
+                            red: '#8B2A2A',
+                            paper: '#FAFAF8'
+                        }
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "1rem", // Overriding 2xl for the 16px requirement
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        headline: ["Public Sans", "sans-serif"],
+                        display: ["Public Sans", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        label: ["Public Sans", "sans-serif"],
+                        title: ["Outfit", "sans-serif"],
+                        mono: ["JetBrains Mono", "monospace"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1F1F1F;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1C1C1C;
+        }
+
+        /* Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #C4956A;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px rgba(196, 149, 106, 0.4);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(196, 149, 106, 0.6);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #1F1F1F;
+            border-radius: 2px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        
+        /* Toggle Switch Animation */
+        .toggle-knob {
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+    </style>
+</head>
+<body class="bg-base-100 text-white font-body antialiased relative min-h-screen overflow-hidden">
+<!-- Background Watermark -->
+<div class="absolute inset-0 pointer-events-none opacity-[0.03]" data-alt="A delicate, faint blueprint style architectural panorama featuring iconic structures like the Eiffel Tower, Taj Mahal, and Sydney Opera House, drawn in precise, thin single-weight white lines against a dark background, evoking a master architect's drafting canvas." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCJrCQj1RVyBuI_pTSsJDVQ5xU5HuhvCj8IO5hO4estQOKBoTSNPtuKkTr8qUy8kIh8JPxgawOROxFhJm2zPmIGqvQdhxkFztqj43NsWHtrsk04d2Ybs6EdBi09ra7t3tuvGnkPC_lNj2Z12e6N2REuDauqLspdBKyD72Zkn51g1TBRpNE4Tw_D9QLB53-i9KZXBNo_XZ4f-zwkgg2LDjrkwXyZNYy2nWdEWby_DReMWthW5RpHDJucnBizITIR6Uzi1R19kR5tqVFQ'); background-size: cover; background-position: center;"></div>
+<!-- Main Content Canvas (simulated background behind modal) -->
+<main class="w-full h-screen flex items-center justify-center filter blur-sm transition-all duration-300">
+<!-- Dashboard mock content -->
+<div class="grid grid-cols-3 gap-6 p-12 w-full max-w-7xl h-full opacity-40">
+<div class="col-span-2 bg-base-200 border border-base-border rounded-xl p-6"></div>
+<div class="col-span-1 bg-base-200 border border-base-border rounded-xl p-6"></div>
+</div>
+</main>
+<!-- FULL SCREEN MODAL OVERLAY -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0A0A0A]/80 backdrop-blur-md animate-[fadeIn_0.25s_ease-out]">
+<!-- Center Content Card -->
+<div class="w-full max-w-[640px] max-h-[921px] flex flex-col bg-base-200 rounded-2xl border border-base-border shadow-2xl animate-[scaleIn_0.25s_ease-out]">
+<!-- HEADER -->
+<div class="flex items-center justify-between px-6 py-5 border-b border-base-border flex-shrink-0">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent-gold text-2xl" style="font-variation-settings: 'FILL' 1;">settings</span>
+<h2 class="font-title font-semibold text-[24px] text-white tracking-tight">Settings</h2>
+</div>
+<button class="p-2 text-white/60 hover:text-white hover:bg-base-300 rounded-full transition-colors duration-150 group">
+<span class="material-symbols-outlined text-xl group-hover:rotate-90 transition-transform duration-300">close</span>
+</button>
+</div>
+<!-- SCROLLABLE CONTENT -->
+<div class="flex-1 overflow-y-auto px-6 py-6 space-y-8">
+<!-- SECTION 1: GENERATION -->
+<section class="space-y-6">
+<h3 class="font-body text-xs font-semibold uppercase tracking-widest text-white/40 mb-4">Generation</h3>
+<!-- Solver Preference -->
+<div class="space-y-4">
+<div class="flex flex-col gap-1">
+<span class="text-sm font-medium text-white/90">Solver Preference</span>
+<span class="text-xs text-white/50">Auto tries AR Transformer first, falls back to CP-SAT if quality &lt; 0.25</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<label class="relative flex items-center p-3 border border-accent-gold bg-accent-gold/5 rounded-lg cursor-pointer hover:bg-accent-gold/10 transition-colors">
+<input checked="" class="sr-only" name="solver" type="radio"/>
+<div class="w-4 h-4 rounded-full border border-accent-gold flex items-center justify-center mr-3">
+<div class="w-2 h-2 rounded-full bg-accent-gold"></div>
+</div>
+<span class="text-sm font-medium text-accent-gold">Auto (Recommended)</span>
+</label>
+<label class="relative flex items-center p-3 border border-base-border bg-base-300 rounded-lg cursor-pointer hover:bg-base-border transition-colors">
+<input class="sr-only" name="solver" type="radio"/>
+<div class="w-4 h-4 rounded-full border border-white/30 flex items-center justify-center mr-3">
+</div>
+<span class="text-sm text-white/70">Force CP-SAT</span>
+</label>
+<label class="relative flex items-center p-3 border border-base-border bg-base-300 rounded-lg cursor-pointer hover:bg-base-border transition-colors">
+<input class="sr-only" name="solver" type="radio"/>
+<div class="w-4 h-4 rounded-full border border-white/30 flex items-center justify-center mr-3">
+</div>
+<span class="text-sm text-white/70">Force Greedy</span>
+</label>
+</div>
+</div>
+<!-- Sliders -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- CP-SAT Timeout Slider -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<label class="text-sm font-medium text-white/90">CP-SAT Timeout</label>
+<span class="text-xs font-mono text-accent-gold bg-accent-gold/10 px-2 py-0.5 rounded">20s</span>
+</div>
+<input class="w-full" max="60" min="5" type="range" value="20"/>
+<div class="flex justify-between text-[10px] text-white/40 font-mono">
+<span>5s</span>
+<span>60s</span>
+</div>
+</div>
+<!-- AR Temperature Slider -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<label class="text-sm font-medium text-white/90">AR Temperature</label>
+</div>
+<span class="text-xs font-mono text-accent-gold bg-accent-gold/10 px-2 py-0.5 rounded">0.7</span>
+</div>
+<input class="w-full" max="1.5" min="0.1" step="0.1" type="range" value="0.7"/>
+<div class="flex justify-between text-[10px] text-white/40 font-mono">
+<span>0.1</span>
+<span>1.5</span>
+</div>
+<p class="text-[10px] text-white/50 leading-tight">Lower = more predictable layouts, Higher = more creative/varied</p>
+</div>
+</div>
+<!-- Use Gemini Enricher Toggle -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-base-300 border border-base-border">
+<div class="flex flex-col gap-1 pr-4">
+<span class="text-sm font-medium text-white/90">Use Gemini Enricher</span>
+<span class="text-xs text-white/50">Enhance generated descriptions and spatial logic context using LLM.</span>
+</div>
+<button aria-checked="true" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-accent-gold focus:ring-offset-2 focus:ring-offset-base-200 bg-accent-gold" role="switch">
+<span class="toggle-knob translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0"></span>
+</button>
+</div>
+</section>
+<!-- Divider -->
+<hr class="border-t border-base-border"/>
+<!-- SECTION 2: DISPLAY -->
+<section class="space-y-6">
+<h3 class="font-body text-xs font-semibold uppercase tracking-widest text-white/40 mb-4">Display</h3>
+<!-- Theme Segmented Control -->
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-white/90">UI Theme</span>
+<div class="flex p-1 bg-base-300 rounded-lg border border-base-border">
+<button class="px-4 py-1.5 text-sm font-medium rounded-md bg-accent-gold/20 text-accent-gold shadow-sm transition-colors">
+                                Dark
+                            </button>
+<button class="px-4 py-1.5 text-sm font-medium rounded-md text-white/60 hover:text-white transition-colors">
+                                Light
+                            </button>
+</div>
+</div>
+<!-- Toggles List -->
+<div class="space-y-4">
+<div class="flex items-center justify-between py-2">
+<span class="text-sm text-white/80">Show Blueprint Grid</span>
+<button aria-checked="true" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-accent-gold" role="switch">
+<span class="toggle-knob translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0"></span>
+</button>
+</div>
+<div class="flex items-center justify-between py-2">
+<span class="text-sm text-white/80">Show Vastu Overlay</span>
+<button aria-checked="false" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-[#333333]" role="switch">
+<span class="toggle-knob translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white/80 shadow ring-0"></span>
+</button>
+</div>
+<div class="flex items-center justify-between py-2">
+<span class="text-sm text-white/80">Show Dimension Annotations</span>
+<button aria-checked="true" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-accent-gold" role="switch">
+<span class="toggle-knob translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0"></span>
+</button>
+</div>
+</div>
+<!-- SVG Animation Speed Slider -->
+<div class="space-y-3 pt-2">
+<div class="flex justify-between items-end">
+<label class="text-sm font-medium text-white/90">SVG Animation Speed</label>
+<span class="text-xs font-mono text-accent-gold bg-accent-gold/10 px-2 py-0.5 rounded">1.0x</span>
+</div>
+<input class="w-full" max="2.0" min="0.5" step="0.1" type="range" value="1.0"/>
+<div class="flex justify-between text-[10px] text-white/40 font-mono">
+<span>0.5x</span>
+<span>2.0x</span>
+</div>
+</div>
+</section>
+<!-- Divider -->
+<hr class="border-t border-base-border"/>
+<!-- SECTION 3: SYSTEM -->
+<section class="space-y-4">
+<h3 class="font-body text-xs font-semibold uppercase tracking-widest text-white/40 mb-4">System</h3>
+<div class="bg-[#0A0A0A] border border-base-border rounded-xl p-4 font-mono text-xs space-y-3 shadow-inner">
+<div class="flex justify-between items-center border-b border-base-border pb-2">
+<span class="text-white/50">Pipeline Version</span>
+<span class="text-white/90">v2.1.0</span>
+</div>
+<div class="flex justify-between items-center border-b border-base-border pb-2">
+<span class="text-white/50">AR Model</span>
+<span class="text-white/90">Epoch 50 (512d, 12L, 8H)</span>
+</div>
+<div class="flex justify-between items-center border-b border-base-border pb-2">
+<span class="text-white/50">Best Val Loss</span>
+<span class="text-[#4ade80]">-33.17</span>
+</div>
+<div class="flex justify-between items-center border-b border-base-border pb-2">
+<span class="text-white/50">Plans Indexed</span>
+<span class="text-white/90">4,983</span>
+</div>
+<div class="flex flex-col gap-2 pt-1">
+<span class="text-white/50">Status Indicators:</span>
+<div class="flex flex-wrap gap-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-accent-green shadow-[0_0_8px_rgba(45,107,63,0.8)]"></div>
+<span class="text-white/80">AR Engine Loaded</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-accent-green shadow-[0_0_8px_rgba(45,107,63,0.8)]"></div>
+<span class="text-white/80">Matcher Ready</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- FOOTER -->
+<div class="px-6 py-5 border-t border-base-border bg-base-300 rounded-b-2xl flex-shrink-0 flex flex-col items-center gap-3">
+<button class="w-full bg-accent-blue hover:bg-accent-blue/90 text-white font-medium py-3 rounded-[8px] transition-all duration-150 shadow-lg hover:shadow-accent-blue/20 hover:scale-[1.01] flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-lg">save</span>
+                    Save Settings
+                </button>
+<a class="text-sm text-white/40 hover:text-white/70 transition-colors font-medium" href="#">
+                    Reset to Defaults
+                </a>
+</div>
+</div>
+</div>
+<!-- Inline styles for keyframe animations -->
+<style>
+        @keyframes fadeIn {
+            from { opacity: 0; backdrop-filter: blur(0px); }
+            to { opacity: 1; backdrop-filter: blur(12px); }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.95) translateY(10px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+    </style>
+</body></html>

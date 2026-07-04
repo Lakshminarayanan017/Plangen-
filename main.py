@@ -5,6 +5,8 @@ from datetime import datetime
 from pathlib import Path
 from modules.step1_parse.parser import Module1Pipeline
 from modules.step2_match.matcher import PatternMatcher
+from modules.step3_enrich.enricher import Enricher
+from modules.step4_generate.generator import LayoutGenerator
 
 # ── JSON Output Directory ──────────────────────────────────────────
 _PROJECT_ROOT = Path(__file__).resolve().parent
@@ -58,7 +60,7 @@ def run_pipeline(user_prompt: str, image_path: str = None):
     logger.info("=" * 60)
     logger.info("STARTING PIPELINE EXECUTION  [run_id=%s]", run_id)
     logger.info("=" * 60)
-    
+
     # ---------------------------------------------------------
     # STEP 1: PARSE (with optional image analysis)
     # ---------------------------------------------------------
@@ -156,12 +158,12 @@ def run_pipeline(user_prompt: str, image_path: str = None):
     # ── Save final Step 1 result (after interactive gathering) ──
     if step1_result.get("data"):
         _save_json(step1_result["data"], "step1_final", run_id)
-        
+
     # The output is a dict, we need to convert it back to the Pydantic object
     # for strong typing in Step 2, or just pass the model object.
     from models import BuildingRequirements
     reqs_model = BuildingRequirements.model_validate(step1_result["data"])
-    
+
     # ---------------------------------------------------------
     # STEP 2: FETCH MATCHING PATTERNS
     # ---------------------------------------------------------
@@ -172,11 +174,121 @@ def run_pipeline(user_prompt: str, image_path: str = None):
     bundle_path = _save_json(
         knowledge_bundle.model_dump(), "step2_knowledge_bundle", run_id
     )
-    
+
+    logger.info("Step 2 complete — bundle quality=%.3f", knowledge_bundle.match_quality_score)
+
+    # ---------------------------------------------------------
+    # STEP 3: ENRICH (gap-fill → EnrichedPlan)
+    # ---------------------------------------------------------
+    enricher = Enricher(use_gemini=True)
+    enriched_plan = enricher.enrich(reqs_model, knowledge_bundle)
+
+    # ── Save Step 3 enriched plan ──
+    enriched_path = _save_json(
+        enriched_plan.model_dump(), "step3_enriched_plan", run_id
+    )
+
+    # ── Log enrichment summary ──
+    summary = enriched_plan.summary()
+    logger.info(
+        "Step 3 complete — %d rooms (%d implicit), %d floors, "
+        "area=%s sqft, budget_ok=%s, vastu=%s",
+        summary["total_rooms"],
+        summary["implicit_rooms_added"],
+        summary["total_floors"],
+        summary["total_target_area_sqft"],
+        summary["area_budget_ok"],
+        summary["vastu_enabled"],
+    )
+    if enriched_plan.enrichment_warnings:
+        for w in enriched_plan.enrichment_warnings:
+            logger.warning("  ⚠  %s", w)
+
+    # ---------------------------------------------------------
+    # STEP 4: GENERATE LAYOUT (room coordinates on each floor)
+    # ---------------------------------------------------------
+    generator    = LayoutGenerator(prefer_cpsat=True, cpsat_timeout_s=20.0)
+    layout_plan  = generator.generate(enriched_plan, run_id=run_id, source_json=str(enriched_path))
+
+    # ── Save Step 4 layout plan ──
+    layout_path = _save_json(
+        layout_plan.model_dump(), "step4_layout_plan", run_id
+    )
+
+    layout_summary = layout_plan.summary()
+    logger.info(
+        "Step 4 complete — %d rooms placed, %.1f sqft, solver=%s (%s), "
+        "adj=%.3f zone=%.3f quality=%.3f",
+        layout_summary["total_rooms_placed"],
+        layout_summary["total_area_sqft"],
+        layout_summary["solver"],
+        layout_summary["solver_status"],
+        layout_summary["adjacency_score"],
+        layout_summary["zone_score"],
+        layout_summary["layout_quality_score"],
+    )
+    if layout_plan.layout_warnings:
+        for w in layout_plan.layout_warnings:
+            logger.warning("  ⚠  %s", w)
+
+    # ---------------------------------------------------------
+    # STEP 5: RENDER SVG FLOOR PLANS
+    # ---------------------------------------------------------
+    svg_paths = []
+    svg_output_dir = _PROJECT_ROOT / "output" / run_id
+    try:
+        from modules.step4_generate.renderer import FloorPlanRenderer
+
+        renderer = FloorPlanRenderer(
+            plan         = layout_plan,
+            output_dir   = str(svg_output_dir),
+            project_name = f"PlanGen — {run_id}",
+        )
+        svg_paths = renderer.render_all()
+        logger.info("Step 5 complete — %d SVG floor plans rendered", len(svg_paths))
+    except ImportError as e:
+        logger.warning("Step 5 skipped — renderer dependency missing: %s", e)
+    except Exception as e:
+        logger.warning("Step 5 failed — SVG rendering error: %s", e)
+
     logger.info("Pipeline Execution Complete!")
     print(f"\n✅ All output JSONs saved to: {OUTPUT_DIR}")
-    print(f"   Final bundle: {bundle_path.name}")
-    return knowledge_bundle
+    print(f"   Step 1 final:     {run_id}_step1_final.json")
+    print(f"   Step 2 bundle:    {bundle_path.name}")
+    print(f"   Step 3 enriched:  {enriched_path.name}")
+    print(f"   Step 4 layout:    {layout_path.name}")
+    if svg_paths:
+        print(f"\n✅ SVG floor plans rendered to: {svg_output_dir}")
+        for sp in svg_paths:
+            print(f"   🏠  {Path(sp).name}")
+    print(f"\n── Enriched Plan Summary ──────────────────────────")
+    print(f"   Rooms:            {summary['total_rooms']} "
+          f"({summary['implicit_rooms_added']} added by enricher)")
+    print(f"   Floors:           {summary['total_floors']}")
+    print(f"   Plot:             {summary['plot_ft']} ft")
+    print(f"   Net buildable:    {summary['net_buildable_ft']} ft")
+    print(f"   Total area:       {summary['total_target_area_sqft']} sqft")
+    print(f"   Area budget:      {'✅ OK' if summary['area_budget_ok'] else '⚠️  Exceeds FAR'}")
+    print(f"   Vastu:            {'enabled' if summary['vastu_enabled'] else 'disabled'}")
+    print(f"   Match quality:    {summary['match_quality']:.3f}")
+    if enriched_plan.implicit_rooms_added:
+        print(f"   Added implicitly: {', '.join(enriched_plan.implicit_rooms_added)}")
+    print(f"─────────────────────────────────────────────────")
+    print(f"\n── Layout Plan Summary ────────────────────────────")
+    print(f"   Rooms placed:     {layout_summary['total_rooms_placed']}")
+    print(f"   Total area:       {layout_summary['total_area_sqft']} sqft")
+    print(f"   Solver:           {layout_summary['solver']} ({layout_summary['solver_status']})")
+    print(f"   Solve time:       {layout_summary['solve_time_ms']} ms")
+    print(f"   Adjacency score:  {layout_summary['adjacency_score']:.3f}")
+    print(f"   Zone score:       {layout_summary['zone_score']:.3f}")
+    print(f"   Layout quality:   {layout_summary['layout_quality_score']:.3f}")
+    for f_plan in layout_plan.floors:
+        print(f"   {f_plan.floor_label:<16}  {f_plan.room_count} rooms, "
+              f"{f_plan.floor_area_placed_sqft:.0f} sqft "
+              f"({f_plan.floor_coverage_pct:.0f}% coverage)")
+    print(f"─────────────────────────────────────────────────")
+
+    return {"layout_plan": layout_plan, "svg_paths": svg_paths}
 
 
 def run_interactive_demo():

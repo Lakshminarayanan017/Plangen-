@@ -1,0 +1,208 @@
+
+
+<!-- Watermark Background -->
+<div class="absolute inset-0 watermark-bg z-0" data-alt="A subtle, thin-line architectural illustration of global landmarks like the Eiffel Tower and Taj Mahal on a solid black background. Minimalist 2D elevation style, faint white lines, no fill."></div>
+<!-- Top Navigation (Shell) -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-4 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-[#1F1F1F]">
+<div class="flex items-center">
+<span class="font-display text-2xl font-bold text-gold">PlanGen</span>
+</div>
+<div class="hidden md:flex gap-8">
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors hover:scale-105 transition-transform duration-150" href="#">Gallery</a>
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors hover:scale-105 transition-transform duration-150" href="#">Technology</a>
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors hover:scale-105 transition-transform duration-150" href="#">Pricing</a>
+<a class="font-body text-sm tracking-wide uppercase font-medium text-white/70 hover:text-white transition-colors hover:scale-105 transition-transform duration-150" href="#">About</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-white/70 hover:text-white transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</nav>
+<!-- Main Layout -->
+<div class="flex-1 flex overflow-hidden pt-[72px] z-10 relative">
+<!-- Center Chat Column -->
+<main class="flex-1 flex flex-col h-full items-center">
+<div class="w-full max-w-[720px] flex-1 overflow-y-auto px-4 py-8 pb-32 space-y-6">
+<!-- AI Message 1 -->
+<div class="flex items-start gap-4 message-anim" style="animation-delay: 0.1s;">
+<div class="w-10 h-10 rounded-full bg-base-elevated border border-gold/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-gold" style="font-variation-settings: 'FILL' 1;">architecture</span>
+</div>
+<div class="bg-base-surface border border-[#1F1F1F] rounded-xl rounded-tl-sm p-4 max-w-[85%]">
+<p class="text-sm leading-relaxed text-gray-200">Welcome to PlanGen! I'm your AI architect. Tell me about your dream home — or upload a sketch to get started.</p>
+</div>
+</div>
+<!-- User Message 1 -->
+<div class="flex items-start gap-4 justify-end message-anim" style="animation-delay: 0.2s;">
+<div class="bg-base-elevated border border-[#1F1F1F] rounded-xl rounded-tr-sm p-4 max-w-[85%] text-right">
+<p class="text-sm leading-relaxed text-gray-100">I want a 3BHK home on a 30x40 north-facing plot</p>
+</div>
+</div>
+<!-- AI Message 2 (Vastu) -->
+<div class="flex items-start gap-4 message-anim" style="animation-delay: 0.3s;">
+<div class="w-10 h-10 rounded-full bg-base-elevated border border-gold/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-gold" style="font-variation-settings: 'FILL' 1;">architecture</span>
+</div>
+<div class="bg-base-surface border border-[#1F1F1F] rounded-xl rounded-tl-sm p-4 max-w-[85%] space-y-4 w-full">
+<p class="text-sm leading-relaxed text-gray-200">Great choice! A <span class="font-mono text-gold">30×40 ft</span> north-facing plot. Let me set that up. What about Vastu compliance?</p>
+<!-- Inline Widget: Vastu Toggle -->
+<div class="flex items-center justify-between bg-base-elevated p-3 rounded-lg border border-[#1F1F1F]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gold">public</span>
+<span class="text-sm font-medium">Enable Vastu Compliance</span>
+</div>
+<button class="w-12 h-6 rounded-full bg-gold/20 flex items-center p-1 cursor-pointer transition-colors relative">
+<div class="w-4 h-4 rounded-full bg-gold absolute right-1 shadow-sm transition-transform"></div>
+</button>
+</div>
+</div>
+</div>
+<!-- AI Message 3 (Floors) -->
+<div class="flex items-start gap-4 message-anim" style="animation-delay: 0.4s;">
+<div class="w-10 h-10 rounded-full bg-base-elevated border border-gold/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-gold" style="font-variation-settings: 'FILL' 1;">architecture</span>
+</div>
+<div class="bg-base-surface border border-[#1F1F1F] rounded-xl rounded-tl-sm p-4 max-w-[85%] space-y-4 w-full">
+<p class="text-sm leading-relaxed text-gray-200">How many floors would you like?</p>
+<!-- Inline Widget: Floors Selector -->
+<div class="grid grid-cols-3 gap-3">
+<button class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-elevated border border-[#1F1F1F] hover:bg-[#252525] transition-all hover:scale-[1.02]">
+<span class="material-symbols-outlined mb-2 text-gray-400">home</span>
+<span class="text-xs font-medium">1 Floor</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-elevated border border-gold/50 shadow-[0_0_10px_rgba(196,149,106,0.1)] transition-all scale-[1.02]">
+<span class="material-symbols-outlined mb-2 text-gold">domain</span>
+<span class="text-xs font-medium text-gold">2 Floors</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-elevated border border-[#1F1F1F] hover:bg-[#252525] transition-all hover:scale-[1.02]">
+<span class="material-symbols-outlined mb-2 text-gray-400">location_city</span>
+<span class="text-xs font-medium">3 Floors</span>
+</button>
+</div>
+</div>
+</div>
+<!-- AI Message 4 (Direction) -->
+<div class="flex items-start gap-4 message-anim" style="animation-delay: 0.5s;">
+<div class="w-10 h-10 rounded-full bg-base-elevated border border-gold/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-gold" style="font-variation-settings: 'FILL' 1;">architecture</span>
+</div>
+<div class="bg-base-surface border border-[#1F1F1F] rounded-xl rounded-tl-sm p-4 max-w-[85%] space-y-4 w-full">
+<p class="text-sm leading-relaxed text-gray-200">Which direction does your main entrance face?</p>
+<!-- Inline Widget: Compass -->
+<div class="flex justify-center py-4">
+<div class="relative w-48 h-48 rounded-full border border-[#1F1F1F] flex items-center justify-center bg-base-elevated">
+<!-- Center Dot -->
+<div class="w-2 h-2 rounded-full bg-gray-500 absolute"></div>
+<!-- North -->
+<button class="absolute top-2 w-8 h-8 rounded-full bg-gold/20 border border-gold text-gold text-xs font-bold flex items-center justify-center shadow-[0_0_8px_rgba(196,149,106,0.3)]">N</button>
+<!-- Northeast -->
+<button class="absolute top-6 right-6 w-8 h-8 rounded-full bg-base border border-[#333] text-gray-400 text-xs font-medium flex items-center justify-center hover:border-gray-500">NE</button>
+<!-- East -->
+<button class="absolute right-2 w-8 h-8 rounded-full bg-base border border-[#333] text-gray-400 text-xs font-medium flex items-center justify-center hover:border-gray-500">E</button>
+<!-- Southeast -->
+<button class="absolute bottom-6 right-6 w-8 h-8 rounded-full bg-base border border-[#333] text-gray-400 text-xs font-medium flex items-center justify-center hover:border-gray-500">SE</button>
+<!-- South -->
+<button class="absolute bottom-2 w-8 h-8 rounded-full bg-base border border-[#333] text-gray-400 text-xs font-medium flex items-center justify-center hover:border-gray-500">S</button>
+<!-- Southwest -->
+<button class="absolute bottom-6 left-6 w-8 h-8 rounded-full bg-base border border-[#333] text-gray-400 text-xs font-medium flex items-center justify-center hover:border-gray-500">SW</button>
+<!-- West -->
+<button class="absolute left-2 w-8 h-8 rounded-full bg-base border border-[#333] text-gray-400 text-xs font-medium flex items-center justify-center hover:border-gray-500">W</button>
+<!-- Northwest -->
+<button class="absolute top-6 left-6 w-8 h-8 rounded-full bg-base border border-[#333] text-gray-400 text-xs font-medium flex items-center justify-center hover:border-gray-500">NW</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Spacer for scrolling above input -->
+<div class="h-8"></div>
+</div>
+<!-- Chat Input Footer -->
+<div class="fixed bottom-0 w-full max-w-[720px] p-4 bg-gradient-to-t from-base via-base to-transparent pb-8">
+<div class="flex items-center gap-2 bg-base-elevated border border-[#2A2A2A] rounded-xl p-2 shadow-lg focus-within:border-gold/50 transition-colors">
+<button class="p-2 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-base">
+<span class="material-symbols-outlined">add_a_photo</span>
+</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-gray-200 placeholder-gray-500 py-2" placeholder="Describe your requirements..." type="text"/>
+<button class="p-2 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-base">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="p-2 bg-blueprint hover:bg-blueprint/90 text-white transition-all rounded-lg ml-1 hover:scale-105 shadow-[0_0_10px_rgba(30,58,95,0.4)]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Right Sidebar (Requirements) -->
+<aside class="hidden lg:flex w-[280px] bg-base-surface border-l border-[#1F1F1F] flex-col h-full">
+<div class="p-6 border-b border-[#1F1F1F]">
+<h2 class="font-body text-xs tracking-[0.08em] uppercase font-medium text-gray-400">Requirements</h2>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<!-- Spec Items -->
+<div class="space-y-4">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3 text-gray-300">
+<span class="material-symbols-outlined text-gray-500 text-sm">square_foot</span>
+<span class="text-sm">Plot: <span class="font-mono text-gray-100">30 × 40 ft</span></span>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-500 hover:text-gold">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3 text-gray-300">
+<span class="material-symbols-outlined text-gray-500 text-sm">explore</span>
+<span class="text-sm">Facing: <span class="text-gray-100 font-medium">North</span></span>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-500 hover:text-gold">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3 text-gray-300">
+<span class="material-symbols-outlined text-status-green text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm">Vastu: <span class="text-status-green font-medium">Enabled</span></span>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-500 hover:text-gold">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3 text-gray-300">
+<span class="material-symbols-outlined text-gray-500 text-sm">layers</span>
+<span class="text-sm">Floors: <span class="font-mono text-gray-100">2</span></span>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-500 hover:text-gold">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+</div>
+<hr class="border-[#1F1F1F]"/>
+<!-- Rooms Chips -->
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs text-gray-400 font-medium">ROOMS</span>
+<button class="text-gray-500 hover:text-gold transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 rounded text-xs bg-base-elevated border border-[#333] text-gray-300">Living Room</span>
+<span class="px-2 py-1 rounded text-xs bg-base-elevated border border-[#333] text-gray-300">Master Bedroom</span>
+<span class="px-2 py-1 rounded text-xs bg-base-elevated border border-[#333] text-gray-300">Bedroom 2</span>
+<span class="px-2 py-1 rounded text-xs bg-base-elevated border border-[#333] text-gray-300">Kitchen</span>
+<span class="px-2 py-1 rounded text-xs bg-base-elevated border border-[#333] text-gray-300">3 Bathrooms</span>
+</div>
+</div>
+</div>
+<!-- Bottom Action -->
+<div class="p-6 border-t border-[#1F1F1F] bg-base-surface">
+<button class="w-full py-3 px-4 rounded-lg bg-blueprint hover:bg-blueprint/90 text-white font-medium text-sm transition-all hover:scale-[1.02] shadow-[0_0_15px_rgba(196,149,106,0.15)] border border-gold/20 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+                    Generate Plan
+                </button>
+</div>
+</aside>
+</div>
+

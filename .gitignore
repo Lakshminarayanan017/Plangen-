@@ -2,3 +2,20 @@ sources/.env
 venv/
 __pycache__/
 extracted data/
+
+# Model weights & training artifacts (large binaries)
+*.pt
+*.npz
+*.pkl
+*.ckpt
+modules/step4_generate/weights/
+
+# Pipeline output
+output/
+
+# IDE / OS
+.vscode/
+.idea/
+*.pyc
+.DS_Store
+Thumbs.db

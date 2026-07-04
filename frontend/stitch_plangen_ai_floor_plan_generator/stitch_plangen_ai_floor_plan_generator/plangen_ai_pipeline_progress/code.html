@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PlanGen - Pipeline Progress</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        base: {
+                            DEFAULT: '#0A0A0A',
+                            surface: '#141414',
+                            panel: '#1C1C1C'
+                        },
+                        gold: {
+                            DEFAULT: '#C4956A',
+                            muted: '#8B6914'
+                        },
+                        blueprint: {
+                            DEFAULT: '#1E3A5F'
+                        },
+                        status: {
+                            success: '#2D6B3F',
+                            warning: '#8B6914',
+                            error: '#8B2A2A'
+                        }
+                    },
+                    fontFamily: {
+                        headline: ["Playfair Display", "serif"],
+                        display: ["Playfair Display", "serif"],
+                        body: ["Inter", "sans-serif"],
+                        mono: ["JetBrains Mono", "monospace"],
+                        label: ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        lg: "0.75rem",
+                        xl: "1rem",
+                        full: "9999px"
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 3s linear infinite',
+                        'scanline': 'scanline 8s linear infinite',
+                        'dash': 'dash 20s linear infinite'
+                    },
+                    keyframes: {
+                        scanline: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' }
+                        },
+                        dash: {
+                            to: {
+                                strokeDashoffset: -1000
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .pipeline-connector-active {
+            background-image: linear-gradient(to right, #C4956A 50%, transparent 50%);
+            background-size: 10px 2px;
+            background-repeat: repeat-x;
+            animation: move-bg 1s linear infinite;
+        }
+        @keyframes move-bg {
+            0% { background-position: 0 0; }
+            100% { background-position: 10px 0; }
+        }
+        
+        /* Faint architectural background pattern */
+        body {
+            background-color: #0A0A0A;
+        }
+        .bg-watermark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.02;
+            background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLvn47ADDj6dikSfo3pOAPzLhTsj5rphQoGQsH8hirx3zsbr3ZpWQoonhdEjto6CHyw23II__ovOuBjJCFS2fmq0c0X3H6nc6yB5YhXgwh3t2QlsXIGg28OSPIEZ-7w2grJ1EHgr5RMdlb36y3tOpHGOCbvjtPRSdbBtEFhR0N06tJZu-PYeaV3rkJ8D7x-NK_rpmUdHY1TDwMlOBUWKeSY5NGpHLZJY61QEq3F-pC1p74H-DYS4Px4N2ns');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="text-white font-body min-h-screen flex flex-col relative overflow-hidden">
+<!-- Background Watermark -->
+<div class="bg-watermark" data-alt="A very faint, minimalist architectural line-art illustration featuring famous global landmarks like the Eiffel Tower and Taj Mahal drawn as 2D elevation blueprints. The lines are thin and single-weight with no fills, set against a stark black background to create a sophisticated, premium aesthetic."></div>
+<!-- Top Navigation (Hidden as per context, but included structure if needed) -->
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center relative z-10 px-8 py-16 w-full max-w-7xl mx-auto">
+<!-- Header Section -->
+<header class="text-center mb-24 w-full">
+<h1 class="font-headline text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">Generating Your Floor Plan</h1>
+<p class="font-body text-white/50 text-lg md:text-xl">Our AI is analyzing 4,983 reference plans...</p>
+</header>
+<!-- Pipeline Stepper Section -->
+<section class="w-full md:w-[85%] lg:w-[80%] mx-auto mb-24 relative">
+<div class="flex items-center justify-between relative z-10">
+<!-- Step 1: PARSE (Completed) -->
+<div class="flex flex-col items-center relative group w-24">
+<div class="w-12 h-12 rounded-full bg-status-success flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(45,107,63,0.4)] transition-transform duration-300 group-hover:scale-105">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label uppercase text-[11px] font-medium tracking-[0.08em] text-white/90">Parse</span>
+</div>
+<!-- Connector 1-2 (Completed) -->
+<div class="flex-1 h-[2px] bg-gold -mx-6 mb-8 relative z-0"></div>
+<!-- Step 2: MATCH (Completed) -->
+<div class="flex flex-col items-center relative group w-24">
+<div class="w-12 h-12 rounded-full bg-status-success flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(45,107,63,0.4)] transition-transform duration-300 group-hover:scale-105">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label uppercase text-[11px] font-medium tracking-[0.08em] text-white/90">Match</span>
+</div>
+<!-- Connector 2-3 (Active/Animated) -->
+<div class="flex-1 h-[2px] pipeline-connector-active -mx-6 mb-8 relative z-0 opacity-80"></div>
+<!-- Step 3: ENRICH (Active) -->
+<div class="flex flex-col items-center relative group w-24">
+<!-- Pulsing ring container -->
+<div class="relative mb-3">
+<div class="absolute inset-0 rounded-full border-2 border-gold animate-ping opacity-20"></div>
+<div class="w-12 h-12 rounded-full bg-base-panel border-2 border-gold flex items-center justify-center shadow-[0_0_20px_rgba(196,149,106,0.3)]">
+<span class="material-symbols-outlined text-gold animate-spin-slow">auto_awesome</span>
+</div>
+</div>
+<span class="font-label uppercase text-[11px] font-bold tracking-[0.08em] text-gold">Enrich</span>
+<!-- Active Description Tooltip/Label -->
+<div class="absolute top-16 w-48 text-center">
+<p class="font-body text-xs text-white/70 leading-tight">Gap-filling rooms with NBC standards + Gemini AI...</p>
+</div>
+</div>
+<!-- Connector 3-4 (Pending) -->
+<div class="flex-1 h-[2px] bg-white/10 -mx-6 mb-8 relative z-0 border-t border-dashed border-white/20"></div>
+<!-- Step 4: GENERATE (Pending) -->
+<div class="flex flex-col items-center relative group w-24">
+<div class="w-12 h-12 rounded-full bg-base-surface border border-[#1F1F1F] flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-white/30">grid_view</span>
+</div>
+<span class="font-label uppercase text-[11px] font-medium tracking-[0.08em] text-white/30">Generate</span>
+</div>
+<!-- Connector 4-5 (Pending) -->
+<div class="flex-1 h-[2px] bg-white/10 -mx-6 mb-8 relative z-0 border-t border-dashed border-white/20"></div>
+<!-- Step 5: RENDER (Pending) -->
+<div class="flex flex-col items-center relative group w-24">
+<div class="w-12 h-12 rounded-full bg-base-surface border border-[#1F1F1F] flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-white/30">image</span>
+</div>
+<span class="font-label uppercase text-[11px] font-medium tracking-[0.08em] text-white/30">Render</span>
+</div>
+</div>
+</section>
+<!-- Lower Section Grid -->
+<div class="w-full grid grid-cols-1 lg:grid-cols-4 gap-8">
+<!-- Terminal Log Window -->
+<div class="lg:col-span-3 bg-[#0D0D0D] border border-[#1F1F1F] rounded-lg p-6 relative overflow-hidden h-48 font-mono text-sm leading-relaxed shadow-lg">
+<!-- Scanline effect overlay -->
+<div class="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] z-10 opacity-20"></div>
+<div class="relative z-20 flex flex-col justify-end h-full">
+<div class="space-y-2 text-[#7AC97A]">
+<p class="opacity-70">[14:22:01] <span class="text-white/50">SYS:</span> Initiating PlanGen Engine v3.4.2</p>
+<p class="opacity-80">[14:22:03] <span class="text-white/50">PARSE:</span> Blueprint boundaries detected. Extracted 12 nodes.</p>
+<p class="opacity-90">[14:22:04] <span class="text-[#D4A937]">WARN:</span> <span class="text-white/70">Node 4 (Corridor) dimension confidence 82%. Applying structural heuristics.</span></p>
+<p class="opacity-90">[14:22:05] <span class="text-white/50">MATCH:</span> Correlated structural footprint against 4,983 reference models.</p>
+<p class="text-gold font-medium animate-pulse">[14:22:06] <span class="text-white/50">ENRICH:</span> Injecting NBC compliance constraints. Calculating load-bearing distribution...</p>
+<p class="text-white/40 animate-pulse">_</p>
+</div>
+</div>
+</div>
+<!-- Progress Indicator -->
+<div class="lg:col-span-1 bg-base-surface border border-[#1F1F1F] rounded-lg p-6 flex flex-col items-center justify-center relative">
+<!-- Circular Progress -->
+<div class="relative w-24 h-24 mb-4">
+<!-- Background circle -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="40" stroke="#1F1F1F" stroke-width="6"></circle>
+<!-- Progress circle (60% for 3/5) -->
+<circle class="transition-all duration-1000 ease-out" cx="50" cy="50" fill="none" r="40" stroke="#C4956A" stroke-dasharray="251.2" stroke-dashoffset="100.48" stroke-width="6"></circle>
+</svg>
+<!-- Text inside circle -->
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="font-mono text-xl font-bold text-white">3/5</span>
+</div>
+</div>
+<!-- ETA Text -->
+<div class="text-center">
+<p class="font-mono text-sm text-white/50 mb-1">Estimated Time</p>
+<p class="font-body text-lg text-white">~8s remaining</p>
+</div>
+</div>
+</div>
+</main>
+</body></html>
