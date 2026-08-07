@@ -24,7 +24,11 @@ adapts the `EnrichedPlan` into an `EngineRequest` and drives step 4.
 ```
 models.py            Pydantic schemas shared across every step
 api/                 FastAPI server + the bridge into the engine
-frontend/            static UI (index.html, app.js, styles.css)
+frontend/            the UI — Vite + React + TS + Tailwind, R3F, GSAP
+  src/routes/        landing, chat, rendering, output
+  src/three/         procedural Eiffel Tower (generated, not a model file)
+  src/components/    drafting-sheet primitives, wordmark, landmark elevations
+  dist/              build output; FastAPI serves this (gitignored)
 modules/
   step1_parse/       parser, image analyzer, interactive gatherer, offline parser
   step2_match/       semantic matcher, feature encoder, stats aggregator, IS/NBC standards
@@ -60,11 +64,35 @@ Everything runs from the project root as a package — nothing injects
 `sys.path`.
 
 ```bash
-python -m uvicorn api.server:app --reload      # the app
+# 1. build the UI once (or after any frontend change)
+cd frontend && npm install && npm run build && cd ..
+
+# 2. run the app — serves the UI and the API on one port
+python -m uvicorn api.server:app --reload      # http://127.0.0.1:8000
+
 python -m unittest discover -s tests -t .      # all 280 tests
+python -m modules.data_prep.plan_indexer       # (re)build data/plan_index
+python -m modules.diagnostics                  # what is real vs on fallbacks
+python -m ml.harness.diagnose --worst 5        # why a brief scores what it does
 python -m modules.step4_generate.demos.demo_engine   # engine demo → output/
 python -m ml.harness.run_harness               # quality harness
 ```
+
+For frontend work, `cd frontend && npm run dev` gives hot reload on :5173 and
+proxies `/api` to the FastAPI server on :8000, so run both.
+
+## Is it actually working?
+
+Every knowledge source in this system fails soft, so a silent startup used to
+be indistinguishable from a healthy one. It now says:
+
+```bash
+python -m modules.diagnostics      # or GET /api/v1/diagnostics
+```
+
+`ok` = working · `degraded` = running on a fallback · `missing` = a claimed
+capability is absent. The server prints this at boot and the UI shows it in
+the brief's title block.
 
 ## The two data directories
 

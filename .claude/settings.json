@@ -29,7 +29,10 @@
       "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m modules.data_prep.plan_indexer --limit 200)",
       "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m modules.data_prep.plan_indexer)",
       "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m ml.harness.diagnose --worst 3)",
-      "Bash(git commit -q -m 'Add harness diagnosis tool; correct the hard-fail misreading *)"
+      "Bash(git commit -q -m 'Add harness diagnosis tool; correct the hard-fail misreading *)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m uvicorn api.server:app --host 127.0.0.1 --port 8000 --log-level warning)"
     ]
   }
 }

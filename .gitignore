@@ -25,6 +25,12 @@ ml/training/prepared/samples.jsonl
 ml/tuning/results/corpus.json
 ml/tuning/results/*.html
 
+# Frontend build artifacts
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+*.tsbuildinfo
+
 # Pipeline output
 output/
 

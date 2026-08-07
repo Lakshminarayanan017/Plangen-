@@ -414,19 +414,31 @@ def config_options():
 # SERVE FRONTEND STATIC FILES
 # ══════════════════════════════════════════════════════════════════
 
-FRONTEND_DIR = PROJECT_ROOT / "frontend"
+# The UI is a Vite build. Vite is configured with base="/static/", so the
+# bundle requests its own assets from /static/assets/* — which is this mount.
+FRONTEND_DIR = PROJECT_ROOT / "frontend" / "dist"
+
 
 @app.get("/")
 def serve_index():
     index_path = FRONTEND_DIR / "index.html"
     if index_path.exists():
         return HTMLResponse(index_path.read_text(encoding="utf-8"))
-    return HTMLResponse("<h1>PlanGen API is running. Frontend not found.</h1>")
+    return HTMLResponse(
+        "<h1>PlanGen API is running.</h1>"
+        "<p>The UI has not been built yet. Run:</p>"
+        "<pre>cd frontend &amp;&amp; npm install &amp;&amp; npm run build</pre>",
+        status_code=200,
+    )
 
 
-# Mount static files (CSS, JS, assets)
 if FRONTEND_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
+else:
+    logger.warning(
+        "frontend/dist not found — serving the API only. "
+        "Build the UI with: cd frontend && npm run build"
+    )
 
 
 if __name__ == "__main__":
