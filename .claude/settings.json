@@ -32,7 +32,12 @@
       "Bash(git commit -q -m 'Add harness diagnosis tool; correct the hard-fail misreading *)",
       "Bash(npm install *)",
       "Bash(npx tsc *)",
-      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m uvicorn api.server:app --host 127.0.0.1 --port 8000 --log-level warning)"
+      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m uvicorn api.server:app --host 127.0.0.1 --port 8000 --log-level warning)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter 'sed \"/^Co-Authored-By: Claude/d\" | sed -e :a -e \"/^\\\\n*$/{$d;N;};/\\\\n$/ba\"' 541b6ae..HEAD)",
+      "Bash(git stash *)",
+      "Bash(curl -s -o /dev/null -w \"index page: %{http_code}\\\\n\" http://127.0.0.1:8000/)",
+      "Bash(curl -s http://127.0.0.1:8000/api/v1/diagnostics)",
+      "Bash(./venv/Scripts/python.exe -c ' *)"
     ]
   }
 }
