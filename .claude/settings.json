@@ -27,7 +27,9 @@
       "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m modules.diagnostics)",
       "Bash(PYTHONIOENCODING=utf-8 timeout 60 ./venv/Scripts/python.exe -c ' *)",
       "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m modules.data_prep.plan_indexer --limit 200)",
-      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m modules.data_prep.plan_indexer)"
+      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m modules.data_prep.plan_indexer)",
+      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m ml.harness.diagnose --worst 3)",
+      "Bash(git commit -q -m 'Add harness diagnosis tool; correct the hard-fail misreading *)"
     ]
   }
 }
