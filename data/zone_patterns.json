@@ -1,0 +1,6455 @@
+{
+  "zone_distributions": {
+    "outdoor": {
+      "zone_distribution": {
+        "front": 0.1855,
+        "back": 0.5419,
+        "middle": 0.2726
+      },
+      "depth_percentiles": {
+        "p10": 0.0,
+        "p25": 0.3449,
+        "p50": 0.6483,
+        "p75": 1.0,
+        "p90": 1.0
+      },
+      "lateral_percentiles": {
+        "p10": -0.692,
+        "p25": -0.3133,
+        "p50": 0.0,
+        "p75": 0.3159,
+        "p90": 0.6769
+      },
+      "side_distribution": {
+        "center": 0.3733,
+        "right": 0.3123,
+        "left": 0.3144
+      },
+      "samples": 5047
+    },
+    "undefined": {
+      "zone_distribution": {
+        "middle": 0.4457,
+        "back": 0.4233,
+        "front": 0.131
+      },
+      "depth_percentiles": {
+        "p10": 0.2175,
+        "p25": 0.3439,
+        "p50": 0.5365,
+        "p75": 0.745,
+        "p90": 0.9426
+      },
+      "lateral_percentiles": {
+        "p10": -0.6457,
+        "p25": -0.3422,
+        "p50": 0.0,
+        "p75": 0.3394,
+        "p90": 0.6214
+      },
+      "side_distribution": {
+        "center": 0.3027,
+        "right": 0.3481,
+        "left": 0.3492
+      },
+      "samples": 11833
+    },
+    "balcony": {
+      "zone_distribution": {
+        "middle": 0.1029,
+        "back": 0.8414,
+        "front": 0.0557
+      },
+      "depth_percentiles": {
+        "p10": 0.4474,
+        "p25": 0.7682,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p90": 1.0
+      },
+      "lateral_percentiles": {
+        "p10": -0.8685,
+        "p25": -0.4788,
+        "p50": 0.0,
+        "p75": 0.4767,
+        "p90": 0.8361
+      },
+      "side_distribution": {
+        "center": 0.2817,
+        "right": 0.3521,
+        "left": 0.3662
+      },
+      "samples": 1633
+    },
+    "dining": {
+      "zone_distribution": {
+        "back": 0.5101,
+        "middle": 0.4432,
+        "front": 0.0467
+      },
+      "depth_percentiles": {
+        "p10": 0.3113,
+        "p25": 0.405,
+        "p50": 0.6154,
+        "p75": 0.7528,
+        "p90": 0.8793
+      },
+      "lateral_percentiles": {
+        "p10": -0.645,
+        "p25": -0.3191,
+        "p50": 0.032,
+        "p75": 0.3567,
+        "p90": 0.5959
+      },
+      "side_distribution": {
+        "center": 0.2854,
+        "left": 0.3447,
+        "right": 0.3699
+      },
+      "samples": 792
+    },
+    "kitchen": {
+      "zone_distribution": {
+        "back": 0.3094,
+        "middle": 0.6421,
+        "front": 0.0485
+      },
+      "depth_percentiles": {
+        "p10": 0.2882,
+        "p25": 0.368,
+        "p50": 0.4921,
+        "p75": 0.646,
+        "p90": 0.8412
+      },
+      "lateral_percentiles": {
+        "p10": -0.6485,
+        "p25": -0.3751,
+        "p50": 0.0406,
+        "p75": 0.4019,
+        "p90": 0.6536
+      },
+      "side_distribution": {
+        "left": 0.3702,
+        "center": 0.227,
+        "right": 0.4028
+      },
+      "samples": 4163
+    },
+    "entry": {
+      "zone_distribution": {
+        "front": 0.8028,
+        "middle": 0.1756,
+        "back": 0.0216
+      },
+      "depth_percentiles": {
+        "p10": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.1975,
+        "p90": 0.3624
+      },
+      "lateral_percentiles": {
+        "p10": -0.1159,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p90": 0.1189
+      },
+      "side_distribution": {
+        "center": 0.8462,
+        "left": 0.077,
+        "right": 0.0768
+      },
+      "samples": 5143
+    },
+    "bathroom": {
+      "zone_distribution": {
+        "middle": 0.5475,
+        "back": 0.2585,
+        "front": 0.1941
+      },
+      "depth_percentiles": {
+        "p10": 0.2016,
+        "p25": 0.274,
+        "p50": 0.3939,
+        "p75": 0.6095,
+        "p90": 0.811
+      },
+      "lateral_percentiles": {
+        "p10": -0.5404,
+        "p25": -0.3309,
+        "p50": -0.0,
+        "p75": 0.3306,
+        "p90": 0.5421
+      },
+      "side_distribution": {
+        "right": 0.3607,
+        "left": 0.3615,
+        "center": 0.2778
+      },
+      "samples": 6194
+    },
+    "utility": {
+      "zone_distribution": {
+        "middle": 0.4182,
+        "front": 0.0977,
+        "back": 0.4842
+      },
+      "depth_percentiles": {
+        "p10": 0.2525,
+        "p25": 0.3922,
+        "p50": 0.5902,
+        "p75": 0.7601,
+        "p90": 0.8892
+      },
+      "lateral_percentiles": {
+        "p10": -0.5563,
+        "p25": -0.3274,
+        "p50": 0.0048,
+        "p75": 0.3417,
+        "p90": 0.5689
+      },
+      "side_distribution": {
+        "right": 0.368,
+        "center": 0.284,
+        "left": 0.348
+      },
+      "samples": 1454
+    },
+    "storage": {
+      "zone_distribution": {
+        "middle": 0.4553,
+        "back": 0.439,
+        "front": 0.1057
+      },
+      "depth_percentiles": {
+        "p10": 0.2452,
+        "p25": 0.3607,
+        "p50": 0.5492,
+        "p75": 0.7864,
+        "p90": 1.0
+      },
+      "lateral_percentiles": {
+        "p10": -0.6386,
+        "p25": -0.3691,
+        "p50": 0.0,
+        "p75": 0.3782,
+        "p90": 0.6504
+      },
+      "side_distribution": {
+        "right": 0.3697,
+        "center": 0.2545,
+        "left": 0.3758
+      },
+      "samples": 4239
+    },
+    "living_room": {
+      "zone_distribution": {
+        "middle": 0.5965,
+        "back": 0.3914,
+        "front": 0.0121
+      },
+      "depth_percentiles": {
+        "p10": 0.3611,
+        "p25": 0.4705,
+        "p50": 0.566,
+        "p75": 0.656,
+        "p90": 0.7799
+      },
+      "lateral_percentiles": {
+        "p10": -0.5912,
+        "p25": -0.3373,
+        "p50": -0.0088,
+        "p75": 0.3149,
+        "p90": 0.5801
+      },
+      "side_distribution": {
+        "right": 0.3314,
+        "center": 0.3126,
+        "left": 0.356
+      },
+      "samples": 3705
+    },
+    "bedroom": {
+      "zone_distribution": {
+        "middle": 0.5441,
+        "back": 0.393,
+        "front": 0.0629
+      },
+      "depth_percentiles": {
+        "p10": 0.2757,
+        "p25": 0.3651,
+        "p50": 0.5175,
+        "p75": 0.7241,
+        "p90": 0.9295
+      },
+      "lateral_percentiles": {
+        "p10": -0.6844,
+        "p25": -0.427,
+        "p50": 0.0083,
+        "p75": 0.443,
+        "p90": 0.7122
+      },
+      "side_distribution": {
+        "right": 0.4144,
+        "left": 0.407,
+        "center": 0.1786
+      },
+      "samples": 6221
+    },
+    "garage": {
+      "zone_distribution": {
+        "back": 0.7655,
+        "front": 0.0248,
+        "middle": 0.2096
+      },
+      "depth_percentiles": {
+        "p10": 0.4472,
+        "p25": 0.6199,
+        "p50": 0.8092,
+        "p75": 0.9529,
+        "p90": 1.0
+      },
+      "lateral_percentiles": {
+        "p10": -0.8084,
+        "p25": -0.5032,
+        "p50": -0.0218,
+        "p75": 0.4579,
+        "p90": 0.778
+      },
+      "side_distribution": {
+        "left": 0.4286,
+        "right": 0.3711,
+        "center": 0.2003
+      },
+      "samples": 644
+    },
+    "office": {
+      "zone_distribution": {
+        "middle": 0.4975,
+        "back": 0.4518,
+        "front": 0.0508
+      },
+      "depth_percentiles": {
+        "p10": 0.3071,
+        "p25": 0.4064,
+        "p50": 0.567,
+        "p75": 0.7323,
+        "p90": 0.8956
+      },
+      "lateral_percentiles": {
+        "p10": -0.5957,
+        "p25": -0.3414,
+        "p50": -0.0308,
+        "p75": 0.3129,
+        "p90": 0.5386
+      },
+      "side_distribution": {
+        "left": 0.3909,
+        "center": 0.2843,
+        "right": 0.3249
+      },
+      "samples": 394
+    },
+    "corridor": {
+      "zone_distribution": {
+        "front": 0.6452,
+        "middle": 0.2419,
+        "back": 0.1129
+      },
+      "depth_percentiles": {
+        "p10": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.3685,
+        "p90": 0.6333
+      },
+      "lateral_percentiles": {
+        "p10": -0.4061,
+        "p25": -0.1201,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p90": 0.2186
+      },
+      "side_distribution": {
+        "center": 0.6774,
+        "left": 0.2097,
+        "right": 0.1129
+      },
+      "samples": 62
+    },
+    "stairs": {
+      "zone_distribution": {
+        "middle": 0.36,
+        "back": 0.54,
+        "front": 0.1
+      },
+      "depth_percentiles": {
+        "p10": 0.2517,
+        "p25": 0.4264,
+        "p50": 0.6915,
+        "p75": 0.8336,
+        "p90": 1.0
+      },
+      "lateral_percentiles": {
+        "p10": -0.5942,
+        "p25": -0.3796,
+        "p50": -0.1167,
+        "p75": 0.2276,
+        "p90": 0.8173
+      },
+      "side_distribution": {
+        "center": 0.36,
+        "right": 0.3,
+        "left": 0.34
+      },
+      "samples": 50
+    },
+    "sauna": {
+      "zone_distribution": {
+        "middle": 0.3415,
+        "back": 0.6098,
+        "front": 0.0488
+      },
+      "depth_percentiles": {
+        "p10": 0.3318,
+        "p25": 0.4469,
+        "p50": 0.6535,
+        "p75": 0.7857,
+        "p90": 0.9725
+      },
+      "lateral_percentiles": {
+        "p10": -0.7162,
+        "p25": -0.4721,
+        "p50": -0.0767,
+        "p75": 0.3657,
+        "p90": 0.5875
+      },
+      "side_distribution": {
+        "right": 0.3496,
+        "left": 0.4228,
+        "center": 0.2276
+      },
+      "samples": 123
+    },
+    "special": {
+      "zone_distribution": {
+        "middle": 0.4375,
+        "back": 0.5,
+        "front": 0.0625
+      },
+      "depth_percentiles": {
+        "p10": 0.3146,
+        "p25": 0.5004,
+        "p50": 0.61,
+        "p75": 0.766,
+        "p90": 0.8674
+      },
+      "lateral_percentiles": {
+        "p10": -0.6987,
+        "p25": -0.4486,
+        "p50": 0.0139,
+        "p75": 0.3169,
+        "p90": 0.9233
+      },
+      "side_distribution": {
+        "center": 0.375,
+        "left": 0.3125,
+        "right": 0.3125
+      },
+      "samples": 16
+    }
+  },
+  "relative_positions": {
+    "outdoor\u2192undefined": {
+      "direction_distribution": {
+        "behind": 0.3111,
+        "left": 0.2446,
+        "right": 0.2546,
+        "in_front": 0.1897
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4034,
+        "p25": -0.2223,
+        "p50": 0.0962,
+        "p75": 0.2898,
+        "p90": 0.4349
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.48,
+        "p25": -0.2372,
+        "p50": -0.0009,
+        "p75": 0.2633,
+        "p90": 0.5186
+      },
+      "samples": 601
+    },
+    "undefined\u2192undefined": {
+      "direction_distribution": {
+        "in_front": 0.1951,
+        "behind": 0.2009,
+        "left": 0.3075,
+        "right": 0.2965
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3534,
+        "p25": -0.1934,
+        "p50": -0.0019,
+        "p75": 0.2113,
+        "p90": 0.3642
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6017,
+        "p25": -0.3132,
+        "p50": 0.001,
+        "p75": 0.3002,
+        "p90": 0.608
+      },
+      "samples": 2917
+    },
+    "balcony\u2192dining": {
+      "direction_distribution": {
+        "left": 0.2667,
+        "in_front": 0.2667,
+        "right": 0.4,
+        "behind": 0.0667
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4666,
+        "p25": -0.3256,
+        "p50": -0.2507,
+        "p75": -0.1303,
+        "p90": 0.1372
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4358,
+        "p25": -0.3293,
+        "p50": 0.2282,
+        "p75": 0.4682,
+        "p90": 0.7167
+      },
+      "samples": 30
+    },
+    "balcony\u2192utility": {
+      "direction_distribution": {
+        "right": 0.3636,
+        "behind": 0.1515,
+        "in_front": 0.2121,
+        "left": 0.2727
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4919,
+        "p25": -0.3164,
+        "p50": -0.1048,
+        "p75": 0.1666,
+        "p90": 0.337
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5611,
+        "p25": -0.2402,
+        "p50": 0.0151,
+        "p75": 0.4013,
+        "p90": 0.5883
+      },
+      "samples": 66
+    },
+    "balcony\u2192entry": {
+      "direction_distribution": {
+        "behind": 0.2143,
+        "left": 0.3571,
+        "in_front": 0.1786,
+        "right": 0.25
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4907,
+        "p25": -0.2194,
+        "p50": 0.092,
+        "p75": 0.3038,
+        "p90": 0.3938
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6612,
+        "p25": -0.3266,
+        "p50": -0.067,
+        "p75": 0.2781,
+        "p90": 0.4689
+      },
+      "samples": 56
+    },
+    "bathroom\u2192undefined": {
+      "direction_distribution": {
+        "in_front": 0.2361,
+        "behind": 0.2315,
+        "left": 0.2677,
+        "right": 0.2646
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2614,
+        "p25": -0.1687,
+        "p50": 0.0042,
+        "p75": 0.1761,
+        "p90": 0.2639
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3523,
+        "p25": -0.2027,
+        "p50": -0.0013,
+        "p75": 0.199,
+        "p90": 0.3509
+      },
+      "samples": 1931
+    },
+    "bathroom\u2192entry": {
+      "direction_distribution": {
+        "left": 0.3393,
+        "in_front": 0.152,
+        "right": 0.3804,
+        "behind": 0.1282
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3072,
+        "p25": -0.1881,
+        "p50": -0.0506,
+        "p75": 0.1202,
+        "p90": 0.2613
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4763,
+        "p25": -0.2918,
+        "p50": 0.0587,
+        "p75": 0.3374,
+        "p90": 0.5064
+      },
+      "samples": 1388
+    },
+    "undefined\u2192entry": {
+      "direction_distribution": {
+        "left": 0.2994,
+        "right": 0.3127,
+        "in_front": 0.2388,
+        "behind": 0.1491
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.491,
+        "p25": -0.2695,
+        "p50": -0.0822,
+        "p75": 0.1484,
+        "p90": 0.2809
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.548,
+        "p25": -0.3038,
+        "p50": 0.0108,
+        "p75": 0.2915,
+        "p90": 0.5562
+      },
+      "samples": 825
+    },
+    "undefined\u2192storage": {
+      "direction_distribution": {
+        "left": 0.3039,
+        "behind": 0.1972,
+        "right": 0.3527,
+        "in_front": 0.1462
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2642,
+        "p25": -0.1522,
+        "p50": 0.0224,
+        "p75": 0.1857,
+        "p90": 0.3293
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5427,
+        "p25": -0.3051,
+        "p50": 0.0122,
+        "p75": 0.3299,
+        "p90": 0.5793
+      },
+      "samples": 431
+    },
+    "living_room\u2192balcony": {
+      "direction_distribution": {
+        "behind": 0.5181,
+        "right": 0.2169,
+        "in_front": 0.0747,
+        "left": 0.1904
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2142,
+        "p25": 0.2051,
+        "p50": 0.3662,
+        "p75": 0.4503,
+        "p90": 0.5233
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5318,
+        "p25": -0.3004,
+        "p50": 0.0316,
+        "p75": 0.3166,
+        "p90": 0.5841
+      },
+      "samples": 415
+    },
+    "bedroom\u2192entry": {
+      "direction_distribution": {
+        "right": 0.3193,
+        "left": 0.3607,
+        "behind": 0.2191,
+        "in_front": 0.1009
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4143,
+        "p25": -0.1409,
+        "p50": 0.0977,
+        "p75": 0.2672,
+        "p90": 0.3654
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.617,
+        "p25": -0.4264,
+        "p50": -0.0506,
+        "p75": 0.3973,
+        "p90": 0.613
+      },
+      "samples": 1328
+    },
+    "utility\u2192living_room": {
+      "direction_distribution": {
+        "right": 0.2812,
+        "left": 0.4062,
+        "in_front": 0.2188,
+        "behind": 0.0938
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3505,
+        "p25": -0.3009,
+        "p50": -0.1901,
+        "p75": -0.0376,
+        "p90": 0.2805
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7055,
+        "p25": -0.4148,
+        "p50": -0.1229,
+        "p75": 0.4054,
+        "p90": 0.4835
+      },
+      "samples": 32
+    },
+    "undefined\u2192bathroom": {
+      "direction_distribution": {
+        "behind": 0.2146,
+        "in_front": 0.1922,
+        "right": 0.2942,
+        "left": 0.2989
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2403,
+        "p25": -0.155,
+        "p50": -0.0046,
+        "p75": 0.1638,
+        "p90": 0.2492
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3787,
+        "p25": -0.2191,
+        "p50": 0.0077,
+        "p75": 0.224,
+        "p90": 0.404
+      },
+      "samples": 1696
+    },
+    "entry\u2192bedroom": {
+      "direction_distribution": {
+        "right": 0.3561,
+        "in_front": 0.2081,
+        "left": 0.3521,
+        "behind": 0.0837
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3835,
+        "p25": -0.2621,
+        "p50": -0.1024,
+        "p75": 0.1328,
+        "p90": 0.3554
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6047,
+        "p25": -0.3906,
+        "p50": 0.0265,
+        "p75": 0.4118,
+        "p90": 0.6126
+      },
+      "samples": 1744
+    },
+    "outdoor\u2192storage": {
+      "direction_distribution": {
+        "right": 0.3525,
+        "behind": 0.195,
+        "left": 0.3375,
+        "in_front": 0.115
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2075,
+        "p25": -0.0836,
+        "p50": 0.0254,
+        "p75": 0.1979,
+        "p90": 0.3144
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4141,
+        "p25": -0.2732,
+        "p50": -0.0018,
+        "p75": 0.2791,
+        "p90": 0.4342
+      },
+      "samples": 400
+    },
+    "outdoor\u2192entry": {
+      "direction_distribution": {
+        "behind": 0.3979,
+        "right": 0.2512,
+        "in_front": 0.093,
+        "left": 0.2579
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.1964,
+        "p25": -0.0019,
+        "p50": 0.1318,
+        "p75": 0.2157,
+        "p90": 0.3184
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3374,
+        "p25": -0.192,
+        "p50": -0.0132,
+        "p75": 0.1729,
+        "p90": 0.3253
+      },
+      "samples": 1043
+    },
+    "utility\u2192bathroom": {
+      "direction_distribution": {
+        "left": 0.3244,
+        "behind": 0.2381,
+        "in_front": 0.1369,
+        "right": 0.3006
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2283,
+        "p25": -0.1256,
+        "p50": 0.0762,
+        "p75": 0.1777,
+        "p90": 0.2612
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3722,
+        "p25": -0.2323,
+        "p50": -0.0247,
+        "p75": 0.2171,
+        "p90": 0.3192
+      },
+      "samples": 336
+    },
+    "outdoor\u2192living_room": {
+      "direction_distribution": {
+        "right": 0.1817,
+        "in_front": 0.4574,
+        "behind": 0.1576,
+        "left": 0.2033
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.5029,
+        "p25": -0.4496,
+        "p50": -0.3298,
+        "p75": 0.0752,
+        "p90": 0.3335
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5297,
+        "p25": -0.302,
+        "p50": 0.0062,
+        "p75": 0.2748,
+        "p90": 0.5262
+      },
+      "samples": 787
+    },
+    "storage\u2192undefined": {
+      "direction_distribution": {
+        "right": 0.311,
+        "in_front": 0.2297,
+        "left": 0.314,
+        "behind": 0.1453
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3397,
+        "p25": -0.2166,
+        "p50": -0.0236,
+        "p75": 0.1335,
+        "p90": 0.2497
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5556,
+        "p25": -0.3021,
+        "p50": -0.0149,
+        "p75": 0.265,
+        "p90": 0.5415
+      },
+      "samples": 344
+    },
+    "undefined\u2192bedroom": {
+      "direction_distribution": {
+        "left": 0.3304,
+        "behind": 0.2191,
+        "right": 0.3009,
+        "in_front": 0.1496
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3569,
+        "p25": -0.2209,
+        "p50": 0.0467,
+        "p75": 0.2613,
+        "p90": 0.3791
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6423,
+        "p25": -0.3675,
+        "p50": 0,
+        "p75": 0.3811,
+        "p90": 0.6399
+      },
+      "samples": 575
+    },
+    "undefined\u2192kitchen": {
+      "direction_distribution": {
+        "in_front": 0.1974,
+        "left": 0.2895,
+        "right": 0.3526,
+        "behind": 0.1605
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3792,
+        "p25": -0.2244,
+        "p50": -0.0309,
+        "p75": 0.2408,
+        "p90": 0.3667
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6396,
+        "p25": -0.3532,
+        "p50": 0.0319,
+        "p75": 0.4249,
+        "p90": 0.7597
+      },
+      "samples": 380
+    },
+    "undefined\u2192balcony": {
+      "direction_distribution": {
+        "behind": 0.3256,
+        "in_front": 0.0814,
+        "right": 0.3372,
+        "left": 0.2558
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2795,
+        "p25": 0.0687,
+        "p50": 0.2766,
+        "p75": 0.384,
+        "p90": 0.4833
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7056,
+        "p25": -0.3099,
+        "p50": 0.0049,
+        "p75": 0.4204,
+        "p90": 0.8781
+      },
+      "samples": 86
+    },
+    "entry\u2192storage": {
+      "direction_distribution": {
+        "left": 0.3388,
+        "in_front": 0.1659,
+        "right": 0.3248,
+        "behind": 0.1706
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2915,
+        "p25": -0.1692,
+        "p50": 0.0213,
+        "p75": 0.1986,
+        "p90": 0.3668
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5245,
+        "p25": -0.337,
+        "p50": 0.0033,
+        "p75": 0.2929,
+        "p90": 0.4843
+      },
+      "samples": 428
+    },
+    "entry\u2192undefined": {
+      "direction_distribution": {
+        "left": 0.295,
+        "right": 0.3289,
+        "behind": 0.2072,
+        "in_front": 0.1689
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3204,
+        "p25": -0.188,
+        "p50": 0.0525,
+        "p75": 0.2246,
+        "p90": 0.3945
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4971,
+        "p25": -0.2953,
+        "p50": 0.0028,
+        "p75": 0.3183,
+        "p90": 0.5685
+      },
+      "samples": 912
+    },
+    "living_room\u2192outdoor": {
+      "direction_distribution": {
+        "behind": 0.4761,
+        "left": 0.2116,
+        "right": 0.1911,
+        "in_front": 0.1212
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3193,
+        "p25": 0.0989,
+        "p50": 0.3316,
+        "p75": 0.4442,
+        "p90": 0.5101
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5916,
+        "p25": -0.3171,
+        "p50": -0.0358,
+        "p75": 0.2709,
+        "p90": 0.5226
+      },
+      "samples": 586
+    },
+    "entry\u2192bathroom": {
+      "direction_distribution": {
+        "right": 0.3675,
+        "left": 0.3587,
+        "behind": 0.1297,
+        "in_front": 0.144
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.262,
+        "p25": -0.1377,
+        "p50": 0.0466,
+        "p75": 0.1839,
+        "p90": 0.3046
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5059,
+        "p25": -0.3137,
+        "p50": 0.0156,
+        "p75": 0.3273,
+        "p90": 0.5206
+      },
+      "samples": 1812
+    },
+    "storage\u2192entry": {
+      "direction_distribution": {
+        "right": 0.3354,
+        "behind": 0.1693,
+        "in_front": 0.1599,
+        "left": 0.3354
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.329,
+        "p25": -0.1667,
+        "p50": 0.0153,
+        "p75": 0.18,
+        "p90": 0.3189
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5305,
+        "p25": -0.3443,
+        "p50": -0.0184,
+        "p75": 0.3201,
+        "p90": 0.4665
+      },
+      "samples": 319
+    },
+    "entry\u2192kitchen": {
+      "direction_distribution": {
+        "right": 0.3187,
+        "in_front": 0.1099,
+        "behind": 0.2527,
+        "left": 0.3187
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3434,
+        "p25": -0.1751,
+        "p50": 0.1544,
+        "p75": 0.3611,
+        "p90": 0.5055
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6813,
+        "p25": -0.4004,
+        "p50": 0.0171,
+        "p75": 0.4218,
+        "p90": 0.6959
+      },
+      "samples": 455
+    },
+    "balcony\u2192undefined": {
+      "direction_distribution": {
+        "in_front": 0.2969,
+        "right": 0.2656,
+        "left": 0.3672,
+        "behind": 0.0703
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4996,
+        "p25": -0.3905,
+        "p50": -0.2443,
+        "p75": 0.0334,
+        "p90": 0.3268
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7648,
+        "p25": -0.518,
+        "p50": -0.1439,
+        "p75": 0.324,
+        "p90": 0.6345
+      },
+      "samples": 128
+    },
+    "bedroom\u2192living_room": {
+      "direction_distribution": {
+        "left": 0.3284,
+        "right": 0.3366,
+        "behind": 0.1405,
+        "in_front": 0.1944
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.458,
+        "p25": -0.3331,
+        "p50": -0.0816,
+        "p75": 0.2424,
+        "p90": 0.4179
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7919,
+        "p25": -0.5299,
+        "p50": 0.0354,
+        "p75": 0.5035,
+        "p90": 0.7551
+      },
+      "samples": 612
+    },
+    "kitchen\u2192bedroom": {
+      "direction_distribution": {
+        "behind": 0.2596,
+        "left": 0.3191,
+        "right": 0.3362,
+        "in_front": 0.0851
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3212,
+        "p25": -0.1263,
+        "p50": 0.1974,
+        "p75": 0.3589,
+        "p90": 0.4765
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6626,
+        "p25": -0.4391,
+        "p50": 0.0018,
+        "p75": 0.4715,
+        "p90": 0.6681
+      },
+      "samples": 235
+    },
+    "bedroom\u2192storage": {
+      "direction_distribution": {
+        "left": 0.2316,
+        "right": 0.2524,
+        "in_front": 0.2252,
+        "behind": 0.2907
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3259,
+        "p25": -0.2154,
+        "p50": -0.0043,
+        "p75": 0.2197,
+        "p90": 0.3228
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3641,
+        "p25": -0.2086,
+        "p50": 0.0077,
+        "p75": 0.2386,
+        "p90": 0.4073
+      },
+      "samples": 626
+    },
+    "utility\u2192storage": {
+      "direction_distribution": {
+        "in_front": 0.2385,
+        "right": 0.2569,
+        "left": 0.3119,
+        "behind": 0.1927
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2535,
+        "p25": -0.1186,
+        "p50": 0.0242,
+        "p75": 0.1555,
+        "p90": 0.2459
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4291,
+        "p25": -0.2626,
+        "p50": -0.033,
+        "p75": 0.1786,
+        "p90": 0.3546
+      },
+      "samples": 109
+    },
+    "storage\u2192outdoor": {
+      "direction_distribution": {
+        "right": 0.3444,
+        "left": 0.3477,
+        "in_front": 0.2053,
+        "behind": 0.1026
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2832,
+        "p25": -0.1936,
+        "p50": -0.0453,
+        "p75": 0.0772,
+        "p90": 0.1985
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4571,
+        "p25": -0.2803,
+        "p50": 0,
+        "p75": 0.284,
+        "p90": 0.4714
+      },
+      "samples": 302
+    },
+    "entry\u2192outdoor": {
+      "direction_distribution": {
+        "left": 0.2617,
+        "in_front": 0.4187,
+        "right": 0.2466,
+        "behind": 0.073
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3494,
+        "p25": -0.2326,
+        "p50": -0.146,
+        "p75": -0.0232,
+        "p90": 0.1652
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3787,
+        "p25": -0.2072,
+        "p50": -0.0074,
+        "p75": 0.2019,
+        "p90": 0.3875
+      },
+      "samples": 726
+    },
+    "utility\u2192outdoor": {
+      "direction_distribution": {
+        "behind": 0.2831,
+        "right": 0.2831,
+        "left": 0.2892,
+        "in_front": 0.1446
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2332,
+        "p25": -0.0613,
+        "p50": 0.1098,
+        "p75": 0.2259,
+        "p90": 0.2989
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3896,
+        "p25": -0.2324,
+        "p50": 0,
+        "p75": 0.224,
+        "p90": 0.4174
+      },
+      "samples": 166
+    },
+    "bedroom\u2192outdoor": {
+      "direction_distribution": {
+        "right": 0.2955,
+        "in_front": 0.1591,
+        "behind": 0.2955,
+        "left": 0.25
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.379,
+        "p25": -0.2374,
+        "p50": 0.1159,
+        "p75": 0.2602,
+        "p90": 0.4559
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4954,
+        "p25": -0.222,
+        "p50": 0.0247,
+        "p75": 0.3162,
+        "p90": 0.4215
+      },
+      "samples": 44
+    },
+    "bathroom\u2192utility": {
+      "direction_distribution": {
+        "behind": 0.1226,
+        "left": 0.272,
+        "in_front": 0.2107,
+        "right": 0.3946
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2477,
+        "p25": -0.167,
+        "p50": -0.0605,
+        "p75": 0.1182,
+        "p90": 0.207
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3062,
+        "p25": -0.1847,
+        "p50": 0.066,
+        "p75": 0.2848,
+        "p90": 0.3544
+      },
+      "samples": 261
+    },
+    "entry\u2192entry": {
+      "direction_distribution": {
+        "behind": 0.2403,
+        "left": 0.2442,
+        "in_front": 0.2782,
+        "right": 0.2372
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.349,
+        "p25": -0.2456,
+        "p50": -0.0279,
+        "p75": 0.1961,
+        "p90": 0.3221
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3524,
+        "p25": -0.2191,
+        "p50": 0.0001,
+        "p75": 0.1994,
+        "p90": 0.3523
+      },
+      "samples": 1294
+    },
+    "entry\u2192living_room": {
+      "direction_distribution": {
+        "in_front": 0.0437,
+        "behind": 0.5574,
+        "left": 0.2022,
+        "right": 0.1967
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.1033,
+        "p25": 0.2733,
+        "p50": 0.4786,
+        "p75": 0.5749,
+        "p90": 0.6231
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.65,
+        "p25": -0.3797,
+        "p50": 0.0404,
+        "p75": 0.3448,
+        "p90": 0.6276
+      },
+      "samples": 183
+    },
+    "garage\u2192utility": {
+      "direction_distribution": {
+        "in_front": 0.3214,
+        "right": 0.1429,
+        "left": 0.4286,
+        "behind": 0.1071
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3398,
+        "p25": -0.2565,
+        "p50": -0.1634,
+        "p75": 0.1063,
+        "p90": 0.2909
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6388,
+        "p25": -0.4454,
+        "p50": -0.0977,
+        "p75": 0.122,
+        "p90": 0.3237
+      },
+      "samples": 28
+    },
+    "garage\u2192storage": {
+      "direction_distribution": {
+        "right": 0.3119,
+        "behind": 0.2752,
+        "left": 0.3211,
+        "in_front": 0.0917
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2763,
+        "p25": 0.0159,
+        "p50": 0.1605,
+        "p75": 0.3197,
+        "p90": 0.3886
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.519,
+        "p25": -0.3637,
+        "p50": 0,
+        "p75": 0.3752,
+        "p90": 0.6251
+      },
+      "samples": 109
+    },
+    "entry\u2192office": {
+      "direction_distribution": {
+        "left": 0.3191,
+        "behind": 0.2766,
+        "in_front": 0.1915,
+        "right": 0.2128
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3434,
+        "p25": -0.1941,
+        "p50": 0.1493,
+        "p75": 0.3429,
+        "p90": 0.4643
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5063,
+        "p25": -0.3377,
+        "p50": -0.0934,
+        "p75": 0.2312,
+        "p90": 0.4701
+      },
+      "samples": 47
+    },
+    "living_room\u2192bedroom": {
+      "direction_distribution": {
+        "left": 0.3554,
+        "in_front": 0.1092,
+        "right": 0.3182,
+        "behind": 0.2172
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4029,
+        "p25": -0.1449,
+        "p50": 0.1209,
+        "p75": 0.3625,
+        "p90": 0.4703
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.8448,
+        "p25": -0.5625,
+        "p50": -0.017,
+        "p75": 0.4996,
+        "p90": 0.761
+      },
+      "samples": 861
+    },
+    "outdoor\u2192kitchen": {
+      "direction_distribution": {
+        "in_front": 0.4167,
+        "right": 0.2292,
+        "left": 0.25,
+        "behind": 0.1042
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4896,
+        "p25": -0.4187,
+        "p50": -0.2477,
+        "p75": 0.0802,
+        "p90": 0.3452
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5255,
+        "p25": -0.3313,
+        "p50": 0.0071,
+        "p75": 0.3421,
+        "p90": 0.6164
+      },
+      "samples": 96
+    },
+    "outdoor\u2192bathroom": {
+      "direction_distribution": {
+        "in_front": 0.2059,
+        "right": 0.4118,
+        "left": 0.3235,
+        "behind": 0.0588
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3865,
+        "p25": -0.2854,
+        "p50": -0.0838,
+        "p75": 0.149,
+        "p90": 0.4033
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5884,
+        "p25": -0.3982,
+        "p50": 0.0348,
+        "p75": 0.5115,
+        "p90": 0.6432
+      },
+      "samples": 34
+    },
+    "bathroom\u2192kitchen": {
+      "direction_distribution": {
+        "right": 0.3645,
+        "left": 0.3271,
+        "behind": 0.1589,
+        "in_front": 0.1495
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3092,
+        "p25": -0.204,
+        "p50": -0.0263,
+        "p75": 0.1836,
+        "p90": 0.3361
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6057,
+        "p25": -0.3651,
+        "p50": 0.0287,
+        "p75": 0.3681,
+        "p90": 0.551
+      },
+      "samples": 107
+    },
+    "balcony\u2192living_room": {
+      "direction_distribution": {
+        "in_front": 0.4693,
+        "behind": 0.0766,
+        "right": 0.228,
+        "left": 0.2261
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4981,
+        "p25": -0.4279,
+        "p50": -0.3358,
+        "p75": -0.1818,
+        "p90": 0.2106
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5498,
+        "p25": -0.3308,
+        "p50": 0.0077,
+        "p75": 0.3241,
+        "p90": 0.5344
+      },
+      "samples": 522
+    },
+    "garage\u2192entry": {
+      "direction_distribution": {
+        "right": 0.3636,
+        "in_front": 0.2727,
+        "left": 0.1364,
+        "behind": 0.2273
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.6,
+        "p25": -0.2685,
+        "p50": 0.0472,
+        "p75": 0.1783,
+        "p90": 0.32
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3683,
+        "p25": -0.2584,
+        "p50": 0.2625,
+        "p75": 0.4456,
+        "p90": 0.5167
+      },
+      "samples": 22
+    },
+    "utility\u2192entry": {
+      "direction_distribution": {
+        "in_front": 0.2963,
+        "left": 0.3545,
+        "right": 0.2646,
+        "behind": 0.0847
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4868,
+        "p25": -0.2891,
+        "p50": -0.1153,
+        "p75": 0.0475,
+        "p90": 0.247
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5453,
+        "p25": -0.3704,
+        "p50": -0.0381,
+        "p75": 0.3054,
+        "p90": 0.5265
+      },
+      "samples": 189
+    },
+    "outdoor\u2192outdoor": {
+      "direction_distribution": {
+        "right": 0.36,
+        "in_front": 0.2267,
+        "left": 0.3067,
+        "behind": 0.1067
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3206,
+        "p25": -0.1863,
+        "p50": -0.0231,
+        "p75": 0.0939,
+        "p90": 0.2185
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4277,
+        "p25": -0.2176,
+        "p50": 0.0341,
+        "p75": 0.2479,
+        "p90": 0.3706
+      },
+      "samples": 75
+    },
+    "dining\u2192kitchen": {
+      "direction_distribution": {
+        "behind": 0.1,
+        "right": 0.2667,
+        "in_front": 0.3,
+        "left": 0.3333
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4114,
+        "p25": -0.3229,
+        "p50": -0.1619,
+        "p75": 0.1303,
+        "p90": 0.3395
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4241,
+        "p25": -0.3247,
+        "p50": -0.023,
+        "p75": 0.2993,
+        "p90": 0.498
+      },
+      "samples": 30
+    },
+    "bathroom\u2192bedroom": {
+      "direction_distribution": {
+        "left": 0.3333,
+        "behind": 0.1905,
+        "right": 0.3333,
+        "in_front": 0.1429
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2104,
+        "p25": -0.1088,
+        "p50": 0.0059,
+        "p75": 0.2045,
+        "p90": 0.3468
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3504,
+        "p25": -0.2571,
+        "p50": 0.072,
+        "p75": 0.2549,
+        "p90": 0.4393
+      },
+      "samples": 63
+    },
+    "storage\u2192office": {
+      "direction_distribution": {
+        "in_front": 0.3429,
+        "right": 0.2857,
+        "left": 0.2571,
+        "behind": 0.1143
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3,
+        "p25": -0.2215,
+        "p50": -0.1325,
+        "p75": 0.0461,
+        "p90": 0.3792
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3713,
+        "p25": -0.2268,
+        "p50": 0.0636,
+        "p75": 0.3681,
+        "p90": 0.6799
+      },
+      "samples": 35
+    },
+    "storage\u2192bathroom": {
+      "direction_distribution": {
+        "behind": 0.2961,
+        "right": 0.2895,
+        "in_front": 0.1645,
+        "left": 0.25
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2067,
+        "p25": -0.0863,
+        "p50": 0.0463,
+        "p75": 0.1946,
+        "p90": 0.2731
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3225,
+        "p25": -0.182,
+        "p50": 0.0499,
+        "p75": 0.1916,
+        "p90": 0.3968
+      },
+      "samples": 152
+    },
+    "bathroom\u2192storage": {
+      "direction_distribution": {
+        "right": 0.2952,
+        "left": 0.2952,
+        "in_front": 0.2169,
+        "behind": 0.1928
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2594,
+        "p25": -0.1579,
+        "p50": -0.0361,
+        "p75": 0.128,
+        "p90": 0.2433
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3664,
+        "p25": -0.1871,
+        "p50": 0.0033,
+        "p75": 0.2273,
+        "p90": 0.3376
+      },
+      "samples": 166
+    },
+    "utility\u2192utility": {
+      "direction_distribution": {
+        "behind": 0.2308,
+        "right": 0.359,
+        "left": 0.3077,
+        "in_front": 0.1026
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.223,
+        "p25": -0.0942,
+        "p50": 0.0719,
+        "p75": 0.184,
+        "p90": 0.2675
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4138,
+        "p25": -0.2308,
+        "p50": 0.0394,
+        "p75": 0.2234,
+        "p90": 0.3215
+      },
+      "samples": 39
+    },
+    "bedroom\u2192utility": {
+      "direction_distribution": {
+        "left": 0.3333,
+        "right": 0.3333,
+        "behind": 0.1333,
+        "in_front": 0.2
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2741,
+        "p25": -0.2012,
+        "p50": 0.0423,
+        "p75": 0.208,
+        "p90": 0.2387
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4625,
+        "p25": -0.3725,
+        "p50": -0.0107,
+        "p75": 0.3751,
+        "p90": 0.3784
+      },
+      "samples": 15
+    },
+    "dining\u2192undefined": {
+      "direction_distribution": {
+        "left": 0.2308,
+        "right": 0.4231,
+        "behind": 0.1923,
+        "in_front": 0.1538
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3156,
+        "p25": 0.0098,
+        "p50": 0.0454,
+        "p75": 0.1903,
+        "p90": 0.367
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5347,
+        "p25": -0.0972,
+        "p50": 0.1368,
+        "p75": 0.4178,
+        "p90": 0.6131
+      },
+      "samples": 26
+    },
+    "undefined\u2192outdoor": {
+      "direction_distribution": {
+        "right": 0.2918,
+        "in_front": 0.2537,
+        "behind": 0.186,
+        "left": 0.2685
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4171,
+        "p25": -0.2385,
+        "p50": 0.0025,
+        "p75": 0.226,
+        "p90": 0.4031
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5265,
+        "p25": -0.2419,
+        "p50": 0.0124,
+        "p75": 0.2929,
+        "p90": 0.5611
+      },
+      "samples": 473
+    },
+    "bedroom\u2192undefined": {
+      "direction_distribution": {
+        "right": 0.3284,
+        "left": 0.3525,
+        "behind": 0.128,
+        "in_front": 0.1911
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3384,
+        "p25": -0.2559,
+        "p50": -0.0442,
+        "p75": 0.1694,
+        "p90": 0.3173
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6269,
+        "p25": -0.4214,
+        "p50": 0.0118,
+        "p75": 0.3784,
+        "p90": 0.6662
+      },
+      "samples": 539
+    },
+    "undefined\u2192dining": {
+      "direction_distribution": {
+        "left": 0.3226,
+        "behind": 0.2903,
+        "in_front": 0.1935,
+        "right": 0.1935
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4127,
+        "p25": -0.2254,
+        "p50": 0.0098,
+        "p75": 0.266,
+        "p90": 0.3776
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5291,
+        "p25": -0.2925,
+        "p50": 0.0613,
+        "p75": 0.1676,
+        "p90": 0.3382
+      },
+      "samples": 31
+    },
+    "utility\u2192dining": {
+      "direction_distribution": {
+        "right": 0.3125,
+        "left": 0.3125,
+        "in_front": 0.3125,
+        "behind": 0.0625
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3404,
+        "p25": -0.2691,
+        "p50": -0.0458,
+        "p75": 0.0284,
+        "p90": 0.0817
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4779,
+        "p25": -0.2824,
+        "p50": 0.1809,
+        "p75": 0.3648,
+        "p90": 0.4665
+      },
+      "samples": 16
+    },
+    "storage\u2192bedroom": {
+      "direction_distribution": {
+        "in_front": 0.3196,
+        "left": 0.2283,
+        "right": 0.2239,
+        "behind": 0.2283
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3123,
+        "p25": -0.2294,
+        "p50": -0.0149,
+        "p75": 0.2003,
+        "p90": 0.2987
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3645,
+        "p25": -0.2075,
+        "p50": 0.0275,
+        "p75": 0.2071,
+        "p90": 0.3557
+      },
+      "samples": 460
+    },
+    "bathroom\u2192living_room": {
+      "direction_distribution": {
+        "right": 0.3404,
+        "behind": 0.2234,
+        "in_front": 0.1383,
+        "left": 0.2979
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3672,
+        "p25": -0.203,
+        "p50": 0.0733,
+        "p75": 0.3126,
+        "p90": 0.4228
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6796,
+        "p25": -0.4902,
+        "p50": 0.064,
+        "p75": 0.4582,
+        "p90": 0.7031
+      },
+      "samples": 94
+    },
+    "utility\u2192undefined": {
+      "direction_distribution": {
+        "in_front": 0.2115,
+        "left": 0.25,
+        "right": 0.3013,
+        "behind": 0.2372
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3541,
+        "p25": -0.2106,
+        "p50": -0.0468,
+        "p75": 0.1769,
+        "p90": 0.3077
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3825,
+        "p25": -0.2217,
+        "p50": 0.015,
+        "p75": 0.2781,
+        "p90": 0.4762
+      },
+      "samples": 156
+    },
+    "undefined\u2192utility": {
+      "direction_distribution": {
+        "behind": 0.2115,
+        "right": 0.359,
+        "left": 0.2756,
+        "in_front": 0.1538
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2783,
+        "p25": -0.139,
+        "p50": 0.0426,
+        "p75": 0.2235,
+        "p90": 0.3703
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3797,
+        "p25": -0.2331,
+        "p50": 0.0138,
+        "p75": 0.2778,
+        "p90": 0.6208
+      },
+      "samples": 156
+    },
+    "undefined\u2192office": {
+      "direction_distribution": {
+        "right": 0.303,
+        "left": 0.3485,
+        "behind": 0.1818,
+        "in_front": 0.1667
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4297,
+        "p25": -0.2762,
+        "p50": 0.02,
+        "p75": 0.2083,
+        "p90": 0.4059
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5693,
+        "p25": -0.3482,
+        "p50": -0.0373,
+        "p75": 0.3442,
+        "p90": 0.5997
+      },
+      "samples": 66
+    },
+    "entry\u2192utility": {
+      "direction_distribution": {
+        "behind": 0.2877,
+        "in_front": 0.1132,
+        "left": 0.3349,
+        "right": 0.2642
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2563,
+        "p25": -0.0546,
+        "p50": 0.1238,
+        "p75": 0.3013,
+        "p90": 0.4563
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5347,
+        "p25": -0.3389,
+        "p50": -0.1015,
+        "p75": 0.2562,
+        "p90": 0.4928
+      },
+      "samples": 212
+    },
+    "office\u2192bathroom": {
+      "direction_distribution": {
+        "behind": 0.2286,
+        "in_front": 0.1,
+        "left": 0.3,
+        "right": 0.3714
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2178,
+        "p25": -0.103,
+        "p50": 0.04,
+        "p75": 0.193,
+        "p90": 0.3276
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4475,
+        "p25": -0.2696,
+        "p50": 0.0304,
+        "p75": 0.3475,
+        "p90": 0.5044
+      },
+      "samples": 70
+    },
+    "kitchen\u2192undefined": {
+      "direction_distribution": {
+        "left": 0.3358,
+        "behind": 0.1779,
+        "in_front": 0.1805,
+        "right": 0.3058
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3652,
+        "p25": -0.2561,
+        "p50": 0.0238,
+        "p75": 0.2596,
+        "p90": 0.3897
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7031,
+        "p25": -0.4342,
+        "p50": -0.0146,
+        "p75": 0.3536,
+        "p90": 0.7894
+      },
+      "samples": 399
+    },
+    "kitchen\u2192entry": {
+      "direction_distribution": {
+        "right": 0.3136,
+        "left": 0.2853,
+        "behind": 0.126,
+        "in_front": 0.2751
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4898,
+        "p25": -0.3729,
+        "p50": -0.1672,
+        "p75": 0.1508,
+        "p90": 0.332
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6633,
+        "p25": -0.4026,
+        "p50": 0,
+        "p75": 0.3956,
+        "p90": 0.6567
+      },
+      "samples": 389
+    },
+    "dining\u2192living_room": {
+      "direction_distribution": {
+        "right": 0.2727,
+        "in_front": 0.1364,
+        "behind": 0.1818,
+        "left": 0.4091
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4127,
+        "p25": -0.2442,
+        "p50": -0.0709,
+        "p75": 0.2342,
+        "p90": 0.4114
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7161,
+        "p25": -0.6111,
+        "p50": -0.2046,
+        "p75": 0.48,
+        "p90": 0.5905
+      },
+      "samples": 44
+    },
+    "living_room\u2192entry": {
+      "direction_distribution": {
+        "in_front": 0.5378,
+        "right": 0.2143,
+        "left": 0.2101,
+        "behind": 0.0378
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.6367,
+        "p25": -0.5709,
+        "p50": -0.4507,
+        "p75": -0.2439,
+        "p90": 0.0685
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6045,
+        "p25": -0.3267,
+        "p50": -0.0292,
+        "p75": 0.3666,
+        "p90": 0.7123
+      },
+      "samples": 238
+    },
+    "dining\u2192bedroom": {
+      "direction_distribution": {
+        "behind": 0.1778,
+        "left": 0.3111,
+        "right": 0.3778,
+        "in_front": 0.1333
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3298,
+        "p25": -0.1931,
+        "p50": -0.0573,
+        "p75": 0.2534,
+        "p90": 0.3682
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5503,
+        "p25": -0.4031,
+        "p50": 0.1987,
+        "p75": 0.4038,
+        "p90": 0.5449
+      },
+      "samples": 45
+    },
+    "bedroom\u2192dining": {
+      "direction_distribution": {
+        "left": 0.3333,
+        "right": 0.3667,
+        "behind": 0.1667,
+        "in_front": 0.1333
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3243,
+        "p25": -0.2166,
+        "p50": 0.0122,
+        "p75": 0.2219,
+        "p90": 0.3336
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6682,
+        "p25": -0.4518,
+        "p50": 0.0849,
+        "p75": 0.4043,
+        "p90": 0.6503
+      },
+      "samples": 30
+    },
+    "living_room\u2192kitchen": {
+      "direction_distribution": {
+        "left": 0.3498,
+        "in_front": 0.133,
+        "right": 0.4384,
+        "behind": 0.0788
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4475,
+        "p25": -0.278,
+        "p50": -0.0045,
+        "p75": 0.1907,
+        "p90": 0.3904
+      },
+      "lateral_diff_percentiles": {
+        "p10": -1.0126,
+        "p25": -0.5865,
+        "p50": 0.1088,
+        "p75": 0.6633,
+        "p90": 0.9937
+      },
+      "samples": 203
+    },
+    "outdoor\u2192bedroom": {
+      "direction_distribution": {
+        "in_front": 0.2308,
+        "left": 0.2436,
+        "right": 0.2949,
+        "behind": 0.2308
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.486,
+        "p25": -0.2951,
+        "p50": -0.0503,
+        "p75": 0.2291,
+        "p90": 0.3301
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4769,
+        "p25": -0.2466,
+        "p50": 0.0148,
+        "p75": 0.3125,
+        "p90": 0.789
+      },
+      "samples": 78
+    },
+    "outdoor\u2192garage": {
+      "direction_distribution": {
+        "behind": 0.3519,
+        "in_front": 0.0556,
+        "right": 0.1852,
+        "left": 0.4074
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2716,
+        "p25": -0.1206,
+        "p50": 0.1331,
+        "p75": 0.3839,
+        "p90": 0.4956
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.542,
+        "p25": -0.3435,
+        "p50": -0.0807,
+        "p75": 0.3049,
+        "p90": 0.4691
+      },
+      "samples": 54
+    },
+    "outdoor\u2192utility": {
+      "direction_distribution": {
+        "left": 0.3094,
+        "in_front": 0.2906,
+        "right": 0.2717,
+        "behind": 0.1283
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3159,
+        "p25": -0.23,
+        "p50": -0.073,
+        "p75": 0.1226,
+        "p90": 0.2616
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4334,
+        "p25": -0.2212,
+        "p50": -0.0268,
+        "p75": 0.2178,
+        "p90": 0.3634
+      },
+      "samples": 265
+    },
+    "utility\u2192office": {
+      "direction_distribution": {
+        "left": 0.3448,
+        "right": 0.2069,
+        "in_front": 0.3103,
+        "behind": 0.1379
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.376,
+        "p25": -0.2626,
+        "p50": -0.1472,
+        "p75": 0.164,
+        "p90": 0.2796
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.63,
+        "p25": -0.4388,
+        "p50": -0.2024,
+        "p75": 0.2191,
+        "p90": 0.6688
+      },
+      "samples": 29
+    },
+    "storage\u2192utility": {
+      "direction_distribution": {
+        "behind": 0.2418,
+        "right": 0.3626,
+        "left": 0.2088,
+        "in_front": 0.1868
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2776,
+        "p25": -0.1507,
+        "p50": 0.0721,
+        "p75": 0.1846,
+        "p90": 0.2895
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.2765,
+        "p25": -0.1628,
+        "p50": 0.0556,
+        "p75": 0.2716,
+        "p90": 0.4721
+      },
+      "samples": 91
+    },
+    "entry\u2192dining": {
+      "direction_distribution": {
+        "left": 0.3636,
+        "right": 0.4545,
+        "behind": 0.1818
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.1501,
+        "p25": -0.126,
+        "p50": -0.034,
+        "p75": 0.2886,
+        "p90": 0.3668
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4197,
+        "p25": -0.3519,
+        "p50": 0.3521,
+        "p75": 0.5488,
+        "p90": 0.5686
+      },
+      "samples": 11
+    },
+    "living_room\u2192office": {
+      "direction_distribution": {
+        "right": 0.2553,
+        "left": 0.2553,
+        "behind": 0.3617,
+        "in_front": 0.1277
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.36,
+        "p25": -0.0958,
+        "p50": 0.274,
+        "p75": 0.3753,
+        "p90": 0.4674
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.725,
+        "p25": -0.3405,
+        "p50": 0.0527,
+        "p75": 0.3803,
+        "p90": 0.5507
+      },
+      "samples": 47
+    },
+    "kitchen\u2192dining": {
+      "direction_distribution": {
+        "right": 0.3333,
+        "left": 0.3333,
+        "behind": 0.2333,
+        "in_front": 0.1
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2798,
+        "p25": -0.138,
+        "p50": 0.0862,
+        "p75": 0.2858,
+        "p90": 0.3637
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6092,
+        "p25": -0.3816,
+        "p50": 0,
+        "p75": 0.3042,
+        "p90": 0.5562
+      },
+      "samples": 30
+    },
+    "living_room\u2192undefined": {
+      "direction_distribution": {
+        "in_front": 0.1906,
+        "left": 0.2662,
+        "behind": 0.2698,
+        "right": 0.2734
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.5457,
+        "p25": -0.3539,
+        "p50": 0.1383,
+        "p75": 0.3664,
+        "p90": 0.4317
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6047,
+        "p25": -0.3664,
+        "p50": 0.0221,
+        "p75": 0.4364,
+        "p90": 0.6037
+      },
+      "samples": 278
+    },
+    "balcony\u2192kitchen": {
+      "direction_distribution": {
+        "left": 0.1667,
+        "right": 0.3333,
+        "in_front": 0.3889,
+        "behind": 0.1111
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.5261,
+        "p25": -0.4604,
+        "p50": -0.3534,
+        "p75": -0.0828,
+        "p90": 0.274
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5258,
+        "p25": -0.2512,
+        "p50": 0.1034,
+        "p75": 0.4646,
+        "p90": 0.5981
+      },
+      "samples": 72
+    },
+    "kitchen\u2192living_room": {
+      "direction_distribution": {
+        "left": 0.3981,
+        "right": 0.3544,
+        "in_front": 0.0874,
+        "behind": 0.1602
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3791,
+        "p25": -0.1982,
+        "p50": 0.0603,
+        "p75": 0.2894,
+        "p90": 0.4749
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.9961,
+        "p25": -0.6756,
+        "p50": -0.1057,
+        "p75": 0.5937,
+        "p90": 0.7999
+      },
+      "samples": 206
+    },
+    "kitchen\u2192storage": {
+      "direction_distribution": {
+        "left": 0.3158,
+        "in_front": 0.2456,
+        "behind": 0.1754,
+        "right": 0.2632
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4042,
+        "p25": -0.2002,
+        "p50": -0.0715,
+        "p75": 0.1999,
+        "p90": 0.3103
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5292,
+        "p25": -0.3391,
+        "p50": -0.0437,
+        "p75": 0.2167,
+        "p90": 0.3867
+      },
+      "samples": 57
+    },
+    "living_room\u2192dining": {
+      "direction_distribution": {
+        "in_front": 0.2195,
+        "right": 0.3171,
+        "left": 0.2927,
+        "behind": 0.1707
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4263,
+        "p25": -0.2539,
+        "p50": 0.0537,
+        "p75": 0.2137,
+        "p90": 0.371
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7731,
+        "p25": -0.357,
+        "p50": 0.0224,
+        "p75": 0.5117,
+        "p90": 0.7056
+      },
+      "samples": 41
+    },
+    "undefined\u2192living_room": {
+      "direction_distribution": {
+        "in_front": 0.2424,
+        "right": 0.3068,
+        "left": 0.3068,
+        "behind": 0.1439
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4699,
+        "p25": -0.3815,
+        "p50": -0.1204,
+        "p75": 0.2758,
+        "p90": 0.4465
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7828,
+        "p25": -0.4779,
+        "p50": 0.0068,
+        "p75": 0.4689,
+        "p90": 0.7889
+      },
+      "samples": 264
+    },
+    "kitchen\u2192bathroom": {
+      "direction_distribution": {
+        "right": 0.3416,
+        "left": 0.2733,
+        "behind": 0.1491,
+        "in_front": 0.236
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3283,
+        "p25": -0.2196,
+        "p50": 0.0008,
+        "p75": 0.1692,
+        "p90": 0.2765
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.496,
+        "p25": -0.2803,
+        "p50": 0.0191,
+        "p75": 0.3523,
+        "p90": 0.5797
+      },
+      "samples": 161
+    },
+    "bedroom\u2192kitchen": {
+      "direction_distribution": {
+        "right": 0.2875,
+        "left": 0.3375,
+        "behind": 0.0875,
+        "in_front": 0.2875
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4737,
+        "p25": -0.3508,
+        "p50": -0.2006,
+        "p75": 0.1254,
+        "p90": 0.3081
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7247,
+        "p25": -0.48,
+        "p50": -0.0932,
+        "p75": 0.3919,
+        "p90": 0.7559
+      },
+      "samples": 160
+    },
+    "storage\u2192garage": {
+      "direction_distribution": {
+        "right": 0.2614,
+        "left": 0.3636,
+        "behind": 0.0682,
+        "in_front": 0.3068
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4261,
+        "p25": -0.324,
+        "p50": -0.1538,
+        "p75": -0.0177,
+        "p90": 0.132
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5516,
+        "p25": -0.3955,
+        "p50": 0,
+        "p75": 0.318,
+        "p90": 0.5074
+      },
+      "samples": 88
+    },
+    "living_room\u2192bathroom": {
+      "direction_distribution": {
+        "right": 0.3593,
+        "behind": 0.1198,
+        "in_front": 0.2216,
+        "left": 0.2994
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4597,
+        "p25": -0.3336,
+        "p50": -0.1056,
+        "p75": 0.2086,
+        "p90": 0.3653
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.69,
+        "p25": -0.4118,
+        "p50": -0.0089,
+        "p75": 0.4962,
+        "p90": 0.7059
+      },
+      "samples": 167
+    },
+    "dining\u2192outdoor": {
+      "direction_distribution": {
+        "right": 0.2273,
+        "in_front": 0.0909,
+        "behind": 0.4545,
+        "left": 0.2273
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3045,
+        "p25": -0.0865,
+        "p50": 0.2485,
+        "p75": 0.3439,
+        "p90": 0.3704
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5054,
+        "p25": -0.1476,
+        "p50": -0.0234,
+        "p75": 0.267,
+        "p90": 0.586
+      },
+      "samples": 22
+    },
+    "undefined\u2192garage": {
+      "direction_distribution": {
+        "in_front": 0.2759,
+        "left": 0.2414,
+        "behind": 0.1034,
+        "right": 0.3793
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.6943,
+        "p25": -0.3787,
+        "p50": -0.1886,
+        "p75": 0.0206,
+        "p90": 0.4171
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5658,
+        "p25": -0.3057,
+        "p50": 0.0887,
+        "p75": 0.5398,
+        "p90": 1.0796
+      },
+      "samples": 29
+    },
+    "dining\u2192balcony": {
+      "direction_distribution": {
+        "behind": 0.3103,
+        "left": 0.3103,
+        "in_front": 0.1034,
+        "right": 0.2759
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2856,
+        "p25": 0.0466,
+        "p50": 0.2215,
+        "p75": 0.3008,
+        "p90": 0.6473
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5018,
+        "p25": -0.3436,
+        "p50": -0.1517,
+        "p75": 0.315,
+        "p90": 0.4842
+      },
+      "samples": 29
+    },
+    "utility\u2192balcony": {
+      "direction_distribution": {
+        "left": 0.4182,
+        "right": 0.3455,
+        "in_front": 0.0909,
+        "behind": 0.1455
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2426,
+        "p25": -0.1047,
+        "p50": 0.1444,
+        "p75": 0.2456,
+        "p90": 0.4008
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5945,
+        "p25": -0.4502,
+        "p50": -0.2162,
+        "p75": 0.3434,
+        "p90": 0.5335
+      },
+      "samples": 55
+    },
+    "office\u2192utility": {
+      "direction_distribution": {
+        "left": 0.3077,
+        "right": 0.2308,
+        "behind": 0.3462,
+        "in_front": 0.1154
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3309,
+        "p25": -0.129,
+        "p50": 0.1331,
+        "p75": 0.23,
+        "p90": 0.3637
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5816,
+        "p25": -0.3065,
+        "p50": 0.0075,
+        "p75": 0.3301,
+        "p90": 0.5558
+      },
+      "samples": 26
+    },
+    "living_room\u2192storage": {
+      "direction_distribution": {
+        "right": 0.4521,
+        "behind": 0.1918,
+        "left": 0.2055,
+        "in_front": 0.1507
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.395,
+        "p25": -0.2243,
+        "p50": 0.0204,
+        "p75": 0.2336,
+        "p90": 0.4283
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5446,
+        "p25": -0.261,
+        "p50": 0.2521,
+        "p75": 0.6277,
+        "p90": 0.8522
+      },
+      "samples": 73
+    },
+    "living_room\u2192utility": {
+      "direction_distribution": {
+        "behind": 0.2292,
+        "right": 0.3958,
+        "left": 0.2708,
+        "in_front": 0.1042
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2949,
+        "p25": 0.0501,
+        "p50": 0.2246,
+        "p75": 0.34,
+        "p90": 0.4536
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7739,
+        "p25": -0.3847,
+        "p50": 0.1532,
+        "p75": 0.5055,
+        "p90": 0.6817
+      },
+      "samples": 48
+    },
+    "bedroom\u2192balcony": {
+      "direction_distribution": {
+        "right": 0.28,
+        "behind": 0.42,
+        "in_front": 0.12,
+        "left": 0.18
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2885,
+        "p25": -0.2247,
+        "p50": 0.2773,
+        "p75": 0.4003,
+        "p90": 0.4894
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3875,
+        "p25": -0.2035,
+        "p50": 0.1194,
+        "p75": 0.3729,
+        "p90": 0.5635
+      },
+      "samples": 50
+    },
+    "storage\u2192kitchen": {
+      "direction_distribution": {
+        "in_front": 0.2439,
+        "left": 0.3171,
+        "right": 0.2927,
+        "behind": 0.1463
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3143,
+        "p25": -0.2385,
+        "p50": -0.1624,
+        "p75": 0.1644,
+        "p90": 0.2528
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4801,
+        "p25": -0.347,
+        "p50": -0.0353,
+        "p75": 0.3591,
+        "p90": 0.4878
+      },
+      "samples": 41
+    },
+    "garage\u2192undefined": {
+      "direction_distribution": {
+        "left": 0.3095,
+        "in_front": 0.1905,
+        "right": 0.381,
+        "behind": 0.119
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.356,
+        "p25": -0.2741,
+        "p50": 0.1,
+        "p75": 0.2517,
+        "p90": 0.3714
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6847,
+        "p25": -0.3827,
+        "p50": -0.0074,
+        "p75": 0.4419,
+        "p90": 0.6834
+      },
+      "samples": 42
+    },
+    "bathroom\u2192sauna": {
+      "direction_distribution": {
+        "behind": 0.2679,
+        "left": 0.25,
+        "right": 0.25,
+        "in_front": 0.2321
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.218,
+        "p25": -0.1414,
+        "p50": 0.0655,
+        "p75": 0.1878,
+        "p90": 0.2768
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3182,
+        "p25": -0.1435,
+        "p50": 0.0347,
+        "p75": 0.2195,
+        "p90": 0.306
+      },
+      "samples": 56
+    },
+    "office\u2192storage": {
+      "direction_distribution": {
+        "left": 0.3636,
+        "behind": 0.2121,
+        "in_front": 0.2121,
+        "right": 0.2121
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3301,
+        "p25": -0.1305,
+        "p50": 0.1159,
+        "p75": 0.2068,
+        "p90": 0.304
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6242,
+        "p25": -0.3557,
+        "p50": -0.1535,
+        "p75": 0.2077,
+        "p90": 0.403
+      },
+      "samples": 33
+    },
+    "undefined\u2192sauna": {
+      "direction_distribution": {
+        "left": 0.4,
+        "in_front": 0.3,
+        "right": 0.2,
+        "behind": 0.1
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2556,
+        "p25": -0.2094,
+        "p50": 0.2068,
+        "p75": 0.2247,
+        "p90": 0.4103
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3972,
+        "p25": -0.312,
+        "p50": 0.1164,
+        "p75": 0.2258,
+        "p90": 0.4685
+      },
+      "samples": 10
+    },
+    "office\u2192living_room": {
+      "direction_distribution": {
+        "right": 0.4,
+        "left": 0.2,
+        "in_front": 0.3333,
+        "behind": 0.0667
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3948,
+        "p25": -0.3456,
+        "p50": -0.2168,
+        "p75": 0.0941,
+        "p90": 0.3913
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5042,
+        "p25": -0.202,
+        "p50": 0.1555,
+        "p75": 0.4755,
+        "p90": 0.6543
+      },
+      "samples": 30
+    },
+    "office\u2192entry": {
+      "direction_distribution": {
+        "right": 0.36,
+        "behind": 0.22,
+        "left": 0.18,
+        "in_front": 0.24
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4502,
+        "p25": -0.2863,
+        "p50": -0.0627,
+        "p75": 0.1803,
+        "p90": 0.3527
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4553,
+        "p25": -0.1628,
+        "p50": 0.1199,
+        "p75": 0.3397,
+        "p90": 0.6088
+      },
+      "samples": 50
+    },
+    "bathroom\u2192outdoor": {
+      "direction_distribution": {
+        "in_front": 0.1304,
+        "right": 0.3043,
+        "left": 0.3043,
+        "behind": 0.2609
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3486,
+        "p25": -0.1952,
+        "p50": 0.1202,
+        "p75": 0.2656,
+        "p90": 0.3452
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4417,
+        "p25": -0.2597,
+        "p50": -0.0118,
+        "p75": 0.3101,
+        "p90": 0.6113
+      },
+      "samples": 23
+    },
+    "dining\u2192entry": {
+      "direction_distribution": {
+        "in_front": 0.3158,
+        "behind": 0.1579,
+        "right": 0.2105,
+        "left": 0.3158
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.5746,
+        "p25": -0.4162,
+        "p50": -0.2498,
+        "p75": 0.034,
+        "p90": 0.3356
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6215,
+        "p25": -0.4697,
+        "p50": 0.0261,
+        "p75": 0.2556,
+        "p90": 0.4411
+      },
+      "samples": 19
+    },
+    "sauna\u2192bathroom": {
+      "direction_distribution": {
+        "right": 0.234,
+        "in_front": 0.3191,
+        "behind": 0.2553,
+        "left": 0.1915
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2842,
+        "p25": -0.2013,
+        "p50": -0.0288,
+        "p75": 0.1515,
+        "p90": 0.2357
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3008,
+        "p25": -0.162,
+        "p50": 0.0266,
+        "p75": 0.1708,
+        "p90": 0.45
+      },
+      "samples": 47
+    },
+    "garage\u2192outdoor": {
+      "direction_distribution": {
+        "left": 0.3571,
+        "right": 0.2857,
+        "behind": 0.125,
+        "in_front": 0.2321
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4477,
+        "p25": -0.3007,
+        "p50": -0.1477,
+        "p75": 0.1332,
+        "p90": 0.2305
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6019,
+        "p25": -0.4189,
+        "p50": -0.0098,
+        "p75": 0.3609,
+        "p90": 0.5108
+      },
+      "samples": 56
+    },
+    "storage\u2192storage": {
+      "direction_distribution": {
+        "in_front": 0.1714,
+        "right": 0.4143,
+        "left": 0.2571,
+        "behind": 0.1571
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3254,
+        "p25": -0.1857,
+        "p50": -0.0387,
+        "p75": 0.1159,
+        "p90": 0.3292
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4556,
+        "p25": -0.1717,
+        "p50": 0.0655,
+        "p75": 0.3721,
+        "p90": 0.6957
+      },
+      "samples": 70
+    },
+    "office\u2192undefined": {
+      "direction_distribution": {
+        "right": 0.3654,
+        "left": 0.2692,
+        "in_front": 0.2115,
+        "behind": 0.1538
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3741,
+        "p25": -0.2365,
+        "p50": 0.0539,
+        "p75": 0.279,
+        "p90": 0.4397
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6857,
+        "p25": -0.3856,
+        "p50": -0.0115,
+        "p75": 0.4997,
+        "p90": 0.6233
+      },
+      "samples": 52
+    },
+    "kitchen\u2192balcony": {
+      "direction_distribution": {
+        "behind": 0.3778,
+        "right": 0.3333,
+        "left": 0.2,
+        "in_front": 0.0889
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3302,
+        "p25": 0.093,
+        "p50": 0.2538,
+        "p75": 0.4247,
+        "p90": 0.4835
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5085,
+        "p25": -0.2881,
+        "p50": 0.0,
+        "p75": 0.4177,
+        "p90": 0.4919
+      },
+      "samples": 45
+    },
+    "bathroom\u2192bathroom": {
+      "direction_distribution": {
+        "behind": 0.1567,
+        "left": 0.3955,
+        "right": 0.306,
+        "in_front": 0.1418
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.1917,
+        "p25": -0.111,
+        "p50": 0.0062,
+        "p75": 0.0963,
+        "p90": 0.1873
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3377,
+        "p25": -0.2216,
+        "p50": -0.0567,
+        "p75": 0.1779,
+        "p90": 0.3148
+      },
+      "samples": 134
+    },
+    "office\u2192balcony": {
+      "direction_distribution": {
+        "right": 0.5,
+        "left": 0.2,
+        "in_front": 0.2,
+        "behind": 0.1
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4506,
+        "p25": -0.4438,
+        "p50": -0.2912,
+        "p75": -0.1219,
+        "p90": 0.2589
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4972,
+        "p25": -0.389,
+        "p50": 0.3119,
+        "p75": 0.5559,
+        "p90": 0.864
+      },
+      "samples": 10
+    },
+    "bathroom\u2192office": {
+      "direction_distribution": {
+        "right": 0.2154,
+        "left": 0.4769,
+        "behind": 0.1538,
+        "in_front": 0.1538
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.368,
+        "p25": -0.2255,
+        "p50": -0.1026,
+        "p75": 0.0907,
+        "p90": 0.2684
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6657,
+        "p25": -0.4793,
+        "p50": -0.2315,
+        "p75": 0.1627,
+        "p90": 0.4488
+      },
+      "samples": 65
+    },
+    "office\u2192outdoor": {
+      "direction_distribution": {
+        "behind": 0.2571,
+        "left": 0.2857,
+        "in_front": 0.1714,
+        "right": 0.2857
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4599,
+        "p25": -0.2695,
+        "p50": 0.0346,
+        "p75": 0.1907,
+        "p90": 0.3504
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5126,
+        "p25": -0.2324,
+        "p50": -0.0233,
+        "p75": 0.3092,
+        "p90": 0.4101
+      },
+      "samples": 35
+    },
+    "utility\u2192kitchen": {
+      "direction_distribution": {
+        "in_front": 0.5341,
+        "right": 0.1705,
+        "left": 0.2159,
+        "behind": 0.0795
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3843,
+        "p25": -0.3472,
+        "p50": -0.2576,
+        "p75": -0.1205,
+        "p90": 0.225
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3831,
+        "p25": -0.2392,
+        "p50": 0.0118,
+        "p75": 0.2258,
+        "p90": 0.3789
+      },
+      "samples": 88
+    },
+    "kitchen\u2192utility": {
+      "direction_distribution": {
+        "left": 0.1328,
+        "behind": 0.5391,
+        "right": 0.1875,
+        "in_front": 0.1406
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2987,
+        "p25": 0.0545,
+        "p50": 0.2706,
+        "p75": 0.3433,
+        "p90": 0.4114
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3485,
+        "p25": -0.1454,
+        "p50": 0.013,
+        "p75": 0.2398,
+        "p90": 0.3624
+      },
+      "samples": 128
+    },
+    "office\u2192bedroom": {
+      "direction_distribution": {
+        "right": 0.25,
+        "left": 0.4062,
+        "behind": 0.2188,
+        "in_front": 0.125
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3456,
+        "p25": -0.1381,
+        "p50": 0.0957,
+        "p75": 0.2471,
+        "p90": 0.2728
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7284,
+        "p25": -0.4038,
+        "p50": -0.1139,
+        "p75": 0.273,
+        "p90": 0.5068
+      },
+      "samples": 32
+    },
+    "bedroom\u2192office": {
+      "direction_distribution": {
+        "left": 0.5217,
+        "right": 0.1304,
+        "in_front": 0.3043,
+        "behind": 0.0435
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3309,
+        "p25": -0.2704,
+        "p50": -0.1083,
+        "p75": 0.2207,
+        "p90": 0.3587
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.743,
+        "p25": -0.6266,
+        "p50": -0.3326,
+        "p75": 0.1285,
+        "p90": 0.4294
+      },
+      "samples": 23
+    },
+    "storage\u2192living_room": {
+      "direction_distribution": {
+        "left": 0.3492,
+        "in_front": 0.254,
+        "right": 0.254,
+        "behind": 0.1429
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4973,
+        "p25": -0.2897,
+        "p50": -0.1547,
+        "p75": 0.2546,
+        "p90": 0.4306
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.7522,
+        "p25": -0.4733,
+        "p50": 0.1133,
+        "p75": 0.474,
+        "p90": 0.6804
+      },
+      "samples": 63
+    },
+    "corridor\u2192bedroom": {
+      "direction_distribution": {
+        "left": 0.5306,
+        "in_front": 0.1837,
+        "right": 0.2857
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.347,
+        "p25": -0.1848,
+        "p50": -0.1082,
+        "p75": 0.024,
+        "p90": 0.1571
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4929,
+        "p25": -0.3754,
+        "p50": -0.2758,
+        "p75": 0.3503,
+        "p90": 0.4038
+      },
+      "samples": 49
+    },
+    "bedroom\u2192corridor": {
+      "direction_distribution": {
+        "left": 0.1765,
+        "behind": 0.3824,
+        "right": 0.4412
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.216,
+        "p25": -0.0519,
+        "p50": 0.1334,
+        "p75": 0.2521,
+        "p90": 0.3079
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3824,
+        "p25": -0.1449,
+        "p50": 0.2305,
+        "p75": 0.3628,
+        "p90": 0.4105
+      },
+      "samples": 34
+    },
+    "corridor\u2192bathroom": {
+      "direction_distribution": {
+        "right": 0.2222,
+        "left": 0.3704,
+        "behind": 0.2222,
+        "in_front": 0.1852
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3213,
+        "p25": -0.1418,
+        "p50": -0.0018,
+        "p75": 0.1329,
+        "p90": 0.1831
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3907,
+        "p25": -0.1935,
+        "p50": 0.0587,
+        "p75": 0.1621,
+        "p90": 0.3111
+      },
+      "samples": 27
+    },
+    "outdoor\u2192office": {
+      "direction_distribution": {
+        "behind": 0.1633,
+        "right": 0.3673,
+        "left": 0.3673,
+        "in_front": 0.102
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3554,
+        "p25": -0.1489,
+        "p50": 0.0941,
+        "p75": 0.2337,
+        "p90": 0.3972
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6211,
+        "p25": -0.3679,
+        "p50": 0.006,
+        "p75": 0.3439,
+        "p90": 0.6257
+      },
+      "samples": 49
+    },
+    "kitchen\u2192outdoor": {
+      "direction_distribution": {
+        "left": 0.2286,
+        "right": 0.1571,
+        "behind": 0.5143,
+        "in_front": 0.1
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2884,
+        "p25": 0.0281,
+        "p50": 0.2939,
+        "p75": 0.4096,
+        "p90": 0.4866
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5045,
+        "p25": -0.2918,
+        "p50": 0.0535,
+        "p75": 0.2979,
+        "p90": 0.4796
+      },
+      "samples": 70
+    },
+    "kitchen\u2192kitchen": {
+      "direction_distribution": {
+        "in_front": 0.3448,
+        "left": 0.069,
+        "right": 0.3103,
+        "behind": 0.2759
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3659,
+        "p25": -0.3157,
+        "p50": 0.0305,
+        "p75": 0.2635,
+        "p90": 0.3634
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.2008,
+        "p25": -0.0038,
+        "p50": 0.104,
+        "p75": 0.1717,
+        "p90": 0.4272
+      },
+      "samples": 29
+    },
+    "entry\u2192garage": {
+      "direction_distribution": {
+        "in_front": 0.2143,
+        "right": 0.2857,
+        "behind": 0.2143,
+        "left": 0.2857
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4002,
+        "p25": -0.3023,
+        "p50": -0.0266,
+        "p75": 0.4105,
+        "p90": 0.6316
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4564,
+        "p25": -0.2419,
+        "p50": 0.2041,
+        "p75": 0.4386,
+        "p90": 0.6228
+      },
+      "samples": 14
+    },
+    "dining\u2192utility": {
+      "direction_distribution": {
+        "behind": 0.4667,
+        "left": 0.2,
+        "right": 0.3333
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.0261,
+        "p25": 0.091,
+        "p50": 0.2367,
+        "p75": 0.3094,
+        "p90": 0.3581
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4122,
+        "p25": -0.1174,
+        "p50": 0.1568,
+        "p75": 0.2898,
+        "p90": 0.3656
+      },
+      "samples": 15
+    },
+    "balcony\u2192office": {
+      "direction_distribution": {
+        "right": 0.5556,
+        "behind": 0.0556,
+        "left": 0.2778,
+        "in_front": 0.1111
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2074,
+        "p25": -0.1512,
+        "p50": -0.0058,
+        "p75": 0.0826,
+        "p90": 0.3506
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5477,
+        "p25": -0.3773,
+        "p50": 0.2751,
+        "p75": 0.3968,
+        "p90": 0.5158
+      },
+      "samples": 18
+    },
+    "utility\u2192bedroom": {
+      "direction_distribution": {
+        "in_front": 0.125,
+        "right": 0.25,
+        "left": 0.3125,
+        "behind": 0.3125
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2928,
+        "p25": -0.1344,
+        "p50": 0.0517,
+        "p75": 0.245,
+        "p90": 0.4289
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.407,
+        "p25": -0.2815,
+        "p50": 0.0015,
+        "p75": 0.2391,
+        "p90": 0.4003
+      },
+      "samples": 16
+    },
+    "bathroom\u2192dining": {
+      "direction_distribution": {
+        "in_front": 0.3077,
+        "left": 0.4615,
+        "right": 0.1538,
+        "behind": 0.0769
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3593,
+        "p25": -0.323,
+        "p50": -0.0166,
+        "p75": 0.0512,
+        "p90": 0.1688
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3734,
+        "p25": -0.3715,
+        "p50": -0.322,
+        "p75": -0.0176,
+        "p90": 0.3239
+      },
+      "samples": 13
+    },
+    "balcony\u2192bedroom": {
+      "direction_distribution": {
+        "right": 0.2419,
+        "left": 0.2581,
+        "in_front": 0.4194,
+        "behind": 0.0806
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4731,
+        "p25": -0.398,
+        "p50": -0.2683,
+        "p75": -0.1291,
+        "p90": 0.2681
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6772,
+        "p25": -0.3594,
+        "p50": 0.0508,
+        "p75": 0.353,
+        "p90": 0.4733
+      },
+      "samples": 62
+    },
+    "balcony\u2192storage": {
+      "direction_distribution": {
+        "right": 0.4348,
+        "behind": 0.1739,
+        "left": 0.3261,
+        "in_front": 0.0652
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2822,
+        "p25": -0.1723,
+        "p50": -0.0031,
+        "p75": 0.2406,
+        "p90": 0.4576
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6166,
+        "p25": -0.4376,
+        "p50": 0.1777,
+        "p75": 0.4956,
+        "p90": 0.7476
+      },
+      "samples": 46
+    },
+    "office\u2192kitchen": {
+      "direction_distribution": {
+        "right": 0.5,
+        "in_front": 0.4,
+        "behind": 0.1
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.5372,
+        "p25": -0.4496,
+        "p50": -0.1197,
+        "p75": 0.0073,
+        "p90": 0.3907
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.0609,
+        "p25": 0.0382,
+        "p50": 0.3874,
+        "p75": 0.5196,
+        "p90": 0.6131
+      },
+      "samples": 10
+    },
+    "bedroom\u2192bathroom": {
+      "direction_distribution": {
+        "right": 0.4531,
+        "left": 0.2656,
+        "in_front": 0.1875,
+        "behind": 0.0938
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3075,
+        "p25": -0.2456,
+        "p50": 0.0094,
+        "p75": 0.1211,
+        "p90": 0.2396
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4019,
+        "p25": -0.2188,
+        "p50": 0.2221,
+        "p75": 0.401,
+        "p90": 0.4721
+      },
+      "samples": 64
+    },
+    "bathroom\u2192balcony": {
+      "direction_distribution": {
+        "in_front": 0.0667,
+        "right": 0.6,
+        "behind": 0.2,
+        "left": 0.1333
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.1898,
+        "p25": -0.032,
+        "p50": 0.0451,
+        "p75": 0.3814,
+        "p90": 0.5379
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3075,
+        "p25": -0.0706,
+        "p50": 0.2872,
+        "p75": 0.5036,
+        "p90": 0.8592
+      },
+      "samples": 15
+    },
+    "storage\u2192balcony": {
+      "direction_distribution": {
+        "behind": 0.2647,
+        "right": 0.3235,
+        "left": 0.2353,
+        "in_front": 0.1765
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3761,
+        "p25": -0.2461,
+        "p50": 0.0108,
+        "p75": 0.219,
+        "p90": 0.29
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5924,
+        "p25": -0.2444,
+        "p50": 0.0953,
+        "p75": 0.4426,
+        "p90": 0.8445
+      },
+      "samples": 34
+    },
+    "utility\u2192garage": {
+      "direction_distribution": {
+        "behind": 0.2083,
+        "right": 0.2083,
+        "left": 0.375,
+        "in_front": 0.2083
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4804,
+        "p25": -0.203,
+        "p50": 0.0322,
+        "p75": 0.2792,
+        "p90": 0.3153
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6543,
+        "p25": -0.3968,
+        "p50": -0.1746,
+        "p75": 0.0595,
+        "p90": 0.7065
+      },
+      "samples": 24
+    },
+    "entry\u2192balcony": {
+      "direction_distribution": {
+        "right": 0.25,
+        "behind": 0.1875,
+        "left": 0.3958,
+        "in_front": 0.1667
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.478,
+        "p25": -0.2148,
+        "p50": 0.0766,
+        "p75": 0.3239,
+        "p90": 0.4445
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5589,
+        "p25": -0.3802,
+        "p50": -0.102,
+        "p75": 0.3999,
+        "p90": 0.6804
+      },
+      "samples": 48
+    },
+    "dining\u2192bathroom": {
+      "direction_distribution": {
+        "right": 0.4706,
+        "left": 0.3529,
+        "in_front": 0.1176,
+        "behind": 0.0588
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2696,
+        "p25": -0.1598,
+        "p50": 0.0252,
+        "p75": 0.041,
+        "p90": 0.2582
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.3438,
+        "p25": -0.2918,
+        "p50": 0.1239,
+        "p75": 0.357,
+        "p90": 0.4256
+      },
+      "samples": 17
+    },
+    "outdoor\u2192dining": {
+      "direction_distribution": {
+        "left": 0.1333,
+        "in_front": 0.5333,
+        "right": 0.1333,
+        "behind": 0.2
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.403,
+        "p25": -0.3731,
+        "p50": -0.2624,
+        "p75": 0.1794,
+        "p90": 0.2654
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5537,
+        "p25": -0.1087,
+        "p50": -0.0628,
+        "p75": 0.1074,
+        "p90": 0.3901
+      },
+      "samples": 15
+    },
+    "bedroom\u2192bedroom": {
+      "direction_distribution": {
+        "right": 0.4706,
+        "left": 0.1765,
+        "behind": 0.3235,
+        "in_front": 0.0294
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3452,
+        "p25": -0.0673,
+        "p50": 0.1787,
+        "p75": 0.3107,
+        "p90": 0.3929
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.5159,
+        "p25": -0.0791,
+        "p50": 0.2326,
+        "p75": 0.4656,
+        "p90": 0.7795
+      },
+      "samples": 34
+    },
+    "undefined\u2192corridor": {
+      "direction_distribution": {
+        "left": 0.3529,
+        "right": 0.2353,
+        "behind": 0.1765,
+        "in_front": 0.2353
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.9755,
+        "p25": -0.3941,
+        "p50": -0.041,
+        "p75": 0.051,
+        "p90": 0.1785
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4102,
+        "p25": -0.2295,
+        "p50": -0.0198,
+        "p75": 0.0745,
+        "p90": 0.309
+      },
+      "samples": 17
+    },
+    "corridor\u2192undefined": {
+      "direction_distribution": {
+        "in_front": 0.0625,
+        "left": 0.4375,
+        "right": 0.375,
+        "behind": 0.125
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.2325,
+        "p25": 0.0201,
+        "p50": 0.0705,
+        "p75": 0.3304,
+        "p90": 0.7643
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.8185,
+        "p25": -0.2992,
+        "p50": 0.0666,
+        "p75": 0.517,
+        "p90": 0.8673
+      },
+      "samples": 16
+    },
+    "balcony\u2192bathroom": {
+      "direction_distribution": {
+        "right": 0.3529,
+        "left": 0.3529,
+        "in_front": 0.2353,
+        "behind": 0.0588
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.4934,
+        "p25": -0.3376,
+        "p50": 0.0393,
+        "p75": 0.1778,
+        "p90": 0.2289
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.9858,
+        "p25": -0.5101,
+        "p50": 0.2318,
+        "p75": 0.43,
+        "p90": 0.6935
+      },
+      "samples": 17
+    },
+    "storage\u2192corridor": {
+      "direction_distribution": {
+        "in_front": 0.3158,
+        "left": 0.2632,
+        "right": 0.2105,
+        "behind": 0.2105
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.1922,
+        "p25": -0.135,
+        "p50": -0.0013,
+        "p75": 0.1185,
+        "p90": 0.1703
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.2098,
+        "p25": -0.1436,
+        "p50": -0.0104,
+        "p75": 0.1315,
+        "p90": 0.1989
+      },
+      "samples": 19
+    },
+    "corridor\u2192storage": {
+      "direction_distribution": {
+        "left": 0.3889,
+        "behind": 0.2778,
+        "in_front": 0.2222,
+        "right": 0.1111
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.34,
+        "p25": -0.1276,
+        "p50": 0.0651,
+        "p75": 0.1598,
+        "p90": 0.3567
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.4355,
+        "p25": -0.2523,
+        "p50": -0.1079,
+        "p75": 0.0732,
+        "p90": 0.2166
+      },
+      "samples": 18
+    },
+    "corridor\u2192utility": {
+      "direction_distribution": {
+        "left": 0.4,
+        "in_front": 0.2,
+        "behind": 0.3,
+        "right": 0.1
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.326,
+        "p25": -0.2587,
+        "p50": 0.2285,
+        "p75": 0.3928,
+        "p90": 0.6314
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.8806,
+        "p25": -0.3465,
+        "p50": -0.1197,
+        "p75": 0.0917,
+        "p90": 0.2787
+      },
+      "samples": 10
+    },
+    "bathroom\u2192corridor": {
+      "direction_distribution": {
+        "left": 0.3636,
+        "right": 0.2727,
+        "behind": 0.1364,
+        "in_front": 0.2273
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.1472,
+        "p25": -0.1129,
+        "p50": -0.0514,
+        "p75": 0.0835,
+        "p90": 0.1367
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.2659,
+        "p25": -0.2013,
+        "p50": -0.0242,
+        "p75": 0.1105,
+        "p90": 0.227
+      },
+      "samples": 22
+    },
+    "garage\u2192garage": {
+      "direction_distribution": {
+        "left": 0.35,
+        "right": 0.35,
+        "in_front": 0.2,
+        "behind": 0.1
+      },
+      "depth_diff_percentiles": {
+        "p10": -0.3152,
+        "p25": -0.2235,
+        "p50": 0.0387,
+        "p75": 0.2845,
+        "p90": 0.4063
+      },
+      "lateral_diff_percentiles": {
+        "p10": -0.6556,
+        "p25": -0.4163,
+        "p50": 0.0662,
+        "p75": 0.4837,
+        "p90": 0.8889
+      },
+      "samples": 20
+    }
+  },
+  "conditional_distributions": {
+    "outdoor_in_front": {
+      "undefined": {
+        "middle": 0.354,
+        "back": 0.578,
+        "front": 0.0679
+      },
+      "living_room": {
+        "middle": 0.6611,
+        "back": 0.3175,
+        "front": 0.0213
+      },
+      "bedroom": {
+        "back": 0.5728,
+        "front": 0.0728,
+        "middle": 0.3544
+      },
+      "kitchen": {
+        "middle": 0.4673,
+        "front": 0.0571,
+        "back": 0.4755
+      },
+      "bathroom": {
+        "back": 0.5551,
+        "middle": 0.3531,
+        "front": 0.0918
+      },
+      "storage": {
+        "back": 0.5617,
+        "middle": 0.357,
+        "front": 0.0814
+      },
+      "garage": {
+        "back": 0.6094,
+        "middle": 0.375,
+        "front": 0.0156
+      },
+      "office": {
+        "middle": 0.5455,
+        "back": 0.4318,
+        "front": 0.0227
+      },
+      "entry": {
+        "front": 0.9807,
+        "middle": 0.0193
+      },
+      "balcony": {
+        "back": 0.8333,
+        "middle": 0.1562,
+        "front": 0.0104
+      },
+      "dining": {
+        "middle": 0.5051,
+        "back": 0.4141,
+        "front": 0.0808
+      },
+      "utility": {
+        "front": 0.1525,
+        "middle": 0.3644,
+        "back": 0.4831
+      }
+    },
+    "undefined_in_middle": {
+      "outdoor": {
+        "front": 0.1641,
+        "back": 0.5539,
+        "middle": 0.282
+      },
+      "balcony": {
+        "middle": 0.0864,
+        "back": 0.8909,
+        "front": 0.0227
+      },
+      "dining": {
+        "back": 0.6162,
+        "middle": 0.3378,
+        "front": 0.0459
+      },
+      "kitchen": {
+        "back": 0.2855,
+        "middle": 0.6584,
+        "front": 0.0562
+      },
+      "entry": {
+        "front": 0.973,
+        "middle": 0.0223,
+        "back": 0.0047
+      },
+      "bathroom": {
+        "middle": 0.6517,
+        "back": 0.1876,
+        "front": 0.1607
+      },
+      "utility": {
+        "middle": 0.4752,
+        "front": 0.1178,
+        "back": 0.407
+      },
+      "storage": {
+        "middle": 0.4509,
+        "back": 0.4436,
+        "front": 0.1055
+      },
+      "living_room": {
+        "middle": 0.565,
+        "back": 0.4247,
+        "front": 0.0102
+      },
+      "bedroom": {
+        "middle": 0.5311,
+        "back": 0.4221,
+        "front": 0.0468
+      },
+      "garage": {
+        "back": 0.8303,
+        "middle": 0.148,
+        "front": 0.0217
+      },
+      "office": {
+        "middle": 0.5034,
+        "front": 0.0738,
+        "back": 0.4228
+      },
+      "corridor": {
+        "front": 0.6818,
+        "middle": 0.2727,
+        "back": 0.0455
+      },
+      "sauna": {
+        "back": 0.6829,
+        "middle": 0.2927,
+        "front": 0.0244
+      },
+      "stairs": {
+        "back": 0.5,
+        "middle": 0.4091,
+        "front": 0.0909
+      }
+    },
+    "balcony_in_middle": {
+      "outdoor": {
+        "back": 0.4615,
+        "middle": 0.3462,
+        "front": 0.1923
+      },
+      "dining": {
+        "back": 0.1538,
+        "middle": 0.6667,
+        "front": 0.1795
+      },
+      "undefined": {
+        "middle": 0.4959,
+        "front": 0.1463,
+        "back": 0.3577
+      },
+      "kitchen": {
+        "back": 0.1695,
+        "middle": 0.6525,
+        "front": 0.178
+      },
+      "entry": {
+        "front": 0.991,
+        "middle": 0.009
+      },
+      "bathroom": {
+        "middle": 0.5041,
+        "back": 0.2397,
+        "front": 0.2562
+      },
+      "utility": {
+        "middle": 0.4789,
+        "back": 0.3944,
+        "front": 0.1268
+      },
+      "storage": {
+        "middle": 0.2604,
+        "back": 0.6562,
+        "front": 0.0833
+      },
+      "bedroom": {
+        "middle": 0.4476,
+        "front": 0.181,
+        "back": 0.3714
+      },
+      "office": {
+        "middle": 0.72,
+        "back": 0.2,
+        "front": 0.08
+      },
+      "living_room": {
+        "back": 0.1569,
+        "middle": 0.7451,
+        "front": 0.098
+      },
+      "garage": {
+        "back": 0.9149,
+        "middle": 0.0851
+      }
+    },
+    "outdoor_in_back": {
+      "balcony": {
+        "middle": 0.1586,
+        "back": 0.8238,
+        "front": 0.0176
+      },
+      "dining": {
+        "back": 0.5268,
+        "front": 0.0347,
+        "middle": 0.4385
+      },
+      "undefined": {
+        "middle": 0.5271,
+        "back": 0.3346,
+        "front": 0.1383
+      },
+      "kitchen": {
+        "back": 0.2416,
+        "middle": 0.7215,
+        "front": 0.037
+      },
+      "entry": {
+        "front": 0.9732,
+        "middle": 0.0249,
+        "back": 0.0019
+      },
+      "bathroom": {
+        "middle": 0.6615,
+        "front": 0.1352,
+        "back": 0.2034
+      },
+      "utility": {
+        "middle": 0.4459,
+        "front": 0.0811,
+        "back": 0.473
+      },
+      "storage": {
+        "middle": 0.4595,
+        "back": 0.4326,
+        "front": 0.1079
+      },
+      "living_room": {
+        "back": 0.3943,
+        "middle": 0.5981,
+        "front": 0.0076
+      },
+      "bedroom": {
+        "middle": 0.6031,
+        "back": 0.3617,
+        "front": 0.0352
+      },
+      "office": {
+        "middle": 0.4766,
+        "back": 0.4844,
+        "front": 0.0391
+      },
+      "garage": {
+        "back": 0.8,
+        "middle": 0.1857,
+        "front": 0.0143
+      },
+      "sauna": {
+        "back": 0.5,
+        "middle": 0.4118,
+        "front": 0.0882
+      }
+    },
+    "dining_in_back": {
+      "balcony": {
+        "middle": 0.0429,
+        "back": 0.95,
+        "front": 0.0071
+      },
+      "outdoor": {
+        "back": 0.5387,
+        "middle": 0.329,
+        "front": 0.1323
+      },
+      "undefined": {
+        "middle": 0.6213,
+        "back": 0.2452,
+        "front": 0.1335
+      },
+      "kitchen": {
+        "back": 0.2513,
+        "middle": 0.7462,
+        "front": 0.0025
+      },
+      "entry": {
+        "front": 0.9592,
+        "middle": 0.0408
+      },
+      "bathroom": {
+        "middle": 0.6722,
+        "back": 0.1917,
+        "front": 0.1361
+      },
+      "utility": {
+        "middle": 0.6549,
+        "back": 0.2655,
+        "front": 0.0796
+      },
+      "storage": {
+        "middle": 0.5576,
+        "back": 0.3453,
+        "front": 0.0971
+      },
+      "living_room": {
+        "back": 0.4459,
+        "middle": 0.5515,
+        "front": 0.0026
+      },
+      "bedroom": {
+        "middle": 0.6698,
+        "back": 0.2736,
+        "front": 0.0566
+      },
+      "garage": {
+        "back": 0.7419,
+        "middle": 0.1935,
+        "front": 0.0645
+      },
+      "office": {
+        "back": 0.5484,
+        "front": 0.0645,
+        "middle": 0.3871
+      }
+    },
+    "kitchen_in_back": {
+      "balcony": {
+        "middle": 0.0649,
+        "back": 0.7955,
+        "front": 0.1396
+      },
+      "outdoor": {
+        "back": 0.506,
+        "middle": 0.1829,
+        "front": 0.3111
+      },
+      "dining": {
+        "back": 0.6735,
+        "middle": 0.3265
+      },
+      "undefined": {
+        "middle": 0.4482,
+        "back": 0.4327,
+        "front": 0.1191
+      },
+      "entry": {
+        "front": 0.9702,
+        "middle": 0.0238,
+        "back": 0.006
+      },
+      "bathroom": {
+        "middle": 0.6231,
+        "back": 0.3014,
+        "front": 0.0756
+      },
+      "utility": {
+        "middle": 0.6,
+        "front": 0.0667,
+        "back": 0.3333
+      },
+      "storage": {
+        "middle": 0.5045,
+        "back": 0.3994,
+        "front": 0.0961
+      },
+      "living_room": {
+        "middle": 0.5553,
+        "back": 0.4396,
+        "front": 0.0051
+      },
+      "bedroom": {
+        "middle": 0.4925,
+        "back": 0.4868,
+        "front": 0.0207
+      },
+      "sauna": {
+        "middle": 0.3571,
+        "back": 0.5714,
+        "front": 0.0714
+      },
+      "office": {
+        "middle": 0.45,
+        "back": 0.5,
+        "front": 0.05
+      },
+      "garage": {
+        "back": 0.7143,
+        "middle": 0.2679,
+        "front": 0.0179
+      }
+    },
+    "entry_in_front": {
+      "balcony": {
+        "middle": 0.0841,
+        "back": 0.9136,
+        "front": 0.0023
+      },
+      "outdoor": {
+        "back": 0.6216,
+        "middle": 0.2957,
+        "front": 0.0827
+      },
+      "dining": {
+        "back": 0.5109,
+        "middle": 0.4472,
+        "front": 0.042
+      },
+      "undefined": {
+        "middle": 0.5365,
+        "front": 0.0979,
+        "back": 0.3656
+      },
+      "kitchen": {
+        "back": 0.2492,
+        "middle": 0.7009,
+        "front": 0.0499
+      },
+      "bathroom": {
+        "middle": 0.6433,
+        "back": 0.2021,
+        "front": 0.1546
+      },
+      "utility": {
+        "middle": 0.4563,
+        "front": 0.0854,
+        "back": 0.4584
+      },
+      "storage": {
+        "middle": 0.4694,
+        "back": 0.4419,
+        "front": 0.0887
+      },
+      "living_room": {
+        "middle": 0.5957,
+        "back": 0.3943,
+        "front": 0.01
+      },
+      "bedroom": {
+        "middle": 0.5413,
+        "back": 0.4155,
+        "front": 0.0432
+      },
+      "garage": {
+        "back": 0.81,
+        "middle": 0.186,
+        "front": 0.004
+      },
+      "office": {
+        "middle": 0.4912,
+        "back": 0.4629,
+        "front": 0.0459
+      },
+      "sauna": {
+        "middle": 0.4138,
+        "back": 0.5402,
+        "front": 0.046
+      },
+      "corridor": {
+        "middle": 0.4,
+        "back": 0.1,
+        "front": 0.5
+      },
+      "stairs": {
+        "back": 0.5238,
+        "middle": 0.3333,
+        "front": 0.1429
+      }
+    },
+    "bathroom_in_middle": {
+      "balcony": {
+        "middle": 0.0726,
+        "back": 0.9131,
+        "front": 0.0143
+      },
+      "outdoor": {
+        "back": 0.6459,
+        "middle": 0.2443,
+        "front": 0.1098
+      },
+      "dining": {
+        "back": 0.5762,
+        "middle": 0.3714,
+        "front": 0.0524
+      },
+      "undefined": {
+        "middle": 0.5416,
+        "back": 0.3373,
+        "front": 0.1211
+      },
+      "kitchen": {
+        "back": 0.2963,
+        "middle": 0.665,
+        "front": 0.0387
+      },
+      "entry": {
+        "front": 0.9716,
+        "middle": 0.0252,
+        "back": 0.0033
+      },
+      "utility": {
+        "middle": 0.5401,
+        "front": 0.1203,
+        "back": 0.3397
+      },
+      "storage": {
+        "middle": 0.4793,
+        "back": 0.4244,
+        "front": 0.0963
+      },
+      "living_room": {
+        "middle": 0.5522,
+        "back": 0.4386,
+        "front": 0.0092
+      },
+      "bedroom": {
+        "middle": 0.5256,
+        "back": 0.4352,
+        "front": 0.0392
+      },
+      "garage": {
+        "back": 0.8,
+        "front": 0.02,
+        "middle": 0.18
+      },
+      "office": {
+        "middle": 0.4931,
+        "back": 0.4236,
+        "front": 0.0833
+      },
+      "corridor": {
+        "middle": 0.2,
+        "back": 0.08,
+        "front": 0.72
+      },
+      "sauna": {
+        "back": 0.5,
+        "middle": 0.44,
+        "front": 0.06
+      }
+    },
+    "utility_in_middle": {
+      "balcony": {
+        "middle": 0.1683,
+        "back": 0.8317
+      },
+      "outdoor": {
+        "back": 0.4962,
+        "middle": 0.396,
+        "front": 0.1078
+      },
+      "dining": {
+        "back": 0.5175,
+        "middle": 0.4196,
+        "front": 0.0629
+      },
+      "undefined": {
+        "middle": 0.4978,
+        "front": 0.0887,
+        "back": 0.4134
+      },
+      "kitchen": {
+        "back": 0.2267,
+        "middle": 0.6801,
+        "front": 0.0932
+      },
+      "entry": {
+        "front": 0.973,
+        "middle": 0.0247,
+        "back": 0.0022
+      },
+      "bathroom": {
+        "middle": 0.5614,
+        "back": 0.2961,
+        "front": 0.1425
+      },
+      "storage": {
+        "middle": 0.4027,
+        "back": 0.5205,
+        "front": 0.0767
+      },
+      "living_room": {
+        "middle": 0.6536,
+        "back": 0.3229,
+        "front": 0.0234
+      },
+      "bedroom": {
+        "middle": 0.5085,
+        "back": 0.3949,
+        "front": 0.0966
+      },
+      "garage": {
+        "back": 0.7911,
+        "middle": 0.2025,
+        "front": 0.0063
+      },
+      "office": {
+        "middle": 0.51,
+        "back": 0.46,
+        "front": 0.03
+      }
+    },
+    "storage_in_middle": {
+      "balcony": {
+        "middle": 0.0594,
+        "back": 0.9287,
+        "front": 0.0119
+      },
+      "outdoor": {
+        "back": 0.5607,
+        "middle": 0.2849,
+        "front": 0.1544
+      },
+      "dining": {
+        "back": 0.5784,
+        "middle": 0.3843,
+        "front": 0.0373
+      },
+      "undefined": {
+        "middle": 0.51,
+        "front": 0.1293,
+        "back": 0.3607
+      },
+      "kitchen": {
+        "back": 0.3105,
+        "middle": 0.6201,
+        "front": 0.0693
+      },
+      "entry": {
+        "front": 0.9648,
+        "middle": 0.0342,
+        "back": 0.0009
+      },
+      "bathroom": {
+        "middle": 0.6104,
+        "back": 0.2207,
+        "front": 0.1689
+      },
+      "utility": {
+        "middle": 0.4388,
+        "front": 0.0776,
+        "back": 0.4836
+      },
+      "living_room": {
+        "middle": 0.5606,
+        "back": 0.4337,
+        "front": 0.0058
+      },
+      "bedroom": {
+        "middle": 0.5625,
+        "back": 0.3823,
+        "front": 0.0552
+      },
+      "garage": {
+        "back": 0.7697,
+        "front": 0.0263,
+        "middle": 0.2039
+      },
+      "office": {
+        "middle": 0.4513,
+        "back": 0.4956,
+        "front": 0.0531
+      },
+      "sauna": {
+        "back": 0.6471,
+        "middle": 0.3235,
+        "front": 0.0294
+      }
+    },
+    "outdoor_in_middle": {
+      "balcony": {
+        "back": 0.9161,
+        "middle": 0.0839
+      },
+      "living_room": {
+        "middle": 0.7072,
+        "back": 0.2793,
+        "front": 0.0135
+      },
+      "entry": {
+        "front": 0.968,
+        "middle": 0.0267,
+        "back": 0.0053
+      },
+      "kitchen": {
+        "back": 0.1941,
+        "middle": 0.7337,
+        "front": 0.0722
+      },
+      "bedroom": {
+        "middle": 0.5847,
+        "back": 0.3518,
+        "front": 0.0635
+      },
+      "utility": {
+        "middle": 0.4377,
+        "front": 0.1053,
+        "back": 0.4571
+      },
+      "storage": {
+        "middle": 0.4081,
+        "back": 0.5073,
+        "front": 0.0846
+      },
+      "undefined": {
+        "middle": 0.5384,
+        "back": 0.367,
+        "front": 0.0946
+      },
+      "bathroom": {
+        "middle": 0.5231,
+        "back": 0.2745,
+        "front": 0.2024
+      },
+      "garage": {
+        "back": 0.865,
+        "middle": 0.13,
+        "front": 0.005
+      },
+      "dining": {
+        "back": 0.47,
+        "middle": 0.4793,
+        "front": 0.0507
+      },
+      "office": {
+        "middle": 0.55,
+        "front": 0.08,
+        "back": 0.37
+      },
+      "sauna": {
+        "back": 0.6296,
+        "middle": 0.3333,
+        "front": 0.037
+      }
+    },
+    "balcony_in_back": {
+      "outdoor": {
+        "middle": 0.5249,
+        "front": 0.1423,
+        "back": 0.3327
+      },
+      "living_room": {
+        "middle": 0.6576,
+        "back": 0.3388,
+        "front": 0.0036
+      },
+      "entry": {
+        "front": 0.9731,
+        "middle": 0.0212,
+        "back": 0.0057
+      },
+      "kitchen": {
+        "back": 0.209,
+        "middle": 0.7466,
+        "front": 0.0444
+      },
+      "bedroom": {
+        "middle": 0.5242,
+        "back": 0.4431,
+        "front": 0.0326
+      },
+      "utility": {
+        "middle": 0.4706,
+        "front": 0.0952,
+        "back": 0.4342
+      },
+      "storage": {
+        "middle": 0.5213,
+        "front": 0.1013,
+        "back": 0.3773
+      },
+      "undefined": {
+        "middle": 0.5851,
+        "back": 0.3107,
+        "front": 0.1042
+      },
+      "bathroom": {
+        "middle": 0.6646,
+        "front": 0.1759,
+        "back": 0.1594
+      },
+      "garage": {
+        "back": 0.7712,
+        "middle": 0.2119,
+        "front": 0.0169
+      },
+      "dining": {
+        "middle": 0.4677,
+        "back": 0.5057,
+        "front": 0.0266
+      },
+      "office": {
+        "back": 0.4857,
+        "middle": 0.4714,
+        "front": 0.0429
+      }
+    },
+    "living_room_in_middle": {
+      "outdoor": {
+        "middle": 0.292,
+        "front": 0.173,
+        "back": 0.535
+      },
+      "balcony": {
+        "back": 0.8571,
+        "front": 0.0531,
+        "middle": 0.0897
+      },
+      "entry": {
+        "front": 0.9781,
+        "middle": 0.0191,
+        "back": 0.0027
+      },
+      "kitchen": {
+        "back": 0.2636,
+        "middle": 0.6848,
+        "front": 0.0516
+      },
+      "bedroom": {
+        "middle": 0.5072,
+        "back": 0.4504,
+        "front": 0.0424
+      },
+      "utility": {
+        "middle": 0.4088,
+        "back": 0.5228,
+        "front": 0.0684
+      },
+      "storage": {
+        "middle": 0.4068,
+        "back": 0.5192,
+        "front": 0.074
+      },
+      "undefined": {
+        "middle": 0.4613,
+        "back": 0.4268,
+        "front": 0.1119
+      },
+      "bathroom": {
+        "middle": 0.5553,
+        "back": 0.2995,
+        "front": 0.1451
+      },
+      "garage": {
+        "back": 0.8603,
+        "middle": 0.1288,
+        "front": 0.011
+      },
+      "office": {
+        "middle": 0.4859,
+        "back": 0.4633,
+        "front": 0.0508
+      },
+      "dining": {
+        "middle": 0.4662,
+        "back": 0.4707,
+        "front": 0.0631
+      },
+      "sauna": {
+        "back": 0.6154,
+        "middle": 0.3846
+      }
+    },
+    "bedroom_in_middle": {
+      "outdoor": {
+        "middle": 0.2811,
+        "back": 0.6045,
+        "front": 0.1143
+      },
+      "balcony": {
+        "back": 0.8746,
+        "middle": 0.0776,
+        "front": 0.0479
+      },
+      "living_room": {
+        "middle": 0.6063,
+        "back": 0.3864,
+        "front": 0.0073
+      },
+      "entry": {
+        "front": 0.9645,
+        "middle": 0.0308,
+        "back": 0.0047
+      },
+      "kitchen": {
+        "back": 0.2796,
+        "middle": 0.6813,
+        "front": 0.0392
+      },
+      "utility": {
+        "middle": 0.3858,
+        "front": 0.0905,
+        "back": 0.5237
+      },
+      "storage": {
+        "middle": 0.4611,
+        "back": 0.4441,
+        "front": 0.0948
+      },
+      "undefined": {
+        "middle": 0.5135,
+        "front": 0.1216,
+        "back": 0.3649
+      },
+      "bathroom": {
+        "middle": 0.5996,
+        "back": 0.2498,
+        "front": 0.1506
+      },
+      "garage": {
+        "back": 0.8516,
+        "middle": 0.1367,
+        "front": 0.0117
+      },
+      "dining": {
+        "back": 0.6068,
+        "middle": 0.3561,
+        "front": 0.037
+      },
+      "office": {
+        "middle": 0.4672,
+        "back": 0.4745,
+        "front": 0.0584
+      },
+      "sauna": {
+        "back": 0.5814,
+        "middle": 0.3953,
+        "front": 0.0233
+      }
+    },
+    "undefined_in_back": {
+      "outdoor": {
+        "front": 0.33,
+        "middle": 0.2368,
+        "back": 0.4332
+      },
+      "living_room": {
+        "middle": 0.6962,
+        "back": 0.2858,
+        "front": 0.0179
+      },
+      "bedroom": {
+        "back": 0.4816,
+        "middle": 0.4834,
+        "front": 0.0349
+      },
+      "kitchen": {
+        "middle": 0.6233,
+        "back": 0.3503,
+        "front": 0.0265
+      },
+      "bathroom": {
+        "back": 0.4381,
+        "middle": 0.4685,
+        "front": 0.0934
+      },
+      "storage": {
+        "back": 0.5262,
+        "middle": 0.3984,
+        "front": 0.0755
+      },
+      "utility": {
+        "middle": 0.3738,
+        "back": 0.5538,
+        "front": 0.0724
+      },
+      "balcony": {
+        "back": 0.7608,
+        "front": 0.139,
+        "middle": 0.1002
+      },
+      "entry": {
+        "front": 0.9666,
+        "middle": 0.03,
+        "back": 0.0034
+      },
+      "garage": {
+        "back": 0.7246,
+        "front": 0.0339,
+        "middle": 0.2415
+      },
+      "dining": {
+        "middle": 0.55,
+        "back": 0.375,
+        "front": 0.075
+      },
+      "office": {
+        "middle": 0.4615,
+        "back": 0.5089,
+        "front": 0.0296
+      },
+      "sauna": {
+        "middle": 0.4118,
+        "back": 0.5294,
+        "front": 0.0588
+      }
+    },
+    "bedroom_in_back": {
+      "outdoor": {
+        "front": 0.2579,
+        "back": 0.506,
+        "middle": 0.2361
+      },
+      "undefined": {
+        "back": 0.4197,
+        "middle": 0.4711,
+        "front": 0.1092
+      },
+      "living_room": {
+        "middle": 0.622,
+        "back": 0.368,
+        "front": 0.01
+      },
+      "kitchen": {
+        "middle": 0.6392,
+        "back": 0.3173,
+        "front": 0.0435
+      },
+      "bathroom": {
+        "back": 0.2903,
+        "middle": 0.5973,
+        "front": 0.1123
+      },
+      "storage": {
+        "back": 0.4839,
+        "middle": 0.4374,
+        "front": 0.0787
+      },
+      "entry": {
+        "front": 0.9779,
+        "middle": 0.0194,
+        "back": 0.0027
+      },
+      "balcony": {
+        "back": 0.8582,
+        "front": 0.067,
+        "middle": 0.0747
+      },
+      "dining": {
+        "middle": 0.5217,
+        "front": 0.058,
+        "back": 0.4203
+      },
+      "utility": {
+        "front": 0.0822,
+        "middle": 0.4572,
+        "back": 0.4605
+      },
+      "office": {
+        "middle": 0.4643,
+        "back": 0.4762,
+        "front": 0.0595
+      },
+      "garage": {
+        "middle": 0.2203,
+        "back": 0.7797
+      },
+      "sauna": {
+        "back": 0.6471,
+        "middle": 0.2941,
+        "front": 0.0588
+      }
+    },
+    "kitchen_in_middle": {
+      "outdoor": {
+        "front": 0.1219,
+        "back": 0.6024,
+        "middle": 0.2757
+      },
+      "undefined": {
+        "back": 0.3773,
+        "middle": 0.5065,
+        "front": 0.1163
+      },
+      "living_room": {
+        "middle": 0.6178,
+        "back": 0.37,
+        "front": 0.0122
+      },
+      "bedroom": {
+        "back": 0.4297,
+        "middle": 0.526,
+        "front": 0.0444
+      },
+      "bathroom": {
+        "back": 0.2196,
+        "middle": 0.6188,
+        "front": 0.1617
+      },
+      "storage": {
+        "back": 0.4755,
+        "middle": 0.4266,
+        "front": 0.0979
+      },
+      "entry": {
+        "front": 0.9757,
+        "middle": 0.0222,
+        "back": 0.0021
+      },
+      "balcony": {
+        "back": 0.8993,
+        "middle": 0.0791,
+        "front": 0.0216
+      },
+      "utility": {
+        "front": 0.0801,
+        "middle": 0.416,
+        "back": 0.5039
+      },
+      "garage": {
+        "back": 0.847,
+        "middle": 0.1473,
+        "front": 0.0057
+      },
+      "office": {
+        "middle": 0.4348,
+        "back": 0.5163,
+        "front": 0.0489
+      },
+      "dining": {
+        "back": 0.5095,
+        "middle": 0.4402,
+        "front": 0.0503
+      },
+      "sauna": {
+        "back": 0.5323,
+        "middle": 0.4194,
+        "front": 0.0484
+      },
+      "corridor": {
+        "back": 0.1,
+        "front": 0.8,
+        "middle": 0.1
+      }
+    },
+    "bathroom_in_back": {
+      "outdoor": {
+        "front": 0.3456,
+        "middle": 0.2567,
+        "back": 0.3977
+      },
+      "undefined": {
+        "back": 0.6182,
+        "middle": 0.3057,
+        "front": 0.0762
+      },
+      "living_room": {
+        "middle": 0.733,
+        "back": 0.2506,
+        "front": 0.0164
+      },
+      "bedroom": {
+        "back": 0.4779,
+        "middle": 0.4948,
+        "front": 0.0273
+      },
+      "kitchen": {
+        "middle": 0.6066,
+        "back": 0.3685,
+        "front": 0.0249
+      },
+      "storage": {
+        "back": 0.5799,
+        "middle": 0.3437,
+        "front": 0.0764
+      },
+      "utility": {
+        "middle": 0.3096,
+        "back": 0.6606,
+        "front": 0.0298
+      },
+      "entry": {
+        "front": 0.9747,
+        "middle": 0.0208,
+        "back": 0.0045
+      },
+      "garage": {
+        "back": 0.765,
+        "middle": 0.215,
+        "front": 0.02
+      },
+      "balcony": {
+        "middle": 0.1124,
+        "front": 0.1744,
+        "back": 0.7132
+      },
+      "office": {
+        "middle": 0.4675,
+        "back": 0.5065,
+        "front": 0.026
+      },
+      "dining": {
+        "middle": 0.5476,
+        "back": 0.4107,
+        "front": 0.0417
+      },
+      "sauna": {
+        "middle": 0.1702,
+        "back": 0.8298
+      }
+    },
+    "storage_in_back": {
+      "outdoor": {
+        "front": 0.2159,
+        "back": 0.4692,
+        "middle": 0.3148
+      },
+      "undefined": {
+        "back": 0.4337,
+        "middle": 0.4569,
+        "front": 0.1095
+      },
+      "living_room": {
+        "middle": 0.7072,
+        "back": 0.27,
+        "front": 0.0228
+      },
+      "bedroom": {
+        "back": 0.416,
+        "middle": 0.5328,
+        "front": 0.0512
+      },
+      "kitchen": {
+        "middle": 0.6939,
+        "back": 0.2468,
+        "front": 0.0594
+      },
+      "bathroom": {
+        "back": 0.3528,
+        "middle": 0.512,
+        "front": 0.1351
+      },
+      "garage": {
+        "back": 0.7857,
+        "middle": 0.1868,
+        "front": 0.0275
+      },
+      "office": {
+        "middle": 0.5976,
+        "back": 0.3415,
+        "front": 0.061
+      },
+      "entry": {
+        "front": 0.9723,
+        "middle": 0.0248,
+        "back": 0.003
+      },
+      "dining": {
+        "back": 0.3918,
+        "middle": 0.5347,
+        "front": 0.0735
+      },
+      "utility": {
+        "middle": 0.3893,
+        "back": 0.5184,
+        "front": 0.0922
+      },
+      "balcony": {
+        "front": 0.0847,
+        "middle": 0.1667,
+        "back": 0.7487
+      },
+      "sauna": {
+        "middle": 0.3333,
+        "back": 0.6364,
+        "front": 0.0303
+      }
+    },
+    "living_room_in_back": {
+      "kitchen": {
+        "middle": 0.6389,
+        "front": 0.036,
+        "back": 0.3251
+      },
+      "entry": {
+        "front": 0.9689,
+        "middle": 0.0294,
+        "back": 0.0016
+      },
+      "outdoor": {
+        "back": 0.64,
+        "middle": 0.2092,
+        "front": 0.1507
+      },
+      "undefined": {
+        "middle": 0.5623,
+        "front": 0.1535,
+        "back": 0.2841
+      },
+      "bathroom": {
+        "middle": 0.6895,
+        "back": 0.1601,
+        "front": 0.1504
+      },
+      "bedroom": {
+        "middle": 0.5336,
+        "back": 0.4397,
+        "front": 0.0267
+      },
+      "utility": {
+        "front": 0.1265,
+        "middle": 0.5061,
+        "back": 0.3673
+      },
+      "storage": {
+        "middle": 0.5453,
+        "back": 0.3434,
+        "front": 0.1112
+      },
+      "dining": {
+        "back": 0.5709,
+        "middle": 0.4122,
+        "front": 0.0169
+      },
+      "balcony": {
+        "middle": 0.0402,
+        "back": 0.9397,
+        "front": 0.0201
+      },
+      "office": {
+        "middle": 0.375,
+        "back": 0.5938,
+        "front": 0.0312
+      },
+      "garage": {
+        "back": 0.6047,
+        "middle": 0.3837,
+        "front": 0.0116
+      },
+      "sauna": {
+        "back": 0.5641,
+        "middle": 0.359,
+        "front": 0.0769
+      }
+    },
+    "utility_in_front": {
+      "outdoor": {
+        "back": 0.3913,
+        "front": 0.1957,
+        "middle": 0.413
+      },
+      "storage": {
+        "middle": 0.3095,
+        "back": 0.5357,
+        "front": 0.1548
+      },
+      "kitchen": {
+        "middle": 0.642,
+        "front": 0.2346,
+        "back": 0.1235
+      },
+      "bedroom": {
+        "middle": 0.56,
+        "back": 0.3333,
+        "front": 0.1067
+      },
+      "living_room": {
+        "back": 0.3974,
+        "middle": 0.5385,
+        "front": 0.0641
+      },
+      "bathroom": {
+        "middle": 0.5758,
+        "front": 0.2929,
+        "back": 0.1313
+      },
+      "entry": {
+        "front": 0.9878,
+        "middle": 0.0122
+      },
+      "balcony": {
+        "back": 0.7727,
+        "middle": 0.2045,
+        "front": 0.0227
+      },
+      "dining": {
+        "middle": 0.6579,
+        "back": 0.2368,
+        "front": 0.1053
+      },
+      "undefined": {
+        "middle": 0.5429,
+        "back": 0.3524,
+        "front": 0.1048
+      },
+      "office": {
+        "middle": 0.4583,
+        "front": 0.0833,
+        "back": 0.4583
+      },
+      "garage": {
+        "back": 0.6957,
+        "middle": 0.2609,
+        "front": 0.0435
+      }
+    },
+    "garage_in_back": {
+      "outdoor": {
+        "middle": 0.4553,
+        "front": 0.1026,
+        "back": 0.4421
+      },
+      "storage": {
+        "middle": 0.274,
+        "back": 0.6698,
+        "front": 0.0562
+      },
+      "utility": {
+        "middle": 0.4167,
+        "back": 0.4767,
+        "front": 0.1067
+      },
+      "kitchen": {
+        "middle": 0.7848,
+        "front": 0.1102,
+        "back": 0.105
+      },
+      "undefined": {
+        "middle": 0.5192,
+        "front": 0.0948,
+        "back": 0.386
+      },
+      "entry": {
+        "front": 0.962,
+        "middle": 0.0333,
+        "back": 0.0048
+      },
+      "living_room": {
+        "middle": 0.8114,
+        "back": 0.1344,
+        "front": 0.0543
+      },
+      "bedroom": {
+        "middle": 0.6158,
+        "front": 0.1243,
+        "back": 0.2599
+      },
+      "bathroom": {
+        "back": 0.3533,
+        "middle": 0.4619,
+        "front": 0.1848
+      },
+      "office": {
+        "middle": 0.6066,
+        "back": 0.3279,
+        "front": 0.0656
+      },
+      "balcony": {
+        "back": 0.6741,
+        "middle": 0.3185,
+        "front": 0.0074
+      },
+      "dining": {
+        "middle": 0.7083,
+        "front": 0.1,
+        "back": 0.1917
+      }
+    },
+    "office_in_middle": {
+      "outdoor": {
+        "front": 0.1714,
+        "middle": 0.3929,
+        "back": 0.4357
+      },
+      "garage": {
+        "back": 0.7789,
+        "middle": 0.2,
+        "front": 0.0211
+      },
+      "undefined": {
+        "middle": 0.4261,
+        "front": 0.1307,
+        "back": 0.4432
+      },
+      "entry": {
+        "front": 0.972,
+        "middle": 0.028
+      },
+      "storage": {
+        "back": 0.6087,
+        "middle": 0.3168,
+        "front": 0.0745
+      },
+      "kitchen": {
+        "middle": 0.7018,
+        "back": 0.1579,
+        "front": 0.1404
+      },
+      "bathroom": {
+        "middle": 0.4176,
+        "back": 0.4235,
+        "front": 0.1588
+      },
+      "balcony": {
+        "middle": 0.3396,
+        "back": 0.6226,
+        "front": 0.0377
+      },
+      "bedroom": {
+        "middle": 0.5203,
+        "back": 0.3171,
+        "front": 0.1626
+      },
+      "dining": {
+        "middle": 0.4359,
+        "front": 0.2564,
+        "back": 0.3077
+      },
+      "living_room": {
+        "back": 0.2,
+        "middle": 0.7167,
+        "front": 0.0833
+      },
+      "utility": {
+        "middle": 0.408,
+        "back": 0.504,
+        "front": 0.088
+      }
+    },
+    "kitchen_in_front": {
+      "outdoor": {
+        "back": 0.4234,
+        "front": 0.2044,
+        "middle": 0.3723
+      },
+      "entry": {
+        "front": 0.9819,
+        "middle": 0.0181
+      },
+      "living_room": {
+        "middle": 0.6564,
+        "back": 0.2945,
+        "front": 0.0491
+      },
+      "bedroom": {
+        "back": 0.4361,
+        "front": 0.1128,
+        "middle": 0.4511
+      },
+      "bathroom": {
+        "front": 0.3787,
+        "middle": 0.497,
+        "back": 0.1243
+      },
+      "undefined": {
+        "middle": 0.5543,
+        "front": 0.24,
+        "back": 0.2057
+      },
+      "balcony": {
+        "back": 0.7027,
+        "middle": 0.2838,
+        "front": 0.0135
+      },
+      "dining": {
+        "middle": 0.8269,
+        "front": 0.1538,
+        "back": 0.0192
+      },
+      "utility": {
+        "front": 0.2468,
+        "middle": 0.4805,
+        "back": 0.2727
+      },
+      "storage": {
+        "middle": 0.5102,
+        "back": 0.4354,
+        "front": 0.0544
+      },
+      "garage": {
+        "back": 0.8077,
+        "middle": 0.1923
+      },
+      "office": {
+        "middle": 0.5926,
+        "front": 0.0741,
+        "back": 0.3333
+      }
+    },
+    "bathroom_in_front": {
+      "outdoor": {
+        "back": 0.5174,
+        "middle": 0.3706,
+        "front": 0.1119
+      },
+      "entry": {
+        "front": 0.9785,
+        "middle": 0.0176,
+        "back": 0.0039
+      },
+      "kitchen": {
+        "front": 0.1233,
+        "back": 0.1503,
+        "middle": 0.7264
+      },
+      "living_room": {
+        "middle": 0.59,
+        "back": 0.3912,
+        "front": 0.0188
+      },
+      "bedroom": {
+        "back": 0.3506,
+        "middle": 0.5654,
+        "front": 0.084
+      },
+      "undefined": {
+        "middle": 0.5583,
+        "back": 0.2812,
+        "front": 0.1604
+      },
+      "utility": {
+        "front": 0.1835,
+        "middle": 0.4114,
+        "back": 0.4051
+      },
+      "storage": {
+        "middle": 0.4627,
+        "back": 0.3905,
+        "front": 0.1468
+      },
+      "dining": {
+        "middle": 0.5682,
+        "back": 0.3712,
+        "front": 0.0606
+      },
+      "balcony": {
+        "back": 0.8675,
+        "middle": 0.1325
+      },
+      "garage": {
+        "back": 0.7619,
+        "middle": 0.2286,
+        "front": 0.0095
+      },
+      "office": {
+        "back": 0.4375,
+        "middle": 0.5625
+      }
+    },
+    "balcony_in_front": {
+      "undefined": {
+        "middle": 0.2,
+        "back": 0.7625,
+        "front": 0.0375
+      },
+      "bedroom": {
+        "back": 0.5469,
+        "middle": 0.4531
+      },
+      "living_room": {
+        "middle": 0.7895,
+        "back": 0.1404,
+        "front": 0.0702
+      },
+      "bathroom": {
+        "back": 0.7895,
+        "middle": 0.2105
+      },
+      "kitchen": {
+        "back": 0.6615,
+        "middle": 0.3231,
+        "front": 0.0154
+      },
+      "storage": {
+        "back": 0.8421,
+        "middle": 0.1316,
+        "front": 0.0263
+      }
+    },
+    "dining_in_middle": {
+      "balcony": {
+        "middle": 0.1733,
+        "back": 0.82,
+        "front": 0.0067
+      },
+      "bedroom": {
+        "middle": 0.4735,
+        "back": 0.4091,
+        "front": 0.1174
+      },
+      "office": {
+        "middle": 0.3696,
+        "back": 0.5435,
+        "front": 0.087
+      },
+      "entry": {
+        "front": 0.9748,
+        "middle": 0.0252
+      },
+      "living_room": {
+        "back": 0.362,
+        "middle": 0.6142,
+        "front": 0.0237
+      },
+      "undefined": {
+        "front": 0.171,
+        "middle": 0.4032,
+        "back": 0.4258
+      },
+      "garage": {
+        "back": 0.8416,
+        "middle": 0.1584
+      },
+      "kitchen": {
+        "middle": 0.7362,
+        "front": 0.1246,
+        "back": 0.1391
+      },
+      "utility": {
+        "middle": 0.3846,
+        "front": 0.1603,
+        "back": 0.4551
+      },
+      "bathroom": {
+        "back": 0.2848,
+        "middle": 0.483,
+        "front": 0.2322
+      },
+      "storage": {
+        "middle": 0.3858,
+        "back": 0.4906,
+        "front": 0.1236
+      },
+      "outdoor": {
+        "front": 0.1706,
+        "middle": 0.3549,
+        "back": 0.4744
+      }
+    },
+    "undefined_in_front": {
+      "balcony": {
+        "middle": 0.1353,
+        "back": 0.8421,
+        "front": 0.0226
+      },
+      "bedroom": {
+        "middle": 0.5202,
+        "back": 0.4046,
+        "front": 0.0751
+      },
+      "office": {
+        "middle": 0.697,
+        "front": 0.0606,
+        "back": 0.2424
+      },
+      "entry": {
+        "front": 0.9837,
+        "back": 0.0033,
+        "middle": 0.013
+      },
+      "dining": {
+        "middle": 0.5096,
+        "front": 0.0192,
+        "back": 0.4712
+      },
+      "living_room": {
+        "back": 0.4514,
+        "middle": 0.5337,
+        "front": 0.015
+      },
+      "garage": {
+        "back": 0.6774,
+        "middle": 0.3226
+      },
+      "kitchen": {
+        "middle": 0.6014,
+        "front": 0.0968,
+        "back": 0.3018
+      },
+      "utility": {
+        "middle": 0.4184,
+        "back": 0.4694,
+        "front": 0.1122
+      },
+      "bathroom": {
+        "back": 0.196,
+        "middle": 0.6106,
+        "front": 0.1935
+      },
+      "storage": {
+        "middle": 0.4625,
+        "back": 0.43,
+        "front": 0.1075
+      },
+      "outdoor": {
+        "front": 0.1391,
+        "back": 0.642,
+        "middle": 0.2189
+      }
+    },
+    "bedroom_in_front": {
+      "balcony": {
+        "back": 0.6346,
+        "middle": 0.3654
+      },
+      "outdoor": {
+        "front": 0.2632,
+        "middle": 0.3421,
+        "back": 0.3947
+      },
+      "utility": {
+        "front": 0.1127,
+        "back": 0.4085,
+        "middle": 0.4789
+      },
+      "undefined": {
+        "middle": 0.5076,
+        "back": 0.2955,
+        "front": 0.197
+      },
+      "bathroom": {
+        "middle": 0.5528,
+        "back": 0.1707,
+        "front": 0.2764
+      },
+      "entry": {
+        "front": 0.9829,
+        "middle": 0.0085,
+        "back": 0.0085
+      },
+      "kitchen": {
+        "front": 0.124,
+        "middle": 0.7273,
+        "back": 0.1488
+      },
+      "dining": {
+        "middle": 0.5741,
+        "back": 0.3333,
+        "front": 0.0926
+      },
+      "living_room": {
+        "back": 0.2479,
+        "middle": 0.6496,
+        "front": 0.1026
+      },
+      "garage": {
+        "back": 0.7586,
+        "middle": 0.2414
+      },
+      "storage": {
+        "back": 0.4348,
+        "middle": 0.4609,
+        "front": 0.1043
+      },
+      "office": {
+        "back": 0.3611,
+        "middle": 0.5556,
+        "front": 0.0833
+      }
+    },
+    "utility_in_back": {
+      "outdoor": {
+        "back": 0.4861,
+        "middle": 0.3819,
+        "front": 0.1319
+      },
+      "entry": {
+        "front": 0.9581,
+        "middle": 0.0352,
+        "back": 0.0066
+      },
+      "living_room": {
+        "back": 0.2128,
+        "middle": 0.7589,
+        "front": 0.0284
+      },
+      "kitchen": {
+        "middle": 0.8216,
+        "back": 0.1256,
+        "front": 0.0528
+      },
+      "dining": {
+        "back": 0.2703,
+        "front": 0.0901,
+        "middle": 0.6396
+      },
+      "bedroom": {
+        "middle": 0.5898,
+        "back": 0.3398,
+        "front": 0.0704
+      },
+      "bathroom": {
+        "back": 0.5614,
+        "middle": 0.3138,
+        "front": 0.1248
+      },
+      "undefined": {
+        "middle": 0.3745,
+        "front": 0.0875,
+        "back": 0.538
+      },
+      "storage": {
+        "middle": 0.364,
+        "back": 0.5685,
+        "front": 0.0674
+      },
+      "office": {
+        "middle": 0.5385,
+        "back": 0.3932,
+        "front": 0.0684
+      },
+      "garage": {
+        "back": 0.7901,
+        "middle": 0.1878,
+        "front": 0.0221
+      },
+      "balcony": {
+        "back": 0.8289,
+        "middle": 0.1497,
+        "front": 0.0214
+      },
+      "sauna": {
+        "back": 0.7407,
+        "middle": 0.2593
+      }
+    },
+    "dining_in_front": {
+      "outdoor": {
+        "back": 0.3667,
+        "middle": 0.3667,
+        "front": 0.2667
+      },
+      "undefined": {
+        "front": 0.0541,
+        "middle": 0.4595,
+        "back": 0.4865
+      },
+      "living_room": {
+        "middle": 0.7568,
+        "back": 0.1351,
+        "front": 0.1081
+      },
+      "bedroom": {
+        "middle": 0.4333,
+        "back": 0.4,
+        "front": 0.1667
+      },
+      "kitchen": {
+        "middle": 0.7838,
+        "front": 0.2162
+      },
+      "utility": {
+        "back": 0.4348,
+        "middle": 0.3913,
+        "front": 0.1739
+      },
+      "bathroom": {
+        "back": 0.1892,
+        "middle": 0.5946,
+        "front": 0.2162
+      },
+      "entry": {
+        "front": 1.0
+      },
+      "storage": {
+        "middle": 0.3448,
+        "back": 0.6207,
+        "front": 0.0345
+      }
+    },
+    "storage_in_front": {
+      "bathroom": {
+        "middle": 0.5444,
+        "back": 0.2177,
+        "front": 0.2379
+      },
+      "bedroom": {
+        "back": 0.3492,
+        "middle": 0.5873,
+        "front": 0.0635
+      },
+      "balcony": {
+        "back": 0.8941,
+        "middle": 0.0941,
+        "front": 0.0118
+      },
+      "entry": {
+        "front": 0.9704,
+        "middle": 0.0049,
+        "back": 0.0246
+      },
+      "living_room": {
+        "back": 0.4554,
+        "middle": 0.5248,
+        "front": 0.0198
+      },
+      "kitchen": {
+        "middle": 0.6814,
+        "back": 0.2832,
+        "front": 0.0354
+      },
+      "undefined": {
+        "back": 0.3138,
+        "front": 0.1381,
+        "middle": 0.5481
+      },
+      "outdoor": {
+        "front": 0.1558,
+        "middle": 0.2613,
+        "back": 0.5829
+      },
+      "utility": {
+        "middle": 0.3944,
+        "back": 0.4225,
+        "front": 0.1831
+      },
+      "dining": {
+        "back": 0.4426,
+        "front": 0.0164,
+        "middle": 0.541
+      },
+      "garage": {
+        "middle": 0.359,
+        "back": 0.6154,
+        "front": 0.0256
+      },
+      "office": {
+        "middle": 0.5,
+        "back": 0.5
+      }
+    },
+    "corridor_in_front": {
+      "kitchen": {
+        "back": 0.3793,
+        "middle": 0.5517,
+        "front": 0.069
+      },
+      "entry": {
+        "middle": 0.4444,
+        "front": 0.3704,
+        "back": 0.1852
+      },
+      "living_room": {
+        "back": 0.381,
+        "middle": 0.619
+      },
+      "bedroom": {
+        "middle": 0.5769,
+        "back": 0.3462,
+        "front": 0.0769
+      },
+      "undefined": {
+        "middle": 0.4167,
+        "back": 0.4444,
+        "front": 0.1389
+      },
+      "storage": {
+        "middle": 0.3333,
+        "back": 0.4667,
+        "front": 0.2
+      },
+      "outdoor": {
+        "back": 0.5714,
+        "front": 0.0952,
+        "middle": 0.3333
+      },
+      "bathroom": {
+        "front": 0.2424,
+        "middle": 0.5455,
+        "back": 0.2121
+      }
+    },
+    "entry_in_middle": {
+      "kitchen": {
+        "back": 0.2667,
+        "middle": 0.6933,
+        "front": 0.04
+      },
+      "living_room": {
+        "back": 0.507,
+        "middle": 0.493
+      },
+      "balcony": {
+        "back": 0.963,
+        "middle": 0.037
+      },
+      "bedroom": {
+        "middle": 0.6667,
+        "back": 0.3188,
+        "front": 0.0145
+      },
+      "undefined": {
+        "middle": 0.4935,
+        "back": 0.4545,
+        "front": 0.0519
+      },
+      "storage": {
+        "middle": 0.5873,
+        "back": 0.3968,
+        "front": 0.0159
+      },
+      "utility": {
+        "back": 0.5714,
+        "middle": 0.3929,
+        "front": 0.0357
+      },
+      "bathroom": {
+        "front": 0.1169,
+        "middle": 0.7013,
+        "back": 0.1818
+      },
+      "outdoor": {
+        "back": 0.619,
+        "middle": 0.3175,
+        "front": 0.0635
+      },
+      "dining": {
+        "back": 0.6522,
+        "middle": 0.3478
+      }
+    },
+    "office_in_back": {
+      "undefined": {
+        "back": 0.5478,
+        "middle": 0.4013,
+        "front": 0.051
+      },
+      "storage": {
+        "back": 0.4516,
+        "middle": 0.4516,
+        "front": 0.0968
+      },
+      "utility": {
+        "back": 0.4466,
+        "middle": 0.4466,
+        "front": 0.1068
+      },
+      "bathroom": {
+        "back": 0.4875,
+        "middle": 0.3812,
+        "front": 0.1313
+      },
+      "bedroom": {
+        "front": 0.1102,
+        "middle": 0.5508,
+        "back": 0.339
+      },
+      "entry": {
+        "front": 0.985,
+        "middle": 0.015
+      },
+      "kitchen": {
+        "middle": 0.7661,
+        "back": 0.1613,
+        "front": 0.0726
+      },
+      "living_room": {
+        "middle": 0.6667,
+        "back": 0.3089,
+        "front": 0.0244
+      },
+      "dining": {
+        "middle": 0.5556,
+        "back": 0.3778,
+        "front": 0.0667
+      },
+      "outdoor": {
+        "back": 0.5254,
+        "front": 0.161,
+        "middle": 0.3136
+      },
+      "balcony": {
+        "back": 0.85,
+        "middle": 0.125,
+        "front": 0.025
+      },
+      "garage": {
+        "back": 0.7843,
+        "front": 0.0588,
+        "middle": 0.1569
+      }
+    },
+    "sauna_in_middle": {
+      "undefined": {
+        "back": 0.4828,
+        "front": 0.1034,
+        "middle": 0.4138
+      },
+      "kitchen": {
+        "back": 0.2778,
+        "middle": 0.7222
+      },
+      "entry": {
+        "front": 0.973,
+        "middle": 0.027
+      },
+      "bathroom": {
+        "back": 0.2222,
+        "middle": 0.6111,
+        "front": 0.1667
+      },
+      "storage": {
+        "back": 0.44,
+        "middle": 0.44,
+        "front": 0.12
+      },
+      "outdoor": {
+        "back": 0.5,
+        "middle": 0.3214,
+        "front": 0.1786
+      },
+      "living_room": {
+        "back": 0.4375,
+        "middle": 0.4688,
+        "front": 0.0938
+      },
+      "bedroom": {
+        "back": 0.3333,
+        "middle": 0.5667,
+        "front": 0.1
+      }
+    },
+    "sauna_in_back": {
+      "undefined": {
+        "middle": 0.4828,
+        "front": 0.2069,
+        "back": 0.3103
+      },
+      "storage": {
+        "back": 0.4468,
+        "middle": 0.4681,
+        "front": 0.0851
+      },
+      "living_room": {
+        "middle": 0.5,
+        "back": 0.4583,
+        "front": 0.0417
+      },
+      "outdoor": {
+        "back": 0.3864,
+        "middle": 0.3864,
+        "front": 0.2273
+      },
+      "bathroom": {
+        "back": 0.5735,
+        "middle": 0.3676,
+        "front": 0.0588
+      },
+      "utility": {
+        "middle": 0.2667,
+        "back": 0.6667,
+        "front": 0.0667
+      },
+      "kitchen": {
+        "middle": 0.66,
+        "back": 0.32,
+        "front": 0.02
+      },
+      "entry": {
+        "front": 0.9592,
+        "back": 0.0204,
+        "middle": 0.0204
+      },
+      "bedroom": {
+        "middle": 0.4808,
+        "front": 0.0962,
+        "back": 0.4231
+      }
+    },
+    "garage_in_middle": {
+      "undefined": {
+        "back": 0.4831,
+        "middle": 0.3475,
+        "front": 0.1695
+      },
+      "storage": {
+        "back": 0.6018,
+        "front": 0.1239,
+        "middle": 0.2743
+      },
+      "utility": {
+        "middle": 0.4103,
+        "back": 0.4359,
+        "front": 0.1538
+      },
+      "office": {
+        "middle": 0.7037,
+        "back": 0.2963
+      },
+      "entry": {
+        "front": 0.9688,
+        "middle": 0.0312
+      },
+      "outdoor": {
+        "back": 0.4382,
+        "front": 0.2697,
+        "middle": 0.2921
+      },
+      "balcony": {
+        "middle": 0.1333,
+        "back": 0.8333,
+        "front": 0.0333
+      },
+      "bedroom": {
+        "middle": 0.4667,
+        "back": 0.3467,
+        "front": 0.1867
+      },
+      "living_room": {
+        "middle": 0.5595,
+        "back": 0.3929,
+        "front": 0.0476
+      },
+      "bathroom": {
+        "back": 0.3839,
+        "middle": 0.4018,
+        "front": 0.2143
+      },
+      "dining": {
+        "front": 0.1538,
+        "middle": 0.6154,
+        "back": 0.2308
+      },
+      "kitchen": {
+        "middle": 0.6753,
+        "back": 0.1948,
+        "front": 0.1299
+      }
+    },
+    "stairs_in_back": {
+      "undefined": {
+        "middle": 0.4231,
+        "back": 0.4231,
+        "front": 0.1538
+      }
+    },
+    "living_room_in_front": {
+      "outdoor": {
+        "middle": 0.3103,
+        "front": 0.3103,
+        "back": 0.3793
+      },
+      "kitchen": {
+        "front": 0.1951,
+        "middle": 0.6829,
+        "back": 0.122
+      },
+      "entry": {
+        "front": 1.0
+      },
+      "undefined": {
+        "front": 0.1395,
+        "middle": 0.3721,
+        "back": 0.4884
+      },
+      "garage": {
+        "back": 0.84,
+        "middle": 0.16
+      },
+      "storage": {
+        "back": 0.7059,
+        "middle": 0.1765,
+        "front": 0.1176
+      },
+      "utility": {
+        "front": 0.1923,
+        "back": 0.4615,
+        "middle": 0.3462
+      },
+      "bathroom": {
+        "middle": 0.45,
+        "back": 0.325,
+        "front": 0.225
+      },
+      "bedroom": {
+        "middle": 0.3056,
+        "back": 0.3611,
+        "front": 0.3333
+      }
+    }
+  },
+  "plan_feature_summary": {
+    "aspect_ratios": {
+      "p10": 0.507,
+      "p25": 0.69,
+      "p50": 1.054,
+      "p75": 1.488,
+      "p90": 1.839
+    },
+    "depth_spreads": {
+      "p10": 0.2489,
+      "p25": 0.266,
+      "p50": 0.2887,
+      "p75": 0.3131,
+      "p90": 0.3402
+    },
+    "compartmentalization": {
+      "p10": 0.429,
+      "p25": 0.524,
+      "p50": 0.6,
+      "p75": 0.686,
+      "p90": 0.75
+    },
+    "doors_per_room": {
+      "p10": 0.6,
+      "p25": 0.7,
+      "p50": 0.8,
+      "p75": 0.909,
+      "p90": 1.0
+    }
+  },
+  "metadata": {
+    "phase": "Phase 2.5 \u2014 Zone Placement Rules",
+    "plans_analyzed": 4983,
+    "plans_skipped": 6
+  }
+}

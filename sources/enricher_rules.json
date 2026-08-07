@@ -1,0 +1,945 @@
+{
+  "version": "1.0.0",
+  "description": "PlanGen enricher rules — NBC + Indian residential conventions + CubiCasa5K statistics",
+  "room_name_aliases": {
+    "master bedroom": "master_bedroom",
+    "master bed": "master_bedroom",
+    "main bedroom": "master_bedroom",
+    "bedroom": "bedroom",
+    "bed room": "bedroom",
+    "kids bedroom": "bedroom_kids",
+    "children bedroom": "bedroom_kids",
+    "guest bedroom": "bedroom_guest",
+    "guest room": "bedroom_guest",
+    "living room": "living_room",
+    "living": "living_room",
+    "hall": "living_room",
+    "drawing room": "drawing_room",
+    "drawing": "drawing_room",
+    "kitchen": "kitchen",
+    "modular kitchen": "kitchen",
+    "dining room": "dining_room",
+    "dining": "dining_room",
+    "dining hall": "dining_room",
+    "bathroom": "bathroom",
+    "bath room": "bathroom",
+    "washroom": "bathroom",
+    "toilet": "toilet",
+    "wc": "toilet",
+    "restroom": "toilet",
+    "lavatory": "toilet",
+    "staircase": "staircase",
+    "stairs": "staircase",
+    "stair": "staircase",
+    "passage": "passage",
+    "corridor": "passage",
+    "hallway": "passage",
+    "lobby": "passage",
+    "foyer": "foyer",
+    "entry": "foyer",
+    "entrance": "foyer",
+    "utility room": "utility_room",
+    "utility": "utility_room",
+    "laundry": "utility_room",
+    "store room": "store_room",
+    "storage": "store_room",
+    "store": "store_room",
+    "study room": "study_room",
+    "study": "study_room",
+    "office": "study_room",
+    "home office": "study_room",
+    "pooja room": "pooja_room",
+    "puja room": "pooja_room",
+    "prayer room": "pooja_room",
+    "mandir": "pooja_room",
+    "car parking": "car_parking",
+    "parking": "car_parking",
+    "garage": "car_parking",
+    "car park": "car_parking",
+    "balcony": "balcony",
+    "verandah": "verandah",
+    "veranda": "verandah",
+    "porch": "verandah",
+    "servant room": "servant_room",
+    "maid room": "servant_room",
+    "terrace": "terrace",
+    "roof terrace": "terrace",
+    "garden": "garden",
+    "gym room": "gym_room",
+    "gym": "gym_room",
+    "home theater": "home_theater",
+    "theatre": "home_theater",
+    "media room": "home_theater",
+    "barsati": "barsati",
+    "meditation room": "study_room",
+    "meditation": "study_room",
+    "yoga room": "gym_room",
+    "yoga": "gym_room",
+    "prayer hall": "pooja_room"
+  },
+  "attached_bathroom_trigger_phrases": [
+    "attached bathroom",
+    "attached bath",
+    "ensuite",
+    "en-suite",
+    "en suite",
+    "attached toilet",
+    "attached washroom",
+    "with bathroom",
+    "with bath",
+    "attached wc",
+    "with attached",
+    "private bathroom",
+    "personal bathroom"
+  ],
+  "size_rules": {
+    "_comment": "NBC 2016 Part 3 + Indian residential convention. All dims in feet, areas in sqft.",
+    "nbc_habitable_min_area_sqft": 102.26,
+    "nbc_habitable_min_width_ft": 8.2,
+    "rooms": {
+      "master_bedroom": {
+        "min_width_ft": 10.0,
+        "min_area_sqft": 120.0,
+        "target_width_ft": 14.0,
+        "target_area_sqft": 196.0,
+        "ceiling_height_ft": 9.5,
+        "habitable": true,
+        "natural_light": true
+      },
+      "bedroom": {
+        "min_width_ft": 9.2,
+        "min_area_sqft": 102.26,
+        "target_width_ft": 12.0,
+        "target_area_sqft": 144.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": true,
+        "natural_light": true
+      },
+      "bedroom_kids": {
+        "min_width_ft": 8.2,
+        "min_area_sqft": 96.0,
+        "target_width_ft": 10.0,
+        "target_area_sqft": 110.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": true,
+        "natural_light": true
+      },
+      "bedroom_guest": {
+        "min_width_ft": 9.2,
+        "min_area_sqft": 102.26,
+        "target_width_ft": 11.0,
+        "target_area_sqft": 132.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": true,
+        "natural_light": true
+      },
+      "living_room": {
+        "min_width_ft": 10.0,
+        "min_area_sqft": 120.0,
+        "target_width_ft": 15.0,
+        "target_area_sqft": 225.0,
+        "ceiling_height_ft": 10.0,
+        "habitable": true,
+        "natural_light": true
+      },
+      "drawing_room": {
+        "min_width_ft": 10.0,
+        "min_area_sqft": 120.0,
+        "target_width_ft": 14.0,
+        "target_area_sqft": 196.0,
+        "ceiling_height_ft": 10.0,
+        "habitable": true,
+        "natural_light": true
+      },
+      "kitchen": {
+        "min_width_ft": 7.5,
+        "min_area_sqft": 50.0,
+        "target_width_ft": 10.0,
+        "target_area_sqft": 100.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": true,
+        "natural_light": true
+      },
+      "dining_room": {
+        "min_width_ft": 9.0,
+        "min_area_sqft": 96.0,
+        "target_width_ft": 12.0,
+        "target_area_sqft": 144.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": true,
+        "natural_light": true
+      },
+      "bathroom": {
+        "min_width_ft": 4.5,
+        "min_area_sqft": 25.0,
+        "target_width_ft": 6.0,
+        "target_area_sqft": 42.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": false,
+        "natural_light": false
+      },
+      "toilet": {
+        "min_width_ft": 3.5,
+        "min_area_sqft": 15.0,
+        "target_width_ft": 4.0,
+        "target_area_sqft": 20.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": false,
+        "natural_light": false
+      },
+      "pooja_room": {
+        "min_width_ft": 4.0,
+        "min_area_sqft": 20.0,
+        "target_width_ft": 5.5,
+        "target_area_sqft": 35.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": false,
+        "natural_light": false
+      },
+      "staircase": {
+        "min_width_ft": 3.0,
+        "min_area_sqft": 25.0,
+        "target_width_ft": 4.5,
+        "target_area_sqft": 40.0,
+        "ceiling_height_ft": 10.0,
+        "habitable": false,
+        "natural_light": false
+      },
+      "utility_room": {
+        "min_width_ft": 4.0,
+        "min_area_sqft": 20.0,
+        "target_width_ft": 6.0,
+        "target_area_sqft": 40.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": false,
+        "natural_light": false
+      },
+      "store_room": {
+        "min_width_ft": 4.0,
+        "min_area_sqft": 20.0,
+        "target_width_ft": 6.0,
+        "target_area_sqft": 40.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": false,
+        "natural_light": false
+      },
+      "study_room": {
+        "min_width_ft": 7.5,
+        "min_area_sqft": 72.0,
+        "target_width_ft": 9.0,
+        "target_area_sqft": 90.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": true,
+        "natural_light": true
+      },
+      "passage": {
+        "min_width_ft": 3.0,
+        "min_area_sqft": 15.0,
+        "target_width_ft": 3.5,
+        "target_area_sqft": 28.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": false,
+        "natural_light": false
+      },
+      "foyer": {
+        "min_width_ft": 5.0,
+        "min_area_sqft": 30.0,
+        "target_width_ft": 7.0,
+        "target_area_sqft": 45.0,
+        "ceiling_height_ft": 10.0,
+        "habitable": false,
+        "natural_light": true
+      },
+      "car_parking": {
+        "min_width_ft": 8.5,
+        "min_area_sqft": 100.0,
+        "target_width_ft": 10.0,
+        "target_area_sqft": 120.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": false,
+        "natural_light": false
+      },
+      "balcony": {
+        "min_width_ft": 4.0,
+        "min_area_sqft": 20.0,
+        "target_width_ft": 6.0,
+        "target_area_sqft": 40.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": false,
+        "natural_light": true
+      },
+      "servant_room": {
+        "min_width_ft": 7.0,
+        "min_area_sqft": 60.0,
+        "target_width_ft": 8.0,
+        "target_area_sqft": 80.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": true,
+        "natural_light": true
+      },
+      "verandah": {
+        "min_width_ft": 5.0,
+        "min_area_sqft": 30.0,
+        "target_width_ft": 8.0,
+        "target_area_sqft": 64.0,
+        "ceiling_height_ft": 9.0,
+        "habitable": false,
+        "natural_light": true
+      },
+      "gym_room": {
+        "min_width_ft": 9.0,
+        "min_area_sqft": 80.0,
+        "target_width_ft": 11.0,
+        "target_area_sqft": 120.0,
+        "ceiling_height_ft": 9.5,
+        "habitable": true,
+        "natural_light": true
+      },
+      "home_theater": {
+        "min_width_ft": 10.0,
+        "min_area_sqft": 120.0,
+        "target_width_ft": 13.0,
+        "target_area_sqft": 150.0,
+        "ceiling_height_ft": 9.5,
+        "habitable": true,
+        "natural_light": false
+      }
+    }
+  },
+  "zone_rules": {
+    "living_room": {
+      "primary_zone": "front",
+      "vastu_preferred_compass": [
+        "N",
+        "NE",
+        "E"
+      ],
+      "vastu_prohibited_compass": [
+        "SW"
+      ],
+      "floor_preference": "ground_floor_only"
+    },
+    "drawing_room": {
+      "primary_zone": "front",
+      "vastu_preferred_compass": [
+        "N",
+        "NE",
+        "E"
+      ],
+      "vastu_prohibited_compass": [
+        "SW"
+      ],
+      "floor_preference": "ground_floor_only"
+    },
+    "dining_room": {
+      "primary_zone": "middle",
+      "vastu_preferred_compass": [
+        "W",
+        "E"
+      ],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "ground_floor_only"
+    },
+    "kitchen": {
+      "primary_zone": "back",
+      "vastu_preferred_compass": [
+        "SE"
+      ],
+      "vastu_prohibited_compass": [
+        "NE"
+      ],
+      "floor_preference": "ground_floor_only"
+    },
+    "master_bedroom": {
+      "primary_zone": "back",
+      "vastu_preferred_compass": [
+        "SW"
+      ],
+      "vastu_prohibited_compass": [
+        "NE",
+        "SE"
+      ],
+      "floor_preference": "any_floor"
+    },
+    "bedroom": {
+      "primary_zone": "back",
+      "vastu_preferred_compass": [
+        "S",
+        "SW",
+        "W"
+      ],
+      "vastu_prohibited_compass": [
+        "SE"
+      ],
+      "floor_preference": "any_floor"
+    },
+    "bedroom_kids": {
+      "primary_zone": "back",
+      "vastu_preferred_compass": [
+        "W",
+        "NW"
+      ],
+      "vastu_prohibited_compass": [
+        "SE"
+      ],
+      "floor_preference": "any_floor"
+    },
+    "bedroom_guest": {
+      "primary_zone": "front",
+      "vastu_preferred_compass": [
+        "NW"
+      ],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "any_floor"
+    },
+    "pooja_room": {
+      "primary_zone": "middle",
+      "vastu_preferred_compass": [
+        "NE"
+      ],
+      "vastu_prohibited_compass": [
+        "S",
+        "SW",
+        "SE"
+      ],
+      "floor_preference": "ground_floor_only"
+    },
+    "bathroom": {
+      "primary_zone": "back",
+      "vastu_preferred_compass": [
+        "NW",
+        "W"
+      ],
+      "vastu_prohibited_compass": [
+        "NE",
+        "SW"
+      ],
+      "floor_preference": "any_floor"
+    },
+    "toilet": {
+      "primary_zone": "back",
+      "vastu_preferred_compass": [
+        "NW",
+        "W"
+      ],
+      "vastu_prohibited_compass": [
+        "NE",
+        "SW"
+      ],
+      "floor_preference": "any_floor"
+    },
+    "staircase": {
+      "primary_zone": "middle",
+      "vastu_preferred_compass": [
+        "SW",
+        "S"
+      ],
+      "vastu_prohibited_compass": [
+        "NE",
+        "N"
+      ],
+      "floor_preference": "any_floor"
+    },
+    "utility_room": {
+      "primary_zone": "back",
+      "vastu_preferred_compass": [
+        "NW"
+      ],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "ground_floor_only"
+    },
+    "store_room": {
+      "primary_zone": "back",
+      "vastu_preferred_compass": [
+        "SW",
+        "NW"
+      ],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "ground_floor_only"
+    },
+    "study_room": {
+      "primary_zone": "middle",
+      "vastu_preferred_compass": [
+        "W",
+        "SW"
+      ],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "any_floor"
+    },
+    "passage": {
+      "primary_zone": "middle",
+      "vastu_preferred_compass": [],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "any_floor"
+    },
+    "foyer": {
+      "primary_zone": "front",
+      "vastu_preferred_compass": [
+        "N",
+        "NE",
+        "E"
+      ],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "ground_floor_only"
+    },
+    "car_parking": {
+      "primary_zone": "front",
+      "vastu_preferred_compass": [
+        "NW",
+        "SE"
+      ],
+      "vastu_prohibited_compass": [
+        "NE",
+        "SW"
+      ],
+      "floor_preference": "ground_floor_only"
+    },
+    "balcony": {
+      "primary_zone": "front",
+      "vastu_preferred_compass": [
+        "N",
+        "E",
+        "NE"
+      ],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "any_floor"
+    },
+    "servant_room": {
+      "primary_zone": "back",
+      "vastu_preferred_compass": [
+        "SE"
+      ],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "ground_floor_only"
+    },
+    "verandah": {
+      "primary_zone": "front",
+      "vastu_preferred_compass": [
+        "E",
+        "N"
+      ],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "ground_floor_only"
+    },
+    "terrace": {
+      "primary_zone": "front",
+      "vastu_preferred_compass": [],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "top_floor_preferred"
+    },
+    "garden": {
+      "primary_zone": "front",
+      "vastu_preferred_compass": [],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "ground_floor_only"
+    },
+    "gym_room": {
+      "primary_zone": "back",
+      "vastu_preferred_compass": [
+        "SW"
+      ],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "any_floor"
+    },
+    "home_theater": {
+      "primary_zone": "back",
+      "vastu_preferred_compass": [
+        "NW",
+        "W"
+      ],
+      "vastu_prohibited_compass": [],
+      "floor_preference": "any_floor"
+    }
+  },
+  "adjacency_rules": {
+    "critical": [
+      {
+        "room_a": "kitchen",
+        "room_b": "dining_room",
+        "weight": 0.95
+      },
+      {
+        "room_a": "master_bedroom",
+        "room_b": "bathroom",
+        "weight": 0.9
+      },
+      {
+        "room_a": "living_room",
+        "room_b": "dining_room",
+        "weight": 0.88
+      },
+      {
+        "room_a": "foyer",
+        "room_b": "living_room",
+        "weight": 0.85
+      }
+    ],
+    "high": [
+      {
+        "room_a": "bedroom",
+        "room_b": "bathroom",
+        "weight": 0.8
+      },
+      {
+        "room_a": "living_room",
+        "room_b": "kitchen",
+        "weight": 0.75
+      },
+      {
+        "room_a": "kitchen",
+        "room_b": "utility_room",
+        "weight": 0.72
+      },
+      {
+        "room_a": "passage",
+        "room_b": "bedroom",
+        "weight": 0.7
+      },
+      {
+        "room_a": "passage",
+        "room_b": "living_room",
+        "weight": 0.68
+      },
+      {
+        "room_a": "staircase",
+        "room_b": "passage",
+        "weight": 0.65
+      }
+    ],
+    "medium": [
+      {
+        "room_a": "living_room",
+        "room_b": "balcony",
+        "weight": 0.55
+      },
+      {
+        "room_a": "bedroom",
+        "room_b": "balcony",
+        "weight": 0.5
+      },
+      {
+        "room_a": "kitchen",
+        "room_b": "store_room",
+        "weight": 0.48
+      },
+      {
+        "room_a": "living_room",
+        "room_b": "pooja_room",
+        "weight": 0.45
+      },
+      {
+        "room_a": "foyer",
+        "room_b": "staircase",
+        "weight": 0.42
+      },
+      {
+        "room_a": "drawing_room",
+        "room_b": "dining_room",
+        "weight": 0.4
+      }
+    ],
+    "low": [
+      {
+        "room_a": "study_room",
+        "room_b": "bedroom",
+        "weight": 0.3
+      },
+      {
+        "room_a": "car_parking",
+        "room_b": "foyer",
+        "weight": 0.25
+      },
+      {
+        "room_a": "servant_room",
+        "room_b": "kitchen",
+        "weight": 0.22
+      },
+      {
+        "room_a": "utility_room",
+        "room_b": "bathroom",
+        "weight": 0.2
+      }
+    ]
+  },
+  "forbidden_adjacencies": {
+    "rules": [
+      {
+        "room_a": "kitchen",
+        "room_b": "toilet",
+        "severity": "HARD",
+        "reason": "Vastu + hygiene",
+        "penalty_multiplier": -0.8
+      },
+      {
+        "room_a": "pooja_room",
+        "room_b": "toilet",
+        "severity": "HARD",
+        "reason": "Vastu religious",
+        "penalty_multiplier": -1.0
+      },
+      {
+        "room_a": "pooja_room",
+        "room_b": "bathroom",
+        "severity": "HARD",
+        "reason": "Vastu religious",
+        "penalty_multiplier": -0.9
+      },
+      {
+        "room_a": "kitchen",
+        "room_b": "bathroom",
+        "severity": "SOFT",
+        "reason": "Hygiene convention",
+        "penalty_multiplier": -0.5
+      }
+    ]
+  },
+  "implicit_room_rules": {
+    "staircase": {
+      "trigger": "floors > 1",
+      "reason": "Multi-floor buildings require a staircase per NBC norms"
+    },
+    "passage": {
+      "trigger": "compartmentalization > threshold AND rooms_on_floor >= min",
+      "thresholds_by_bhk": {
+        "studio": {
+          "threshold": 0.8
+        },
+        "1BHK": {
+          "threshold": 0.7
+        },
+        "2BHK": {
+          "threshold": 0.6
+        },
+        "3BHK": {
+          "threshold": 0.55
+        },
+        "4BHK": {
+          "threshold": 0.5
+        },
+        "default": {
+          "threshold": 0.55
+        }
+      },
+      "fallback_threshold": 0.55
+    },
+    "utility_room": {
+      "trigger": "has_kitchen AND n_matched_bhk >= 3 AND total_rooms >= 5",
+      "reason": "3BHK+ plans strongly correlate with utility rooms (CubiCasa5K)"
+    }
+  },
+  "circulation_rules": {
+    "max_depth_from_entry": {
+      "living_room": {
+        "ideal": 1,
+        "max": 2
+      },
+      "drawing_room": {
+        "ideal": 1,
+        "max": 2
+      },
+      "dining_room": {
+        "ideal": 2,
+        "max": 3
+      },
+      "kitchen": {
+        "ideal": 2,
+        "max": 3
+      },
+      "master_bedroom": {
+        "ideal": 2,
+        "max": 3
+      },
+      "bedroom": {
+        "ideal": 2,
+        "max": 4
+      },
+      "bathroom": {
+        "ideal": 3,
+        "max": 4
+      },
+      "pooja_room": {
+        "ideal": 2,
+        "max": 3
+      },
+      "staircase": {
+        "ideal": 2,
+        "max": 3
+      },
+      "utility_room": {
+        "ideal": 3,
+        "max": 4
+      },
+      "store_room": {
+        "ideal": 3,
+        "max": 4
+      },
+      "study_room": {
+        "ideal": 2,
+        "max": 3
+      },
+      "balcony": {
+        "ideal": 3,
+        "max": 4
+      },
+      "servant_room": {
+        "ideal": 3,
+        "max": 4
+      }
+    },
+    "passage_rules": {
+      "add_passage_if_floor_has": 3
+    }
+  },
+  "floor_assignment_rules": {
+    "ground_floor_preferred": [
+      "living_room",
+      "drawing_room",
+      "dining_room",
+      "kitchen",
+      "pooja_room",
+      "car_parking",
+      "foyer",
+      "servant_room",
+      "utility_room",
+      "store_room",
+      "verandah",
+      "garden"
+    ],
+    "first_floor_preferred": [
+      "master_bedroom",
+      "bedroom",
+      "study_room",
+      "gym_room",
+      "home_theater"
+    ],
+    "any_floor_acceptable": [
+      "bathroom",
+      "toilet",
+      "passage",
+      "staircase",
+      "balcony"
+    ],
+    "vastu_floor_overrides": [
+      {
+        "room_type": "pooja_room",
+        "rule": "ground_floor_only",
+        "reason": "Vastu: prayer rooms should be on ground floor"
+      },
+      {
+        "room_type": "terrace",
+        "rule": "top_floor_preferred",
+        "reason": "Convention: terrace is always the topmost floor"
+      },
+      {
+        "room_type": "barsati",
+        "rule": "top_floor_preferred",
+        "reason": "Convention: barsati is a rooftop room"
+      }
+    ],
+    "vertical_stacking_prohibitions": [
+      {
+        "room_above": "kitchen",
+        "room_below": "bedroom",
+        "reason": "Vastu: kitchen should not be directly above sleeping areas"
+      },
+      {
+        "room_above": "bathroom",
+        "room_below": "pooja_room",
+        "reason": "Vastu: bathroom above prayer room is inauspicious"
+      },
+      {
+        "room_above": "toilet",
+        "room_below": "kitchen",
+        "reason": "Vastu + plumbing hygiene"
+      }
+    ]
+  },
+  "placement_priority_order": {
+    "living_room": 1,
+    "drawing_room": 2,
+    "master_bedroom": 3,
+    "foyer": 4,
+    "dining_room": 5,
+    "kitchen": 6,
+    "bedroom": 7,
+    "study_room": 8,
+    "pooja_room": 9,
+    "balcony": 10,
+    "bathroom": 11,
+    "toilet": 12,
+    "utility_room": 13,
+    "store_room": 14,
+    "staircase": 15,
+    "passage": 16,
+    "car_parking": 17,
+    "servant_room": 18,
+    "verandah": 19,
+    "garden": 20,
+    "terrace": 21,
+    "default": 50
+  },
+  "zone_balance_targets_by_bhk": {
+    "studio": {
+      "front": 0.25,
+      "middle": 0.45,
+      "back": 0.3
+    },
+    "1BHK": {
+      "front": 0.2,
+      "middle": 0.45,
+      "back": 0.35
+    },
+    "2BHK": {
+      "front": 0.18,
+      "middle": 0.45,
+      "back": 0.37
+    },
+    "3BHK": {
+      "front": 0.17,
+      "middle": 0.45,
+      "back": 0.38
+    },
+    "4BHK": {
+      "front": 0.15,
+      "middle": 0.45,
+      "back": 0.4
+    },
+    "default": {
+      "front": 0.17,
+      "middle": 0.45,
+      "back": 0.38
+    }
+  },
+  "plot_budget_rules": {
+    "far_by_city": {
+      "bangalore": {
+        "residential": 1.75
+      },
+      "mumbai": {
+        "residential": 1.33
+      },
+      "delhi": {
+        "residential": 1.5
+      },
+      "chennai": {
+        "residential": 1.5
+      },
+      "hyderabad": {
+        "residential": 1.75
+      },
+      "pune": {
+        "residential": 1.5
+      },
+      "default": {
+        "residential": 1.5
+      }
+    },
+    "max_ground_coverage_pct": 0.85,
+    "default_setbacks_ft": {
+      "front": 5.0,
+      "rear": 3.0,
+      "left": 2.5,
+      "right": 2.5
+    }
+  }
+}

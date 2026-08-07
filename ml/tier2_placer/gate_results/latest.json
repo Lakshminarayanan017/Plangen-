@@ -1,0 +1,565 @@
+{
+ "timestamp": "2026-07-30 20:47:27",
+ "weights": "C:\\Users\\Welcome\\Desktop\\PlanGen\\plangen_remastered\\tier2_placer\\weights\\placer_last.npz",
+ "tau": 0.35,
+ "temperature": 1.0,
+ "k": 6,
+ "fallback_rate": 0.418,
+ "mean_confidence": 0.355,
+ "baseline": {
+  "rows": [
+   {
+    "brief": "20x30_S_1bhk",
+    "kept": 4,
+    "best_score": 83.7,
+    "fidelity": 0.836,
+    "hard_fails": 0,
+    "seconds": 4.98
+   },
+   {
+    "brief": "20x45_S_3bhk",
+    "kept": 6,
+    "best_score": 42.61,
+    "fidelity": 0.828,
+    "hard_fails": 0,
+    "seconds": 5.24
+   },
+   {
+    "brief": "20x45_N_2bhk",
+    "kept": 6,
+    "best_score": 87.03,
+    "fidelity": 0.796,
+    "hard_fails": 0,
+    "seconds": 8.34
+   },
+   {
+    "brief": "25x40_S_2bhk",
+    "kept": 6,
+    "best_score": 110.05,
+    "fidelity": 0.803,
+    "hard_fails": 0,
+    "seconds": 7.55
+   },
+   {
+    "brief": "25x50_E_3bhk",
+    "kept": 6,
+    "best_score": 15.62,
+    "fidelity": 0.817,
+    "hard_fails": 3,
+    "seconds": 15.05
+   },
+   {
+    "brief": "30x40_S_2bhk",
+    "kept": 6,
+    "best_score": 79.09,
+    "fidelity": 0.882,
+    "hard_fails": 0,
+    "seconds": 10.6
+   },
+   {
+    "brief": "30x40_W_2bhk",
+    "kept": 5,
+    "best_score": 96.82,
+    "fidelity": 0.891,
+    "hard_fails": 5,
+    "seconds": 12.47
+   },
+   {
+    "brief": "30x50_S_3bhk",
+    "kept": 6,
+    "best_score": 89.14,
+    "fidelity": 0.832,
+    "hard_fails": 0,
+    "seconds": 9.25
+   },
+   {
+    "brief": "30x60_N_3bhk",
+    "kept": 6,
+    "best_score": 93.28,
+    "fidelity": 0.836,
+    "hard_fails": 1,
+    "seconds": 10.66
+   },
+   {
+    "brief": "35x50_E_3bhk",
+    "kept": 6,
+    "best_score": 69.66,
+    "fidelity": 0.867,
+    "hard_fails": 0,
+    "seconds": 10.4
+   },
+   {
+    "brief": "40x30_S_2bhk",
+    "kept": 6,
+    "best_score": 97.91,
+    "fidelity": 0.891,
+    "hard_fails": 3,
+    "seconds": 9.8
+   },
+   {
+    "brief": "40x60_S_4bhk",
+    "kept": 6,
+    "best_score": 75.62,
+    "fidelity": 0.786,
+    "hard_fails": 0,
+    "seconds": 14.15
+   },
+   {
+    "brief": "45x45_W_3bhk",
+    "kept": 6,
+    "best_score": 64.12,
+    "fidelity": 0.866,
+    "hard_fails": 3,
+    "seconds": 18.32
+   },
+   {
+    "brief": "50x40_N_3bhk",
+    "kept": 6,
+    "best_score": 77.86,
+    "fidelity": 0.866,
+    "hard_fails": 2,
+    "seconds": 17.67
+   },
+   {
+    "brief": "50x70_S_4bhk",
+    "kept": 6,
+    "best_score": 42.09,
+    "fidelity": 0.816,
+    "hard_fails": 0,
+    "seconds": 19.11
+   },
+   {
+    "brief": "60x40_E_3bhk",
+    "kept": 6,
+    "best_score": 86.32,
+    "fidelity": 0.881,
+    "hard_fails": 0,
+    "seconds": 12.49
+   },
+   {
+    "brief": "60x90_S_4bhk",
+    "kept": 6,
+    "best_score": 67.87,
+    "fidelity": 0.864,
+    "hard_fails": 0,
+    "seconds": 28.33
+   },
+   {
+    "brief": "35x35_S_2bhk",
+    "kept": 3,
+    "best_score": 80.1,
+    "fidelity": 0.891,
+    "hard_fails": 5,
+    "seconds": 11.38
+   }
+  ],
+  "n_briefs": 18,
+  "briefs_with_plan": 18,
+  "mean_best_score": 75.49,
+  "mean_fidelity": 0.847,
+  "total_seconds": 225.8
+ },
+ "deployed": {
+  "rows": [
+   {
+    "brief": "20x30_S_1bhk",
+    "kept": 6,
+    "best_score": 86.55,
+    "fidelity": 0.81,
+    "hard_fails": 0,
+    "seconds": 3.74
+   },
+   {
+    "brief": "20x45_S_3bhk",
+    "kept": 6,
+    "best_score": 16.93,
+    "fidelity": 0.821,
+    "hard_fails": 1,
+    "seconds": 9.51
+   },
+   {
+    "brief": "20x45_N_2bhk",
+    "kept": 6,
+    "best_score": 81.83,
+    "fidelity": 0.789,
+    "hard_fails": 2,
+    "seconds": 8.82
+   },
+   {
+    "brief": "25x40_S_2bhk",
+    "kept": 6,
+    "best_score": 92.33,
+    "fidelity": 0.893,
+    "hard_fails": 3,
+    "seconds": 10.72
+   },
+   {
+    "brief": "25x50_E_3bhk",
+    "kept": 6,
+    "best_score": 15.62,
+    "fidelity": 0.817,
+    "hard_fails": 3,
+    "seconds": 19.05
+   },
+   {
+    "brief": "30x40_S_2bhk",
+    "kept": 5,
+    "best_score": 69.78,
+    "fidelity": 0.897,
+    "hard_fails": 6,
+    "seconds": 17.97
+   },
+   {
+    "brief": "30x40_W_2bhk",
+    "kept": 6,
+    "best_score": 96.82,
+    "fidelity": 0.898,
+    "hard_fails": 5,
+    "seconds": 17.81
+   },
+   {
+    "brief": "30x50_S_3bhk",
+    "kept": 6,
+    "best_score": 63.46,
+    "fidelity": 0.85,
+    "hard_fails": 4,
+    "seconds": 24.8
+   },
+   {
+    "brief": "30x60_N_3bhk",
+    "kept": 6,
+    "best_score": 60.74,
+    "fidelity": 0.792,
+    "hard_fails": 1,
+    "seconds": 19.72
+   },
+   {
+    "brief": "35x50_E_3bhk",
+    "kept": 6,
+    "best_score": 69.66,
+    "fidelity": 0.867,
+    "hard_fails": 1,
+    "seconds": 15.81
+   },
+   {
+    "brief": "40x30_S_2bhk",
+    "kept": 6,
+    "best_score": 90.17,
+    "fidelity": 0.845,
+    "hard_fails": 6,
+    "seconds": 19.11
+   },
+   {
+    "brief": "40x60_S_4bhk",
+    "kept": 6,
+    "best_score": 75.62,
+    "fidelity": 0.786,
+    "hard_fails": 0,
+    "seconds": 22.39
+   },
+   {
+    "brief": "45x45_W_3bhk",
+    "kept": 6,
+    "best_score": 64.12,
+    "fidelity": 0.866,
+    "hard_fails": 3,
+    "seconds": 24.52
+   },
+   {
+    "brief": "50x40_N_3bhk",
+    "kept": 6,
+    "best_score": 56.69,
+    "fidelity": 0.811,
+    "hard_fails": 2,
+    "seconds": 27.37
+   },
+   {
+    "brief": "50x70_S_4bhk",
+    "kept": 6,
+    "best_score": 66.45,
+    "fidelity": 0.813,
+    "hard_fails": 2,
+    "seconds": 41.77
+   },
+   {
+    "brief": "60x40_E_3bhk",
+    "kept": 6,
+    "best_score": 86.32,
+    "fidelity": 0.881,
+    "hard_fails": 0,
+    "seconds": 18.28
+   },
+   {
+    "brief": "60x90_S_4bhk",
+    "kept": 6,
+    "best_score": 61.08,
+    "fidelity": 0.845,
+    "hard_fails": 0,
+    "seconds": 34.97
+   },
+   {
+    "brief": "35x35_S_2bhk",
+    "kept": 4,
+    "best_score": 80.1,
+    "fidelity": 0.891,
+    "hard_fails": 4,
+    "seconds": 16.05
+   }
+  ],
+  "n_briefs": 18,
+  "briefs_with_plan": 18,
+  "mean_best_score": 68.57,
+  "mean_fidelity": 0.843,
+  "total_seconds": 352.4
+ },
+ "model_only": {
+  "rows": [
+   {
+    "brief": "20x30_S_1bhk",
+    "kept": 6,
+    "best_score": 86.55,
+    "fidelity": 0.81,
+    "hard_fails": 0,
+    "seconds": 3.62
+   },
+   {
+    "brief": "20x45_S_3bhk",
+    "kept": 6,
+    "best_score": 16.93,
+    "fidelity": 0.821,
+    "hard_fails": 1,
+    "seconds": 8.95
+   },
+   {
+    "brief": "20x45_N_2bhk",
+    "kept": 6,
+    "best_score": 74.96,
+    "fidelity": 0.83,
+    "hard_fails": 2,
+    "seconds": 8.51
+   },
+   {
+    "brief": "25x40_S_2bhk",
+    "kept": 6,
+    "best_score": 79.28,
+    "fidelity": 0.81,
+    "hard_fails": 3,
+    "seconds": 10.32
+   },
+   {
+    "brief": "25x50_E_3bhk",
+    "kept": 6,
+    "best_score": 21.35,
+    "fidelity": 0.831,
+    "hard_fails": 1,
+    "seconds": 14.69
+   },
+   {
+    "brief": "30x40_S_2bhk",
+    "kept": 4,
+    "best_score": 56.19,
+    "fidelity": 0.835,
+    "hard_fails": 8,
+    "seconds": 16.79
+   },
+   {
+    "brief": "30x40_W_2bhk",
+    "kept": 6,
+    "best_score": 93.67,
+    "fidelity": 0.78,
+    "hard_fails": 4,
+    "seconds": 13.86
+   },
+   {
+    "brief": "30x50_S_3bhk",
+    "kept": 5,
+    "best_score": 57.84,
+    "fidelity": 0.804,
+    "hard_fails": 7,
+    "seconds": 25.77
+   },
+   {
+    "brief": "30x60_N_3bhk",
+    "kept": 6,
+    "best_score": 60.74,
+    "fidelity": 0.792,
+    "hard_fails": 1,
+    "seconds": 18.2
+   },
+   {
+    "brief": "35x50_E_3bhk",
+    "kept": 6,
+    "best_score": 66.29,
+    "fidelity": 0.847,
+    "hard_fails": 2,
+    "seconds": 19.46
+   },
+   {
+    "brief": "40x30_S_2bhk",
+    "kept": 6,
+    "best_score": 90.17,
+    "fidelity": 0.845,
+    "hard_fails": 6,
+    "seconds": 16.75
+   },
+   {
+    "brief": "40x60_S_4bhk",
+    "kept": 6,
+    "best_score": 40.09,
+    "fidelity": 0.788,
+    "hard_fails": 2,
+    "seconds": 28.93
+   },
+   {
+    "brief": "45x45_W_3bhk",
+    "kept": 6,
+    "best_score": 74.27,
+    "fidelity": 0.858,
+    "hard_fails": 1,
+    "seconds": 22.82
+   },
+   {
+    "brief": "50x40_N_3bhk",
+    "kept": 6,
+    "best_score": 56.69,
+    "fidelity": 0.811,
+    "hard_fails": 1,
+    "seconds": 22.68
+   },
+   {
+    "brief": "50x70_S_4bhk",
+    "kept": 6,
+    "best_score": 16.31,
+    "fidelity": 0.746,
+    "hard_fails": 2,
+    "seconds": 41.87
+   },
+   {
+    "brief": "60x40_E_3bhk",
+    "kept": 6,
+    "best_score": 53.08,
+    "fidelity": 0.778,
+    "hard_fails": 0,
+    "seconds": 18.88
+   },
+   {
+    "brief": "60x90_S_4bhk",
+    "kept": 6,
+    "best_score": 65.18,
+    "fidelity": 0.737,
+    "hard_fails": 0,
+    "seconds": 49.92
+   },
+   {
+    "brief": "35x35_S_2bhk",
+    "kept": 6,
+    "best_score": 90.14,
+    "fidelity": 0.862,
+    "hard_fails": 3,
+    "seconds": 14.07
+   }
+  ],
+  "n_briefs": 18,
+  "briefs_with_plan": 18,
+  "mean_best_score": 61.1,
+  "mean_fidelity": 0.81,
+  "total_seconds": 356.1
+ },
+ "verdict": {
+  "passed": false,
+  "checks": [
+   {
+    "check": "mean best score improves",
+    "pass": false,
+    "detail": "75.49 -> 68.57 (-6.92)"
+   },
+   {
+    "check": "no brief regresses > 5.0 pts",
+    "pass": false,
+    "detail": "20x45_S_3bhk -25.68, 20x45_N_2bhk -5.20, 25x40_S_2bhk -17.72, 30x40_S_2bhk -9.31, 30x50_S_3bhk -25.68, 30x60_N_3bhk -32.54, 40x30_S_2bhk -7.74, 50x40_N_3bhk -21.17, 60x90_S_4bhk -6.79"
+   },
+   {
+    "check": "mean fidelity >= 0.8",
+    "pass": true,
+    "detail": "0.843"
+   },
+   {
+    "check": "no brief loses its plan",
+    "pass": true,
+    "detail": "18 -> 18 briefs with a plan"
+   }
+  ],
+  "score_delta": -6.92,
+  "regressions": [
+   {
+    "brief": "20x45_S_3bhk",
+    "delta": -25.68,
+    "baseline": 42.61,
+    "model": 16.93
+   },
+   {
+    "brief": "20x45_N_2bhk",
+    "delta": -5.2,
+    "baseline": 87.03,
+    "model": 81.83
+   },
+   {
+    "brief": "25x40_S_2bhk",
+    "delta": -17.72,
+    "baseline": 110.05,
+    "model": 92.33
+   },
+   {
+    "brief": "30x40_S_2bhk",
+    "delta": -9.31,
+    "baseline": 79.09,
+    "model": 69.78
+   },
+   {
+    "brief": "30x50_S_3bhk",
+    "delta": -25.68,
+    "baseline": 89.14,
+    "model": 63.46
+   },
+   {
+    "brief": "30x60_N_3bhk",
+    "delta": -32.54,
+    "baseline": 93.28,
+    "model": 60.74
+   },
+   {
+    "brief": "40x30_S_2bhk",
+    "delta": -7.74,
+    "baseline": 97.91,
+    "model": 90.17
+   },
+   {
+    "brief": "50x40_N_3bhk",
+    "delta": -21.17,
+    "baseline": 77.86,
+    "model": 56.69
+   },
+   {
+    "brief": "60x90_S_4bhk",
+    "delta": -6.79,
+    "baseline": 67.87,
+    "model": 61.08
+   }
+  ],
+  "improvements": [
+   {
+    "brief": "20x30_S_1bhk",
+    "delta": 2.85,
+    "baseline": 83.7,
+    "model": 86.55
+   },
+   {
+    "brief": "50x70_S_4bhk",
+    "delta": 24.36,
+    "baseline": 42.09,
+    "model": 66.45
+   }
+  ]
+ },
+ "notes": []
+}

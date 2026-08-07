@@ -116,14 +116,14 @@ class ImageAnalyzerConfig:
 
         # Load system prompt (cached at class level)
         if ImageAnalyzerConfig._IMAGE_SYSTEM_INSTRUCTION is None:
-            from docs.prompts.loader import load_prompt
+            from sources.prompts.loader import load_prompt
 
             ImageAnalyzerConfig._IMAGE_SYSTEM_INSTRUCTION = load_prompt(
                 "step1_image_analyzer_system.md"
             )
             logger.info(
                 "Loaded image analyzer system instruction from "
-                "docs/prompts/step1_image_analyzer_system.md"
+                "sources/prompts/step1_image_analyzer_system.md"
             )
 
     @property

@@ -20,8 +20,25 @@ from google.genai import types
 # Multi-key rotation for 429 rate-limit mitigation
 from sources.key_rotator import GeminiKeyRotator
 
+# Anthropic SDK — used as structural fallback when Gemini is unavailable
+try:
+    import anthropic as _anthropic_sdk
+    import instructor as _instructor_sdk
+    _ANTHROPIC_AVAILABLE = True
+except ImportError:
+    _ANTHROPIC_AVAILABLE = False
+
 # Import your existing Pydantic data models
 from models import BuildingRequirements
+
+def thinking_kwargs(model: str) -> dict:
+    """Disable thinking on 2.5-series models (thinking tokens eat
+    max_output_tokens and truncate replies). Non-thinking models (2.0)
+    reject thinking_config entirely, so pass nothing for them."""
+    if "2.5" in model:
+        return {"thinking_config": types.ThinkingConfig(thinking_budget=0)}
+    return {}
+
 
 # Configure production-grade logging
 logging.basicConfig(
@@ -43,14 +60,49 @@ class ParserConfig:
     System prompts are loaded once and cached at class level to avoid
     redundant disk I/O across multiple ParserConfig instances.
     """
-    PRIMARY_MODEL: str = "gemini-2.5-flash"
-    FLASH_MODEL: str = "gemini-2.5-flash"
+    # gemini-2.0-flash: far larger free-tier daily quota than 2.5-flash
+    # (whose free tier is capped at ~20 requests/day — a demo killer).
+    PRIMARY_MODEL: str = "gemini-2.0-flash"
+    FLASH_MODEL: str = "gemini-2.0-flash"
     TEMPERATURE: float = 0.1
     MAX_RETRIES: int = 3
     RETRY_DELAY_BASE: float = 4.0
 
     # Class-level prompt cache (loaded once, shared across all instances)
     _PARSER_SYSTEM_INSTRUCTION: Optional[str] = None
+
+    # ── LLM circuit breaker (shared across parser/gatekeeper/question gen) ──
+    # When Gemini keys are quota-exhausted or unauthorized, blindly retrying
+    # blocks for 60 s+ per key on cooldown. The first failure trips this
+    # breaker; for LLM_TRIP_SECONDS afterward every LLM call short-circuits to
+    # the offline/static path — instant, no network, no blocking. Auto-recovers
+    # so a real quota reset resumes the full LLM experience.
+    LLM_TRIP_SECONDS: float = 600.0
+    _llm_disabled_until: float = 0.0
+
+    @classmethod
+    def llm_ok(cls) -> bool:
+        """False → skip all LLM calls (manual override or breaker tripped)."""
+        if os.environ.get("PLANGEN_DISABLE_LLM", "").strip().lower() in ("1", "true", "yes"):
+            return False
+        return time.time() >= cls._llm_disabled_until
+
+    @classmethod
+    def trip_llm(cls, reason: str) -> None:
+        """Trip the breaker: LLM calls are skipped for LLM_TRIP_SECONDS."""
+        if time.time() < cls._llm_disabled_until:
+            return  # already tripped
+        cls._llm_disabled_until = time.time() + cls.LLM_TRIP_SECONDS
+        logger.warning(
+            "LLM circuit breaker TRIPPED (%s). Serving offline/static replies "
+            "for %.0f s.", reason, cls.LLM_TRIP_SECONDS)
+
+    @staticmethod
+    def is_quota_or_auth_error(err: Exception) -> bool:
+        s = str(err).lower()
+        return ("429" in s or "resource" in s and "exhausted" in s
+                or "403" in s or "permission_denied" in s
+                or "401" in s or "unauthenticated" in s or "quota" in s)
 
     def __init__(self):
         # Initialize the multi-key rotator (replaces single GEMINI_API_KEY)
@@ -64,9 +116,9 @@ class ParserConfig:
         # [FIX #9] Load prompt into a private class var with explicit None check
         # instead of setting a public class var from an instance method
         if ParserConfig._PARSER_SYSTEM_INSTRUCTION is None:
-            from docs.prompts.loader import load_prompt
+            from sources.prompts.loader import load_prompt
             ParserConfig._PARSER_SYSTEM_INSTRUCTION = load_prompt("step1_parser_system.md")
-            logger.info("Loaded parser system instruction from docs/prompts/step1_parser_system.md")
+            logger.info("Loaded parser system instruction from sources/prompts/step1_parser_system.md")
 
     @property
     def PARSER_SYSTEM_INSTRUCTION(self) -> str:
@@ -85,7 +137,8 @@ class ArchitectGatekeeper:
     def __init__(self, config: ParserConfig):
         self.config = config
 
-    def validate_and_format(self, requirements: BuildingRequirements) -> Dict[str, Any]:
+    def validate_and_format(self, requirements: BuildingRequirements,
+                            is_followup: bool = False) -> Dict[str, Any]:
         """
         Evaluates extracted requirements against the structural Tier-1/Tier-2 rules.
         If details are missing, it asks Gemini to formulate a hyper-professional response.
@@ -111,12 +164,13 @@ class ArchitectGatekeeper:
             missing_tier2.append("Number of floors (Ground only, G+1, or G+2)")
 
         is_valid = len(missing_tier1) == 0
-        
+
         # Build the architect conversational response via Gemini Flash
         clarification_prompt = self._generate_architect_response(
-            is_valid=is_valid, 
-            missing_tier1=missing_tier1, 
-            missing_tier2=missing_tier2
+            is_valid=is_valid,
+            missing_tier1=missing_tier1,
+            missing_tier2=missing_tier2,
+            is_followup=is_followup,
         )
 
         return {
@@ -126,10 +180,12 @@ class ArchitectGatekeeper:
             "clarification_prompt": clarification_prompt
         }
 
-    def _generate_architect_response(self, is_valid: bool, missing_tier1: List[str], missing_tier2: List[str]) -> str:
+    def _generate_architect_response(self, is_valid: bool, missing_tier1: List[str],
+                                     missing_tier2: List[str],
+                                     is_followup: bool = False) -> str:
         """Generates conversational responses matching a formal senior Indian architect persona."""
-        from docs.prompts.loader import load_prompt
-        
+        from sources.prompts.loader import load_prompt
+
         # Load the persona template and inject runtime context
         persona_template = load_prompt("step1_gatekeeper_persona.md")
 
@@ -137,8 +193,14 @@ class ArchitectGatekeeper:
         persona_prompt = persona_template.format(
             validation_status="VALID" if is_valid else "INCOMPLETE",
             missing_tier1=", ".join(missing_tier1) if missing_tier1 else "None",
-            missing_tier2=", ".join(missing_tier2) if missing_tier2 else "None"
+            missing_tier2=", ".join(missing_tier2) if missing_tier2 else "None",
+            conversation_stage="FOLLOW_UP" if is_followup else "FIRST_CONTACT",
         )
+
+        # Circuit breaker: skip Gemini when keys are known-dead → static reply.
+        if not self.config.llm_ok():
+            return self._static_gatekeeper_reply(is_valid, missing_tier1,
+                                                 missing_tier2, is_followup)
 
         # Use key rotator to get a client, with 429-aware retry
         for _attempt in range(self.config.key_rotator.key_count + 1):
@@ -149,23 +211,74 @@ class ArchitectGatekeeper:
                     contents=persona_prompt,
                     config=types.GenerateContentConfig(
                         temperature=0.6,  # Slightly warmer for human conversation flows
-                        max_output_tokens=300
+                        max_output_tokens=1024,
+                        **thinking_kwargs(self.config.FLASH_MODEL),
                     )
                 )
-                return response.text.strip()
+                text = (response.text or "").strip()
+                if text:
+                    return text
+                logger.warning("Gatekeeper returned empty text; using fallback.")
+                break  # empty reply → static fallback below
             except Exception as e:
                 error_str = str(e).lower()
                 if "429" in error_str or "resource" in error_str and "exhausted" in error_str:
                     logger.warning(f"429 rate-limit on gatekeeper call (slot {slot_idx}): {e}")
                     self.config.key_rotator.report_rate_limited(slot_idx)
-                    continue  # try next key
+                    self.config.trip_llm("gatekeeper 429/quota exhausted")
+                    break  # every key dead → static reply, no cooldown blocking
                 logger.error(f"Failed to generate persona-driven prompt: {e}")
+                if ParserConfig.is_quota_or_auth_error(e):
+                    self.config.trip_llm("gatekeeper auth/permission error")
                 break  # non-429 error, fall through to static fallback
 
-        # Fallback static responses if all keys fail
+        # ── Anthropic fallback for gatekeeper persona (only if not tripped) ──
+        if self.config.llm_ok():
+            anthropic_resp = self._try_anthropic_gatekeeper(persona_prompt)
+            if anthropic_resp:
+                return anthropic_resp
+
+        return self._static_gatekeeper_reply(is_valid, missing_tier1,
+                                             missing_tier2, is_followup)
+
+    @staticmethod
+    def _static_gatekeeper_reply(is_valid: bool, missing_tier1: List[str],
+                                 missing_tier2: List[str],
+                                 is_followup: bool) -> str:
+        """Deterministic architect-voice reply when no LLM is available."""
         if not is_valid:
-            return f"Namaste. To map out your floor plan accurately, I will need a few missing details: {', '.join(missing_tier1)}. Could you provide these?"
-        return "Excellent. I have the baseline requirements. Shall I assume a single-floor (Ground only) layout, or do you intend to build G+1/G+2?"
+            greeting = "" if is_followup else "Namaste. "
+            return (f"{greeting}To map out your floor plan accurately, I will need a few "
+                    f"missing details: {', '.join(missing_tier1)}. Could you provide these?")
+        if missing_tier2:
+            return (f"Excellent, I have the essential requirements. One optional detail: "
+                    f"{missing_tier2[0]}. Or press Generate Plan and I will proceed "
+                    f"with sensible defaults.")
+        return ("Excellent — I have everything I need. Press Generate Plan and "
+                "I will begin working on your floor plan.")
+
+    def _try_anthropic_gatekeeper(self, persona_prompt: str) -> Optional[str]:
+        """
+        Anthropic claude-sonnet-4-5 fallback for the gatekeeper persona response.
+        Returns None if key is missing, SDK unavailable, or call fails.
+        """
+        if not _ANTHROPIC_AVAILABLE:
+            return None
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if not api_key:
+            return None
+        try:
+            raw_client = _anthropic_sdk.Anthropic(api_key=api_key)
+            logger.info("Gatekeeper: using Anthropic claude-sonnet-4-5 fallback.")
+            response = raw_client.messages.create(
+                model="claude-sonnet-4-5",
+                max_tokens=300,
+                messages=[{"role": "user", "content": persona_prompt}],
+            )
+            return response.content[0].text.strip()
+        except Exception as e:
+            logger.error("Anthropic gatekeeper fallback failed: %s", e)
+            return None
 
 
 # =====================================================================
@@ -196,6 +309,12 @@ class ArchitectureParser:
 
     def parse_input(self, user_text: str) -> Optional[BuildingRequirements]:
         """Sends clean natural text to Gemini to fulfill structured Pydantic parameters."""
+        # Circuit breaker: skip LLM entirely when keys are known-dead →
+        # caller falls back to the offline rule-based extractor.
+        if not self.config.llm_ok():
+            logger.info("LLM breaker open — skipping Gemini parse (offline path).")
+            return None
+
         logger.info(f"Initiating extraction on primary engine ({self.config.PRIMARY_MODEL})...")
 
         for attempt in range(1, self.config.MAX_RETRIES + 1):
@@ -242,13 +361,18 @@ class ArchitectureParser:
                 )
 
                 if is_rate_limit:
-                    # 429 — cooldown this key and immediately retry with next key
+                    # 429/quota — cooldown this key AND trip the breaker: when
+                    # quota is exhausted every key is dead, so bail to offline
+                    # immediately instead of blocking on 60 s cooldowns.
                     logger.warning(
                         f"429 rate-limit hit on slot {slot_idx} (attempt {attempt}): {e}"
                     )
                     self.config.key_rotator.report_rate_limited(slot_idx)
-                    # Don't count this as a "real" attempt — retry immediately with next key
-                    continue
+                    self.config.trip_llm("parser 429/quota exhausted")
+                    return None
+                if ParserConfig.is_quota_or_auth_error(e):
+                    self.config.trip_llm("parser auth/permission error")
+                    return None
 
                 # Non-429 API error — standard exponential backoff
                 logger.warning(f"Gemini API failure on attempt {attempt}/{self.config.MAX_RETRIES}: {e}")
@@ -256,13 +380,62 @@ class ArchitectureParser:
                     time.sleep(self.config.RETRY_DELAY_BASE ** attempt)  # Exponential backoff for API errors
                 else:
                     logger.error("Max retry limits exhausted on parser pipeline execution.")
-                    return None
+                    break   # fall through to Anthropic fallback
 
+        # ── Anthropic fallback — fires when ALL Gemini keys are exhausted ──
+        logger.info("All Gemini keys exhausted — attempting Anthropic claude-sonnet-4-5 fallback...")
+        return self._parse_with_anthropic(user_text)
+
+    def _parse_with_anthropic(self, user_text: str) -> Optional[BuildingRequirements]:
+        """
+        Anthropic claude-sonnet-4-5 structured extraction fallback.
+
+        Uses the `instructor` library patched onto the Anthropic client so we get
+        the same Pydantic model output as the Gemini path.  Falls back to raw JSON
+        parsing when instructor is unavailable.
+
+        Returns None only if the API key is missing or every attempt fails.
+        """
+        if not _ANTHROPIC_AVAILABLE:
+            logger.warning("anthropic/instructor not installed — Anthropic fallback skipped.")
+            return None
+
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if not api_key:
+            logger.warning("ANTHROPIC_API_KEY not set in environment — Anthropic fallback skipped.")
+            return None
+
+        logger.info("Anthropic fallback: using claude-sonnet-4-5 for structured extraction.")
+        for attempt in range(1, 3):  # 2 attempts max
+            try:
+                raw_client = _anthropic_sdk.Anthropic(api_key=api_key)
+                client = _instructor_sdk.from_anthropic(raw_client)
+
+                result: BuildingRequirements = client.messages.create(
+                    model="claude-sonnet-4-5",
+                    max_tokens=4096,
+                    system=self.config.PARSER_SYSTEM_INSTRUCTION,
+                    messages=[{"role": "user", "content": user_text}],
+                    response_model=BuildingRequirements,
+                )
+                logger.info("Anthropic fallback succeeded on attempt %d.", attempt)
+                return result
+
+            except (json.JSONDecodeError, ValidationError) as ve:
+                logger.warning("Anthropic schema validation failed (attempt %d): %s", attempt, ve)
+                if attempt < 2:
+                    time.sleep(2.0)
+            except Exception as e:
+                logger.error("Anthropic fallback error (attempt %d): %s", attempt, e)
+                if attempt < 2:
+                    time.sleep(2.0)
+
+        logger.error("Anthropic fallback exhausted — returning None.")
         return None
 
     def merge_and_reparse(self, original_input: str, followup_input: str, existing_data: Dict[str, Any]) -> Optional[BuildingRequirements]:
         """Resolves multi-turn architectural updates by executing structural consolidation prompts."""
-        from docs.prompts.loader import load_prompt
+        from sources.prompts.loader import load_prompt
 
         # Load the consolidation template and inject runtime context
         consolidation_template = load_prompt("step1_merge_consolidation.md")
@@ -457,6 +630,18 @@ class Module1Pipeline:
         )
 
         if not updated_requirements:
+            # LLM merge unavailable → rule-based extract + shallow merge.
+            from modules.step1_parse.offline_parser import extract, merge_partial
+            partial = extract(followup_input)
+            if partial:
+                try:
+                    updated_requirements = BuildingRequirements.model_validate(
+                        merge_partial(session["last_parsed_data"], partial))
+                    logger.info("Follow-up merged via offline rule-based fallback.")
+                except ValidationError:
+                    updated_requirements = None
+
+        if not updated_requirements:
             return {
                 "status": "error",
                 "message": "I could not process that specific update. Please describe your adjustments again."
@@ -489,10 +674,17 @@ class Module1Pipeline:
             }
 
         session["interactive_mode"] = True
-        return self.interactive_gatherer.get_next_action(
+        action = self.interactive_gatherer.get_next_action(
             session["last_parsed_data"],
             session_id,
         )
+        # Remember what we asked so the user's (possibly one-word) answer can
+        # be merged with full context on the next turn.
+        if action.get("action") == "ask":
+            session["pending_question"] = action.get("question")
+            session["pending_field_name"] = action.get("field_name")
+            session["pending_field_key"] = action.get("field")
+        return action
 
     def process_interactive_answer(
         self,
@@ -522,14 +714,55 @@ class Module1Pipeline:
         # Track in conversation history
         session["conversation_history"].append(answer)
 
-        # Merge the answer into existing data
-        full_conversation_context = "\n---\n".join(session["conversation_history"][:-1])
+        # ── FAST PATH: deterministic application, zero LLM calls ─────────
+        # Widget/short answers ("North-East", "2 floors", "yes") map to the
+        # pending field by string rules — instant, quota-free, can't fail
+        # in the ways an LLM can.
+        pending_key = session.get("pending_field_key")
+        updated_requirements = None
+        if pending_key:
+            from modules.step1_parse.offline_parser import apply_answer
+            applied = apply_answer(session["last_parsed_data"], pending_key, answer)
+            if applied is not None:
+                try:
+                    updated_requirements = BuildingRequirements.model_validate(applied)
+                    logger.info("Answer applied deterministically to %s.", pending_key)
+                except ValidationError as ve:
+                    logger.warning("Deterministic apply failed validation: %s", ve)
+                    updated_requirements = None
 
-        updated_requirements = self.parser.merge_and_reparse(
-            original_input=full_conversation_context,
-            followup_input=answer,
-            existing_data=session["last_parsed_data"]
-        )
+        # ── LLM path: free-text answers, with the question as context ────
+        if updated_requirements is None:
+            pending_q = session.get("pending_question")
+            pending_field = session.get("pending_field_name")
+            if pending_q or pending_field:
+                followup = (
+                    f"[The architect asked about: {pending_field or 'a missing detail'}. "
+                    f"Question was: \"{pending_q or ''}\"]\n"
+                    f"Client's answer: \"{answer}\""
+                )
+            else:
+                followup = answer
+
+            full_conversation_context = "\n---\n".join(session["conversation_history"][:-1])
+
+            updated_requirements = self.parser.merge_and_reparse(
+                original_input=full_conversation_context,
+                followup_input=followup,
+                existing_data=session["last_parsed_data"]
+            )
+
+        # ── Offline fallback: LLM unavailable → rule-based extract+merge ─
+        if updated_requirements is None:
+            from modules.step1_parse.offline_parser import extract, merge_partial
+            partial = extract(answer)
+            if partial:
+                try:
+                    updated_requirements = BuildingRequirements.model_validate(
+                        merge_partial(session["last_parsed_data"], partial))
+                    logger.info("Answer merged via offline rule-based fallback.")
+                except ValidationError:
+                    updated_requirements = None
 
         if not updated_requirements:
             logger.warning("Failed to merge interactive answer. Keeping existing data.")
@@ -551,9 +784,15 @@ class Module1Pipeline:
         if next_action["action"] == "complete":
             # Interactive loop finished — run through gatekeeper for final validation
             logger.info("Interactive loop complete. Running final gatekeeper validation.")
+            session["pending_question"] = None
+            session["pending_field_name"] = None
+            session["pending_field_key"] = None
             return self._validate_and_respond(updated_requirements, session)
 
-        # Still have questions — return the next question
+        # Still have questions — remember and return the next question
+        session["pending_question"] = next_action.get("question")
+        session["pending_field_name"] = next_action.get("field_name")
+        session["pending_field_key"] = next_action.get("field")
         return {
             "status": "interactive",
             "action": next_action["action"],
@@ -572,16 +811,32 @@ class Module1Pipeline:
         """Parses text and validates through gatekeeper. All errors are handled gracefully."""
         requirements = self.parser.parse_input(text)
         if not requirements:
+            # LLM parsing unavailable (quota/keys) → rule-based extraction so
+            # the consultation continues instead of dead-ending.
+            from modules.step1_parse.offline_parser import extract
+            partial = extract(text)
+            if partial:
+                try:
+                    requirements = BuildingRequirements.model_validate(partial)
+                    logger.info("Initial parse served by offline rule-based extractor.")
+                except ValidationError:
+                    requirements = None
+        if not requirements:
             return {
                 "status": "error",
-                "message": "Internal structural compilation error occurred while processing design layouts."
+                "message": (
+                    "I'm having trouble reaching my language service right now. "
+                    "Could you state the essentials plainly — for example: "
+                    "'3BHK on a 30x40 north-facing plot, single floor'?"
+                )
             }
         return self._validate_and_respond(requirements, session)
 
     def _validate_and_respond(self, requirements: BuildingRequirements, session: Dict[str, Any]) -> Dict[str, Any]:
         """Evaluates configurations through the gatekeeper to prepare API response contracts."""
         session["last_parsed_data"] = requirements.model_dump()
-        validation = self.gatekeeper.validate_and_format(requirements)
+        is_followup = len(session.get("conversation_history", [])) > 1
+        validation = self.gatekeeper.validate_and_format(requirements, is_followup=is_followup)
 
         if validation["is_valid"]:
             return {
@@ -614,7 +869,7 @@ if __name__ == "__main__":
     from pathlib import Path as _Path
 
     # Output directory for JSON saves
-    _output_dir = _Path(__file__).resolve().parent.parent.parent / "extracted data" / "prompt_extraction"
+    _output_dir = _Path(__file__).resolve().parent.parent.parent / "output" / "prompt_extraction"
     _output_dir.mkdir(parents=True, exist_ok=True)
 
     def _save(data, label):
@@ -630,7 +885,7 @@ if __name__ == "__main__":
     print(f"JSON outputs will be saved to:\n  {_output_dir}\n")
     try:
         pipeline = Module1Pipeline()
-        
+
         # ──────────────────────────────────────────────────────────────
         # Test Case 1: Incomplete shorthand — should ask for plot size
         # ──────────────────────────────────────────────────────────────

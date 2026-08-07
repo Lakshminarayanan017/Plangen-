@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./venv/Scripts/python.exe -m unittest tests.test_engine_bridge tests.test_room_resolver)",
+      "Bash(set -e)",
+      "Bash(mv PlanGen_Train.ipynb ml/notebooks/)",
+      "Bash(mv plangen_colab.zip unwanted/archives/)",
+      "Bash(mv sources/checkpoint.pt ml/tier2_placer/weights/checkpoint.pt)",
+      "Bash(mv modules/step4_generate/autoregressive_engine.py unwanted/legacy_step4/)",
+      "Bash(./venv/Scripts/python.exe \"C:/Users/Welcome/AppData/Local/Temp/claude/c--Users-Welcome-Desktop-PlanGen/c6cd17ab-e885-4db0-863c-f143beff62f5/scratchpad/rewrite_imports.py\")",
+      "Bash(./venv/Scripts/python.exe -)",
+      "Bash(mv docs/prompts sources/prompts)",
+      "Bash(rm -f docs/__init__.py)",
+      "Bash(./venv/Scripts/python.exe -m modules.step4_generate.demos.demo_engine)",
+      "Bash(rm -rf modules/step4_generate/output)",
+      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -)",
+      "Bash(grep \"\\\\.py$\")",
+      "Bash(grep -oE \"fetch\\\\\\(\\\\`?[^,\\\\\\)]+\" frontend/app.js)",
+      "Bash(mkdir -p unwanted/old_frontend)",
+      "Bash(mv frontend/app.js frontend/index.html frontend/styles.css unwanted/old_frontend/)",
+      "Bash(rmdir frontend *)",
+      "Bash(npm --version)",
+      "Bash(npm ping *)",
+      "Bash(npm view *)"
+    ]
+  }
+}

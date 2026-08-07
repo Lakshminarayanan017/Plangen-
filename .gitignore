@@ -1,4 +1,36 @@
 sources/.env
 venv/
+unwanted/
 __pycache__/
-extracted data/
+
+# ── Bulk data ────────────────────────────────────────────────────────────
+# ml/data/ holds the raw training corpora (CubiCasa5K, RPLAN, the normalized
+# extraction) — gigabytes, regenerable, never committed.
+# data/ at the repo root is the OPPOSITE: small distilled stats the runtime
+# reads (zone_patterns.json et al). That one IS tracked.
+ml/data/
+
+# ── Model weights & training artifacts (large binaries) ──────────────────
+*.pt
+*.npz
+*.pkl
+*.ckpt
+ml/tier2_placer/weights/
+
+# Large regenerable training/tuning artifacts. The small proof artifacts
+# (manifest.json, gates_report.json, labels.json, tuned_config.json) stay
+# tracked — they are the evidence, not the bulk.
+ml/training/prepared/masks.npy
+ml/training/prepared/samples.jsonl
+ml/tuning/results/corpus.json
+ml/tuning/results/*.html
+
+# Pipeline output
+output/
+
+# IDE / OS
+.vscode/
+.idea/
+*.pyc
+.DS_Store
+Thumbs.db

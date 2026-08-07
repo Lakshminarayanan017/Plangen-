@@ -1,4 +1,45 @@
+# ── Core / data validation ─────────────────────────────────────────────
 pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# ── Numerical / plan index ──────────────────────────────────────────────
+# SemanticMatcher plan retrieval engine (pure NumPy cosine similarity)
+numpy>=1.26.0
+scipy>=1.12.0          # optional — reserved for future clustering
+
+# ── Constraint solver (Step 4 CP-SAT) ──────────────────────────────────
+ortools>=9.8.0
+
+# ── AI SDKs ────────────────────────────────────────────────────────────
+# Anthropic — developer/internal tools (e.g. nbc_extractor)
+anthropic>=0.40.0
+
+# Google Gemini — product / project flows only
+google-genai>=1.0.0
+
+# Groq + Instructor — additional LLM utilities
 groq>=0.9.0
 instructor>=1.3.0
-python-dotenv>=1.0.0
+
+# ── PDF processing ─────────────────────────────────────────────────────
+# Used by nbc_extractor to split the NBC PDF into 90-page chunks
+pypdf>=4.0.0
+
+# ── Step 5: SVG rendering ──────────────────────────────────────────────
+# Required by modules/step4_generate/renderer.py to render floor-plan SVGs.
+# Without this, Step 5 (RENDER) fails and the frontend shows no plan.
+svgwrite>=1.4.0
+
+# ── Web API server (api/server.py + frontend) ──────────────────────────
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+python-multipart>=0.0.6   # required for multipart form / file uploads
+
+# ── Step 4: GNN + Diffusion Layout Engine (training only) ──────────────
+# PyTorch — required for training GNN encoder + diffusion decoder.
+# For inference, the trained weights (.npz) are used via pure numpy.
+# Install separately (platform-specific builds):
+#   Mac M1/M2:  pip install torch
+#   CUDA GPU:   pip install torch --index-url https://download.pytorch.org/whl/cu121
+#   CPU only:   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.0.0

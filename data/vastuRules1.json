@@ -1,0 +1,113 @@
+{
+  "system_metadata": {
+    "engine_version": "2.1.0",
+    "grid_type": "Paramasayika_Mandala",
+    "total_padas": 81,
+    "axis_dimensions": [9, 9],
+    "radial_resolution_degrees": 11.25
+  },
+  "outer_perimeter_gates_32": [
+    {"id": "N1", "name": "Roga", "degrees": [348.75, 360.00], "coords": [0, 8], "status": "hard_block", "score": 0.0},
+    {"id": "N2", "name": "Naga", "degrees": [0.00, 11.25], "coords": [1, 8], "status": "soft_block", "score": 0.3},
+    {"id": "N3", "name": "Mukhya", "degrees": [11.25, 22.50], "coords": [2, 8], "status": "ideal", "score": 1.0},
+    {"id": "N4", "name": "Bhallat", "degrees": [22.50, 33.75], "coords": [3, 8], "status": "ideal", "score": 1.0},
+    {"id": "N5", "name": "Soma", "degrees": [33.75, 45.00], "coords": [4, 8], "status": "ideal", "score": 1.0},
+    {"id": "N6", "name": "Bhujag", "degrees": [45.00, 56.25], "coords": [5, 8], "status": "soft_block", "score": 0.3},
+    {"id": "N7", "name": "Aditi", "degrees": [56.25, 67.50], "coords": [6, 8], "status": "soft_block", "score": 0.4},
+    {"id": "N8", "name": "Diti", "degrees": [67.50, 78.75], "coords": [7, 8], "status": "permitted", "score": 0.7},
+    {"id": "E1", "name": "Shikhi", "degrees": [78.75, 90.00], "coords": [8, 8], "status": "hard_block", "score": 0.0},
+    {"id": "E2", "name": "Parjanya", "degrees": [90.00, 101.25], "coords": [8, 7], "status": "soft_block", "score": 0.3},
+    {"id": "E3", "name": "Jayanta", "degrees": [101.25, 112.50], "coords": [8, 6], "status": "ideal", "score": 1.0},
+    {"id": "E4", "name": "Indra", "degrees": [112.50, 123.75], "coords": [8, 5], "status": "ideal", "score": 1.0},
+    {"id": "E5", "name": "Surya", "degrees": [123.75, 135.00], "coords": [8, 4], "status": "soft_block", "score": 0.4},
+    {"id": "E6", "name": "Satya", "degrees": [135.00, 146.25], "coords": [8, 3], "status": "soft_block", "score": 0.4},
+    {"id": "E7", "name": "Bhrisha", "degrees": [146.25, 157.50], "coords": [8, 2], "status": "hard_block", "score": 0.0},
+    {"id": "E8", "name": "Akash", "degrees": [157.50, 168.75], "coords": [8, 1], "status": "hard_block", "score": 0.0},
+    {"id": "S1", "name": "Anil", "degrees": [168.75, 180.00], "coords": [8, 0], "status": "soft_block", "score": 0.2},
+    {"id": "S2", "name": "Pusha", "degrees": [180.00, 191.25], "coords": [7, 0], "status": "soft_block", "score": 0.3},
+    {"id": "S3", "name": "Vitatha", "degrees": [191.25, 202.50], "coords": [6, 0], "status": "ideal", "score": 1.0},
+    {"id": "S4", "name": "Grihrakshita", "degrees": [202.50, 213.75], "coords": [5, 0], "status": "ideal", "score": 1.0},
+    {"id": "S5", "name": "Yama", "degrees": [213.75, 225.00], "coords": [4, 0], "status": "hard_block", "score": 0.0},
+    {"id": "S6", "name": "Gandharva", "degrees": [225.00, 236.25], "coords": [3, 0], "status": "soft_block", "score": 0.3},
+    {"id": "S7", "name": "Bhringraj", "degrees": [236.25, 247.50], "coords": [2, 0], "status": "hard_block", "score": 0.0},
+    {"id": "S8", "name": "Mrig", "degrees": [247.50, 258.75], "coords": [1, 0], "status": "hard_block", "score": 0.0},
+    {"id": "W1", "name": "Pitragan", "degrees": [258.75, 270.00], "coords": [0, 0], "status": "hard_block", "score": 0.0},
+    {"id": "W2", "name": "Dwarik", "degrees": [270.00, 281.25], "coords": [0, 1], "status": "soft_block", "score": 0.3},
+    {"id": "W3", "name": "Sugriva", "degrees": [281.25, 292.50], "coords": [0, 2], "status": "ideal", "score": 1.0},
+    {"id": "W4", "name": "Pushpdanta", "degrees": [292.50, 303.75], "coords": [0, 3], "status": "ideal", "score": 1.0},
+    {"id": "W5", "name": "Varun", "degrees": [303.75, 315.00], "coords": [0, 4], "status": "permitted", "score": 0.7},
+    {"id": "W6", "name": "Asur", "degrees": [315.00, 326.25], "coords": [0, 5], "status": "soft_block", "score": 0.4},
+    {"id": "W7", "name": "Shok", "degrees": [326.25, 337.50], "coords": [0, 6], "status": "hard_block", "score": 0.0},
+    {"id": "W8", "name": "Pap-Yakshma", "degrees": [337.50, 348.75], "coords": [0, 7], "status": "hard_block", "score": 0.0}
+  ],
+  "inner_energy_fields_13": {
+    "Brahma": {
+      "x_range": [3, 5], "y_range": [3, 5],
+      "ideal_usage": ["open_courtyard", "central_atrium", "hallway"],
+      "hard_blocks": ["pillar", "load_bearing_wall", "toilet", "kitchen_stove"]
+    },
+    "Bhudhar": {
+      "x_range": [3, 5], "y_range": [6, 6],
+      "ideal_usage": ["office_desk", "study_area"], "hard_blocks": ["trash_bin"]
+    },
+    "Aryama": {
+      "x_range": [6, 6], "y_range": [3, 5],
+      "ideal_usage": ["living_room_seating", "dining_table"], "hard_blocks": ["septic_tank"]
+    },
+    "Vivaswaan": {
+      "x_range": [3, 5], "y_range": [2, 2],
+      "ideal_usage": ["staircase", "heavy_storage"], "hard_blocks": ["underground_water_tank"]
+    },
+    "Mitra": {
+      "x_range": [2, 2], "y_range": [3, 5],
+      "ideal_usage": ["consulting_desk", "safe_locker"], "hard_blocks": ["waste_pipe"]
+    },
+    "Aapa": {
+      "x_range": [5, 5], "y_range": [5, 5],
+      "ideal_usage": ["water_drainage", "washbasin"], "hard_blocks": ["fireplace", "stove"]
+    },
+    "Apahavatsa": {
+      "x_range": [5, 5], "y_range": [6, 6],
+      "ideal_usage": ["meditation_mat", "pooja_mandir"], "hard_blocks": ["toilet_commode"]
+    },
+    "Savita": {
+      "x_range": [5, 5], "y_range": [3, 3],
+      "ideal_usage": ["cooking_hob", "burner_fixtures"], "hard_blocks": ["bathtub"]
+    },
+    "Savitur": {
+      "x_range": [5, 5], "y_range": [2, 2],
+      "ideal_usage": ["electrical_distribution_board", "inverter"], "hard_blocks": ["water_borewell"]
+    },
+    "Indra": {
+      "x_range": [3, 3], "y_range": [2, 2],
+      "ideal_usage": ["master_bed_placement"], "hard_blocks": ["kitchen_sink"]
+    },
+    "Indrajaya": {
+      "x_range": [2, 2], "y_range": [2, 2],
+      "ideal_usage": ["cash_vault", "luxury_wardrobe"], "hard_blocks": ["toilet_drain"]
+    },
+    "Rudra": {
+      "x_range": [3, 3], "y_range": [5, 5],
+      "ideal_usage": ["toilet_commode", "exhaust_vent"], "hard_blocks": ["pooja_altar"]
+    },
+    "Rajyakshma": {
+      "x_range": [2, 2], "y_range": [5, 5],
+      "ideal_usage": ["guest_bed", "changing_mirror"], "hard_blocks": ["heavy_machinery"]
+    }
+  },
+  "marma_vulnerable_diagonals": [
+    {"from_pada": "E1_Shikhi", "to_pada": "W1_Pitra", "rule": "No structural column, main wall intersection, or door frame center line may fall on this running coordinate axis."},
+    {"from_pada": "N7_Aditi", "to_pada": "W3_Sugriv", "rule": "Clear path restriction line."},
+    {"from_pada": "E3_Jayant", "to_pada": "S7_Bhringraj", "rule": "Clear path restriction line."},
+    {"from_pada": "N1_Roga", "to_pada": "S1_Anil", "rule": "Clear path restriction line."},
+    {"from_pada": "W3_Mukhya", "to_pada": "E7_Bhrisha", "rule": "Clear path restriction line."},
+    {"from_pada": "W7_Shosha", "to_pada": "S3_Vitatha", "rule": "Clear path restriction line."}
+  ],
+  "global_structural_modifiers": {
+    "maximum_plot_aspect_ratio": 2.0,
+    "forbidden_sleeping_head_direction": "north",
+    "ideal_cooking_facing_direction": "east",
+    "minimum_separation_fire_water_ft": 4.0,
+    "staircase_turn_direction": "clockwise"
+  }
+}

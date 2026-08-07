@@ -1,0 +1,11 @@
+# DEV / TRAIN-only dependencies for the Tier-2 placement transformer (M5).
+# NOT required by the production server — production inference uses the pure
+# NumPy path (tier2_placer/numpy_infer.py). Install into the dev/Colab env:
+#     pip install -r training/requirements-train.txt
+#
+# torch CPU wheel for local dev/test; on Colab the GPU wheel is preinstalled.
+torch>=2.0            # --index-url https://download.pytorch.org/whl/cpu (local)
+ijson>=3.0            # streaming the multi-hundred-MB corpus JSONs
+numpy>=1.24
+scipy>=1.10           # gelu (erf) in the NumPy inference path
+tqdm>=4.65            # live per-step training progress bar

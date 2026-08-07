@@ -1,0 +1,94 @@
+{
+ "chosen_lambda": 0.3,
+ "n_briefs_labeled": 18,
+ "n_pairs": 262,
+ "base_top1": 0.1667,
+ "tuned_top1_cv": 0.2778,
+ "base_pairwise": 0.5191,
+ "tuned_pairwise_cv": 0.6145,
+ "zeroed_weights": [
+  "w_area_drift",
+  "w_narrow",
+  "w_privacy_door",
+  "w_wet_social",
+  "w_daylight",
+  "w_window",
+  "w_freespace",
+  "w_hub_centrality",
+  "w_wall_jog",
+  "w_toothpick",
+  "w_swing_direction"
+ ],
+ "per_lambda": [
+  {
+   "lambda": 0.0,
+   "cv_top1": 0.2778,
+   "cv_pairwise": 0.6145
+  },
+  {
+   "lambda": 0.01,
+   "cv_top1": 0.2778,
+   "cv_pairwise": 0.6145
+  },
+  {
+   "lambda": 0.03,
+   "cv_top1": 0.2778,
+   "cv_pairwise": 0.6145
+  },
+  {
+   "lambda": 0.1,
+   "cv_top1": 0.2778,
+   "cv_pairwise": 0.6145
+  },
+  {
+   "lambda": 0.3,
+   "cv_top1": 0.2778,
+   "cv_pairwise": 0.6145
+  },
+  {
+   "lambda": 1.0,
+   "cv_top1": 0.2778,
+   "cv_pairwise": 0.6107
+  },
+  {
+   "lambda": 3.0,
+   "cv_top1": 0.2222,
+   "cv_pairwise": 0.5954
+  },
+  {
+   "lambda": 10.0,
+   "cv_top1": 0.2222,
+   "cv_pairwise": 0.6336
+  },
+  {
+   "lambda": 30.0,
+   "cv_top1": 0.2778,
+   "cv_pairwise": 0.6031
+  }
+ ],
+ "weights": {
+  "w_area_drift": 0.0,
+  "w_narrow": 0.0,
+  "w_aspect": 0.6043817995022142,
+  "w_nbc": 0.7567301791741167,
+  "w_wide_bonus": 0.19750488825704302,
+  "w_privacy_door": 0.0,
+  "w_wet_social": 0.0,
+  "w_circ_depth": 0.10638922700046845,
+  "w_daylight": 0.0,
+  "w_window": 0.0,
+  "w_freespace": 0.0,
+  "w_circ_waste": 1.2,
+  "w_passage_width": 1.2658976450241157,
+  "w_hub_centrality": 0.0,
+  "w_wall_efficiency": 2.5,
+  "w_wall_jog": 0.0,
+  "w_toothpick": 0.0,
+  "w_hinge_stub": 2.0,
+  "w_swing_direction": 0.0,
+  "w_cross_vent": 1.6783066776200242
+ },
+ "notes": [
+  "11/20 weights collapsed to zero: w_area_drift, w_narrow, w_privacy_door, w_wet_social, w_daylight, w_window, w_freespace, w_hub_centrality, w_wall_jog, w_toothpick, w_swing_direction. With this few labeled briefs relative to 20 free weights the fit is underdetermined \u2014 a weight at zero means the labels gave it no gradient to survive on, NOT that the rule is unwanted (raising regularization erases the CV gain entirely rather than fixing this \u2014 see per_lambda). DO NOT wire tuned_config.json into the live app as-is; the safe path is to gather more labels (more briefs and/or a second labeling pass with fresh candidate pools) before this fit is trustworthy."
+ ]
+}

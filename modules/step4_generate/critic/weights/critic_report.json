@@ -1,0 +1,52 @@
+{
+ "n_trees": 48,
+ "balanced_threshold": 0.112,
+ "train": {
+  "auc": 0.9355,
+  "acc": 0.6676
+ },
+ "val": {
+  "auc": 0.9118,
+  "acc": 0.8115
+ },
+ "val_per_kind": {
+  "bad_privacy_door": 0.971,
+  "close_the_gradient": 1.0,
+  "move_the_entrance": 0.897,
+  "seal_opening": 0.849,
+  "swap_room_types": 0.937
+ },
+ "val_ranking": {
+  "pairs": 303,
+  "critic": 0.9142,
+  "rules_only": 0.632
+ },
+ "importance": {
+  "area_drift": 0.406,
+  "circ_excess_hops": 0.1399,
+  "privacy_doors": 0.1247,
+  "mean_entrance_hops": 0.0662,
+  "cross_vent_rooms": 0.0606,
+  "adjacency_satisfaction": 0.042,
+  "stair_entrance_hops": 0.0315,
+  "area_err_std": 0.0206,
+  "hub_mean_dist": 0.0195,
+  "doors_per_room": 0.0176,
+  "wide_openings": 0.0156,
+  "area_err_mean": 0.0144
+ },
+ "corpus": {
+  "n_samples": 465,
+  "n_features": 47,
+  "n_briefs": 28,
+  "positives": 82,
+  "by_kind": {
+   "clean": 82,
+   "swap_room_types": 82,
+   "seal_opening": 82,
+   "close_the_gradient": 82,
+   "move_the_entrance": 82,
+   "bad_privacy_door": 55
+  }
+ }
+}

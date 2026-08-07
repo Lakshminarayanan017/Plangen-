@@ -273,7 +273,7 @@ class QuestionGenerator:
     def question_template(self) -> str:
         """Lazy-load the question prompt template."""
         if self._question_template is None:
-            from docs.prompts.loader import load_prompt
+            from sources.prompts.loader import load_prompt
             self._question_template = load_prompt("step1_interactive_question.md")
         return self._question_template
 
@@ -300,6 +300,11 @@ class QuestionGenerator:
             priority_tier=f"Tier {missing_field.tier}",
         )
 
+        # Circuit breaker: skip Gemini when keys are known-dead → static question.
+        from modules.step1_parse.parser import ParserConfig, thinking_kwargs
+        if not self.config.llm_ok():
+            return self._fallback_question(missing_field)
+
         # Call Gemini Flash for a warm, persona-driven question
         for _attempt in range(self.config.key_rotator.key_count + 1):
             client, slot_idx = self.config.key_rotator.get_client()
@@ -309,10 +314,15 @@ class QuestionGenerator:
                     contents=prompt,
                     config=types.GenerateContentConfig(
                         temperature=0.6,  # Slightly warm for conversational tone
-                        max_output_tokens=250,
+                        max_output_tokens=512,
+                        **thinking_kwargs(self.config.FLASH_MODEL),
                     ),
                 )
-                return response.text.strip()
+                text = (response.text or "").strip()
+                if text:
+                    return text
+                logger.warning("Question generation returned empty text; using fallback.")
+                break  # empty → static fallback
 
             except Exception as e:
                 error_str = str(e).lower()
@@ -323,8 +333,11 @@ class QuestionGenerator:
                         e,
                     )
                     self.config.key_rotator.report_rate_limited(slot_idx)
-                    continue
+                    self.config.trip_llm("question-gen 429/quota exhausted")
+                    break
                 logger.error("Failed to generate question: %s", e)
+                if ParserConfig.is_quota_or_auth_error(e):
+                    self.config.trip_llm("question-gen auth/permission error")
                 break
 
         # Fallback: static question if LLM call fails

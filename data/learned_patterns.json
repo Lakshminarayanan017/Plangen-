@@ -1,0 +1,3328 @@
+{
+  "adjacency_weights": {
+    "outdoor|undefined": {
+      "weight": 1.71,
+      "frequency": 0.1712,
+      "plans_count": 854,
+      "door_ratio": 1.258,
+      "wall_only_ratio": -0.258,
+      "total_connections": 1096
+    },
+    "undefined|undefined": {
+      "weight": 2.8,
+      "frequency": 0.2798,
+      "plans_count": 1396,
+      "door_ratio": 2.09,
+      "wall_only_ratio": -1.09,
+      "total_connections": 3725
+    },
+    "balcony|dining": {
+      "weight": 0.12,
+      "frequency": 0.0118,
+      "plans_count": 59,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 59
+    },
+    "balcony|utility": {
+      "weight": 0.22,
+      "frequency": 0.0218,
+      "plans_count": 109,
+      "door_ratio": 1.11,
+      "wall_only_ratio": -0.11,
+      "total_connections": 121
+    },
+    "balcony|entry": {
+      "weight": 0.21,
+      "frequency": 0.0206,
+      "plans_count": 103,
+      "door_ratio": 1.01,
+      "wall_only_ratio": -0.01,
+      "total_connections": 105
+    },
+    "bathroom|undefined": {
+      "weight": 5.77,
+      "frequency": 0.5775,
+      "plans_count": 2881,
+      "door_ratio": 1.259,
+      "wall_only_ratio": -0.259,
+      "total_connections": 3710
+    },
+    "bathroom|entry": {
+      "weight": 5.54,
+      "frequency": 0.5538,
+      "plans_count": 2763,
+      "door_ratio": 1.158,
+      "wall_only_ratio": -0.158,
+      "total_connections": 3224
+    },
+    "entry|undefined": {
+      "weight": 3.17,
+      "frequency": 0.3169,
+      "plans_count": 1581,
+      "door_ratio": 1.099,
+      "wall_only_ratio": -0.099,
+      "total_connections": 2323
+    },
+    "storage|undefined": {
+      "weight": 1.37,
+      "frequency": 0.1365,
+      "plans_count": 681,
+      "door_ratio": 1.138,
+      "wall_only_ratio": -0.138,
+      "total_connections": 858
+    },
+    "dining|undefined": {
+      "weight": 0.33,
+      "frequency": 0.0327,
+      "plans_count": 163,
+      "door_ratio": 0.35,
+      "wall_only_ratio": 0.65,
+      "total_connections": 185
+    },
+    "dining|kitchen": {
+      "weight": 1.45,
+      "frequency": 0.1453,
+      "plans_count": 725,
+      "door_ratio": 0.083,
+      "wall_only_ratio": 0.917,
+      "total_connections": 730
+    },
+    "kitchen|undefined": {
+      "weight": 2.49,
+      "frequency": 0.2493,
+      "plans_count": 1244,
+      "door_ratio": 0.626,
+      "wall_only_ratio": 0.374,
+      "total_connections": 1518
+    },
+    "balcony|living_room": {
+      "weight": 1.85,
+      "frequency": 0.1852,
+      "plans_count": 924,
+      "door_ratio": 1.014,
+      "wall_only_ratio": -0.014,
+      "total_connections": 937
+    },
+    "bedroom|entry": {
+      "weight": 3.83,
+      "frequency": 0.383,
+      "plans_count": 1911,
+      "door_ratio": 1.608,
+      "wall_only_ratio": -0.608,
+      "total_connections": 3127
+    },
+    "living_room|utility": {
+      "weight": 0.17,
+      "frequency": 0.0166,
+      "plans_count": 83,
+      "door_ratio": 0.964,
+      "wall_only_ratio": 0.036,
+      "total_connections": 84
+    },
+    "outdoor|storage": {
+      "weight": 1.3,
+      "frequency": 0.1297,
+      "plans_count": 647,
+      "door_ratio": 1.085,
+      "wall_only_ratio": -0.085,
+      "total_connections": 706
+    },
+    "entry|outdoor": {
+      "weight": 3.28,
+      "frequency": 0.3283,
+      "plans_count": 1638,
+      "door_ratio": 1.08,
+      "wall_only_ratio": -0.08,
+      "total_connections": 1771
+    },
+    "bathroom|utility": {
+      "weight": 1.21,
+      "frequency": 0.1215,
+      "plans_count": 606,
+      "door_ratio": 0.985,
+      "wall_only_ratio": 0.015,
+      "total_connections": 669
+    },
+    "entry|living_room": {
+      "weight": 4.88,
+      "frequency": 0.4885,
+      "plans_count": 2437,
+      "door_ratio": 0.173,
+      "wall_only_ratio": 0.827,
+      "total_connections": 2481
+    },
+    "kitchen|living_room": {
+      "weight": 4.34,
+      "frequency": 0.4336,
+      "plans_count": 2163,
+      "door_ratio": 0.189,
+      "wall_only_ratio": 0.811,
+      "total_connections": 2188
+    },
+    "living_room|outdoor": {
+      "weight": 2.74,
+      "frequency": 0.274,
+      "plans_count": 1367,
+      "door_ratio": 1.004,
+      "wall_only_ratio": -0.004,
+      "total_connections": 1375
+    },
+    "bedroom|undefined": {
+      "weight": 1.59,
+      "frequency": 0.1585,
+      "plans_count": 791,
+      "door_ratio": 1.408,
+      "wall_only_ratio": -0.408,
+      "total_connections": 1203
+    },
+    "living_room|undefined": {
+      "weight": 2.53,
+      "frequency": 0.2532,
+      "plans_count": 1263,
+      "door_ratio": 0.429,
+      "wall_only_ratio": 0.571,
+      "total_connections": 1499
+    },
+    "balcony|undefined": {
+      "weight": 0.45,
+      "frequency": 0.0453,
+      "plans_count": 226,
+      "door_ratio": 0.947,
+      "wall_only_ratio": 0.053,
+      "total_connections": 252
+    },
+    "entry|storage": {
+      "weight": 1.42,
+      "frequency": 0.1423,
+      "plans_count": 710,
+      "door_ratio": 1.052,
+      "wall_only_ratio": -0.052,
+      "total_connections": 785
+    },
+    "entry|kitchen": {
+      "weight": 4.36,
+      "frequency": 0.4358,
+      "plans_count": 2174,
+      "door_ratio": 0.388,
+      "wall_only_ratio": 0.612,
+      "total_connections": 2245
+    },
+    "bedroom|living_room": {
+      "weight": 2.62,
+      "frequency": 0.262,
+      "plans_count": 1307,
+      "door_ratio": 1.127,
+      "wall_only_ratio": -0.127,
+      "total_connections": 1600
+    },
+    "bedroom|kitchen": {
+      "weight": 0.81,
+      "frequency": 0.081,
+      "plans_count": 404,
+      "door_ratio": 0.978,
+      "wall_only_ratio": 0.022,
+      "total_connections": 461
+    },
+    "bedroom|storage": {
+      "weight": 2.05,
+      "frequency": 0.2051,
+      "plans_count": 1023,
+      "door_ratio": 1.062,
+      "wall_only_ratio": -0.062,
+      "total_connections": 1136
+    },
+    "storage|utility": {
+      "weight": 0.43,
+      "frequency": 0.0429,
+      "plans_count": 214,
+      "door_ratio": 0.935,
+      "wall_only_ratio": 0.065,
+      "total_connections": 249
+    },
+    "outdoor|utility": {
+      "weight": 0.74,
+      "frequency": 0.0738,
+      "plans_count": 368,
+      "door_ratio": 1.171,
+      "wall_only_ratio": -0.171,
+      "total_connections": 431
+    },
+    "bedroom|outdoor": {
+      "weight": 0.24,
+      "frequency": 0.0241,
+      "plans_count": 120,
+      "door_ratio": 1.017,
+      "wall_only_ratio": -0.017,
+      "total_connections": 124
+    },
+    "entry|entry": {
+      "weight": 2.56,
+      "frequency": 0.2562,
+      "plans_count": 1278,
+      "door_ratio": 1.013,
+      "wall_only_ratio": -0.013,
+      "total_connections": 1350
+    },
+    "garage|utility": {
+      "weight": 0.11,
+      "frequency": 0.0106,
+      "plans_count": 53,
+      "door_ratio": 0.981,
+      "wall_only_ratio": 0.019,
+      "total_connections": 53
+    },
+    "garage|storage": {
+      "weight": 0.38,
+      "frequency": 0.0377,
+      "plans_count": 188,
+      "door_ratio": 1.048,
+      "wall_only_ratio": -0.048,
+      "total_connections": 204
+    },
+    "entry|office": {
+      "weight": 0.23,
+      "frequency": 0.0235,
+      "plans_count": 117,
+      "door_ratio": 0.829,
+      "wall_only_ratio": 0.171,
+      "total_connections": 131
+    },
+    "kitchen|outdoor": {
+      "weight": 0.33,
+      "frequency": 0.0327,
+      "plans_count": 163,
+      "door_ratio": 1.018,
+      "wall_only_ratio": -0.018,
+      "total_connections": 167
+    },
+    "bathroom|outdoor": {
+      "weight": 0.11,
+      "frequency": 0.0114,
+      "plans_count": 57,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 57
+    },
+    "bathroom|kitchen": {
+      "weight": 0.58,
+      "frequency": 0.0575,
+      "plans_count": 287,
+      "door_ratio": 0.934,
+      "wall_only_ratio": 0.066,
+      "total_connections": 304
+    },
+    "entry|garage": {
+      "weight": 0.07,
+      "frequency": 0.0068,
+      "plans_count": 34,
+      "door_ratio": 1.059,
+      "wall_only_ratio": -0.059,
+      "total_connections": 38
+    },
+    "entry|utility": {
+      "weight": 0.79,
+      "frequency": 0.0792,
+      "plans_count": 395,
+      "door_ratio": 1.015,
+      "wall_only_ratio": -0.015,
+      "total_connections": 421
+    },
+    "outdoor|outdoor": {
+      "weight": 0.29,
+      "frequency": 0.0289,
+      "plans_count": 144,
+      "door_ratio": 0.521,
+      "wall_only_ratio": 0.479,
+      "total_connections": 171
+    },
+    "dining|living_room": {
+      "weight": 1.31,
+      "frequency": 0.1311,
+      "plans_count": 654,
+      "door_ratio": 0.13,
+      "wall_only_ratio": 0.87,
+      "total_connections": 660
+    },
+    "bathroom|bedroom": {
+      "weight": 0.28,
+      "frequency": 0.0277,
+      "plans_count": 138,
+      "door_ratio": 0.92,
+      "wall_only_ratio": 0.08,
+      "total_connections": 142
+    },
+    "office|storage": {
+      "weight": 0.14,
+      "frequency": 0.0136,
+      "plans_count": 68,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 74
+    },
+    "bathroom|storage": {
+      "weight": 0.62,
+      "frequency": 0.0619,
+      "plans_count": 309,
+      "door_ratio": 1.029,
+      "wall_only_ratio": -0.029,
+      "total_connections": 363
+    },
+    "utility|utility": {
+      "weight": 0.09,
+      "frequency": 0.0086,
+      "plans_count": 43,
+      "door_ratio": 0.907,
+      "wall_only_ratio": 0.093,
+      "total_connections": 43
+    },
+    "bedroom|utility": {
+      "weight": 0.07,
+      "frequency": 0.0066,
+      "plans_count": 33,
+      "door_ratio": 0.939,
+      "wall_only_ratio": 0.061,
+      "total_connections": 33
+    },
+    "bedroom|office": {
+      "weight": 0.1,
+      "frequency": 0.01,
+      "plans_count": 50,
+      "door_ratio": 1.1,
+      "wall_only_ratio": -0.1,
+      "total_connections": 63
+    },
+    "office|undefined": {
+      "weight": 0.24,
+      "frequency": 0.0237,
+      "plans_count": 118,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 156
+    },
+    "dining|entry": {
+      "weight": 0.42,
+      "frequency": 0.0419,
+      "plans_count": 209,
+      "door_ratio": 0.144,
+      "wall_only_ratio": 0.856,
+      "total_connections": 216
+    },
+    "dining|utility": {
+      "weight": 0.06,
+      "frequency": 0.0062,
+      "plans_count": 31,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 31
+    },
+    "bathroom|living_room": {
+      "weight": 0.51,
+      "frequency": 0.0511,
+      "plans_count": 255,
+      "door_ratio": 1.024,
+      "wall_only_ratio": -0.024,
+      "total_connections": 278
+    },
+    "undefined|utility": {
+      "weight": 0.58,
+      "frequency": 0.0583,
+      "plans_count": 291,
+      "door_ratio": 1.072,
+      "wall_only_ratio": -0.072,
+      "total_connections": 339
+    },
+    "bathroom|office": {
+      "weight": 0.25,
+      "frequency": 0.0253,
+      "plans_count": 126,
+      "door_ratio": 1.071,
+      "wall_only_ratio": -0.071,
+      "total_connections": 138
+    },
+    "bedroom|dining": {
+      "weight": 0.14,
+      "frequency": 0.0142,
+      "plans_count": 71,
+      "door_ratio": 1.056,
+      "wall_only_ratio": -0.056,
+      "total_connections": 81
+    },
+    "garage|outdoor": {
+      "weight": 0.31,
+      "frequency": 0.0307,
+      "plans_count": 153,
+      "door_ratio": 0.719,
+      "wall_only_ratio": 0.281,
+      "total_connections": 177
+    },
+    "bedroom|bedroom": {
+      "weight": 0.22,
+      "frequency": 0.0224,
+      "plans_count": 112,
+      "door_ratio": 0.304,
+      "wall_only_ratio": 0.696,
+      "total_connections": 120
+    },
+    "bathroom|bathroom": {
+      "weight": 0.32,
+      "frequency": 0.0321,
+      "plans_count": 160,
+      "door_ratio": 0.838,
+      "wall_only_ratio": 0.162,
+      "total_connections": 172
+    },
+    "office|utility": {
+      "weight": 0.11,
+      "frequency": 0.0114,
+      "plans_count": 57,
+      "door_ratio": 0.965,
+      "wall_only_ratio": 0.035,
+      "total_connections": 62
+    },
+    "living_room|office": {
+      "weight": 0.27,
+      "frequency": 0.0271,
+      "plans_count": 135,
+      "door_ratio": 0.57,
+      "wall_only_ratio": 0.43,
+      "total_connections": 137
+    },
+    "balcony|kitchen": {
+      "weight": 0.23,
+      "frequency": 0.0231,
+      "plans_count": 115,
+      "door_ratio": 1.017,
+      "wall_only_ratio": -0.017,
+      "total_connections": 117
+    },
+    "kitchen|storage": {
+      "weight": 0.21,
+      "frequency": 0.0214,
+      "plans_count": 107,
+      "door_ratio": 0.916,
+      "wall_only_ratio": 0.084,
+      "total_connections": 113
+    },
+    "balcony|outdoor": {
+      "weight": 0.16,
+      "frequency": 0.016,
+      "plans_count": 80,
+      "door_ratio": 0.188,
+      "wall_only_ratio": 0.812,
+      "total_connections": 89
+    },
+    "dining|outdoor": {
+      "weight": 0.08,
+      "frequency": 0.0076,
+      "plans_count": 38,
+      "door_ratio": 0.974,
+      "wall_only_ratio": 0.026,
+      "total_connections": 38
+    },
+    "corridor|entry": {
+      "weight": 0.05,
+      "frequency": 0.0052,
+      "plans_count": 26,
+      "door_ratio": 0.462,
+      "wall_only_ratio": 0.538,
+      "total_connections": 36
+    },
+    "garage|undefined": {
+      "weight": 0.14,
+      "frequency": 0.0138,
+      "plans_count": 69,
+      "door_ratio": 1.029,
+      "wall_only_ratio": -0.029,
+      "total_connections": 81
+    },
+    "stairs|undefined": {
+      "weight": 0.03,
+      "frequency": 0.0032,
+      "plans_count": 16,
+      "door_ratio": 0.625,
+      "wall_only_ratio": 0.375,
+      "total_connections": 17
+    },
+    "living_room|storage": {
+      "weight": 0.28,
+      "frequency": 0.0281,
+      "plans_count": 140,
+      "door_ratio": 0.971,
+      "wall_only_ratio": 0.029,
+      "total_connections": 155
+    },
+    "balcony|bedroom": {
+      "weight": 0.21,
+      "frequency": 0.0212,
+      "plans_count": 106,
+      "door_ratio": 1.057,
+      "wall_only_ratio": -0.057,
+      "total_connections": 112
+    },
+    "bathroom|sauna": {
+      "weight": 0.21,
+      "frequency": 0.0208,
+      "plans_count": 104,
+      "door_ratio": 0.99,
+      "wall_only_ratio": 0.01,
+      "total_connections": 106
+    },
+    "sauna|undefined": {
+      "weight": 0.03,
+      "frequency": 0.0034,
+      "plans_count": 17,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 18
+    },
+    "storage|storage": {
+      "weight": 0.15,
+      "frequency": 0.0148,
+      "plans_count": 74,
+      "door_ratio": 0.946,
+      "wall_only_ratio": 0.054,
+      "total_connections": 80
+    },
+    "balcony|office": {
+      "weight": 0.05,
+      "frequency": 0.0054,
+      "plans_count": 27,
+      "door_ratio": 1.037,
+      "wall_only_ratio": -0.037,
+      "total_connections": 28
+    },
+    "office|outdoor": {
+      "weight": 0.17,
+      "frequency": 0.0166,
+      "plans_count": 83,
+      "door_ratio": 1.012,
+      "wall_only_ratio": -0.012,
+      "total_connections": 84
+    },
+    "kitchen|utility": {
+      "weight": 0.45,
+      "frequency": 0.0449,
+      "plans_count": 224,
+      "door_ratio": 0.964,
+      "wall_only_ratio": 0.036,
+      "total_connections": 227
+    },
+    "dining|special": {
+      "weight": 0.0,
+      "frequency": 0.0002,
+      "plans_count": 1,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 1
+    },
+    "living_room|special": {
+      "weight": 0.0,
+      "frequency": 0.0002,
+      "plans_count": 1,
+      "door_ratio": 0.0,
+      "wall_only_ratio": 1.0,
+      "total_connections": 1
+    },
+    "bedroom|corridor": {
+      "weight": 0.05,
+      "frequency": 0.0054,
+      "plans_count": 27,
+      "door_ratio": 3.074,
+      "wall_only_ratio": -2.074,
+      "total_connections": 83
+    },
+    "bathroom|corridor": {
+      "weight": 0.06,
+      "frequency": 0.0062,
+      "plans_count": 31,
+      "door_ratio": 1.581,
+      "wall_only_ratio": -0.581,
+      "total_connections": 49
+    },
+    "corridor|undefined": {
+      "weight": 0.04,
+      "frequency": 0.004,
+      "plans_count": 20,
+      "door_ratio": 1.65,
+      "wall_only_ratio": -0.65,
+      "total_connections": 39
+    },
+    "corridor|living_room": {
+      "weight": 0.03,
+      "frequency": 0.0032,
+      "plans_count": 16,
+      "door_ratio": 0.188,
+      "wall_only_ratio": 0.812,
+      "total_connections": 16
+    },
+    "kitchen|kitchen": {
+      "weight": 0.08,
+      "frequency": 0.0084,
+      "plans_count": 42,
+      "door_ratio": 0.69,
+      "wall_only_ratio": 0.31,
+      "total_connections": 42
+    },
+    "office|office": {
+      "weight": 0.01,
+      "frequency": 0.0008,
+      "plans_count": 4,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 4
+    },
+    "special|undefined": {
+      "weight": 0.01,
+      "frequency": 0.0012,
+      "plans_count": 6,
+      "door_ratio": 1.333,
+      "wall_only_ratio": -0.333,
+      "total_connections": 10
+    },
+    "living_room|stairs": {
+      "weight": 0.02,
+      "frequency": 0.0018,
+      "plans_count": 9,
+      "door_ratio": 0.0,
+      "wall_only_ratio": 1.0,
+      "total_connections": 9
+    },
+    "bathroom|dining": {
+      "weight": 0.06,
+      "frequency": 0.0064,
+      "plans_count": 32,
+      "door_ratio": 0.938,
+      "wall_only_ratio": 0.062,
+      "total_connections": 33
+    },
+    "balcony|storage": {
+      "weight": 0.16,
+      "frequency": 0.0156,
+      "plans_count": 78,
+      "door_ratio": 1.026,
+      "wall_only_ratio": -0.026,
+      "total_connections": 82
+    },
+    "bathroom|special": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 2
+    },
+    "office|special": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 3
+    },
+    "kitchen|office": {
+      "weight": 0.07,
+      "frequency": 0.0074,
+      "plans_count": 37,
+      "door_ratio": 0.432,
+      "wall_only_ratio": 0.568,
+      "total_connections": 37
+    },
+    "balcony|garage": {
+      "weight": 0.02,
+      "frequency": 0.0016,
+      "plans_count": 8,
+      "door_ratio": 0.125,
+      "wall_only_ratio": 0.875,
+      "total_connections": 8
+    },
+    "balcony|bathroom": {
+      "weight": 0.06,
+      "frequency": 0.0064,
+      "plans_count": 32,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 32
+    },
+    "dining|office": {
+      "weight": 0.03,
+      "frequency": 0.0026,
+      "plans_count": 13,
+      "door_ratio": 0.615,
+      "wall_only_ratio": 0.385,
+      "total_connections": 14
+    },
+    "dining|storage": {
+      "weight": 0.03,
+      "frequency": 0.0032,
+      "plans_count": 16,
+      "door_ratio": 0.875,
+      "wall_only_ratio": 0.125,
+      "total_connections": 16
+    },
+    "outdoor|stairs": {
+      "weight": 0.01,
+      "frequency": 0.001,
+      "plans_count": 5,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 5
+    },
+    "balcony|balcony": {
+      "weight": 0.04,
+      "frequency": 0.0042,
+      "plans_count": 21,
+      "door_ratio": 0.048,
+      "wall_only_ratio": 0.952,
+      "total_connections": 21
+    },
+    "corridor|utility": {
+      "weight": 0.02,
+      "frequency": 0.0022,
+      "plans_count": 11,
+      "door_ratio": 1.273,
+      "wall_only_ratio": -0.273,
+      "total_connections": 15
+    },
+    "bathroom|garage": {
+      "weight": 0.01,
+      "frequency": 0.0008,
+      "plans_count": 4,
+      "door_ratio": 0.75,
+      "wall_only_ratio": 0.25,
+      "total_connections": 4
+    },
+    "garage|living_room": {
+      "weight": 0.01,
+      "frequency": 0.0014,
+      "plans_count": 7,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 7
+    },
+    "corridor|kitchen": {
+      "weight": 0.04,
+      "frequency": 0.0036,
+      "plans_count": 18,
+      "door_ratio": 0.389,
+      "wall_only_ratio": 0.611,
+      "total_connections": 24
+    },
+    "balcony|sauna": {
+      "weight": 0.0,
+      "frequency": 0.0002,
+      "plans_count": 1,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 1
+    },
+    "garage|office": {
+      "weight": 0.0,
+      "frequency": 0.0002,
+      "plans_count": 1,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 1
+    },
+    "entry|stairs": {
+      "weight": 0.02,
+      "frequency": 0.0016,
+      "plans_count": 8,
+      "door_ratio": 0.625,
+      "wall_only_ratio": 0.375,
+      "total_connections": 8
+    },
+    "living_room|living_room": {
+      "weight": 0.03,
+      "frequency": 0.0026,
+      "plans_count": 13,
+      "door_ratio": 0.385,
+      "wall_only_ratio": 0.615,
+      "total_connections": 13
+    },
+    "corridor|storage": {
+      "weight": 0.05,
+      "frequency": 0.005,
+      "plans_count": 25,
+      "door_ratio": 1.48,
+      "wall_only_ratio": -0.48,
+      "total_connections": 37
+    },
+    "sauna|storage": {
+      "weight": 0.01,
+      "frequency": 0.0006,
+      "plans_count": 3,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 3
+    },
+    "corridor|outdoor": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 2
+    },
+    "stairs|utility": {
+      "weight": 0.0,
+      "frequency": 0.0002,
+      "plans_count": 1,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 1
+    },
+    "kitchen|stairs": {
+      "weight": 0.01,
+      "frequency": 0.0012,
+      "plans_count": 6,
+      "door_ratio": 0.167,
+      "wall_only_ratio": 0.833,
+      "total_connections": 6
+    },
+    "corridor|garage": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 2
+    },
+    "bedroom|garage": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 0.5,
+      "wall_only_ratio": 0.5,
+      "total_connections": 2
+    },
+    "corridor|office": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 2.5,
+      "wall_only_ratio": -1.5,
+      "total_connections": 5
+    },
+    "kitchen|sauna": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 0.5,
+      "wall_only_ratio": 0.5,
+      "total_connections": 2
+    },
+    "bedroom|sauna": {
+      "weight": 0.0,
+      "frequency": 0.0002,
+      "plans_count": 1,
+      "door_ratio": 0.0,
+      "wall_only_ratio": 1.0,
+      "total_connections": 1
+    },
+    "outdoor|special": {
+      "weight": 0.01,
+      "frequency": 0.001,
+      "plans_count": 5,
+      "door_ratio": 1.2,
+      "wall_only_ratio": -0.2,
+      "total_connections": 7
+    },
+    "bathroom|stairs": {
+      "weight": 0.01,
+      "frequency": 0.0008,
+      "plans_count": 4,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 4
+    },
+    "entry|sauna": {
+      "weight": 0.0,
+      "frequency": 0.0002,
+      "plans_count": 1,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 1
+    },
+    "garage|garage": {
+      "weight": 0.04,
+      "frequency": 0.004,
+      "plans_count": 20,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 22
+    },
+    "bedroom|stairs": {
+      "weight": 0.01,
+      "frequency": 0.0006,
+      "plans_count": 3,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 3
+    },
+    "office|stairs": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 0.5,
+      "wall_only_ratio": 0.5,
+      "total_connections": 2
+    },
+    "corridor|dining": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 0.0,
+      "wall_only_ratio": 1.0,
+      "total_connections": 2
+    },
+    "stairs|storage": {
+      "weight": 0.0,
+      "frequency": 0.0002,
+      "plans_count": 1,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 1
+    },
+    "garage|kitchen": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 2
+    },
+    "special|storage": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 0.5,
+      "wall_only_ratio": 0.5,
+      "total_connections": 2
+    },
+    "entry|special": {
+      "weight": 0.0,
+      "frequency": 0.0004,
+      "plans_count": 2,
+      "door_ratio": 0.5,
+      "wall_only_ratio": 0.5,
+      "total_connections": 2
+    },
+    "outdoor|sauna": {
+      "weight": 0.01,
+      "frequency": 0.0008,
+      "plans_count": 4,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 4
+    },
+    "dining|garage": {
+      "weight": 0.0,
+      "frequency": 0.0002,
+      "plans_count": 1,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 1
+    },
+    "balcony|stairs": {
+      "weight": 0.0,
+      "frequency": 0.0002,
+      "plans_count": 1,
+      "door_ratio": 1.0,
+      "wall_only_ratio": 0.0,
+      "total_connections": 1
+    }
+  },
+  "room_size_ratios": {
+    "outdoor": {
+      "mean": 0.0767,
+      "median": 0.0602,
+      "p25": 0.0268,
+      "p75": 0.1026,
+      "samples": 5047
+    },
+    "undefined": {
+      "mean": 0.0854,
+      "median": 0.0448,
+      "p25": 0.0216,
+      "p75": 0.1095,
+      "samples": 11834
+    },
+    "balcony": {
+      "mean": 0.1266,
+      "median": 0.1099,
+      "p25": 0.074,
+      "p75": 0.1622,
+      "samples": 1633
+    },
+    "dining": {
+      "mean": 0.0814,
+      "median": 0.0737,
+      "p25": 0.0573,
+      "p75": 0.0946,
+      "samples": 792
+    },
+    "kitchen": {
+      "mean": 0.1338,
+      "median": 0.1234,
+      "p25": 0.0908,
+      "p75": 0.1602,
+      "samples": 4163
+    },
+    "entry": {
+      "mean": 0.0748,
+      "median": 0.0688,
+      "p25": 0.0285,
+      "p75": 0.1054,
+      "samples": 5145
+    },
+    "bathroom": {
+      "mean": 0.043,
+      "median": 0.034,
+      "p25": 0.0187,
+      "p75": 0.0601,
+      "samples": 6194
+    },
+    "utility": {
+      "mean": 0.0514,
+      "median": 0.0446,
+      "p25": 0.0264,
+      "p75": 0.0625,
+      "samples": 1454
+    },
+    "storage": {
+      "mean": 0.0429,
+      "median": 0.0318,
+      "p25": 0.0206,
+      "p75": 0.0499,
+      "samples": 4239
+    },
+    "living_room": {
+      "mean": 0.2496,
+      "median": 0.2398,
+      "p25": 0.1812,
+      "p75": 0.3054,
+      "samples": 3706
+    },
+    "bedroom": {
+      "mean": 0.1217,
+      "median": 0.111,
+      "p25": 0.0768,
+      "p75": 0.1575,
+      "samples": 6221
+    },
+    "garage": {
+      "mean": 0.1684,
+      "median": 0.1397,
+      "p25": 0.111,
+      "p75": 0.1877,
+      "samples": 646
+    },
+    "office": {
+      "mean": 0.1108,
+      "median": 0.0815,
+      "p25": 0.0595,
+      "p75": 0.1285,
+      "samples": 394
+    },
+    "corridor": {
+      "mean": 0.065,
+      "median": 0.0353,
+      "p25": 0.0189,
+      "p75": 0.084,
+      "samples": 62
+    },
+    "stairs": {
+      "mean": 0.1536,
+      "median": 0.1171,
+      "p25": 0.0576,
+      "p75": 0.2394,
+      "samples": 50
+    },
+    "sauna": {
+      "mean": 0.0447,
+      "median": 0.0331,
+      "p25": 0.0241,
+      "p75": 0.0484,
+      "samples": 123
+    },
+    "special": {
+      "mean": 0.2797,
+      "median": 0.1526,
+      "p25": 0.0773,
+      "p75": 0.4669,
+      "samples": 16
+    }
+  },
+  "room_aspect_ratios": {
+    "outdoor": {
+      "mean": 1.77,
+      "median": 1.47,
+      "p25": 0.75,
+      "p75": 2.18,
+      "samples": 5047
+    },
+    "undefined": {
+      "mean": 9.68,
+      "median": 1.01,
+      "p25": 0.77,
+      "p75": 1.33,
+      "samples": 11831
+    },
+    "balcony": {
+      "mean": 1.8,
+      "median": 1.63,
+      "p25": 0.62,
+      "p75": 2.5,
+      "samples": 1633
+    },
+    "dining": {
+      "mean": 1.08,
+      "median": 1.01,
+      "p25": 0.82,
+      "p75": 1.21,
+      "samples": 792
+    },
+    "kitchen": {
+      "mean": 1.06,
+      "median": 0.98,
+      "p25": 0.75,
+      "p75": 1.27,
+      "samples": 4163
+    },
+    "entry": {
+      "mean": 1.17,
+      "median": 1.01,
+      "p25": 0.66,
+      "p75": 1.48,
+      "samples": 5145
+    },
+    "bathroom": {
+      "mean": 1.06,
+      "median": 0.99,
+      "p25": 0.75,
+      "p75": 1.29,
+      "samples": 6194
+    },
+    "utility": {
+      "mean": 1.14,
+      "median": 1.04,
+      "p25": 0.74,
+      "p75": 1.48,
+      "samples": 1454
+    },
+    "storage": {
+      "mean": 1.14,
+      "median": 1.02,
+      "p25": 0.74,
+      "p75": 1.42,
+      "samples": 4239
+    },
+    "living_room": {
+      "mean": 1.14,
+      "median": 1.09,
+      "p25": 0.84,
+      "p75": 1.38,
+      "samples": 3706
+    },
+    "bedroom": {
+      "mean": 1.01,
+      "median": 0.96,
+      "p25": 0.77,
+      "p75": 1.19,
+      "samples": 6221
+    },
+    "garage": {
+      "mean": 0.87,
+      "median": 0.69,
+      "p25": 0.58,
+      "p75": 1.02,
+      "samples": 646
+    },
+    "office": {
+      "mean": 1.02,
+      "median": 0.97,
+      "p25": 0.77,
+      "p75": 1.23,
+      "samples": 394
+    },
+    "corridor": {
+      "mean": 1.74,
+      "median": 0.83,
+      "p25": 0.43,
+      "p75": 2.72,
+      "samples": 62
+    },
+    "stairs": {
+      "mean": 1.25,
+      "median": 1.04,
+      "p25": 0.77,
+      "p75": 1.51,
+      "samples": 50
+    },
+    "sauna": {
+      "mean": 1.07,
+      "median": 1.01,
+      "p25": 0.8,
+      "p75": 1.25,
+      "samples": 123
+    },
+    "special": {
+      "mean": 1.33,
+      "median": 1.26,
+      "p25": 0.92,
+      "p75": 1.63,
+      "samples": 16
+    }
+  },
+  "room_areas_m2": {
+    "outdoor": {
+      "mean_m2": 7.91,
+      "median_m2": 5.45,
+      "min_m2": 0.03,
+      "max_m2": 138.77,
+      "p25_m2": 2.63,
+      "p75_m2": 8.93,
+      "samples": 2900
+    },
+    "balcony": {
+      "mean_m2": 13.47,
+      "median_m2": 9.06,
+      "min_m2": 0.75,
+      "max_m2": 130.68,
+      "p25_m2": 6.17,
+      "p75_m2": 15.32,
+      "samples": 901
+    },
+    "living_room": {
+      "mean_m2": 20.2,
+      "median_m2": 18.96,
+      "min_m2": 2.28,
+      "max_m2": 92.31,
+      "p25_m2": 15.93,
+      "p75_m2": 23.03,
+      "samples": 2003
+    },
+    "entry": {
+      "mean_m2": 6.36,
+      "median_m2": 5.52,
+      "min_m2": 0.19,
+      "max_m2": 97.55,
+      "p25_m2": 2.73,
+      "p75_m2": 8.64,
+      "samples": 2857
+    },
+    "kitchen": {
+      "mean_m2": 11.15,
+      "median_m2": 10.2,
+      "min_m2": 0.8,
+      "max_m2": 176.15,
+      "p25_m2": 7.09,
+      "p75_m2": 13.04,
+      "samples": 2246
+    },
+    "bedroom": {
+      "mean_m2": 11.22,
+      "median_m2": 11.02,
+      "min_m2": 1.77,
+      "max_m2": 43.38,
+      "p25_m2": 9.41,
+      "p75_m2": 12.73,
+      "samples": 3520
+    },
+    "utility": {
+      "mean_m2": 6.3,
+      "median_m2": 5.76,
+      "min_m2": 0.37,
+      "max_m2": 65.15,
+      "p25_m2": 3.46,
+      "p75_m2": 8.05,
+      "samples": 903
+    },
+    "storage": {
+      "mean_m2": 4.56,
+      "median_m2": 3.05,
+      "min_m2": 0.38,
+      "max_m2": 52.0,
+      "p25_m2": 2.08,
+      "p75_m2": 5.16,
+      "samples": 2471
+    },
+    "undefined": {
+      "mean_m2": 7.29,
+      "median_m2": 3.81,
+      "min_m2": 0.0,
+      "max_m2": 263.27,
+      "p25_m2": 2.26,
+      "p75_m2": 9.72,
+      "samples": 6656
+    },
+    "bathroom": {
+      "mean_m2": 3.55,
+      "median_m2": 3.23,
+      "min_m2": 0.48,
+      "max_m2": 17.37,
+      "p25_m2": 2.01,
+      "p75_m2": 4.58,
+      "samples": 3458
+    },
+    "office": {
+      "mean_m2": 13.41,
+      "median_m2": 12.0,
+      "min_m2": 2.77,
+      "max_m2": 46.3,
+      "p25_m2": 9.38,
+      "p75_m2": 15.64,
+      "samples": 249
+    },
+    "dining": {
+      "mean_m2": 8.56,
+      "median_m2": 7.07,
+      "min_m2": 1.29,
+      "max_m2": 32.92,
+      "p25_m2": 5.57,
+      "p75_m2": 11.19,
+      "samples": 427
+    },
+    "garage": {
+      "mean_m2": 23.21,
+      "median_m2": 20.57,
+      "min_m2": 7.35,
+      "max_m2": 85.41,
+      "p25_m2": 16.94,
+      "p75_m2": 25.62,
+      "samples": 394
+    },
+    "stairs": {
+      "mean_m2": 12.19,
+      "median_m2": 9.7,
+      "min_m2": 1.24,
+      "max_m2": 46.64,
+      "p25_m2": 7.46,
+      "p75_m2": 14.16,
+      "samples": 36
+    },
+    "sauna": {
+      "mean_m2": 4.41,
+      "median_m2": 3.29,
+      "min_m2": 0.57,
+      "max_m2": 25.76,
+      "p25_m2": 2.57,
+      "p75_m2": 4.43,
+      "samples": 64
+    },
+    "special": {
+      "mean_m2": 24.11,
+      "median_m2": 23.86,
+      "min_m2": 3.93,
+      "max_m2": 55.7,
+      "p25_m2": 11.39,
+      "p75_m2": 28.02,
+      "samples": 10
+    },
+    "corridor": {
+      "mean_m2": 7.75,
+      "median_m2": 4.92,
+      "min_m2": 1.2,
+      "max_m2": 59.88,
+      "p25_m2": 3.79,
+      "p75_m2": 7.73,
+      "samples": 37
+    }
+  },
+  "room_counts_by_bhk": {
+    "studio": {
+      "outdoor": {
+        "mean": 1.37,
+        "median": 2,
+        "plans": 1047
+      },
+      "undefined": {
+        "mean": 3.83,
+        "median": 3,
+        "plans": 1521
+      },
+      "balcony": {
+        "mean": 1.09,
+        "median": 1,
+        "plans": 321
+      },
+      "dining": {
+        "mean": 1.01,
+        "median": 1,
+        "plans": 176
+      },
+      "kitchen": {
+        "mean": 1.01,
+        "median": 1,
+        "plans": 1070
+      },
+      "entry": {
+        "mean": 1.29,
+        "median": 2,
+        "plans": 959
+      },
+      "bathroom": {
+        "mean": 1.32,
+        "median": 1,
+        "plans": 1142
+      },
+      "utility": {
+        "mean": 1.29,
+        "median": 2,
+        "plans": 300
+      },
+      "storage": {
+        "mean": 1.47,
+        "median": 3,
+        "plans": 711
+      },
+      "garage": {
+        "mean": 1.08,
+        "median": 1,
+        "plans": 167
+      },
+      "office": {
+        "mean": 1.16,
+        "median": 2,
+        "plans": 107
+      },
+      "living_room": {
+        "mean": 1.01,
+        "median": 1,
+        "plans": 737
+      },
+      "stairs": {
+        "mean": 1.04,
+        "median": 1,
+        "plans": 26
+      },
+      "sauna": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 38
+      },
+      "special": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 12
+      },
+      "corridor": {
+        "mean": 1.07,
+        "median": 1,
+        "plans": 15
+      }
+    },
+    "2BHK": {
+      "outdoor": {
+        "mean": 1.49,
+        "median": 2,
+        "plans": 762
+      },
+      "balcony": {
+        "mean": 1.07,
+        "median": 1,
+        "plans": 414
+      },
+      "living_room": {
+        "mean": 1.01,
+        "median": 1,
+        "plans": 984
+      },
+      "entry": {
+        "mean": 1.38,
+        "median": 1,
+        "plans": 910
+      },
+      "kitchen": {
+        "mean": 1.02,
+        "median": 1,
+        "plans": 993
+      },
+      "bedroom": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 1116
+      },
+      "utility": {
+        "mean": 1.18,
+        "median": 1,
+        "plans": 228
+      },
+      "storage": {
+        "mean": 1.45,
+        "median": 1,
+        "plans": 746
+      },
+      "undefined": {
+        "mean": 2.05,
+        "median": 1,
+        "plans": 987
+      },
+      "bathroom": {
+        "mean": 1.58,
+        "median": 1,
+        "plans": 991
+      },
+      "dining": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 217
+      },
+      "garage": {
+        "mean": 1.07,
+        "median": 1,
+        "plans": 94
+      },
+      "corridor": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 15
+      },
+      "office": {
+        "mean": 1.04,
+        "median": 1,
+        "plans": 67
+      },
+      "stairs": {
+        "mean": 1.12,
+        "median": 1,
+        "plans": 8
+      },
+      "sauna": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 27
+      },
+      "special": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 1
+      }
+    },
+    "1BHK": {
+      "outdoor": {
+        "mean": 1.42,
+        "median": 1,
+        "plans": 893
+      },
+      "undefined": {
+        "mean": 1.89,
+        "median": 3,
+        "plans": 1154
+      },
+      "living_room": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 1215
+      },
+      "bedroom": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 1389
+      },
+      "kitchen": {
+        "mean": 1.01,
+        "median": 1,
+        "plans": 1262
+      },
+      "bathroom": {
+        "mean": 1.27,
+        "median": 2,
+        "plans": 1154
+      },
+      "storage": {
+        "mean": 1.25,
+        "median": 1,
+        "plans": 738
+      },
+      "entry": {
+        "mean": 1.3,
+        "median": 1,
+        "plans": 1119
+      },
+      "balcony": {
+        "mean": 1.03,
+        "median": 1,
+        "plans": 461
+      },
+      "utility": {
+        "mean": 1.27,
+        "median": 2,
+        "plans": 143
+      },
+      "office": {
+        "mean": 1.08,
+        "median": 1,
+        "plans": 60
+      },
+      "dining": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 193
+      },
+      "garage": {
+        "mean": 1.07,
+        "median": 1,
+        "plans": 68
+      },
+      "sauna": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 18
+      },
+      "corridor": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 1
+      },
+      "stairs": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 7
+      }
+    },
+    "3BHK": {
+      "outdoor": {
+        "mean": 1.8,
+        "median": 3,
+        "plans": 494
+      },
+      "storage": {
+        "mean": 1.83,
+        "median": 1,
+        "plans": 486
+      },
+      "utility": {
+        "mean": 1.29,
+        "median": 1,
+        "plans": 329
+      },
+      "kitchen": {
+        "mean": 1.06,
+        "median": 1,
+        "plans": 559
+      },
+      "undefined": {
+        "mean": 2.37,
+        "median": 2,
+        "plans": 571
+      },
+      "entry": {
+        "mean": 1.6,
+        "median": 1,
+        "plans": 540
+      },
+      "living_room": {
+        "mean": 1.03,
+        "median": 1,
+        "plans": 558
+      },
+      "garage": {
+        "mean": 1.06,
+        "median": 1,
+        "plans": 199
+      },
+      "bedroom": {
+        "mean": 3.0,
+        "median": 3,
+        "plans": 607
+      },
+      "bathroom": {
+        "mean": 2.07,
+        "median": 2,
+        "plans": 585
+      },
+      "balcony": {
+        "mean": 1.17,
+        "median": 2,
+        "plans": 211
+      },
+      "dining": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 157
+      },
+      "office": {
+        "mean": 1.04,
+        "median": 1,
+        "plans": 113
+      },
+      "stairs": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 4
+      },
+      "sauna": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 30
+      },
+      "corridor": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 5
+      },
+      "special": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 2
+      }
+    },
+    "4BHK": {
+      "balcony": {
+        "mean": 1.23,
+        "median": 1,
+        "plans": 83
+      },
+      "bedroom": {
+        "mean": 4.0,
+        "median": 4,
+        "plans": 162
+      },
+      "office": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 15
+      },
+      "entry": {
+        "mean": 1.78,
+        "median": 2,
+        "plans": 153
+      },
+      "dining": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 42
+      },
+      "living_room": {
+        "mean": 1.02,
+        "median": 1,
+        "plans": 145
+      },
+      "undefined": {
+        "mean": 2.33,
+        "median": 1,
+        "plans": 160
+      },
+      "garage": {
+        "mean": 1.12,
+        "median": 1,
+        "plans": 64
+      },
+      "kitchen": {
+        "mean": 1.1,
+        "median": 1,
+        "plans": 152
+      },
+      "utility": {
+        "mean": 1.36,
+        "median": 1,
+        "plans": 121
+      },
+      "bathroom": {
+        "mean": 2.41,
+        "median": 4,
+        "plans": 157
+      },
+      "storage": {
+        "mean": 1.85,
+        "median": 2,
+        "plans": 136
+      },
+      "outdoor": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 140
+      },
+      "sauna": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 7
+      },
+      "stairs": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 3
+      },
+      "corridor": {
+        "mean": 1.78,
+        "median": 2,
+        "plans": 9
+      },
+      "special": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 1
+      }
+    },
+    "9BHK": {
+      "bathroom": {
+        "mean": 8.0,
+        "median": 8,
+        "plans": 1
+      },
+      "living_room": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 1
+      },
+      "kitchen": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 1
+      },
+      "entry": {
+        "mean": 4.0,
+        "median": 4,
+        "plans": 1
+      },
+      "utility": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 1
+      },
+      "bedroom": {
+        "mean": 9.0,
+        "median": 9,
+        "plans": 1
+      },
+      "undefined": {
+        "mean": 3.0,
+        "median": 3,
+        "plans": 1
+      },
+      "storage": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 1
+      },
+      "outdoor": {
+        "mean": 3.0,
+        "median": 3,
+        "plans": 1
+      },
+      "balcony": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 1
+      }
+    },
+    "8BHK": {
+      "balcony": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 3
+      },
+      "undefined": {
+        "mean": 6.67,
+        "median": 7,
+        "plans": 3
+      },
+      "bathroom": {
+        "mean": 3.33,
+        "median": 4,
+        "plans": 3
+      },
+      "bedroom": {
+        "mean": 8.0,
+        "median": 8,
+        "plans": 3
+      },
+      "entry": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 3
+      },
+      "utility": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 1
+      },
+      "kitchen": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 1
+      },
+      "dining": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 1
+      },
+      "living_room": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 1
+      },
+      "storage": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 1
+      },
+      "outdoor": {
+        "mean": 3.0,
+        "median": 3,
+        "plans": 1
+      },
+      "garage": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 1
+      }
+    },
+    "5BHK": {
+      "undefined": {
+        "mean": 2.6,
+        "median": 4,
+        "plans": 10
+      },
+      "outdoor": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 8
+      },
+      "bathroom": {
+        "mean": 3.11,
+        "median": 4,
+        "plans": 9
+      },
+      "bedroom": {
+        "mean": 5.0,
+        "median": 5,
+        "plans": 10
+      },
+      "living_room": {
+        "mean": 1.1,
+        "median": 1,
+        "plans": 10
+      },
+      "kitchen": {
+        "mean": 1.11,
+        "median": 1,
+        "plans": 9
+      },
+      "storage": {
+        "mean": 3.11,
+        "median": 2,
+        "plans": 9
+      },
+      "entry": {
+        "mean": 2.1,
+        "median": 2,
+        "plans": 10
+      },
+      "utility": {
+        "mean": 1.33,
+        "median": 2,
+        "plans": 9
+      },
+      "office": {
+        "mean": 1.5,
+        "median": 2,
+        "plans": 2
+      },
+      "sauna": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 3
+      },
+      "garage": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 4
+      },
+      "corridor": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 1
+      },
+      "dining": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 2
+      },
+      "balcony": {
+        "mean": 1.0,
+        "median": 1,
+        "plans": 2
+      }
+    },
+    "6BHK": {
+      "kitchen": {
+        "mean": 1.88,
+        "median": 2,
+        "plans": 8
+      },
+      "utility": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 7
+      },
+      "bathroom": {
+        "mean": 3.75,
+        "median": 4,
+        "plans": 8
+      },
+      "undefined": {
+        "mean": 4.75,
+        "median": 7,
+        "plans": 8
+      },
+      "entry": {
+        "mean": 2.62,
+        "median": 2,
+        "plans": 8
+      },
+      "bedroom": {
+        "mean": 6.0,
+        "median": 6,
+        "plans": 8
+      },
+      "storage": {
+        "mean": 2.38,
+        "median": 2,
+        "plans": 8
+      },
+      "outdoor": {
+        "mean": 2.43,
+        "median": 4,
+        "plans": 7
+      },
+      "living_room": {
+        "mean": 1.67,
+        "median": 2,
+        "plans": 3
+      },
+      "balcony": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 5
+      },
+      "garage": {
+        "mean": 1.5,
+        "median": 1,
+        "plans": 2
+      },
+      "corridor": {
+        "mean": 2.0,
+        "median": 2,
+        "plans": 4
+      }
+    }
+  },
+  "furniture_by_room": {
+    "undefined": {
+      "sauna_bench": {
+        "total": 7613,
+        "avg_per_plan": 1.86
+      },
+      "closet": {
+        "total": 6467,
+        "avg_per_plan": 1.58
+      },
+      "sauna_stove": {
+        "total": 2816,
+        "avg_per_plan": 0.69
+      },
+      "furniture_set": {
+        "total": 2335,
+        "avg_per_plan": 0.57
+      },
+      "base_cabinet": {
+        "total": 2184,
+        "avg_per_plan": 0.53
+      },
+      "shower": {
+        "total": 1355,
+        "avg_per_plan": 0.33
+      },
+      "sink": {
+        "total": 1302,
+        "avg_per_plan": 0.32
+      },
+      "wall_cabinet": {
+        "total": 970,
+        "avg_per_plan": 0.24
+      },
+      "toilet": {
+        "total": 862,
+        "avg_per_plan": 0.21
+      },
+      "appliance_space": {
+        "total": 467,
+        "avg_per_plan": 0.11
+      },
+      "stove": {
+        "total": 459,
+        "avg_per_plan": 0.11
+      },
+      "refrigerator": {
+        "total": 427,
+        "avg_per_plan": 0.1
+      },
+      "electrical_appliance": {
+        "total": 398,
+        "avg_per_plan": 0.1
+      },
+      "washing_machine": {
+        "total": 376,
+        "avg_per_plan": 0.09
+      },
+      "fireplace": {
+        "total": 342,
+        "avg_per_plan": 0.08
+      },
+      "housing": {
+        "total": 281,
+        "avg_per_plan": 0.07
+      },
+      "dishwasher": {
+        "total": 197,
+        "avg_per_plan": 0.05
+      },
+      "chimney": {
+        "total": 119,
+        "avg_per_plan": 0.03
+      },
+      "heater": {
+        "total": 108,
+        "avg_per_plan": 0.03
+      },
+      "tumble_dryer": {
+        "total": 76,
+        "avg_per_plan": 0.02
+      },
+      "bathtub": {
+        "total": 68,
+        "avg_per_plan": 0.02
+      },
+      "ventilation": {
+        "total": 33,
+        "avg_per_plan": 0.01
+      },
+      "water_tap": {
+        "total": 10,
+        "avg_per_plan": 0.0
+      },
+      "countertop": {
+        "total": 4,
+        "avg_per_plan": 0.0
+      }
+    },
+    "outdoor": {
+      "closet": {
+        "total": 2407,
+        "avg_per_plan": 2.32
+      },
+      "base_cabinet": {
+        "total": 926,
+        "avg_per_plan": 0.89
+      },
+      "sink": {
+        "total": 668,
+        "avg_per_plan": 0.64
+      },
+      "sauna_bench": {
+        "total": 485,
+        "avg_per_plan": 0.47
+      },
+      "washing_machine": {
+        "total": 85,
+        "avg_per_plan": 0.08
+      },
+      "tumble_dryer": {
+        "total": 84,
+        "avg_per_plan": 0.08
+      },
+      "shower": {
+        "total": 65,
+        "avg_per_plan": 0.06
+      },
+      "stove": {
+        "total": 10,
+        "avg_per_plan": 0.01
+      },
+      "ventilation": {
+        "total": 8,
+        "avg_per_plan": 0.01
+      },
+      "furniture_set": {
+        "total": 6,
+        "avg_per_plan": 0.01
+      },
+      "fireplace": {
+        "total": 4,
+        "avg_per_plan": 0.0
+      },
+      "wall_cabinet": {
+        "total": 4,
+        "avg_per_plan": 0.0
+      },
+      "electrical_appliance": {
+        "total": 3,
+        "avg_per_plan": 0.0
+      },
+      "chimney": {
+        "total": 2,
+        "avg_per_plan": 0.0
+      },
+      "water_tap": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "housing": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "heater": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "toilet": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      }
+    },
+    "entry": {
+      "closet": {
+        "total": 6602,
+        "avg_per_plan": 2.09
+      },
+      "furniture_set": {
+        "total": 641,
+        "avg_per_plan": 0.2
+      },
+      "housing": {
+        "total": 511,
+        "avg_per_plan": 0.16
+      },
+      "shower": {
+        "total": 391,
+        "avg_per_plan": 0.12
+      },
+      "electrical_appliance": {
+        "total": 267,
+        "avg_per_plan": 0.08
+      },
+      "base_cabinet": {
+        "total": 52,
+        "avg_per_plan": 0.02
+      },
+      "refrigerator": {
+        "total": 34,
+        "avg_per_plan": 0.01
+      },
+      "wall_cabinet": {
+        "total": 30,
+        "avg_per_plan": 0.01
+      },
+      "sink": {
+        "total": 27,
+        "avg_per_plan": 0.01
+      },
+      "fireplace": {
+        "total": 26,
+        "avg_per_plan": 0.01
+      },
+      "sauna_bench": {
+        "total": 22,
+        "avg_per_plan": 0.01
+      },
+      "stove": {
+        "total": 18,
+        "avg_per_plan": 0.01
+      },
+      "appliance_space": {
+        "total": 17,
+        "avg_per_plan": 0.01
+      },
+      "chimney": {
+        "total": 12,
+        "avg_per_plan": 0.0
+      },
+      "dishwasher": {
+        "total": 5,
+        "avg_per_plan": 0.0
+      },
+      "ventilation": {
+        "total": 4,
+        "avg_per_plan": 0.0
+      },
+      "toilet": {
+        "total": 4,
+        "avg_per_plan": 0.0
+      },
+      "sauna_stove": {
+        "total": 2,
+        "avg_per_plan": 0.0
+      },
+      "heater": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      }
+    },
+    "bathroom": {
+      "shower": {
+        "total": 4371,
+        "avg_per_plan": 1.1
+      },
+      "toilet": {
+        "total": 3466,
+        "avg_per_plan": 0.87
+      },
+      "furniture_set": {
+        "total": 3201,
+        "avg_per_plan": 0.81
+      },
+      "base_cabinet": {
+        "total": 2332,
+        "avg_per_plan": 0.59
+      },
+      "sink": {
+        "total": 1604,
+        "avg_per_plan": 0.4
+      },
+      "wall_cabinet": {
+        "total": 1114,
+        "avg_per_plan": 0.28
+      },
+      "appliance_space": {
+        "total": 998,
+        "avg_per_plan": 0.25
+      },
+      "closet": {
+        "total": 984,
+        "avg_per_plan": 0.25
+      },
+      "washing_machine": {
+        "total": 876,
+        "avg_per_plan": 0.22
+      },
+      "bathtub": {
+        "total": 290,
+        "avg_per_plan": 0.07
+      },
+      "sauna_bench": {
+        "total": 272,
+        "avg_per_plan": 0.07
+      },
+      "electrical_appliance": {
+        "total": 151,
+        "avg_per_plan": 0.04
+      },
+      "housing": {
+        "total": 65,
+        "avg_per_plan": 0.02
+      },
+      "tumble_dryer": {
+        "total": 32,
+        "avg_per_plan": 0.01
+      },
+      "water_tap": {
+        "total": 22,
+        "avg_per_plan": 0.01
+      },
+      "sauna_stove": {
+        "total": 11,
+        "avg_per_plan": 0.0
+      },
+      "ventilation": {
+        "total": 10,
+        "avg_per_plan": 0.0
+      },
+      "dishwasher": {
+        "total": 5,
+        "avg_per_plan": 0.0
+      },
+      "chimney": {
+        "total": 5,
+        "avg_per_plan": 0.0
+      },
+      "heater": {
+        "total": 4,
+        "avg_per_plan": 0.0
+      },
+      "fireplace": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      }
+    },
+    "storage": {
+      "closet": {
+        "total": 4958,
+        "avg_per_plan": 2.45
+      },
+      "base_cabinet": {
+        "total": 266,
+        "avg_per_plan": 0.13
+      },
+      "sauna_bench": {
+        "total": 226,
+        "avg_per_plan": 0.11
+      },
+      "sink": {
+        "total": 133,
+        "avg_per_plan": 0.07
+      },
+      "electrical_appliance": {
+        "total": 115,
+        "avg_per_plan": 0.06
+      },
+      "furniture_set": {
+        "total": 73,
+        "avg_per_plan": 0.04
+      },
+      "shower": {
+        "total": 31,
+        "avg_per_plan": 0.02
+      },
+      "washing_machine": {
+        "total": 27,
+        "avg_per_plan": 0.01
+      },
+      "appliance_space": {
+        "total": 26,
+        "avg_per_plan": 0.01
+      },
+      "wall_cabinet": {
+        "total": 24,
+        "avg_per_plan": 0.01
+      },
+      "housing": {
+        "total": 18,
+        "avg_per_plan": 0.01
+      },
+      "fireplace": {
+        "total": 17,
+        "avg_per_plan": 0.01
+      },
+      "tumble_dryer": {
+        "total": 15,
+        "avg_per_plan": 0.01
+      },
+      "ventilation": {
+        "total": 11,
+        "avg_per_plan": 0.01
+      },
+      "toilet": {
+        "total": 9,
+        "avg_per_plan": 0.0
+      },
+      "chimney": {
+        "total": 8,
+        "avg_per_plan": 0.0
+      },
+      "heater": {
+        "total": 5,
+        "avg_per_plan": 0.0
+      },
+      "bathtub": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "stove": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "refrigerator": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "sauna_stove": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      }
+    },
+    "kitchen": {
+      "base_cabinet": {
+        "total": 6249,
+        "avg_per_plan": 1.56
+      },
+      "wall_cabinet": {
+        "total": 5728,
+        "avg_per_plan": 1.43
+      },
+      "stove": {
+        "total": 3851,
+        "avg_per_plan": 0.96
+      },
+      "refrigerator": {
+        "total": 3736,
+        "avg_per_plan": 0.93
+      },
+      "sink": {
+        "total": 3187,
+        "avg_per_plan": 0.79
+      },
+      "closet": {
+        "total": 3003,
+        "avg_per_plan": 0.75
+      },
+      "appliance_space": {
+        "total": 1469,
+        "avg_per_plan": 0.37
+      },
+      "dishwasher": {
+        "total": 1407,
+        "avg_per_plan": 0.35
+      },
+      "electrical_appliance": {
+        "total": 1117,
+        "avg_per_plan": 0.28
+      },
+      "housing": {
+        "total": 834,
+        "avg_per_plan": 0.21
+      },
+      "furniture_set": {
+        "total": 325,
+        "avg_per_plan": 0.08
+      },
+      "fireplace": {
+        "total": 243,
+        "avg_per_plan": 0.06
+      },
+      "sauna_bench": {
+        "total": 136,
+        "avg_per_plan": 0.03
+      },
+      "washing_machine": {
+        "total": 46,
+        "avg_per_plan": 0.01
+      },
+      "chimney": {
+        "total": 38,
+        "avg_per_plan": 0.01
+      },
+      "shower": {
+        "total": 31,
+        "avg_per_plan": 0.01
+      },
+      "ventilation": {
+        "total": 30,
+        "avg_per_plan": 0.01
+      },
+      "heater": {
+        "total": 26,
+        "avg_per_plan": 0.01
+      },
+      "tumble_dryer": {
+        "total": 21,
+        "avg_per_plan": 0.01
+      },
+      "countertop": {
+        "total": 20,
+        "avg_per_plan": 0.0
+      },
+      "toilet": {
+        "total": 2,
+        "avg_per_plan": 0.0
+      },
+      "sauna_stove": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      }
+    },
+    "bedroom": {
+      "closet": {
+        "total": 9404,
+        "avg_per_plan": 3.43
+      },
+      "furniture_set": {
+        "total": 2115,
+        "avg_per_plan": 0.77
+      },
+      "housing": {
+        "total": 839,
+        "avg_per_plan": 0.31
+      },
+      "base_cabinet": {
+        "total": 791,
+        "avg_per_plan": 0.29
+      },
+      "sink": {
+        "total": 549,
+        "avg_per_plan": 0.2
+      },
+      "shower": {
+        "total": 400,
+        "avg_per_plan": 0.15
+      },
+      "sauna_bench": {
+        "total": 397,
+        "avg_per_plan": 0.14
+      },
+      "washing_machine": {
+        "total": 65,
+        "avg_per_plan": 0.02
+      },
+      "tumble_dryer": {
+        "total": 65,
+        "avg_per_plan": 0.02
+      },
+      "fireplace": {
+        "total": 28,
+        "avg_per_plan": 0.01
+      },
+      "stove": {
+        "total": 11,
+        "avg_per_plan": 0.0
+      },
+      "ventilation": {
+        "total": 9,
+        "avg_per_plan": 0.0
+      },
+      "chimney": {
+        "total": 5,
+        "avg_per_plan": 0.0
+      },
+      "heater": {
+        "total": 5,
+        "avg_per_plan": 0.0
+      },
+      "electrical_appliance": {
+        "total": 4,
+        "avg_per_plan": 0.0
+      },
+      "wall_cabinet": {
+        "total": 4,
+        "avg_per_plan": 0.0
+      },
+      "countertop": {
+        "total": 2,
+        "avg_per_plan": 0.0
+      },
+      "dishwasher": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "appliance_space": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "toilet": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      }
+    },
+    "balcony": {
+      "closet": {
+        "total": 1442,
+        "avg_per_plan": 2.33
+      },
+      "base_cabinet": {
+        "total": 474,
+        "avg_per_plan": 0.76
+      },
+      "sink": {
+        "total": 340,
+        "avg_per_plan": 0.55
+      },
+      "sauna_bench": {
+        "total": 279,
+        "avg_per_plan": 0.45
+      },
+      "washing_machine": {
+        "total": 71,
+        "avg_per_plan": 0.11
+      },
+      "tumble_dryer": {
+        "total": 71,
+        "avg_per_plan": 0.11
+      },
+      "shower": {
+        "total": 19,
+        "avg_per_plan": 0.03
+      },
+      "stove": {
+        "total": 5,
+        "avg_per_plan": 0.01
+      },
+      "fireplace": {
+        "total": 5,
+        "avg_per_plan": 0.01
+      },
+      "ventilation": {
+        "total": 4,
+        "avg_per_plan": 0.01
+      },
+      "chimney": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      }
+    },
+    "utility": {
+      "closet": {
+        "total": 1105,
+        "avg_per_plan": 1.08
+      },
+      "base_cabinet": {
+        "total": 1077,
+        "avg_per_plan": 1.06
+      },
+      "wall_cabinet": {
+        "total": 707,
+        "avg_per_plan": 0.69
+      },
+      "electrical_appliance": {
+        "total": 642,
+        "avg_per_plan": 0.63
+      },
+      "washing_machine": {
+        "total": 494,
+        "avg_per_plan": 0.48
+      },
+      "furniture_set": {
+        "total": 485,
+        "avg_per_plan": 0.48
+      },
+      "sink": {
+        "total": 418,
+        "avg_per_plan": 0.41
+      },
+      "appliance_space": {
+        "total": 221,
+        "avg_per_plan": 0.22
+      },
+      "housing": {
+        "total": 136,
+        "avg_per_plan": 0.13
+      },
+      "sauna_bench": {
+        "total": 120,
+        "avg_per_plan": 0.12
+      },
+      "heater": {
+        "total": 115,
+        "avg_per_plan": 0.11
+      },
+      "shower": {
+        "total": 77,
+        "avg_per_plan": 0.08
+      },
+      "tumble_dryer": {
+        "total": 66,
+        "avg_per_plan": 0.06
+      },
+      "ventilation": {
+        "total": 48,
+        "avg_per_plan": 0.05
+      },
+      "toilet": {
+        "total": 32,
+        "avg_per_plan": 0.03
+      },
+      "chimney": {
+        "total": 11,
+        "avg_per_plan": 0.01
+      },
+      "water_tap": {
+        "total": 9,
+        "avg_per_plan": 0.01
+      },
+      "dishwasher": {
+        "total": 7,
+        "avg_per_plan": 0.01
+      },
+      "fireplace": {
+        "total": 5,
+        "avg_per_plan": 0.0
+      },
+      "bathtub": {
+        "total": 4,
+        "avg_per_plan": 0.0
+      },
+      "sauna_stove": {
+        "total": 4,
+        "avg_per_plan": 0.0
+      },
+      "countertop": {
+        "total": 2,
+        "avg_per_plan": 0.0
+      },
+      "refrigerator": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "stove": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      }
+    },
+    "living_room": {
+      "closet": {
+        "total": 1078,
+        "avg_per_plan": 0.82
+      },
+      "fireplace": {
+        "total": 777,
+        "avg_per_plan": 0.59
+      },
+      "base_cabinet": {
+        "total": 562,
+        "avg_per_plan": 0.43
+      },
+      "sink": {
+        "total": 294,
+        "avg_per_plan": 0.22
+      },
+      "chimney": {
+        "total": 283,
+        "avg_per_plan": 0.21
+      },
+      "sauna_bench": {
+        "total": 234,
+        "avg_per_plan": 0.18
+      },
+      "furniture_set": {
+        "total": 56,
+        "avg_per_plan": 0.04
+      },
+      "shower": {
+        "total": 42,
+        "avg_per_plan": 0.03
+      },
+      "wall_cabinet": {
+        "total": 35,
+        "avg_per_plan": 0.03
+      },
+      "refrigerator": {
+        "total": 22,
+        "avg_per_plan": 0.02
+      },
+      "washing_machine": {
+        "total": 20,
+        "avg_per_plan": 0.02
+      },
+      "tumble_dryer": {
+        "total": 20,
+        "avg_per_plan": 0.02
+      },
+      "stove": {
+        "total": 14,
+        "avg_per_plan": 0.01
+      },
+      "appliance_space": {
+        "total": 13,
+        "avg_per_plan": 0.01
+      },
+      "electrical_appliance": {
+        "total": 12,
+        "avg_per_plan": 0.01
+      },
+      "housing": {
+        "total": 10,
+        "avg_per_plan": 0.01
+      },
+      "dishwasher": {
+        "total": 8,
+        "avg_per_plan": 0.01
+      },
+      "heater": {
+        "total": 8,
+        "avg_per_plan": 0.01
+      },
+      "ventilation": {
+        "total": 2,
+        "avg_per_plan": 0.0
+      },
+      "bathtub": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "countertop": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "sauna_stove": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      }
+    },
+    "dining": {
+      "closet": {
+        "total": 180,
+        "avg_per_plan": 1.02
+      },
+      "base_cabinet": {
+        "total": 105,
+        "avg_per_plan": 0.59
+      },
+      "sink": {
+        "total": 47,
+        "avg_per_plan": 0.27
+      },
+      "fireplace": {
+        "total": 42,
+        "avg_per_plan": 0.24
+      },
+      "sauna_bench": {
+        "total": 27,
+        "avg_per_plan": 0.15
+      },
+      "refrigerator": {
+        "total": 24,
+        "avg_per_plan": 0.14
+      },
+      "wall_cabinet": {
+        "total": 19,
+        "avg_per_plan": 0.11
+      },
+      "chimney": {
+        "total": 14,
+        "avg_per_plan": 0.08
+      },
+      "electrical_appliance": {
+        "total": 10,
+        "avg_per_plan": 0.06
+      },
+      "stove": {
+        "total": 10,
+        "avg_per_plan": 0.06
+      },
+      "shower": {
+        "total": 8,
+        "avg_per_plan": 0.05
+      },
+      "furniture_set": {
+        "total": 7,
+        "avg_per_plan": 0.04
+      },
+      "housing": {
+        "total": 6,
+        "avg_per_plan": 0.03
+      },
+      "washing_machine": {
+        "total": 5,
+        "avg_per_plan": 0.03
+      },
+      "tumble_dryer": {
+        "total": 5,
+        "avg_per_plan": 0.03
+      },
+      "appliance_space": {
+        "total": 5,
+        "avg_per_plan": 0.03
+      },
+      "ventilation": {
+        "total": 2,
+        "avg_per_plan": 0.01
+      },
+      "sauna_stove": {
+        "total": 1,
+        "avg_per_plan": 0.01
+      },
+      "dishwasher": {
+        "total": 1,
+        "avg_per_plan": 0.01
+      }
+    },
+    "office": {
+      "fireplace": {
+        "total": 203,
+        "avg_per_plan": 0.79
+      },
+      "closet": {
+        "total": 125,
+        "avg_per_plan": 0.48
+      },
+      "base_cabinet": {
+        "total": 105,
+        "avg_per_plan": 0.41
+      },
+      "furniture_set": {
+        "total": 29,
+        "avg_per_plan": 0.11
+      },
+      "chimney": {
+        "total": 21,
+        "avg_per_plan": 0.08
+      },
+      "sink": {
+        "total": 19,
+        "avg_per_plan": 0.07
+      },
+      "housing": {
+        "total": 10,
+        "avg_per_plan": 0.04
+      },
+      "electrical_appliance": {
+        "total": 8,
+        "avg_per_plan": 0.03
+      },
+      "sauna_bench": {
+        "total": 6,
+        "avg_per_plan": 0.02
+      },
+      "wall_cabinet": {
+        "total": 5,
+        "avg_per_plan": 0.02
+      },
+      "washing_machine": {
+        "total": 3,
+        "avg_per_plan": 0.01
+      },
+      "heater": {
+        "total": 2,
+        "avg_per_plan": 0.01
+      },
+      "tumble_dryer": {
+        "total": 2,
+        "avg_per_plan": 0.01
+      },
+      "shower": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      },
+      "sauna_stove": {
+        "total": 1,
+        "avg_per_plan": 0.0
+      }
+    },
+    "garage": {
+      "closet": {
+        "total": 160,
+        "avg_per_plan": 2.03
+      },
+      "base_cabinet": {
+        "total": 43,
+        "avg_per_plan": 0.54
+      },
+      "sauna_bench": {
+        "total": 29,
+        "avg_per_plan": 0.37
+      },
+      "sink": {
+        "total": 27,
+        "avg_per_plan": 0.34
+      },
+      "furniture_set": {
+        "total": 20,
+        "avg_per_plan": 0.25
+      },
+      "washing_machine": {
+        "total": 8,
+        "avg_per_plan": 0.1
+      },
+      "tumble_dryer": {
+        "total": 8,
+        "avg_per_plan": 0.1
+      },
+      "electrical_appliance": {
+        "total": 8,
+        "avg_per_plan": 0.1
+      },
+      "wall_cabinet": {
+        "total": 1,
+        "avg_per_plan": 0.01
+      },
+      "shower": {
+        "total": 1,
+        "avg_per_plan": 0.01
+      }
+    },
+    "stairs": {
+      "sauna_bench": {
+        "total": 26,
+        "avg_per_plan": 1.04
+      },
+      "base_cabinet": {
+        "total": 17,
+        "avg_per_plan": 0.68
+      },
+      "closet": {
+        "total": 15,
+        "avg_per_plan": 0.6
+      },
+      "sink": {
+        "total": 12,
+        "avg_per_plan": 0.48
+      },
+      "furniture_set": {
+        "total": 11,
+        "avg_per_plan": 0.44
+      },
+      "fireplace": {
+        "total": 8,
+        "avg_per_plan": 0.32
+      },
+      "shower": {
+        "total": 7,
+        "avg_per_plan": 0.28
+      },
+      "sauna_stove": {
+        "total": 7,
+        "avg_per_plan": 0.28
+      },
+      "wall_cabinet": {
+        "total": 6,
+        "avg_per_plan": 0.24
+      },
+      "toilet": {
+        "total": 5,
+        "avg_per_plan": 0.2
+      },
+      "stove": {
+        "total": 4,
+        "avg_per_plan": 0.16
+      },
+      "refrigerator": {
+        "total": 2,
+        "avg_per_plan": 0.08
+      },
+      "dishwasher": {
+        "total": 2,
+        "avg_per_plan": 0.08
+      },
+      "appliance_space": {
+        "total": 2,
+        "avg_per_plan": 0.08
+      },
+      "chimney": {
+        "total": 2,
+        "avg_per_plan": 0.08
+      },
+      "heater": {
+        "total": 2,
+        "avg_per_plan": 0.08
+      }
+    },
+    "sauna": {
+      "sauna_bench": {
+        "total": 81,
+        "avg_per_plan": 1.53
+      },
+      "sauna_stove": {
+        "total": 46,
+        "avg_per_plan": 0.87
+      },
+      "base_cabinet": {
+        "total": 4,
+        "avg_per_plan": 0.08
+      },
+      "sink": {
+        "total": 4,
+        "avg_per_plan": 0.08
+      },
+      "closet": {
+        "total": 3,
+        "avg_per_plan": 0.06
+      },
+      "electrical_appliance": {
+        "total": 2,
+        "avg_per_plan": 0.04
+      },
+      "heater": {
+        "total": 2,
+        "avg_per_plan": 0.04
+      },
+      "appliance_space": {
+        "total": 1,
+        "avg_per_plan": 0.02
+      },
+      "wall_cabinet": {
+        "total": 1,
+        "avg_per_plan": 0.02
+      },
+      "shower": {
+        "total": 1,
+        "avg_per_plan": 0.02
+      },
+      "fireplace": {
+        "total": 1,
+        "avg_per_plan": 0.02
+      }
+    },
+    "corridor": {
+      "closet": {
+        "total": 19,
+        "avg_per_plan": 1.12
+      },
+      "furniture_set": {
+        "total": 14,
+        "avg_per_plan": 0.82
+      },
+      "shower": {
+        "total": 3,
+        "avg_per_plan": 0.18
+      },
+      "electrical_appliance": {
+        "total": 1,
+        "avg_per_plan": 0.06
+      },
+      "fireplace": {
+        "total": 1,
+        "avg_per_plan": 0.06
+      },
+      "chimney": {
+        "total": 1,
+        "avg_per_plan": 0.06
+      }
+    },
+    "special": {
+      "closet": {
+        "total": 19,
+        "avg_per_plan": 3.8
+      },
+      "base_cabinet": {
+        "total": 5,
+        "avg_per_plan": 1.0
+      },
+      "sink": {
+        "total": 5,
+        "avg_per_plan": 1.0
+      },
+      "furniture_set": {
+        "total": 1,
+        "avg_per_plan": 0.2
+      },
+      "housing": {
+        "total": 1,
+        "avg_per_plan": 0.2
+      },
+      "heater": {
+        "total": 1,
+        "avg_per_plan": 0.2
+      }
+    }
+  },
+  "door_density_per_room": {
+    "outdoor": 1.23,
+    "undefined": 1.51,
+    "balcony": 1.13,
+    "dining": 0.72,
+    "kitchen": 0.9,
+    "entry": 3.35,
+    "bathroom": 1.48,
+    "utility": 1.92,
+    "storage": 1.21,
+    "living_room": 1.7,
+    "bedroom": 1.27,
+    "garage": 1.41,
+    "office": 2.06,
+    "corridor": 4.29,
+    "stairs": 1.3,
+    "sauna": 1.07,
+    "special": 1.94
+  },
+  "window_density_per_room": {
+    "outdoor": 1.28,
+    "undefined": 0.69,
+    "balcony": 2.04,
+    "dining": 1.53,
+    "kitchen": 1.16,
+    "entry": 0.22,
+    "bathroom": 0.32,
+    "utility": 0.49,
+    "storage": 0.27,
+    "living_room": 1.93,
+    "bedroom": 1.34,
+    "garage": 1.05,
+    "office": 1.63,
+    "corridor": 0.24,
+    "stairs": 1.32,
+    "sauna": 0.59,
+    "special": 1.81
+  },
+  "total_plans_analyzed": 4989
+}

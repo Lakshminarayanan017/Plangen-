@@ -1,0 +1,419 @@
+{
+ "timestamp": "2026-07-30 22:25:43",
+ "n_briefs": 28,
+ "briefs_with_plan": 28,
+ "mean_best_score": 69.5,
+ "mean_fidelity": 0.843,
+ "mean_drift": 0.045,
+ "total_privacy_doors": 3,
+ "total_seconds": 345.3,
+ "rows": [
+  {
+   "brief": "20x30_S_1bhk",
+   "kept": 4,
+   "k": 6,
+   "best_score": 83.7,
+   "fidelity": 0.836,
+   "drift": 0.02,
+   "worst_aspect": 2.87,
+   "privacy_doors": 0,
+   "seconds": 4.1,
+   "discard_reasons": []
+  },
+  {
+   "brief": "20x45_S_3bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 42.61,
+   "fidelity": 0.828,
+   "drift": 0.133,
+   "worst_aspect": 2.2,
+   "privacy_doors": 0,
+   "seconds": 3.96,
+   "discard_reasons": []
+  },
+  {
+   "brief": "20x45_N_2bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 87.03,
+   "fidelity": 0.796,
+   "drift": 0.028,
+   "worst_aspect": 2.27,
+   "privacy_doors": 0,
+   "seconds": 6.27,
+   "discard_reasons": []
+  },
+  {
+   "brief": "25x40_S_2bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 110.05,
+   "fidelity": 0.803,
+   "drift": 0.009,
+   "worst_aspect": 2.22,
+   "privacy_doors": 0,
+   "seconds": 6.43,
+   "discard_reasons": []
+  },
+  {
+   "brief": "25x50_E_3bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 15.62,
+   "fidelity": 0.817,
+   "drift": 0.031,
+   "worst_aspect": 5.95,
+   "privacy_doors": 0,
+   "seconds": 12.08,
+   "discard_reasons": [
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 2) vs (Bath 2<->Bedroom 2",
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 3) vs (Bath 3<->Bedroom 2"
+   ]
+  },
+  {
+   "brief": "30x40_S_2bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 79.09,
+   "fidelity": 0.882,
+   "drift": 0.028,
+   "worst_aspect": 1.7,
+   "privacy_doors": 0,
+   "seconds": 9.35,
+   "discard_reasons": []
+  },
+  {
+   "brief": "30x40_W_2bhk",
+   "kept": 5,
+   "k": 6,
+   "best_score": 96.82,
+   "fidelity": 0.891,
+   "drift": 0.014,
+   "worst_aspect": 2.51,
+   "privacy_doors": 0,
+   "seconds": 10.74,
+   "discard_reasons": [
+    "[hard] STR-003 Parking has no vehicle gate onto the exterior"
+   ]
+  },
+  {
+   "brief": "30x50_S_3bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 89.14,
+   "fidelity": 0.832,
+   "drift": 0.029,
+   "worst_aspect": 2.26,
+   "privacy_doors": 0,
+   "seconds": 8.41,
+   "discard_reasons": []
+  },
+  {
+   "brief": "30x60_N_3bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 93.28,
+   "fidelity": 0.836,
+   "drift": 0.031,
+   "worst_aspect": 2.37,
+   "privacy_doors": 0,
+   "seconds": 9.45,
+   "discard_reasons": [
+    "[hard] DOR-001 swing collision: (Bedroom 3<->Bath 2) vs (Bath 2<->Bedroom 2)"
+   ]
+  },
+  {
+   "brief": "35x50_E_3bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 69.66,
+   "fidelity": 0.867,
+   "drift": 0.011,
+   "worst_aspect": 2.11,
+   "privacy_doors": 1,
+   "seconds": 9.27,
+   "discard_reasons": []
+  },
+  {
+   "brief": "40x30_S_2bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 97.91,
+   "fidelity": 0.891,
+   "drift": 0.019,
+   "worst_aspect": 2.51,
+   "privacy_doors": 0,
+   "seconds": 9.62,
+   "discard_reasons": [
+    "[hard] STR-003 Parking has no vehicle gate onto the exterior"
+   ]
+  },
+  {
+   "brief": "40x60_S_4bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 75.62,
+   "fidelity": 0.786,
+   "drift": 0.025,
+   "worst_aspect": 3.45,
+   "privacy_doors": 0,
+   "seconds": 13.21,
+   "discard_reasons": []
+  },
+  {
+   "brief": "45x45_W_3bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 64.12,
+   "fidelity": 0.866,
+   "drift": 0.017,
+   "worst_aspect": 3.57,
+   "privacy_doors": 0,
+   "seconds": 17.14,
+   "discard_reasons": [
+    "[hard] STR-003 Parking has no vehicle gate onto the exterior"
+   ]
+  },
+  {
+   "brief": "50x40_N_3bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 77.86,
+   "fidelity": 0.866,
+   "drift": 0.032,
+   "worst_aspect": 2.93,
+   "privacy_doors": 0,
+   "seconds": 16.14,
+   "discard_reasons": [
+    "[hard] DOR-001 swing collision: (Dining Room<->Bath 3) vs (Bath 3<->Bedroom 3)",
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 2) vs (Passage<->Bath 2)"
+   ]
+  },
+  {
+   "brief": "50x70_S_4bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 42.09,
+   "fidelity": 0.816,
+   "drift": 0.008,
+   "worst_aspect": 2.28,
+   "privacy_doors": 0,
+   "seconds": 17.97,
+   "discard_reasons": []
+  },
+  {
+   "brief": "60x40_E_3bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 86.32,
+   "fidelity": 0.881,
+   "drift": 0.029,
+   "worst_aspect": 2.15,
+   "privacy_doors": 0,
+   "seconds": 11.86,
+   "discard_reasons": []
+  },
+  {
+   "brief": "60x90_S_4bhk",
+   "kept": 6,
+   "k": 6,
+   "best_score": 67.87,
+   "fidelity": 0.864,
+   "drift": 0.014,
+   "worst_aspect": 2.33,
+   "privacy_doors": 1,
+   "seconds": 26.46,
+   "discard_reasons": []
+  },
+  {
+   "brief": "35x35_S_2bhk",
+   "kept": 3,
+   "k": 6,
+   "best_score": 80.1,
+   "fidelity": 0.891,
+   "drift": 0.038,
+   "worst_aspect": 1.79,
+   "privacy_doors": 0,
+   "seconds": 10.64,
+   "discard_reasons": [
+    "[hard] STR-003 Parking has no vehicle gate onto the exterior"
+   ]
+  },
+  {
+   "brief": "20x45_S_G+1",
+   "kept": 2,
+   "k": 6,
+   "best_score": 60.64,
+   "fidelity": 0.834,
+   "drift": 0.148,
+   "worst_aspect": 1.77,
+   "privacy_doors": 0,
+   "seconds": 9.97,
+   "discard_reasons": [
+    "[hard] STR-S02 Staircase is 6'7.5\" x 9'9\" \u2014 no flight fits (smallest is 3'0\" x 1",
+    "[hard] STR-S02 Staircase is 7'10.5\" x 8'3\" \u2014 no flight fits (smallest is 3'0\" x ",
+    "[hard] STR-S02 Staircase is 8'0\" x 8'3\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 8'1.5\" x 8'0\" \u2014 no flight fits (smallest is 3'0\" x 1",
+    "[hard] STR-S02 Staircase is 8'10.5\" x 7'3\" \u2014 no flight fits (smallest is 3'0\" x ",
+    "[hard] STR-S02 Staircase is 9'0\" x 7'3\" \u2014 no flight fits (smallest is 3'0\" x 17'"
+   ]
+  },
+  {
+   "brief": "25x50_E_G+1",
+   "kept": 6,
+   "k": 6,
+   "best_score": 41.43,
+   "fidelity": 0.855,
+   "drift": 0.174,
+   "worst_aspect": 2.12,
+   "privacy_doors": 0,
+   "seconds": 14.02,
+   "discard_reasons": [
+    "[hard] STR-S02 Staircase is 7'0\" x 9'6\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S03 Staircase is 3 rooms deep from the entrance (max 2)",
+    "[hard] STR-S03 Staircase is 6 rooms deep from the entrance (max 2)"
+   ]
+  },
+  {
+   "brief": "30x40_S_G+1",
+   "kept": 3,
+   "k": 6,
+   "best_score": 58.95,
+   "fidelity": 0.857,
+   "drift": 0.095,
+   "worst_aspect": 2.82,
+   "privacy_doors": 0,
+   "seconds": 13.48,
+   "discard_reasons": [
+    "[hard] STR-003 Parking has no vehicle gate onto the exterior",
+    "[hard] STR-S02 Staircase is 7'0\" x 9'6\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 8'9\" x 7'6\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 9'0\" x 7'3\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 9'3\" x 7'3\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 9'6\" x 7'6\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S03 Staircase is 3 rooms deep from the entrance (max 2)"
+   ]
+  },
+  {
+   "brief": "30x60_N_G+1",
+   "kept": 2,
+   "k": 6,
+   "best_score": 83.92,
+   "fidelity": 0.802,
+   "drift": 0.063,
+   "worst_aspect": 2.17,
+   "privacy_doors": 0,
+   "seconds": 17.11,
+   "discard_reasons": [
+    "[hard] STR-S02 Staircase is 7'10.5\" x 8'3\" \u2014 no flight fits (smallest is 3'0\" x ",
+    "[hard] STR-S02 Staircase is 7'4.5\" x 9'0\" \u2014 no flight fits (smallest is 3'0\" x 1",
+    "[hard] STR-S02 Staircase is 7'6\" x 8'6\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 8'0\" x 8'3\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 8'3\" x 8'3\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 8'6\" x 7'9\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 8'6\" x 8'3\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S03 Staircase is 3 rooms deep from the entrance (max 2)"
+   ]
+  },
+  {
+   "brief": "40x60_S_G+1",
+   "kept": 6,
+   "k": 6,
+   "best_score": 83.2,
+   "fidelity": 0.79,
+   "drift": 0.059,
+   "worst_aspect": 2.92,
+   "privacy_doors": 0,
+   "seconds": 22.62,
+   "discard_reasons": [
+    "[hard] STR-003 Parking has no vehicle gate onto the exterior",
+    "[hard] STR-S02 Staircase is 7'0\" x 9'3\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 7'4.5\" x 8'9\" \u2014 no flight fits (smallest is 3'0\" x 1",
+    "[hard] STR-S03 Staircase is 3 rooms deep from the entrance (max 2)"
+   ]
+  },
+  {
+   "brief": "50x40_N_G+1",
+   "kept": 5,
+   "k": 6,
+   "best_score": 70.23,
+   "fidelity": 0.895,
+   "drift": 0.038,
+   "worst_aspect": 2.68,
+   "privacy_doors": 0,
+   "seconds": 23.99,
+   "discard_reasons": [
+    "[hard] DOR-001 swing collision: (Bedroom 2<->Bath 2) vs (Staircase<->Bath 2)",
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 3) vs (Passage<->Bath 3)",
+    "[hard] STR-003 Parking has no vehicle gate onto the exterior",
+    "[hard] STR-S02 Staircase is 6'9\" x 9'9\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 7'0\" x 9'6\" \u2014 no flight fits (smallest is 3'0\" x 17'",
+    "[hard] STR-S02 Staircase is 7'0\" x 9'9\" \u2014 no flight fits (smallest is 3'0\" x 17'"
+   ]
+  },
+  {
+   "brief": "L_40x50",
+   "kept": 5,
+   "k": 6,
+   "best_score": 79.55,
+   "fidelity": 0.849,
+   "drift": 0.077,
+   "worst_aspect": 3.21,
+   "privacy_doors": 0,
+   "seconds": 8.97,
+   "discard_reasons": [
+    "[hard] DOR-001 swing collision: (Bedroom 2<->Bath 1) vs (Bath 1<->Master Bedroom",
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 1) vs (Bath 1<->Bedroom 2"
+   ]
+  },
+  {
+   "brief": "chamfer_35x45",
+   "kept": 3,
+   "k": 6,
+   "best_score": 17.65,
+   "fidelity": 0.827,
+   "drift": 0.066,
+   "worst_aspect": 4.37,
+   "privacy_doors": 0,
+   "seconds": 13.67,
+   "discard_reasons": [
+    "[hard] DOR-001 swing collision: (Bath 1<->Bedroom 2) vs (Bath 1<->Passage)",
+    "[hard] DOR-001 swing collision: (Bedroom 3<->Bath 3) vs (Bath 3<->Bedroom 2)",
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 3) vs (Bath 3<->Bedroom 2",
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 3) vs (Bath 3<->Bedroom 3",
+    "[hard] STR-003 Parking has no vehicle gate onto the exterior"
+   ]
+  },
+  {
+   "brief": "wedge_30x55",
+   "kept": 6,
+   "k": 6,
+   "best_score": 86.32,
+   "fidelity": 0.848,
+   "drift": 0.008,
+   "worst_aspect": 1.9,
+   "privacy_doors": 0,
+   "seconds": 6.86,
+   "discard_reasons": []
+  },
+  {
+   "brief": "trapezoid_45x40",
+   "kept": 4,
+   "k": 6,
+   "best_score": 5.23,
+   "fidelity": 0.806,
+   "drift": 0.026,
+   "worst_aspect": 4.38,
+   "privacy_doors": 1,
+   "seconds": 10.36,
+   "discard_reasons": [
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 1) vs (Bath 1<->Bedroom 3",
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 2) vs (Bath 2<->Bedroom 2",
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 2) vs (Bath 2<->Bedroom 3",
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 3) vs (Bath 3<->Bedroom 2",
+    "[hard] DOR-001 swing collision: (Master Bedroom<->Bath 3) vs (Bath 3<->Bedroom 3"
+   ]
+  }
+ ]
+}

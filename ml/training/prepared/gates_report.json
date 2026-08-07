@@ -1,0 +1,120 @@
+{
+  "n_samples": 4430,
+  "passed": true,
+  "gates": {
+    "seed_collisions": {
+      "pass": true,
+      "detail": "0/32574 rooms collide"
+    },
+    "coverage_sanity": {
+      "pass": true,
+      "detail": "38/4430 plans outside [0.3, 1.25]",
+      "examples": [
+        "cubicasa5k/cubicasa5k/colorful/12625=0.24",
+        "cubicasa5k/cubicasa5k/colorful/13264=0.24",
+        "cubicasa5k/cubicasa5k/high_quality/1548=0.11",
+        "cubicasa5k/cubicasa5k/high_quality/3775=0.22",
+        "cubicasa5k/cubicasa5k/high_quality/397=0.26",
+        "cubicasa5k/cubicasa5k/high_quality/8680=0.21",
+        "cubicasa5k/cubicasa5k/high_quality/9490=0.25",
+        "cubicasa5k/cubicasa5k/high_quality_architectural/10118=0.28",
+        "cubicasa5k/cubicasa5k/high_quality_architectural/10274=0.18",
+        "cubicasa5k/cubicasa5k/high_quality_architectural/10424=0.29"
+      ]
+    },
+    "seeds_in_boundary": {
+      "pass": true,
+      "detail": "0/32574 seeds outside their mask"
+    },
+    "distribution": {
+      "pass": true,
+      "room_type_histogram": {
+        "bedroom": 6186,
+        "bathroom": 6078,
+        "foyer": 5088,
+        "store": 4171,
+        "kitchen": 4022,
+        "living_room": 3678,
+        "utility": 1441,
+        "dining_room": 791,
+        "garage": 632,
+        "office": 390,
+        "hallway": 61,
+        "staircase": 36
+      },
+      "size_class_histogram": {
+        "1": 7844,
+        "2": 5271,
+        "3": 3845,
+        "4": 3956,
+        "5": 4069,
+        "6": 2366,
+        "7": 1531,
+        "8": 1207,
+        "9": 858,
+        "10": 530,
+        "11": 341,
+        "12": 211,
+        "13": 174,
+        "14": 111,
+        "15": 53,
+        "16": 58,
+        "17": 32,
+        "18": 30,
+        "19": 27,
+        "20": 14,
+        "21": 7,
+        "22": 9,
+        "23": 4,
+        "24": 9,
+        "25": 3,
+        "26": 2,
+        "28": 1,
+        "29": 1,
+        "32": 2,
+        "34": 1,
+        "35": 1,
+        "36": 1,
+        "37": 1,
+        "40": 4
+      },
+      "room_count_histogram": {
+        "3": 351,
+        "4": 527,
+        "5": 675,
+        "6": 634,
+        "7": 509,
+        "8": 399,
+        "9": 319,
+        "10": 263,
+        "11": 194,
+        "12": 151,
+        "13": 128,
+        "14": 111,
+        "15": 54,
+        "16": 49,
+        "17": 30,
+        "18": 17,
+        "19": 5,
+        "20": 8,
+        "21": 1,
+        "22": 1,
+        "24": 1,
+        "25": 1,
+        "26": 1,
+        "31": 1
+      },
+      "entrance_side_histogram": {
+        "S": 1941,
+        "N": 990,
+        "E": 775,
+        "W": 724
+      },
+      "mean_rooms": 7.35
+    },
+    "val_split": {
+      "pass": true,
+      "detail": "443 frozen val indices, seed=20260722"
+    }
+  }
+}

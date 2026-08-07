@@ -1,0 +1,266 @@
+{
+  "corpus": "normalized_extraction.json",
+  "n_plans": 4989,
+  "n_rooms": 51719,
+  "sample_plan_fields": {
+    "plan_key": {
+      "type": "str",
+      "value": "cubicasa5k/cubicasa5k/colorful/10052"
+    },
+    "spaces": {
+      "list_len": 5,
+      "item_fields": [
+        "area",
+        "bbox",
+        "centroid",
+        "class",
+        "dimensions",
+        "id",
+        "name_label",
+        "original_type",
+        "polygon",
+        "type"
+      ]
+    },
+    "walls": {
+      "list_len": 16,
+      "item_fields": [
+        "area",
+        "bbox",
+        "centroid",
+        "class",
+        "door_ids",
+        "is_external",
+        "polygon",
+        "thickness",
+        "wall_id",
+        "window_ids"
+      ]
+    },
+    "doors": {
+      "list_len": 5,
+      "item_fields": [
+        "area",
+        "bbox",
+        "centroid",
+        "class",
+        "door_id",
+        "panels",
+        "parent_wall_id",
+        "polygon",
+        "swing_type"
+      ]
+    },
+    "windows": {
+      "list_len": 7,
+      "item_fields": [
+        "area",
+        "bbox",
+        "centroid",
+        "class",
+        "parent_wall_id",
+        "polygon",
+        "window_id"
+      ]
+    },
+    "furniture": {
+      "list_len": 26,
+      "item_fields": [
+        "area",
+        "bbox",
+        "centroid",
+        "class",
+        "dimensions_3d",
+        "local_polygon",
+        "original_type",
+        "polygon",
+        "transform",
+        "type"
+      ]
+    },
+    "stairs": {
+      "list_len": 0,
+      "item_fields": []
+    },
+    "columns": {
+      "list_len": 0,
+      "item_fields": []
+    },
+    "railings": {
+      "list_len": 1,
+      "item_fields": [
+        "area",
+        "bbox",
+        "centroid",
+        "polygon"
+      ]
+    },
+    "metadata": {
+      "dict_keys": [
+        "bedrooms",
+        "bhk_category",
+        "door_count",
+        "external_walls",
+        "free_space_area_svg",
+        "furniture_count",
+        "furniture_types",
+        "has_metric_dimensions",
+        "has_stairs",
+        "internal_walls",
+        "plan_bbox",
+        "room_count",
+        "room_type_counts",
+        "svg_to_meter_scale",
+        "total_room_area_svg",
+        "wall_count",
+        "window_count"
+      ]
+    }
+  },
+  "sample_space_record": {
+    "id": "e28cc4ce-9494-4014-9427-ba6a5ee22214",
+    "type": "outdoor",
+    "class": "Space Outdoor",
+    "name_label": "ULKOTILA",
+    "polygon": [
+      [
+        225.0,
+        221.2
+      ],
+      [
+        63.0,
+        221.2
+      ],
+      [
+        63.0,
+        841.1
+      ],
+      [
+        225.0,
+        841.1
+      ],
+      [
+        225.0,
+        221.2
+      ]
+    ],
+    "bbox": {
+      "x": 63.0,
+      "y": 221.2,
+      "w": 162.0,
+      "h": 619.9
+    },
+    "area": 100421.9,
+    "centroid": {
+      "x": 144.0,
+      "y": 531.2
+    },
+    "dimensions": {
+      "width_ft": 5.333333333333333,
+      "height_ft": 20.333333333333332
+    },
+    "original_type": "outdoor"
+  },
+  "room_type_histogram": {
+    "undefined": 11834,
+    "bedroom": 6221,
+    "bathroom": 6194,
+    "entry": 5145,
+    "outdoor": 5047,
+    "storage": 4239,
+    "kitchen": 4163,
+    "living_room": 3706,
+    "balcony": 1633,
+    "utility": 1454,
+    "dining": 792,
+    "garage": 646,
+    "office": 394,
+    "sauna": 123,
+    "corridor": 62,
+    "stairs": 50,
+    "special": 16
+  },
+  "original_type_histogram": {
+    "undefined": 8837,
+    "bedroom": 6219,
+    "bathroom": 5216,
+    "outdoor": 4115,
+    "living_room": 3610,
+    "entry": 3593,
+    "kitchen": 3495,
+    "closet walkin": 2210,
+    "balcony": 1633,
+    "storage": 1576,
+    "draught_lobby": 1504,
+    "userdefined": 1484,
+    "room": 1376,
+    "bath shower": 978,
+    "utility_laundry": 936,
+    "dining": 792,
+    "outdoor porch": 454,
+    "kitchen kitchenette": 448,
+    "garage": 389,
+    "office": 363,
+    "technicalroom": 332,
+    "dressingroom": 320,
+    "carport": 257,
+    "kitchen open": 154,
+    "outdoor coveredarea": 147
+  },
+  "undefined_room_fraction": 0.2288,
+  "plans_majority_undefined": 664,
+  "plans_majority_undefined_pct": 13.3,
+  "per_room_scale_available_pct": 99.7,
+  "bhk_histogram": {
+    "studio": 1693,
+    "1BHK": 1389,
+    "2BHK": 1116,
+    "3BHK": 607,
+    "4BHK": 162,
+    "5BHK": 10,
+    "6BHK": 8,
+    "8BHK": 3,
+    "9BHK": 1
+  },
+  "room_count_histogram": {
+    "1": 6,
+    "2": 16,
+    "3": 40,
+    "4": 121,
+    "5": 275,
+    "6": 457,
+    "7": 635,
+    "8": 559,
+    "9": 460,
+    "10": 401,
+    "11": 371,
+    "12": 304,
+    "13": 249,
+    "14": 208,
+    "15": 205,
+    "16": 145,
+    "17": 130,
+    "18": 108,
+    "19": 93,
+    "20": 49,
+    "21": 35,
+    "22": 35,
+    "23": 28,
+    "24": 19,
+    "25": 10,
+    "26": 7,
+    "27": 8,
+    "28": 3,
+    "29": 2,
+    "30": 3,
+    "31": 2,
+    "32": 1,
+    "33": 2,
+    "35": 1,
+    "39": 1
+  },
+  "coord_max_xy": [
+    13740.7,
+    5639.6
+  ]
+}
