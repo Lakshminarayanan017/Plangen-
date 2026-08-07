@@ -1,0 +1,22 @@
+{
+ "version": "1.0.0",
+ "built_at": "2026-08-07 16:26:41",
+ "total_plans": 4983,
+ "feature_dim": 28,
+ "plans_with_room_composition": 4983,
+ "sources": {
+  "features": "data\\zone_patterns_features.json",
+  "corpus": "ml/data/normalized_extraction.json",
+  "aggregates": [
+   "learned_patterns.json",
+   "zone_patterns.json",
+   "circulation_patterns.json"
+  ]
+ },
+ "counts": {
+  "room_stats": 15,
+  "adjacency_rooms": 17,
+  "zone_probs": 17
+ },
+ "notes": "Dim 22 (multi_floor) is fixed at 0.0 on both index and query sides: CubiCasa5K is single-floor, so a non-zero query value would penalise the entire index."
+}

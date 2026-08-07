@@ -1,0 +1,87 @@
+{
+ "outdoor": {
+  "front": 0.1855,
+  "middle": 0.2726,
+  "back": 0.5419
+ },
+ "undefined": {
+  "front": 0.131,
+  "middle": 0.4457,
+  "back": 0.4233
+ },
+ "balcony": {
+  "front": 0.0557,
+  "middle": 0.1029,
+  "back": 0.8414
+ },
+ "dining": {
+  "front": 0.0467,
+  "middle": 0.4432,
+  "back": 0.5101
+ },
+ "kitchen": {
+  "front": 0.0485,
+  "middle": 0.6421,
+  "back": 0.3094
+ },
+ "entry": {
+  "front": 0.8028,
+  "middle": 0.1756,
+  "back": 0.0216
+ },
+ "bathroom": {
+  "front": 0.1941,
+  "middle": 0.5474,
+  "back": 0.2585
+ },
+ "utility": {
+  "front": 0.0977,
+  "middle": 0.4182,
+  "back": 0.4842
+ },
+ "storage": {
+  "front": 0.1057,
+  "middle": 0.4553,
+  "back": 0.439
+ },
+ "living_room": {
+  "front": 0.0121,
+  "middle": 0.5965,
+  "back": 0.3914
+ },
+ "bedroom": {
+  "front": 0.0629,
+  "middle": 0.5441,
+  "back": 0.393
+ },
+ "garage": {
+  "front": 0.0248,
+  "middle": 0.2096,
+  "back": 0.7656
+ },
+ "office": {
+  "front": 0.0508,
+  "middle": 0.4975,
+  "back": 0.4518
+ },
+ "corridor": {
+  "front": 0.6452,
+  "middle": 0.2419,
+  "back": 0.1129
+ },
+ "stairs": {
+  "front": 0.1,
+  "middle": 0.36,
+  "back": 0.54
+ },
+ "sauna": {
+  "front": 0.0488,
+  "middle": 0.3415,
+  "back": 0.6097
+ },
+ "special": {
+  "front": 0.0625,
+  "middle": 0.4375,
+  "back": 0.5
+ }
+}

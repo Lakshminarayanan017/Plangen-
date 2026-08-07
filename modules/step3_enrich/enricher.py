@@ -202,6 +202,18 @@ class Enricher:
         vastu_mapper: Optional[VastuMapper] = None
         if vastu_enabled:
             vastu_mapper = VastuMapper(bundle.vastu_rules_applied)
+            n_rules = len(bundle.vastu_rules_applied.get("room_zone_rules", []))
+            log.info("Vastu ENABLED — %d room rules loaded", n_rules)
+        elif reqs.vastu_compliant:
+            # The user asked for Vastu and we cannot deliver it. Say so, out
+            # loud, in the response — never silently return a non-Vastu plan.
+            warnings.append(
+                "Vastu compliance was requested but no Vastu rules could be "
+                "loaded, so the plan is NOT Vastu-adjusted. This is a data "
+                "problem, not a design decision."
+            )
+            log.warning("Vastu requested but rule set is empty — plan will NOT "
+                        "be Vastu-adjusted")
 
         # ── 4. Resolve + expand rooms ───────────────────────────────────
         floors      = reqs.number_of_floors or 1

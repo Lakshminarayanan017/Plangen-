@@ -263,7 +263,11 @@ class SemanticMatcher:
 
             matched_refs.append(MatchedPlanRef(
                 plan_key         = self._plan_keys[idx],
-                similarity_score = round(max(sim, 0.0), 4),
+                # Clamp to [0, 1]: the BHK bonus is added AFTER the cosine, so
+                # a near-perfect match plus +0.06 lands above 1.0 and fails
+                # MatchedPlanRef's schema. Ranking already happened above, so
+                # clamping the reported score changes the order of nothing.
+                similarity_score = round(min(max(sim, 0.0), 1.0), 4),
                 bhk              = meta.get("bhk", "unknown"),
                 room_count       = int(meta.get("room_count", 0)),
                 aspect_ratio     = float(meta.get("aspect_ratio", 1.0)),

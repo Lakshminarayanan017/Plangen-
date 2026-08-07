@@ -304,6 +304,70 @@ class EnricherRules:
     def get_max_coverage_pct(self) -> float:
         return self._raw.get("plot_budget_rules", {}).get("max_ground_coverage_pct", 0.85)
 
+    # ── Vastu ──────────────────────────────────────────────────────────────────
+
+    def get_vastu_rules(self) -> Dict[str, Any]:
+        """
+        Build the `room_zone_rules` structure VastuMapper consumes, out of the
+        curated `zone_rules` section of this file.
+
+        Why this exists: step 2 used to load Vastu from `vastu_rules.json`, a
+        file that is not in the repo (only `vastuRules1.json` is, and that is a
+        different system entirely — 32 perimeter gates and marma diagonals, not
+        per-room zoning). The consequence was that `vastu_rules_applied` was
+        always `{}`, so `vastu_enabled` in the enricher was always False and
+        Vastu silently did nothing on every request, including when the user
+        explicitly asked for it.
+
+        The per-room compass data was here in enricher_rules.json the whole
+        time; only its shape differed. This adapts the shape. No rule content
+        is invented — every direction below is read from `zone_rules`.
+
+        Constraint strength: every rule is emitted at "medium" priority, which
+        VastuMapper reads as a SOFT constraint. That is deliberate. Turning a
+        feature back on after months off should not simultaneously introduce
+        hard constraints capable of making a plot infeasible. Promoting
+        specific rooms (pooja_room and kitchen are the usual candidates) to
+        "high" is a one-line change once the soft behaviour has been observed.
+        """
+        zone_rules: Dict[str, Any] = self._raw.get("zone_rules", {})
+        if not zone_rules:
+            return {}
+
+        room_zone_rules: List[Dict[str, Any]] = []
+        for room_type, spec in zone_rules.items():
+            if room_type.startswith("_") or not isinstance(spec, dict):
+                continue
+            preferred = spec.get("vastu_preferred_compass") or []
+            prohibited = spec.get("vastu_prohibited_compass") or []
+            if not preferred and not prohibited:
+                continue  # no Vastu opinion about this room; skip it
+
+            # HARD forbidden adjacencies are Vastu/hygiene rules already
+            # curated in this file — surface them on the constraint too.
+            not_adjacent = sorted(
+                other
+                for pair in self._forbidden_hard
+                for other in (pair - {room_type})
+                if room_type in pair
+            )
+
+            room_zone_rules.append({
+                "room_type":        room_type,
+                "preferred_zones":  list(preferred),
+                "prohibited_zones": list(prohibited),
+                "floor_preference": spec.get("floor_preference", "any_floor"),
+                "should_not_be_adjacent_to": not_adjacent,
+                "priority":         "medium",   # soft — see docstring
+                "notes":            "Derived from enricher_rules.json zone_rules.",
+            })
+
+        return {
+            "source":  "enricher_rules.json::zone_rules",
+            "version": self._raw.get("version", "unknown"),
+            "room_zone_rules": room_zone_rules,
+        }
+
     # ── Raw access ─────────────────────────────────────────────────────────────
 
     def raw(self, *keys: str) -> Any:

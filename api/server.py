@@ -12,6 +12,7 @@ import sys
 import uuid
 from datetime import datetime
 from pathlib import Path
+from contextlib import asynccontextmanager
 from typing import Dict, Optional
 
 # Add project root to path
@@ -47,6 +48,28 @@ sessions: Dict[str, dict] = {}
 pipeline_status: Dict[str, dict] = {}
 
 
+@asynccontextmanager
+async def lifespan(_app):
+    """Print the subsystem self-check at boot.
+
+    Every knowledge source in this system fails soft, which means a silent
+    startup is indistinguishable from a healthy one. It should never again be
+    possible to run this server for months without noticing that step 2 is
+    retrieving nothing.
+    """
+    from modules.diagnostics import format_report, self_check
+    report = self_check()
+    for line in format_report(report).splitlines():
+        logger.info(line)
+    if not report["healthy"]:
+        logger.warning(
+            "Running DEGRADED — %d subsystem(s) missing, %d on fallbacks. "
+            "GET /api/v1/diagnostics for detail.",
+            report["counts"]["missing"], report["counts"]["degraded"],
+        )
+    yield
+
+
 # ── Request/Response models ──────────────────────────────────────
 class ParseTextRequest(BaseModel):
     session_id: str
@@ -70,6 +93,7 @@ app = FastAPI(
     title="PlanGen API",
     version="2.1.0",
     description="AI-Powered Floor Plan Generator",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -351,12 +375,26 @@ def health():
     except Exception:
         pass
 
+    from modules.diagnostics import self_check
+    diag = self_check()
+
     return {
+        # "ok" means the service is up. It does NOT mean every subsystem is
+        # healthy — read `diagnostics.overall` for that. Conflating the two is
+        # how this project ran for months on silent fallbacks.
         "status": "ok",
         "engine": "wall_graph_carver (modules/step4_generate)",
         "engine_ready": engine_ready,
         "version": "3.0.0",
+        "diagnostics": diag,
     }
+
+
+@app.get("/api/v1/diagnostics")
+def diagnostics():
+    """Full subsystem report — what is real and what is running on fallbacks."""
+    from modules.diagnostics import self_check
+    return self_check()
 
 
 @app.get("/api/v1/config/options")

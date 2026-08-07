@@ -21,7 +21,13 @@
       "Bash(rmdir frontend *)",
       "Bash(npm --version)",
       "Bash(npm ping *)",
-      "Bash(npm view *)"
+      "Bash(npm view *)",
+      "Bash(git commit *)",
+      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -c ' *)",
+      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m modules.diagnostics)",
+      "Bash(PYTHONIOENCODING=utf-8 timeout 60 ./venv/Scripts/python.exe -c ' *)",
+      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m modules.data_prep.plan_indexer --limit 200)",
+      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m modules.data_prep.plan_indexer)"
     ]
   }
 }

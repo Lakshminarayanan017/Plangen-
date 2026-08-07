@@ -29,6 +29,7 @@ from modules.step2_match.indian_standards import (
     get_setbacks,
     nbc_summary,
 )
+from sources.rule_loader import rules as _rules
 
 BASE      = Path(__file__).parents[2]
 INDEX_DIR = BASE / "data" / "plan_index"
@@ -48,7 +49,12 @@ class StatsAggregator:
         self._adj_weights   = self._load_json(INDEX_DIR / "adjacency_weights.json")
         self._zone_probs    = self._load_json(INDEX_DIR / "zone_probs.json")
         self._circ_meta     = self._load_json(INDEX_DIR / "circulation_meta.json")
-        self._vastu_rules   = self._load_json(DATA_DIR  / "vastu_rules.json")
+        # Vastu comes from the curated rule book, not from a dataset dump.
+        # See EnricherRules.get_vastu_rules() for why. A data/vastu_rules.json
+        # still wins if one is ever produced, so the richer file can be dropped
+        # in later without touching code.
+        self._vastu_rules   = (self._load_json(DATA_DIR / "vastu_rules.json")
+                               or _rules.get_vastu_rules())
         self._nbc_standards = nbc_summary()
         self._nbc_plot_regs = self._load_nbc_plot_regulations()
 
