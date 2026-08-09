@@ -1,0 +1,133 @@
+/* PlanGen design tokens — the whole vocabulary of the sheet.
+   Components reference these names. They never restate the values. */
+
+:root {
+  /* ── Ink and paper ─────────────────────────────────────────────── */
+  --paper: #eae6dc;
+  --paper-deep: #e2ddd1;
+  --ink: #1c1a16;
+  --ink-soft: #3a362f;
+  --graphite: #6e6859;
+  --rule: #9c9689;
+  --rule-faint: #c4beb0;
+  --btn: #1f1d1a;
+
+  /* ── Type ──────────────────────────────────────────────────────── */
+  --font-display: 'Bodoni Moda Variable', 'Bodoni Moda', serif;
+  --font-body: 'EB Garamond Variable', 'EB Garamond', serif;
+  --font-tech: 'IBM Plex Mono', monospace;
+
+  --track-nav: 0.18em;
+  --track-eyebrow: 0.32em;
+
+  /* ── Line and frame ────────────────────────────────────────────── */
+  --rule-hair: 0.5px;
+  --frame-gap: 6px;
+  --frame-inset: 20px; /* outer frame rule to viewport edge */
+
+  /* ── Rhythm ────────────────────────────────────────────────────── */
+  --gutter: 56px;
+  --nav-h: 62px;
+
+  /* ── Texture ───────────────────────────────────────────────────── */
+  --texture-opacity: 0.35;
+  --texture-tile: 512px;
+
+  /* ── Stacking ──────────────────────────────────────────────────── */
+  --z-page: 0;
+  --z-chrome: 20;
+  --z-panel: 40;
+  --z-texture: 90;
+}
+
+/* ── Base ────────────────────────────────────────────────────────── */
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Nothing on this sheet is ever tinted. */
+::selection {
+  background: var(--rule-faint);
+  color: var(--ink);
+}
+
+/* ── Type roles ──────────────────────────────────────────────────────
+   Rule 4: mono is technical, serif is prose. These two families are the
+   only way text enters the page. */
+
+.type-nav {
+  font-family: var(--font-tech);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: var(--track-nav);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.type-eyebrow {
+  font-family: var(--font-tech);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.type-dim {
+  font-family: var(--font-tech);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.type-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+}
+
+.type-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+/* ── Line primitives ─────────────────────────────────────────────────
+   Depth is line weight and overlap. Never a shadow. */
+
+.hair {
+  background: var(--rule);
+}
+
+.hair-faint {
+  background: var(--rule-faint);
+}
+
+.rule-h {
+  height: var(--rule-hair);
+  width: 100%;
+  background: var(--rule);
+}
+
+.rule-v {
+  width: var(--rule-hair);
+  height: 100%;
+  background: var(--rule);
+}
