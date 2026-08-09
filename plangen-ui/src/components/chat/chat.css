@@ -243,24 +243,9 @@
   color: var(--ink-soft);
 }
 
-/* Below 1024px the panel is a full-screen sheet. */
+/* The panel keeps its seat at the foot of the sheet at every width — it spans
+   what is available rather than becoming a drawer or a full-screen takeover. */
 @media (max-width: 1023px) {
-  .chat {
-    inset: 0;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    max-width: none;
-    transform: none;
-    border: 0;
-    outline: 0;
-  }
-
-  .chat__log {
-    flex: 1;
-    max-height: none;
-  }
-
   .msg {
     max-width: 88%;
   }

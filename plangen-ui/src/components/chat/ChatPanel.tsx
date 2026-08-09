@@ -9,8 +9,9 @@ type Props = {
 
 /**
  * The assistant transcript, as drawn in docs/mockups/first_slide.png — a ruled
- * panel seated at the foot of the sheet, over the monument row. Below 1024px it
- * becomes a full-screen sheet.
+ * panel seated at the foot of the sheet, over the monument row. It keeps that
+ * seat at every width, spanning what is available rather than turning into a
+ * drawer or a full-screen takeover.
  */
 export function ChatPanel({ onClose }: Props) {
   return (
