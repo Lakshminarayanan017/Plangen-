@@ -27,8 +27,11 @@ do not reinterpret them.
 6. **All text is real DOM text.** Nothing readable may be baked into an image.
 7. **Monuments and illustrations are assets, not code.** Never attempt to draw the Taj
    Mahal, the Brihadeeswarar gopuram, the Statue of Liberty, or the Eiffel Tower in SVG.
-   They live in `public/monuments/` as transparent WebP. If an asset is missing, use a
-   dashed placeholder box of the correct dimensions and say so.
+   They live in `public/monuments/` as **white-background PNG**, composited with
+   `mix-blend-mode: multiply` so the white drops out against the paper and the grain
+   still reads through the line-work. No alpha channel is required or wanted. If an
+   asset is missing, use a dashed placeholder box of the correct dimensions — also on
+   multiply, so the hole composites the same way the art will — and say so.
 8. **Dimension annotations are code, not assets.** They are the `<Dimension />`
    component, always.
 
@@ -66,18 +69,22 @@ src/
     chat/       ChatPanel, Message, InputBar
     ui/         Button, IconButton
   pages/
-    Hero.tsx        slide 3 -- Eiffel, isometric
-    Assistant.tsx   slide 2 -- three monuments + dimensions
-    Rendering.tsx   slide 4 -- deferred, animation phase
+    Hero.tsx        first_slide.png  -- Eiffel, isometric
+    Assistant.tsx   second_slide.png -- three monuments + dimensions
+    Rendering.tsx   fourth_slide.png -- deferred, animation phase
   styles/tokens.css
 public/
-  monuments/  taj.webp, brihadeeswarar.webp, liberty.webp, eiffel.webp
+  monuments/  taj.png, brihadeeswarar.png, liberty.png, eiffel.png   -- white bg, multiply
   texture/    paper.png
 docs/mockups/ first_slide.png, second_slide.png, third_slide.png, fourth_slide.png
 ```
 
-Slides 1 and 2 are the same page. Slide 1 is `Assistant.tsx` with `<ChatPanel />` open.
-Do not build them as separate routes.
+Pages are named after the mockup file, not a slide number — the two disagree. The file
+that ships is what counts: `first_slide.png` is the Eiffel hero, `third_slide.png` is
+the assistant with the chat open.
+
+`second_slide.png` and `third_slide.png` are the same page: the third is the second with
+`<ChatPanel />` open. Do not build them as separate routes.
 
 ## Texture
 
@@ -95,7 +102,9 @@ Reflow, not scale-to-fit.
 - **<768px** — monuments become a horizontal scroll strip, one at a time, snap-aligned.
   All dimension annotations hidden. Nav collapses to logo + menu icon.
 
-Chat panel is a right-side drawer above 1024px and a full-screen sheet below it.
+Chat panel is a bottom-centred sheet at every width — never a right-side drawer. It is
+drawn that way in `first_slide.png` and the mockup wins. Below 1024px it keeps its seat
+at the foot of the sheet and simply spans the available width.
 
 ## Motion
 

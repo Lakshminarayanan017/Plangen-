@@ -2,8 +2,10 @@ import { useState } from 'react'
 
 /**
  * Monuments are assets, never code (rule 7). This component only places one.
- * When the WebP is missing it draws a dashed box of the same dimensions so the
- * layout is still honest about the hole.
+ * The art is white-background PNG on `mix-blend-mode: multiply` — white drops
+ * out against the paper and the grain reads through the line-work. When a file
+ * is missing it draws a dashed box of the same dimensions, on the same blend
+ * mode, so the layout is honest about the hole and composites identically.
  */
 
 export type MonumentName = 'taj' | 'brihadeeswarar' | 'liberty' | 'eiffel'
@@ -40,7 +42,7 @@ export function Monument({ name, className }: Props) {
         aria-label={`${LABEL[name]} — asset not yet supplied`}
       >
         <span className="type-dim monument__slug">
-          {name}.webp — asset missing
+          {name}.png — asset missing
         </span>
       </div>
     )
@@ -49,7 +51,7 @@ export function Monument({ name, className }: Props) {
   return (
     <img
       className={`monument ${className ?? ''}`}
-      src={`/monuments/${name}.webp`}
+      src={`/monuments/${name}.png`}
       alt={LABEL[name]}
       style={{ aspectRatio: RATIO[name] }}
       onError={() => setMissing(true)}

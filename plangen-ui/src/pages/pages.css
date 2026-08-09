@@ -244,8 +244,11 @@
 
 /* ── Monument placeholder ────────────────────────────────────────── */
 
+/* White-background art, multiplied onto the paper — see public/monuments. The
+   placeholder carries the same blend so the hole behaves like the art will. */
 .monument {
   display: block;
+  mix-blend-mode: multiply;
 }
 
 .monument--missing {
