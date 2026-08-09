@@ -1,0 +1,53 @@
+/* ── Icons ───────────────────────────────────────────────────────── */
+
+.icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  stroke-width: 1;
+}
+
+.icon-btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 4px;
+  margin: 0;
+  color: var(--ink-soft);
+  cursor: pointer;
+  line-height: 0;
+}
+
+/* ── Button ──────────────────────────────────────────────────────── */
+
+.btn {
+  appearance: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 15px 28px;
+  background: var(--btn);
+  color: var(--paper);
+  border: var(--rule-hair) solid var(--btn);
+  font-family: var(--font-tech);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: var(--track-nav);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.btn .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* The CTA sits inside a second hairline, drawn `--frame-gap` off the fill —
+   the same double-rule idea as the sheet edge. */
+.btn-framed {
+  display: inline-block;
+  padding: var(--frame-gap);
+  border: var(--rule-hair) solid var(--rule);
+}

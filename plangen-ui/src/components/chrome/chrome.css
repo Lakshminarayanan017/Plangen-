@@ -1,0 +1,118 @@
+/* ── Frame ───────────────────────────────────────────────────────── */
+
+.frame {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-chrome);
+  pointer-events: none;
+}
+
+.frame__rule {
+  position: absolute;
+  border: var(--rule-hair) solid var(--rule);
+}
+
+.frame__rule--outer {
+  inset: var(--frame-inset);
+}
+
+.frame__rule--inner {
+  inset: calc(var(--frame-inset) + var(--frame-gap));
+  border-color: var(--rule-faint);
+}
+
+/* ── Texture ─────────────────────────────────────────────────────── */
+
+.texture-layer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-texture);
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: var(--texture-opacity);
+  background-image: url('/texture/paper.png');
+  background-repeat: repeat;
+  background-size: var(--texture-tile) var(--texture-tile);
+}
+
+/* ── Nav ─────────────────────────────────────────────────────────── */
+
+.nav {
+  position: relative;
+  z-index: var(--z-chrome);
+  display: flex;
+  align-items: center;
+  gap: 46px;
+  height: var(--nav-h);
+  padding: 0 18px;
+  border-bottom: var(--rule-hair) solid var(--rule);
+}
+
+.wordmark {
+  text-decoration: none;
+  flex: none;
+}
+
+.wordmark__box {
+  display: block;
+  padding: 3px;
+  border: var(--rule-hair) solid var(--rule);
+}
+
+.wordmark__text {
+  display: block;
+  padding: 6px 20px 7px;
+  border: var(--rule-hair) solid var(--ink);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav__link {
+  text-decoration: none;
+}
+
+.nav__tools {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav__menu {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .nav__links,
+  .nav__tools .icon-btn:not(.nav__menu) {
+    display: none;
+  }
+
+  .nav__menu {
+    display: block;
+  }
+}
+
+/* ── Page shell ──────────────────────────────────────────────────── */
+
+/* A definite height, not a minimum: the plate row measures itself against the
+   sheet, and percentage heights only resolve down a definite chain. */
+.sheet {
+  position: relative;
+  z-index: var(--z-page);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--frame-inset) + var(--frame-gap));
+}

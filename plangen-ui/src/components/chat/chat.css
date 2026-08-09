@@ -1,0 +1,267 @@
+/* ── Input bar ───────────────────────────────────────────────────── */
+
+.input-bar {
+  position: relative;
+  z-index: var(--z-page);
+  padding: 0 18px 4px;
+}
+
+.input-bar__well {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 12px 10px 22px;
+  border: var(--rule-hair) solid var(--rule);
+  background: var(--paper);
+}
+
+/* The wide bar on the sheet carries the second rule; the panel one does not. */
+.input-bar--sheet .input-bar__well {
+  outline: var(--rule-hair) solid var(--rule-faint);
+  outline-offset: var(--frame-gap);
+  margin: var(--frame-gap);
+}
+
+.input-bar__mark {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--ink-soft);
+}
+
+.input-bar__field {
+  flex: 1;
+  min-width: 0;
+  appearance: none;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: var(--ink-soft);
+  padding: 8px 0;
+}
+
+.input-bar__field::placeholder {
+  color: var(--graphite);
+  opacity: 1;
+}
+
+.input-bar__clip {
+  flex: none;
+  border: var(--rule-hair) solid var(--rule);
+  padding: 9px;
+}
+
+.input-bar__send {
+  flex: none;
+}
+
+.input-bar--panel {
+  padding: 0;
+}
+
+.input-bar--panel .input-bar__well {
+  border: 0;
+  border-top: var(--rule-hair) solid var(--rule);
+  padding: 12px 14px;
+  gap: 12px;
+}
+
+.input-bar--panel .input-bar__field {
+  font-size: 15px;
+}
+
+.input-bar--panel .input-bar__send {
+  padding: 11px 20px;
+}
+
+/* ── Chat panel ──────────────────────────────────────────────────── */
+
+.chat {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--frame-inset) + var(--frame-gap) + 10px);
+  transform: translateX(-50%);
+  z-index: var(--z-panel);
+  width: min(860px, calc(100vw - 2 * (var(--frame-inset) + var(--frame-gap) + 18px)));
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border: var(--rule-hair) solid var(--rule);
+  outline: var(--rule-hair) solid var(--rule-faint);
+  outline-offset: var(--frame-gap);
+}
+
+.chat__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: var(--rule-hair) solid var(--rule);
+}
+
+.chat__mark {
+  width: 18px;
+  height: 18px;
+  color: var(--ink-soft);
+}
+
+.chat__title {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.chat__controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat__log {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px 16px;
+  max-height: 38vh;
+  overflow-y: auto;
+}
+
+/* ── Message ─────────────────────────────────────────────────────── */
+
+.msg {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 74%;
+}
+
+.msg--assistant {
+  align-self: flex-start;
+}
+
+.msg--user {
+  align-self: flex-end;
+  flex-direction: row;
+}
+
+.msg__avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: var(--rule-hair) solid var(--rule);
+  color: var(--ink-soft);
+}
+
+.msg__avatar .centre-mark,
+.msg__avatar .icon {
+  width: 15px;
+  height: 15px;
+}
+
+.msg__column {
+  min-width: 0;
+}
+
+.msg__bubble {
+  padding: 11px 14px;
+  background: var(--paper-deep);
+  border: var(--rule-hair) solid var(--rule-faint);
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.msg--user .msg__bubble {
+  background: var(--paper-deep);
+}
+
+.msg__meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin: 4px 2px 0;
+  color: var(--graphite);
+}
+
+.msg--assistant .msg__meta {
+  justify-content: flex-start;
+}
+
+.msg__receipt {
+  width: 13px;
+  height: 13px;
+  stroke-width: 1.2;
+}
+
+/* ── Attachment ──────────────────────────────────────────────────── */
+
+.attach {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 10px;
+  padding: 9px 11px;
+  border: var(--rule-hair) solid var(--rule);
+  background: var(--paper);
+  text-decoration: none;
+  color: inherit;
+}
+
+.attach__kind {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--ink-soft);
+  stroke-width: 1;
+}
+
+.attach__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-right: auto;
+}
+
+.attach__name {
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.attach__size {
+  color: var(--graphite);
+}
+
+.attach__get {
+  flex: none;
+  color: var(--ink-soft);
+}
+
+/* Below 1024px the panel is a full-screen sheet. */
+@media (max-width: 1023px) {
+  .chat {
+    inset: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: none;
+    transform: none;
+    border: 0;
+    outline: 0;
+  }
+
+  .chat__log {
+    flex: 1;
+    max-height: none;
+  }
+
+  .msg {
+    max-width: 88%;
+  }
+}
