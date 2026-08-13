@@ -37,7 +37,36 @@
       "Bash(git stash *)",
       "Bash(curl -s -o /dev/null -w \"index page: %{http_code}\\\\n\" http://127.0.0.1:8000/)",
       "Bash(curl -s http://127.0.0.1:8000/api/v1/diagnostics)",
-      "Bash(./venv/Scripts/python.exe -c ' *)"
+      "Bash(./venv/Scripts/python.exe -c ' *)",
+      "Bash(curl -s -X POST http://127.0.0.1:8000/api/v1/sessions)",
+      "Bash(PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe -m uvicorn api.server:app --host 127.0.0.1 --port 8000 --log-level info)",
+      "Bash(PYTHONIOENCODING=utf-8 timeout 15 ./venv/Scripts/python.exe -c ' *)",
+      "Bash(npm -v)",
+      "Bash(timeout 60 npm ping)",
+      "Bash(echo \"---exit $?---\")",
+      "Read(//c/Users/Welcome/Desktop/**)",
+      "PowerShell($ErrorActionPreference='SilentlyContinue'; foreach \\($p in 'tailwindcss','@tailwindcss/vite','playwright','@playwright/test'\\) { $exists = Test-Path \"c:\\\\Users\\\\Welcome\\\\Desktop\\\\PlanGen\\\\plangen-ui\\\\node_modules\\\\$p\"; Write-Output \"$p : $exists\" }; Write-Output \"=== root .gitignore ===\"; Get-Content c:\\\\Users\\\\Welcome\\\\Desktop\\\\PlanGen\\\\.gitignore; Write-Output \"=== ui .gitignore ===\"; Get-Content c:\\\\Users\\\\Welcome\\\\Desktop\\\\PlanGen\\\\plangen-ui\\\\.gitignore)",
+      "Read(//c/Users/Welcome/Downloads/**)",
+      "PowerShell(cd c:\\\\Users\\\\Welcome\\\\Desktop\\\\PlanGen\\\\plangen-ui; npx tsc -b 2>&1 | Select-Object -First 25; Write-Output \"tsc exit: $LASTEXITCODE\")",
+      "Bash(git commit -q -m ' *)",
+      "PowerShell(cd c:\\\\Users\\\\Welcome\\\\Desktop\\\\PlanGen\\\\plangen-ui; npx tsc -b 2>&1 | Select-Object -First 10; Write-Output \"tsc exit: $LASTEXITCODE\"; npm run shot -- / --w 1512 --h 1008 2>&1 | Select-Object -Last 4)",
+      "PowerShell(cd c:\\\\Users\\\\Welcome\\\\Desktop\\\\PlanGen; Get-ChildItem api -Recurse -File | Where-Object { $_.FullName -notmatch 'node_modules|__pycache__' } | Select-Object -ExpandProperty FullName | ForEach-Object { $_.Replace\\(\"C:\\\\Users\\\\Welcome\\\\Desktop\\\\PlanGen\\\\\",\"\"\\) } | Select-Object -First 40)",
+      "PowerShell(cd c:\\\\Users\\\\Welcome\\\\Desktop\\\\PlanGen; $env:PYTHONIOENCODING='utf-8'; venv\\\\Scripts\\\\python.exe -m uvicorn api.server:app --host 127.0.0.1 --port 8000 --log-level info)",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8000/api/v1/health)",
+      "PowerShell($dir=\"$env:TEMP\\\\plangen-verify\"; New-Item -ItemType Directory -Force $dir | Out-Null; Set-Location $dir; if \\(-not \\(Test-Path package.json\\)\\) { '{\"name\":\"plangen-verify\",\"private\":true,\"type\":\"module\"}' | Out-File -FilePath package.json -Encoding utf8 }; npm i playwright 2>&1 | Select-Object -Last 3)",
+      "PowerShell(Set-Location \"$env:TEMP\\\\plangen-verify\"; node verify.mjs)",
+      "PowerShell(Set-Location \"$env:TEMP\\\\plangen-verify\"; node verify.mjs 2>&1 | Select-Object -Last 12)",
+      "Bash(python -c ' *)",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8000/api/v1/health --max-time 3)",
+      "Bash(cd \"c:/Users/Welcome/Desktop/PlanGen/Architucture-ui\" && find . -type f | sort; echo \"---mockups---\"; find \"../plangen-ui\" -iname '*render*' 2>/dev/null; ls \"c:/Users/Welcome/Desktop/PlanGen\" | grep -i mockup; find \"c:/Users/Welcome/Desktop/PlanGen/docs\" -iname '*mockup*' -o -iname '*render*' 2>/dev/null | head -20)",
+      "Bash(rm -f frontend/index.html frontend/chatPage.html frontend/style.css frontend/script.js)",
+      "Bash(rm -rf frontend/assets)",
+      "Bash(mkdir -p frontend/assets)",
+      "Bash(cp \"Architucture/Architucture/landingPage.html\" frontend/index.html)",
+      "Bash(cp \"Architucture/Architucture/chatPage.html\" frontend/chatPage.html)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Welcome\\AppData\\Local\\Temp\\plangen-verify"
     ]
   }
 }

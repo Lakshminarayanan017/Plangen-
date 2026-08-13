@@ -40,3 +40,10 @@ output/
 *.pyc
 .DS_Store
 Thumbs.db
+
+# UI reference/source dumps — frontend/ is the built, shipped UI; these are
+# the raw handoffs (design source, dev scripts, archives) it was built from.
+Architucture/
+Architucture-ui/
+Architucture.rar
+.shots/
