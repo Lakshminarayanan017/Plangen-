@@ -414,9 +414,9 @@ def config_options():
 # SERVE FRONTEND STATIC FILES
 # ══════════════════════════════════════════════════════════════════
 
-# The UI is a Vite build. Vite is configured with base="/static/", so the
-# bundle requests its own assets from /static/assets/* — which is this mount.
-FRONTEND_DIR = PROJECT_ROOT / "frontend" / "dist"
+# The UI is plain HTML/CSS/JS — no build step. It is served from this origin so
+# the page can call /api/v1/* directly, with no CORS hop and no second server.
+FRONTEND_DIR = PROJECT_ROOT / "frontend"
 
 
 @app.get("/")
@@ -426,19 +426,17 @@ def serve_index():
         return HTMLResponse(index_path.read_text(encoding="utf-8"))
     return HTMLResponse(
         "<h1>PlanGen API is running.</h1>"
-        "<p>The UI has not been built yet. Run:</p>"
-        "<pre>cd frontend &amp;&amp; npm install &amp;&amp; npm run build</pre>",
+        f"<p>No UI found at <code>{FRONTEND_DIR}</code>.</p>",
         status_code=200,
     )
 
 
+# Mounted last so every /api/v1/* route above still wins the match.
+# html=True lets /chatPage.html and /assets/* resolve directly.
 if FRONTEND_DIR.exists():
-    app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
+    app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="ui")
 else:
-    logger.warning(
-        "frontend/dist not found — serving the API only. "
-        "Build the UI with: cd frontend && npm run build"
-    )
+    logger.warning("frontend/ not found — serving the API only.")
 
 
 if __name__ == "__main__":

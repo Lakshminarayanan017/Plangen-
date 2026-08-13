@@ -1,0 +1,569 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg-color: #f0ebe1;
+  --text-main: #2a2a2a;
+  --text-muted: #555555;
+  --border-color: #8c8c8c;
+  --panel-bg: rgba(240, 235, 225, 0.4);
+  --button-bg: #2a2a2a;
+  --button-text: #ffffff;
+  --font-serif: 'Cinzel', serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(218, 213, 204); /* Exact match for the image edge */
+  background-image: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 100%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body.landing-page, body.chat-page {
+  background-color: #f5f5f5;
+  background-image: none;
+}
+
+.bg-blueprint {
+  position: fixed;
+  top: -10%; 
+  left: -10%; 
+  right: -10%; 
+  bottom: -10%;
+  width: 120%;
+  height: 120%;
+  background-image: url('assets/blueprint_floor.png');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  opacity: 0.5;
+  filter: grayscale(100%);
+  mix-blend-mode: multiply;
+  transform: perspective(1200px) rotateX(25deg) scale(1.15);
+  mask-image: radial-gradient(circle at 65% 70%, black 10%, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle at 65% 70%, black 10%, transparent 60%);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 10px; left: 10px; right: 10px; bottom: 10px;
+  border: 1px solid var(--text-main);
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.8;
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: 16px; left: 16px; right: 16px; bottom: 16px;
+  border: 1px solid var(--border-color);
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.6;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 35px 50px;
+  z-index: 10;
+}
+
+.logo {
+  text-decoration: none;
+  color: var(--text-main);
+  border: 1px solid var(--text-main);
+  padding: 3px;
+  display: inline-block;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+  margin-right: 60px;
+}
+.logo-inner {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  border: 1px solid var(--border-color);
+  padding: 6px 14px;
+  display: block;
+}
+
+nav.main-nav {
+  display: flex;
+  gap: 30px;
+  margin-right: auto;
+}
+
+nav.main-nav a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+nav.main-nav a:hover {
+  color: var(--text-main);
+}
+
+.header-icons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.header-icons svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--text-main);
+  stroke-width: 1.5;
+  cursor: pointer;
+}
+
+.landing-layout {
+  display: flex;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  align-items: center;
+  padding: 0 50px;
+  height: calc(100vh - 150px);
+}
+
+.landing-content {
+  flex: 0 0 45%;
+  z-index: 10;
+}
+
+.landing-content .subtitle {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.landing-content h1 {
+  font-family: var(--font-serif);
+  font-size: 3.2rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 25px;
+  letter-spacing: 1.5px;
+  color: #1a1a1a;
+}
+
+.section-divider {
+  width: 100%;
+  max-width: 450px;
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 0 0 25px 0;
+  opacity: 0.5;
+}
+
+.landing-content p {
+  font-size: 1.05rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  max-width: 400px;
+  margin-bottom: 45px;
+}
+
+.landing-image {
+  position: absolute;
+  left: 65%;
+  transform: translateX(-50%);
+  top: auto;
+  bottom: 5%;
+  width: auto;
+  height: 95%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.landing-image img {
+  content: url('assets/img demo.png');
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  position: relative;
+  z-index: 2;
+}
+
+.landing-image::after {
+  content: '';
+  position: absolute;
+  left: -10%;
+  bottom: 8%;
+  width: 100%;
+  height: 150%;
+  background-image: url('assets/img demo.png');
+  background-size: contain;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  filter: brightness(0) blur(4px) opacity(0.5);
+  transform-origin: center bottom;
+  transform: rotateX(70deg) skewX(-25deg) scaleY(1.2);
+  mix-blend-mode: multiply;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.btn-double-border {
+  border: 1px solid var(--text-main);
+  padding: 4px;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.btn-double-border:hover {
+  transform: scale(0.98);
+}
+.btn-inner {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 14px 28px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Chat Page specific styles */
+.chat-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 10px 50px;
+  flex: 1;
+}
+
+.chat-intro {
+  text-align: center;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.intro-subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.intro-subtitle .line {
+  display: block;
+  width: 30px;
+  height: 1px;
+  background-color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.chat-intro h1 {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #1a1a1a;
+  margin-bottom: 5px;
+}
+
+.decorative-diamond {
+  margin-bottom: 20px;
+  color: var(--text-muted);
+}
+
+.chat-intro p {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  max-width: 450px;
+}
+
+.blueprint-gallery {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  margin-bottom: 80px;
+}
+
+.blueprint-item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.blueprint-item img {
+  width: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.item-taj {
+  flex: 0 0 35%;
+}
+
+.item-temple {
+  flex: 0 0 37%;
+}
+
+.item-statue {
+  flex: 0 0 24%;
+}
+
+/* Search Bar Redesign */
+.search-bar-wrapper {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 1000px;
+  border: 1px solid var(--text-main);
+  padding: 6px;
+  z-index: 30;
+}
+
+.search-bar-inner {
+  border: 1px solid var(--border-color);
+  background: #f5f5f5;
+  backdrop-filter: blur(8px);
+  padding: 10px 10px 10px 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 1.05rem;
+  font-family: var(--font-sans);
+  color: var(--text-main);
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.btn-send {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 16px 32px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Chat Glass Window */
+.chat-glass-window {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  width: 90%;
+  max-width: 1000px;
+  height: auto;
+  max-height: calc(100vh - 280px);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  z-index: 20; /* High enough to float over gallery */
+}
+
+.chat-glass-window.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(-50%) translateY(0);
+}
+
+.chat-body {
+  overflow-y: auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Chat Messages */
+.chat-msg {
+  display: flex;
+  gap: 15px;
+  max-width: 80%;
+}
+
+.chat-msg.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.chat-msg.assistant {
+  align-self: flex-start;
+}
+
+.msg-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chat-msg.user .msg-icon {
+  background: var(--text-muted);
+}
+
+.msg-content {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+
+.chat-msg.user .msg-content {
+  background: #ffffff;
+  border-bottom-right-radius: 0;
+}
+
+.chat-msg.assistant .msg-content {
+  border-bottom-left-radius: 0;
+}
+
+.time {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  text-align: right;
+}
+
+/* Generated sheets returned by the engine — the new design has no rendering
+   page of its own, so results are shown as cards inside the glass panel. */
+.attachment {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s ease;
+}
+
+.attachment:hover {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.sheet-preview {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.attachment-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.attachment-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.attachment-size {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Animations for hiding main content */
+.chat-intro, .blueprint-gallery {
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hidden-up {
+  opacity: 0;
+  transform: translateY(-40px);
+  pointer-events: none;
+}
