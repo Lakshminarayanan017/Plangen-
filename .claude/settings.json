@@ -63,7 +63,8 @@
       "Bash(rm -rf frontend/assets)",
       "Bash(mkdir -p frontend/assets)",
       "Bash(cp \"Architucture/Architucture/landingPage.html\" frontend/index.html)",
-      "Bash(cp \"Architucture/Architucture/chatPage.html\" frontend/chatPage.html)"
+      "Bash(cp \"Architucture/Architucture/chatPage.html\" frontend/chatPage.html)",
+      "Bash(git rebase *)"
     ],
     "additionalDirectories": [
       "C:\\Users\\Welcome\\AppData\\Local\\Temp\\plangen-verify"
