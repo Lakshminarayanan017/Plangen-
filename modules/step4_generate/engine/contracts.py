@@ -39,6 +39,9 @@ def size_class_for(target_sqft: float) -> int:
 
 VALID_ZONES = ("public", "service", "private")
 VALID_SIDES = ("N", "E", "S", "W")
+# Absolute compass sectors a Vastu rule can name (engine.vastu.compass).
+VALID_SECTORS = ("N", "NE", "E", "SE", "S", "SW", "W", "NW", "center")
+VALID_VASTU_STRENGTHS = ("soft", "hard")
 VALID_OPENING_KINDS = ("door", "wide")
 
 MIN_PLOT_FT = 12
@@ -57,10 +60,31 @@ class RoomSpec:
     target_sqft: float
     zone: str = "private"          # public | service | private
     floor: int = 0
+    # ── Vastu (absolute compass, unlike `zone` which is plot-relative) ──
+    # Step 3 has computed these since the enricher was written and the
+    # bridge dropped them on the floor, which is why a "Vastu compliant"
+    # single-floor plan was byte-identical to a non-Vastu one. Optional
+    # everywhere: a non-Vastu request simply leaves them empty.
+    vastu_dir: Optional[str] = None      # preferred sector, e.g. "NE"
+    vastu_avoid: Tuple[str, ...] = ()    # prohibited sectors
+    vastu_strength: str = "soft"         # soft | hard
+    # ── size bounds (phase 02) ──────────────────────────────────────────
+    # The settler distributes a plot's whole area across the program in
+    # proportion to `target_sqft`, which on a large plot inflated every room
+    # by one uniform factor — measured at 5.9x on a 60x70 plot, turning a
+    # 45 sqft bathroom into 266. `max_sqft` is the ceiling that stops it;
+    # surplus goes to rooms that can use it, and then to a courtyard.
+    # None means "unbounded", which is the pre-phase-02 behaviour.
+    min_sqft: Optional[float] = None
+    max_sqft: Optional[float] = None
 
     @property
     def size_class(self) -> int:
         return size_class_for(self.target_sqft)
+
+    @property
+    def has_vastu(self) -> bool:
+        return bool(self.vastu_dir or self.vastu_avoid)
 
 
 @dataclass(frozen=True)
@@ -142,6 +166,33 @@ class EngineConfig:
     # ABOVE, scored by engine/vertical.py against the floor below.
     w_wet_stack: float = 0.25       # per % of upper wet area off the stack
     w_wall_alignment: float = 0.30  # per % of unsupported interior wall
+    # ── Vastu (phase 01). Scores only when EngineRequest.vastu is True, so
+    # a non-Vastu request is byte-identical to before this existed.
+    #
+    # `vastu_hard` promotes a HARD-strength room violation (pooja in the
+    # south, toilet in the north-east) from a heavy penalty to a
+    # disqualification. Left False by default and deliberately: turning a
+    # feature on and simultaneously making it capable of rendering a tight
+    # plot unbuildable is how you ship a regression. Harden it once the
+    # harness shows no brief loses its plan.
+    vastu_hard: bool = False
+    w_vastu_sector: float = 6.0       # x the convex per-room sector cost
+    w_vastu_prohibited: float = 14.0  # per room sitting in a barred sector
+    w_vastu_brahma: float = 30.0      # per unit of blocked use in the centre
+    w_vastu_brahma_wall: float = 8.0  # per unit of heavy wall in the centre
+    w_vastu_gate: float = 12.0        # per (1 - pada score) of the main door
+    w_vastu_marma: float = 2.5        # per marma line fouled (max 6)
+    w_vastu_stair: float = 6.0        # staircase sector + turn direction
+    w_vastu_mass: float = 8.0         # NE heavier than SW (inverted gradient)
+    w_vastu_aspect: float = 6.0       # plot aspect beyond the mandala cap
+    w_vastu_fire_water: float = 5.0   # kitchen too close to a wet room
+    # how hard the proposer pulls a room's seed toward its Vastu sector.
+    # 0 = ignore Vastu when proposing (the rules still score it).
+    # 0.85 is MEASURED, not chosen: a sweep over 0.0-1.0 on Vastu briefs
+    # moved rooms ideal-or-near from 31% to ~80% and rooms in barred
+    # sectors from 16% to ~5%, while the layout score ROSE (the VAS
+    # penalties a scattered plan collects cost more than the bias does).
+    vastu_bias: float = 0.85
     # how hard the floor above is pulled onto the floor below's wet cells;
     # 0 = ignore the floor below entirely (each floor planned alone)
     vertical_bias: float = 0.7
@@ -174,6 +225,14 @@ class EngineRequest:
     # which is every request the engine has ever had.
     plot_polygon: Optional[List[Tuple[float, float]]] = None
     setback_ft: float = 0.0
+    # Which GRID edge faces geographic north. Without this the engine cannot
+    # tell north-east from top-right, and every Vastu rule is unexpressible —
+    # which is exactly the state it was in. "N" (grid top is north) is the
+    # assumption the engine made implicitly and is still the default.
+    north_side: str = "N"
+    # Vastu requested by the user. Rooms carry their own directions; this
+    # says whether the VAS-* rule family scores at all.
+    vastu: bool = False
 
     # ── Validation ───────────────────────────────────────────────────────
     def problems(self) -> Tuple[List[str], List[str]]:
@@ -187,6 +246,9 @@ class EngineRequest:
                               f"[{MIN_PLOT_FT}, {MAX_PLOT_FT}]")
         if self.entrance_side not in VALID_SIDES:
             errors.append(f"entrance_side {self.entrance_side!r} not in "
+                          f"{VALID_SIDES}")
+        if self.north_side not in VALID_SIDES:
+            errors.append(f"north_side {self.north_side!r} not in "
                           f"{VALID_SIDES}")
         if not self.rooms:
             errors.append("no rooms requested")
@@ -203,9 +265,25 @@ class EngineRequest:
                               f"{VALID_ZONES}")
             if spec.target_sqft <= 0:
                 errors.append(f"{spec.name}: target_sqft must be positive")
+            if spec.min_sqft is not None and spec.max_sqft is not None                     and spec.min_sqft > spec.max_sqft:
+                errors.append(f"{spec.name}: min_sqft {spec.min_sqft} above "
+                              f"max_sqft {spec.max_sqft}")
+            if spec.max_sqft is not None and spec.max_sqft <= 0:
+                errors.append(f"{spec.name}: max_sqft must be positive")
             if spec.floor not in range(self.n_floors):
                 errors.append(f"{spec.name}: floor {spec.floor} outside "
                               f"0..{self.n_floors - 1}")
+            if spec.vastu_strength not in VALID_VASTU_STRENGTHS:
+                errors.append(f"{spec.name}: vastu_strength "
+                              f"{spec.vastu_strength!r} not in "
+                              f"{VALID_VASTU_STRENGTHS}")
+            for sector in filter(None, (spec.vastu_dir, *spec.vastu_avoid)):
+                if sector not in VALID_SECTORS:
+                    errors.append(f"{spec.name}: vastu sector {sector!r} not "
+                                  f"in {VALID_SECTORS}")
+            if spec.vastu_dir and spec.vastu_dir in spec.vastu_avoid:
+                errors.append(f"{spec.name}: {spec.vastu_dir} is both the "
+                              f"preferred and a prohibited Vastu sector")
         for wish in self.wishes:
             if wish.kind not in VALID_OPENING_KINDS:
                 errors.append(f"wish {wish.room_a}<->{wish.room_b}: kind "
@@ -245,7 +323,9 @@ class EngineRequest:
     @classmethod
     def from_dict(cls, data: Dict) -> "EngineRequest":
         data = dict(data)
-        data["rooms"] = [RoomSpec(**r) for r in data.get("rooms", [])]
+        data["rooms"] = [
+            RoomSpec(**{**r, "vastu_avoid": tuple(r.get("vastu_avoid", ()))})
+            for r in data.get("rooms", [])]
         data["wishes"] = [OpeningWish(**w) for w in data.get("wishes", [])]
         return cls(**data)
 

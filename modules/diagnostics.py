@@ -150,6 +150,113 @@ def _check_vastu() -> Check:
                  meta={"n_rules": n, "strength": "soft"})
 
 
+def _check_vastu_mandala() -> Check:
+    """The 81-pada mandala behind the entrance-pada, Brahmasthan and marma
+    rules. Separate from `vastu_rules` (per-room compass, which lives in
+    enricher_rules.json) because they fail independently: you can have room
+    directions with no mandala, and the product should say which."""
+    try:
+        from modules.step4_generate.engine.vastu import mandala as mod
+        m = mod.shared()
+    except Exception as exc:                                  # pragma: no cover
+        return Check(name="vastu_mandala", status=MISSING,
+                     detail=f"Loader raised {exc!r}.",
+                     impact="Entrance-pada, Brahmasthan and marma rules do "
+                            "not run. Per-room compass placement still does.",
+                     remedy="Check data/vastuRules1.json.")
+    if not m.available:
+        return Check(
+            name="vastu_mandala", status=DEGRADED,
+            detail="data/vastuRules1.json not loaded.",
+            impact="The 32-gate entrance check, the Brahmasthan protection "
+                   "and the marma diagonals are all skipped. Room-sector "
+                   "placement still works from enricher_rules.json.",
+            remedy="Restore data/vastuRules1.json.")
+    report = m.load_report()
+    status = DEGRADED if report["warnings"] else OK
+    detail = (f"{report['gates']} gates ({report['ideal_gates']} ideal, "
+              f"{report['hard_block_gates']} blocked), "
+              f"{report['energy_fields']} energy fields, "
+              f"{report['marma_lines']} marma lines.")
+    return Check(
+        name="vastu_mandala", status=status, detail=detail,
+        impact=("" if status == OK else
+                f"{len(report['warnings'])} internal inconsistency(ies) in "
+                f"the mandala data; endpoints resolved by id."),
+        remedy=("" if status == OK else
+                "Correct the pada names in data/vastuRules1.json."),
+        meta=report)
+
+
+def _check_reward_freeze() -> Check:
+    """Is the live reward still the one the training corpora were graded by?
+
+    Stage (b) distillation imitates plans this reward chose, and stage (c)
+    optimises it directly. A weight retuned after a corpus was built makes
+    that corpus quietly incomparable — the same class of bug as v2's
+    mid-run eval-set change, caught here instead of suffered."""
+    try:
+        from modules.step4_generate.engine import reward as mod
+        drift = mod.verify()
+        frozen = mod.load()
+    except Exception as exc:                                  # pragma: no cover
+        return Check(name="reward_freeze", status=DEGRADED,
+                     detail=f"Check failed: {exc!r}",
+                     impact="Reward drift would go undetected.")
+    if frozen is None:
+        return Check(
+            name="reward_freeze", status=DEGRADED,
+            detail="No frozen reward snapshot.",
+            impact="Training corpora carry no record of which reward graded "
+                   "them, so a later weight change is undetectable.",
+            remedy="python -m modules.step4_generate.engine.reward --freeze")
+    if drift.matches:
+        base = frozen.get("harness_baseline") or {}
+        return Check(
+            name="reward_freeze", status=OK,
+            detail=(f"{frozen.get('version')} {drift.frozen_fingerprint} — "
+                    f"{len(frozen.get('rules', []))} rules, "
+                    f"{len(frozen.get('weights', {}))} weights"
+                    + (f", baseline mean {base['mean_best_score']}"
+                       if base.get("mean_best_score") else "")),
+            meta={"fingerprint": drift.frozen_fingerprint})
+    return Check(
+        name="reward_freeze", status=DEGRADED,
+        detail=f"Live reward {drift.live_fingerprint} != frozen "
+               f"{drift.frozen_fingerprint}.",
+        impact="Plans scored now are not comparable to the training corpora; "
+               "re-gate before trusting any merge-gate result.",
+        remedy="Restore the frozen weights, or re-freeze and rebuild the "
+               "self-play corpus.",
+        meta={"rules_added": drift.rules_added,
+              "weights_changed": {k: list(v) for k, v
+                                  in drift.weights_changed.items()}})
+
+
+def _check_program_synth() -> Check:
+    """The layer that decides what belongs on a plot. Pure code with a
+    measured table — it cannot be "missing", but a broken import would
+    silently return the pre-phase-02 behaviour, so it is checked."""
+    try:
+        from modules.step3_enrich.program_synth import (
+            capacity_for, max_sqft_for, regime_for,
+        )
+        tiers = [capacity_for(a)[0] for a in (250, 500, 1300, 3000)]
+        capped = max_sqft_for("bathroom", 45)
+    except Exception as exc:                                  # pragma: no cover
+        return Check(name="program_synth", status=MISSING,
+                     detail=f"Import failed: {exc!r}",
+                     impact="Room programs are neither adapted to the plot "
+                            "nor capped, so a large plot inflates every room "
+                            "by one uniform factor.",
+                     remedy="Check modules/step3_enrich/program_synth.py.")
+    return Check(
+        name="program_synth", status=OK,
+        detail=f"Capacity curve live ({' / '.join(tiers)}); "
+               f"a 45 sqft bath is capped at {capped:.0f}.",
+        meta={"tiers": tiers})
+
+
 def _check_rule_book() -> Check:
     p = PROJECT_ROOT / "sources" / "enricher_rules.json"
     if not p.exists():
@@ -246,6 +353,9 @@ _CHECKS: List[Callable[[], Check]] = [
     _check_plan_index,
     _check_zone_priors,
     _check_vastu,
+    _check_vastu_mandala,
+    _check_program_synth,
+    _check_reward_freeze,
     _check_rule_book,
     _check_nbc_plot_regs,
     _check_critic,

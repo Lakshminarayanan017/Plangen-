@@ -20,6 +20,7 @@ from modules.step4_generate.engine.rules import freespace                       
 from modules.step4_generate.engine.rules import walls                                 # noqa: F401
 from modules.step4_generate.engine.rules import doors                                 # noqa: F401
 from modules.step4_generate.engine.rules import stairs                                # noqa: F401
+from modules.step4_generate.engine.rules import vastu                                 # noqa: F401
 
 RULES = base.RULES
 ReviewContext = base.ReviewContext

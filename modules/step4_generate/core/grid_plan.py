@@ -347,9 +347,15 @@ class GridPlan:
 
     def add_exterior_opening(self, room_id: int, side: str, *,
                              kind: str = "door", width: int = 28,
-                             stub: int = MIN_STUB) -> Opening:
+                             stub: int = MIN_STUB,
+                             at: Optional[int] = None) -> Opening:
         """Cut a main-door / window / verandah opening through the exterior
-        wall on the given plot side, centered on the room's longest run."""
+        wall on the given plot side.
+
+        Centred on the room's longest run by default. `at` places it
+        explicitly instead, clamped so the structural stubs survive — which
+        is what lets the entrance be put on an auspicious Vastu pada rather
+        than wherever the middle of the wall happens to fall."""
         if kind not in ("door", "window", "wide"):
             raise CarveError(f"unknown exterior opening kind {kind!r}")
         runs = self.exterior_runs(room_id, side)
@@ -359,8 +365,16 @@ class GridPlan:
                 f"{self.rooms[room_id].name!r} has no {side}-side exterior "
                 f"wall long enough for a {units.fmt_ft_in(width)} opening"
             )
-        lo, hi = max(runs, key=lambda r: r[1] - r[0])
-        along_lo = lo + (hi - lo - width) // 2
+        if at is None:
+            lo, hi = max(runs, key=lambda r: r[1] - r[0])
+            along_lo = lo + (hi - lo - width) // 2
+        else:
+            # the run that can actually host `at`, else the longest
+            hosting = [r for r in runs
+                       if r[0] + stub <= at <= r[1] - width - stub]
+            lo, hi = (hosting[0] if hosting
+                      else max(runs, key=lambda r: r[1] - r[0]))
+            along_lo = max(lo + stub, min(at, hi - width - stub))
         ext = self.ext_wall
         if side in ("S", "N"):
             wall_lo = self.h - ext if side == "S" else 0

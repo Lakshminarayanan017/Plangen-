@@ -1,0 +1,96 @@
+{
+ "_provenance": "Consolidated from modules/step2_match/indian_standards.py (SETBACK_TABLE, FAR_BY_ZONE, MAX_GROUND_COVERAGE) and sources/enricher_rules.json::plot_budget_rules.far_by_city. No new regulatory figures were introduced here.",
+ "_warning": "FAR, coverage and setbacks are set by the LOCAL development authority and vary by city, road width and plot use. These are NBC-derived defaults for planning only \u2014 verify against the applicable byelaw before any submission.",
+ "source": "NBC 2016 Part 3 (Development Control Rules) via indian_standards.py",
+ "max_ground_coverage": 0.6,
+ "far_residential": 1.5,
+ "far_by_zone": {
+  "residential_low": 1.5,
+  "residential_medium": 2.0,
+  "residential_high": 2.5,
+  "commercial": 3.0,
+  "default": 1.5
+ },
+ "far_by_city": {
+  "bangalore": {
+   "residential": 1.75
+  },
+  "mumbai": {
+   "residential": 1.33
+  },
+  "delhi": {
+   "residential": 1.5
+  },
+  "chennai": {
+   "residential": 1.5
+  },
+  "hyderabad": {
+   "residential": 1.75
+  },
+  "pune": {
+   "residential": 1.5
+  },
+  "default": {
+   "residential": 1.5
+  }
+ },
+ "max_floors": 3,
+ "setback_table_ft": [
+  {
+   "min_area_sqft": 0,
+   "max_area_sqft": 500,
+   "front": 3.0,
+   "rear": 2.0,
+   "left": 2.0,
+   "right": 2.0
+  },
+  {
+   "min_area_sqft": 500,
+   "max_area_sqft": 900,
+   "front": 4.0,
+   "rear": 2.5,
+   "left": 2.5,
+   "right": 2.5
+  },
+  {
+   "min_area_sqft": 900,
+   "max_area_sqft": 1350,
+   "front": 5.0,
+   "rear": 3.0,
+   "left": 3.0,
+   "right": 3.0
+  },
+  {
+   "min_area_sqft": 1350,
+   "max_area_sqft": 2250,
+   "front": 5.0,
+   "rear": 3.0,
+   "left": 3.0,
+   "right": 3.0
+  },
+  {
+   "min_area_sqft": 2250,
+   "max_area_sqft": 4500,
+   "front": 6.0,
+   "rear": 4.0,
+   "left": 4.0,
+   "right": 4.0
+  },
+  {
+   "min_area_sqft": 4500,
+   "max_area_sqft": 9000,
+   "front": 8.0,
+   "rear": 5.0,
+   "left": 5.0,
+   "right": 5.0
+  },
+  {
+   "min_area_sqft": 9000,
+   "max_area_sqft": null,
+   "front": 10.0,
+   "rear": 6.0,
+   "left": 6.0,
+   "right": 6.0
+  }
+ ]
+}

@@ -7,23 +7,39 @@ plan's ACTUAL total room area, so the optimizer chases a feasible optimum
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, Tuple
 
 from modules.step4_generate.carve.settle import settle
 from modules.step4_generate.carve.standards import (
-    clamp_to_minimums, nbc_min_area_cells, type_min_side,
+    clamp_to_minimums, clamp_to_range, nbc_min_area_cells, type_min_side,
 )
+from modules.step4_generate.core import units
 from modules.step4_generate.core.grid_plan import GridPlan
 from modules.step4_generate.engine.contracts import EngineConfig, EngineRequest
 
 
 def scaled_targets_cells(plan: GridPlan, request: EngineRequest,
                          room_ids: Dict[str, int]) -> Dict[int, int]:
-    """Request areas rescaled to the plan's actual room total, then floored
-    at NBC minimums (the same clamp the carver used — settle must not pull
-    a legal room back below code)."""
+    """Request areas rescaled to the plan's actual room total, floored at NBC
+    minimums and — since phase 02 — CAPPED at each room's `max_sqft`.
+
+    Without the cap the whole plot was distributed in proportion to
+    `target_sqft`, so every room grew by one uniform factor. Measured on a
+    60x70 plot: 5.9x, turning a 45 sqft bathroom into 266. The cap sends the
+    surplus to rooms that can use it instead; anything still unplaceable is
+    reported by `target_overflow_sqft` so the caller can open a courtyard
+    rather than keep inflating.
+    """
+    targets, _ = scaled_targets_with_overflow(plan, request, room_ids)
+    return targets
+
+
+def scaled_targets_with_overflow(plan: GridPlan, request: EngineRequest,
+                                 room_ids: Dict[str, int]
+                                 ) -> Tuple[Dict[int, int], float]:
+    """(targets in cells, area in SQFT that no room can legally absorb)."""
     total_cells = sum(plan.face_area_cells(rid) for rid in room_ids.values())
-    total_target = sum(s.target_sqft for s in request.rooms)
+    total_target = sum(s.target_sqft for s in request.rooms) or 1.0
     raw = {
         room_ids[spec.name]: total_cells * spec.target_sqft / total_target
         for spec in request.rooms
@@ -32,8 +48,19 @@ def scaled_targets_cells(plan: GridPlan, request: EngineRequest,
         room_ids[spec.name]: float(nbc_min_area_cells(spec.rtype) or 0)
         for spec in request.rooms
     }
-    return {rid: max(1, v)
-            for rid, v in clamp_to_minimums(raw, floors).items()}
+    ceilings = {
+        room_ids[spec.name]: (spec.max_sqft / units.SQFT_PER_CELL2
+                              if spec.max_sqft else float("inf"))
+        for spec in request.rooms
+    }
+    if all(c == float("inf") for c in ceilings.values()):
+        # no room declared a ceiling — behave exactly as before phase 02
+        return ({rid: max(1, v)
+                 for rid, v in clamp_to_minimums(raw, floors).items()}, 0.0)
+
+    capped, overflow_cells = clamp_to_range(raw, floors, ceilings)
+    return ({rid: max(1, v) for rid, v in capped.items()},
+            units.area_sqft(int(overflow_cells)))
 
 
 class SqueezeSettler:

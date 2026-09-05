@@ -25,21 +25,24 @@ instructor>=1.3.0
 # Used by nbc_extractor to split the NBC PDF into 90-page chunks
 pypdf>=4.0.0
 
-# ── Step 5: SVG rendering ──────────────────────────────────────────────
-# Required by modules/step4_generate/renderer.py to render floor-plan SVGs.
-# Without this, Step 5 (RENDER) fails and the frontend shows no plan.
-svgwrite>=1.4.0
+# ── Step 5: SVG + DXF export ───────────────────────────────────────────
+# No dependency: render/svg_render.py emits SVG as text and
+# render/dxf_export.py writes R12 DXF by hand, on purpose.
 
 # ── Web API server (api/server.py + frontend) ──────────────────────────
 fastapi>=0.100.0
 uvicorn[standard]>=0.23.0
 python-multipart>=0.0.6   # required for multipart form / file uploads
 
-# ── Step 4: GNN + Diffusion Layout Engine (training only) ──────────────
-# PyTorch — required for training GNN encoder + diffusion decoder.
+# ── Tier-2 placer (TRAINING ONLY — never imported by the request path) ─
+# PyTorch — required to train ml/placer_v3. The server does not import it.
 # For inference, the trained weights (.npz) are used via pure numpy.
 # Install separately (platform-specific builds):
 #   Mac M1/M2:  pip install torch
 #   CUDA GPU:   pip install torch --index-url https://download.pytorch.org/whl/cu121
 #   CPU only:   pip install torch --index-url https://download.pytorch.org/whl/cpu
 torch>=2.0.0
+
+# ── Training-only extras (ml/) ─────────────────────────────────────────
+# ijson — streams the 396 MB CubiCasa extraction without loading it whole.
+ijson>=3.2.0

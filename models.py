@@ -442,6 +442,13 @@ class EnrichedPlan(BaseModel):
     area_budget_ok:           bool  = Field(True,
         description="True if total_target_area_sqft <= max_far_total_sqft")
 
+    # ── Program synthesis (what belongs on this plot) ────────────────
+    program_plan: Optional[Dict[str, Any]] = Field(None,
+        description="What the program-synthesis layer decided and why: the "
+                    "scale regime, the plot's measured capacity, rooms added "
+                    "because there was surplus, rooms dropped because there "
+                    "was not, and a one-line headline for the user.")
+
     # ── Quality & traceability ───────────────────────────────────────
     enrichment_source:   str            = Field("full_statistical",
         description="'full_statistical' | 'nbc_fallback' | 'area_budget_ar'")

@@ -9,7 +9,7 @@ area targets legal on tight plots.
 
 from __future__ import annotations
 
-from typing import Dict, Optional, TypeVar
+from typing import Dict, Optional, Tuple, TypeVar
 
 from modules.step4_generate.core import units
 
@@ -86,6 +86,64 @@ def clamp_to_minimums(targets: Dict[K, float],
             clamped[k] -= take
         deficit = sum(clamped.values()) - total
     return {k: int(v) for k, v in clamped.items()}
+
+
+def clamp_to_range(targets: Dict[K, float], minimums: Dict[K, float],
+                   maximums: Dict[K, float]) -> Tuple[Dict[K, int], float]:
+    """Clamp every target into [min, max] while preserving the total.
+
+    The total is not negotiable: the carve partitions the whole plot, so the
+    targets must add up to the area that actually exists. What IS negotiable
+    is who gets the surplus — and proportional-to-everyone, the old
+    behaviour, is the wrong answer. A living room can absorb 60% more; a
+    bathroom cannot absorb 500%.
+
+    So: clamp, then move the difference to rooms that still have headroom,
+    largest headroom first. Returns (targets, unplaceable) where
+    `unplaceable` is the area that could not be given to any room without
+    breaching its ceiling — the caller's signal to open a courtyard rather
+    than keep inflating.
+    """
+    total = sum(targets.values())
+    out = {k: min(max(v, minimums.get(k, 0.0)),
+                  maximums.get(k, float("inf"))) for k, v in targets.items()}
+
+    # too big -> claw back from whoever is furthest above their minimum
+    deficit = sum(out.values()) - total
+    guard = 0
+    while deficit > 1.0 and guard < 64:
+        guard += 1
+        slack = {k: out[k] - minimums.get(k, 0.0) for k in out}
+        donors = {k: s for k, s in slack.items() if s > 1.0}
+        pool = sum(donors.values())
+        if pool <= 0:
+            break
+        for k, s in donors.items():
+            out[k] -= min(s, deficit * s / pool)
+        deficit = sum(out.values()) - total
+
+    # too small -> give the surplus to whoever has room for it
+    surplus = total - sum(out.values())
+    guard = 0
+    while surplus > 1.0 and guard < 64:
+        guard += 1
+        head = {k: maximums.get(k, float("inf")) - out[k] for k in out}
+        takers = {k: h for k, h in head.items() if h > 1.0}
+        pool = sum(v for v in takers.values() if v != float("inf"))
+        if not takers:
+            break
+        if pool == 0 or any(h == float("inf") for h in takers.values()):
+            # at least one room is unbounded; it absorbs the remainder
+            free = [k for k, h in takers.items() if h == float("inf")]                 or list(takers)
+            for k in free:
+                out[k] += surplus / len(free)
+            surplus = 0.0
+            break
+        for k, h in takers.items():
+            out[k] += min(h, surplus * h / pool)
+        surplus = total - sum(out.values())
+
+    return {k: int(v) for k, v in out.items()}, max(0.0, surplus)
 
 
 def _register_stair_minimums() -> None:

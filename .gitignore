@@ -41,9 +41,6 @@ output/
 .DS_Store
 Thumbs.db
 
-# UI reference/source dumps — frontend/ is the built, shipped UI; these are
-# the raw handoffs (design source, dev scripts, archives) it was built from.
-Architucture/
-Architucture-ui/
-Architucture.rar
-.shots/
+# The raw UI handoffs (design source, dev scripts, archives, screenshots)
+# now live in unwanted/ui_handoff/, which is already ignored above.
+# frontend/ is the built, shipped UI.

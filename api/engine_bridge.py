@@ -14,7 +14,9 @@ is a genuine carved plan — no placeholders.
 
 from __future__ import annotations
 
+import dataclasses
 import hashlib
+import json
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -26,6 +28,8 @@ from modules.step4_generate.engine.contracts import (
 )
 from modules.step4_generate.engine.multifloor import generate_building
 from modules.step4_generate.engine.orchestrator import Orchestrator
+from modules.step3_enrich.program_synth import capacity_for, plan_program
+from modules.step4_generate.engine.vastu import report as vastu_report
 from modules.step4_generate.render.dxf_export import export_dxf
 from modules.step4_generate.render.svg_render import render_svg
 
@@ -68,6 +72,19 @@ _UNSUPPORTED = {
     "garden", "barsati", "swimming_pool", "pool", "lawn",
 }
 
+# Geographic north -> the CARDINAL grid edge that faces it. The engine's
+# compass frame is quarter-turn based, so a site whose north is NE has to be
+# resolved to a cardinal; doing it here, once, with a warning, beats every
+# rule guessing separately.
+_NORTH_MAP = {
+    "n": "N", "north": "N", "e": "E", "east": "E",
+    "s": "S", "south": "S", "w": "W", "west": "W",
+    "ne": "N", "north_east": "N", "nw": "N", "north_west": "N",
+    "se": "S", "south_east": "S", "sw": "S", "south_west": "S",
+}
+_DIAGONAL_NORTH = {"ne", "nw", "se", "sw", "north_east", "north_west",
+                   "south_east", "south_west"}
+
 _DIRECTION_MAP = {
     "n": "N", "north": "N", "s": "S", "south": "S",
     "e": "E", "east": "E", "w": "W", "west": "W",
@@ -80,8 +97,44 @@ _DIRECTION_MAP = {
 # staircase footprint (dog-leg flight + landing ≈ 8' x 12')
 _STAIR_SQFT = 95.0
 
+# Below this a leftover is a gap to absorb, not a court worth drawing.
+_MIN_COURTYARD_SQFT = 80.0
+# The engine refuses anything under 12'; keep a little headroom above that.
+MIN_FOOTPRINT_FT = 14
+# Above this it is not a courtyard, it is unbuilt land — and the honest
+# answer is a smaller building, which `_footprint_for_program` provides.
+_MAX_COURTYARD_SQFT = 420.0
+# Share of the footprint the program should occupy. The remainder is walls,
+# circulation slack and the court; packing tighter than this is what made
+# tight plots score badly in the first place.
+_TARGET_PROGRAM_FILL = 0.78
+
 _FLOOR_LABELS = ["Ground Floor", "First Floor", "Second Floor", "Third Floor"]
 _FLOOR_SLUGS = ["ground_floor", "first_floor", "second_floor", "third_floor"]
+
+
+def _capacity_advice(enriched: EnrichedPlan, floor_idx: int,
+                     plot_w: int, plot_h: int) -> str:
+    """What the user can actually do about a floor that would not plan.
+
+    "engine produced no valid plan" tells a builder nothing. This says how
+    much area the program wants, how much the plot has, and what size of
+    program that plot does carry — which is the difference between an error
+    and advice."""
+    rooms = [r for r in enriched.get_rooms_on_floor(floor_idx)
+             if r.room_type.lower() not in _UNSUPPORTED]
+    if not rooms:
+        return ""
+    net = float(plot_w * plot_h)
+    want = sum(float(r.target_area_sqft) for r in rooms)
+    beds = sum(1 for r in rooms if "bedroom" in r.room_type)
+    tier, tier_beds = capacity_for(net)
+    return (f" The program asks for {want:.0f} sqft of rooms on "
+            f"{net:.0f} sqft of buildable area ({want / net:.0%}). "
+            f"This plot comfortably carries a {tier}"
+            + (f" — {tier_beds} bedroom{'s' if tier_beds != 1 else ''} rather "
+               f"than {beds}." if beds > tier_beds else ".")
+            + " Reduce the room count, or increase the plot or floor count.")
 
 
 def _floor_label(i: int) -> str:
@@ -96,10 +149,105 @@ def _entrance_side(direction: str) -> str:
     return _DIRECTION_MAP.get((direction or "").strip().lower(), "S")
 
 
+def _north_side(direction: str, warnings: List[str]) -> str:
+    """Which grid edge faces geographic north.
+
+    This one value is what makes Vastu expressible at all: without it the
+    engine cannot distinguish north-east from top-right, which is why a
+    "Vastu compliant" plan used to be byte-identical to a non-Vastu one.
+    """
+    raw = (direction or "").strip().lower()
+    if raw in _DIAGONAL_NORTH:
+        warnings.append(
+            f"north was given as {direction!r}; the mandala is aligned to a "
+            f"cardinal axis, so it has been resolved to "
+            f"{_NORTH_MAP[raw]}. Vastu sectors are accurate to within 45 "
+            f"degrees for this site.")
+    return _NORTH_MAP.get(raw, "N")
+
+
+def _room_vastu(room) -> Dict[str, object]:
+    """The Vastu step 3 already computed for a room, in engine terms.
+
+    `EnrichedRoom.vastu` has carried this since the enricher was written; the
+    bridge simply never read it. Prohibited directions are kept even when
+    there is no preferred one — "not in the north-east" is a complete
+    instruction on its own.
+    """
+    constraint = getattr(room, "vastu", None)
+    if constraint is None:
+        return {}
+    preferred = [d for d in (constraint.preferred_directions or []) if d]
+    prohibited = tuple(d for d in (constraint.prohibited_directions or [])
+                       if d and d not in preferred[:1])
+    if not preferred and not prohibited:
+        return {}
+    return {
+        "vastu_dir": preferred[0] if preferred else None,
+        "vastu_avoid": prohibited,
+        "vastu_strength": ("hard" if constraint.constraint_type == "hard"
+                           else "soft"),
+    }
+
+
 def _seed_from(run_id: str) -> int:
     """Deterministic per-run seed → same run_id reproduces the same plan,
     while REGENERATE (new run_id) explores a different candidate set."""
     return int(hashlib.sha256(run_id.encode()).hexdigest()[:8], 16)
+
+
+def _footprint_for_program(enriched: EnrichedPlan, plot_w: int, plot_h: int,
+                           multi: bool) -> Tuple[int, int, List[str]]:
+    """Size the BUILDING to the program, instead of the program to the plot.
+
+    The old behaviour handed the engine the whole net-buildable rectangle and
+    let the settler spread the program across it, so a six-room brief on a
+    60x70 plot produced a 266 sqft bathroom. Capping the rooms fixed the
+    bathroom and produced a 2,893 sqft "courtyard" instead, which is just the
+    same mistake wearing a hat.
+
+    A 2BHK on a large plot is a 2BHK house standing in a garden. So the
+    footprint is derived from what the program actually needs, the building
+    keeps the plot's proportions, and the land it does not cover is reported
+    as open ground rather than absorbed.
+
+    Sized from the LARGEST floor and applied to all of them: the vertical
+    rules require every floor to share one lattice (VRT-002), so the
+    footprint cannot vary per storey.
+    """
+    notes: List[str] = []
+    n_floors = max(1, enriched.total_floors)
+    needed = 0.0
+    for i in range(n_floors):
+        rooms = [r for r in enriched.get_rooms_on_floor(i)
+                 if r.room_type.lower() not in _UNSUPPORTED]
+        floor_sqft = sum(float(r.max_area_sqft or r.target_area_sqft)
+                         for r in rooms)
+        if multi and not any(r.room_type.lower() == "staircase"
+                             for r in rooms):
+            floor_sqft += _STAIR_SQFT
+        needed = max(needed, floor_sqft)
+    if needed <= 0:
+        return plot_w, plot_h, notes
+
+    net_sqft = float(plot_w * plot_h)
+    want_sqft = needed / _TARGET_PROGRAM_FILL
+    if want_sqft >= net_sqft * 0.97:
+        return plot_w, plot_h, notes          # the plot is already the size
+
+    scale = (want_sqft / net_sqft) ** 0.5
+    new_w = max(MIN_FOOTPRINT_FT, int(round(plot_w * scale)))
+    new_h = max(MIN_FOOTPRINT_FT, int(round(plot_h * scale)))
+    if new_w >= plot_w and new_h >= plot_h:
+        return plot_w, plot_h, notes
+
+    open_ground = net_sqft - new_w * new_h
+    notes.append(
+        f"The program needs about {needed:.0f} sqft of rooms, so the house "
+        f"is planned at {new_w}' x {new_h}' ({new_w * new_h} sqft) rather "
+        f"than spread across the full {plot_w}' x {plot_h}' buildable area. "
+        f"That leaves {open_ground:.0f} sqft of open ground.")
+    return new_w, new_h, notes
 
 
 def _build_floor_request(enriched: EnrichedPlan, floor_idx: int, run_id: str,
@@ -139,12 +287,18 @@ def _build_floor_request(enriched: EnrichedPlan, floor_idx: int, run_id: str,
             name = f"{name} ({n + 1})"
         specs.append(RoomSpec(
             name=name, rtype=engine_type,
-            target_sqft=float(room.target_area_sqft), zone=zone))
+            target_sqft=float(room.target_area_sqft), zone=zone,
+            min_sqft=float(room.min_area_sqft or 0) or None,
+            max_sqft=float(room.max_area_sqft or 0) or None,
+            **_room_vastu(room)))
 
     # Every floor of a multi-floor home carries the staircase footprint.
     if multi and not has_stair:
         specs.append(RoomSpec(name="Staircase", rtype="staircase",
-                              target_sqft=_STAIR_SQFT, zone="service"))
+                              target_sqft=_STAIR_SQFT, zone="service",
+                              vastu_dir="SW" if enriched.vastu_enabled else None,
+                              vastu_avoid=(("NE", "N")
+                                           if enriched.vastu_enabled else ())))
 
     if omitted:
         warnings.append(
@@ -161,13 +315,35 @@ def _build_floor_request(enriched: EnrichedPlan, floor_idx: int, run_id: str,
     if not specs:
         raise RuntimeError(f"{_floor_label(floor_idx)} has no placeable rooms")
 
+    # ── a modest courtyard absorbs what is left after the footprint fit ──
+    # `_footprint_for_program` has already shrunk the building to the
+    # program, so anything left here is a small remainder, not the several
+    # thousand square feet a large plot used to hand over. Bounded, because
+    # a 2,893 sqft "courtyard" is not a courtyard — it is an unbuilt plot,
+    # and saying so is the footprint fit's job, not this one's.
+    room_capacity = sum(s.max_sqft or s.target_sqft for s in specs)
+    buildable_sqft = plot_w * plot_h * 0.88          # net of wall thickness
+    surplus = buildable_sqft - room_capacity
+    if surplus >= _MIN_COURTYARD_SQFT:
+        court = min(surplus, _MAX_COURTYARD_SQFT)
+        specs.append(RoomSpec(
+            name="Courtyard", rtype="ots",
+            target_sqft=round(court, 1), zone="public",
+            min_sqft=_MIN_COURTYARD_SQFT, max_sqft=_MAX_COURTYARD_SQFT,
+            vastu_dir="center" if enriched.vastu_enabled else None))
+        warnings.append(
+            f"{_floor_label(floor_idx)}: {court:.0f} sqft is planned as an "
+            f"open courtyard rather than added to the rooms"
+            + (" (at the Brahmasthan, which Vastu asks to keep open)"
+               if enriched.vastu_enabled else "") + ".")
+
     # Pre-scale over-tight programs so the request is always buildable.
     plot_sqft = plot_w * plot_h
     total = sum(s.target_sqft for s in specs)
     if total > plot_sqft * 0.90:
         scale = plot_sqft * 0.85 / total
-        specs = [RoomSpec(s.name, s.rtype, round(s.target_sqft * scale, 1),
-                          s.zone) for s in specs]
+        specs = [dataclasses.replace(
+            s, target_sqft=round(s.target_sqft * scale, 1)) for s in specs]
         warnings.append(
             f"{_floor_label(floor_idx)}: program ({total:.0f} sqft) exceeded "
             f"the footprint ({plot_sqft} sqft); targets scaled by {scale:.2f}.")
@@ -175,6 +351,8 @@ def _build_floor_request(enriched: EnrichedPlan, floor_idx: int, run_id: str,
     request = EngineRequest(
         plot_w_ft=plot_w, plot_h_ft=plot_h,
         entrance_side=_entrance_side(enriched.entrance_direction),
+        north_side=_north_side(enriched.north_direction, warnings),
+        vastu=bool(enriched.vastu_enabled),
         rooms=specs, k=6,
         # distinct-but-reproducible seed per floor
         seed=_seed_from(f"{run_id}#f{floor_idx}"),
@@ -203,12 +381,20 @@ def _floor_from_plan(plan, floor_idx: int, plot_w: int, plot_h: int
             length_ft=round((y1 - y0) / cpf, 2),
             area_sqft=round(plan.area_sqft(rid), 1),
         ))
+    # Real room fill, not the partition's coverage. The partition covers the
+    # plot by construction, so reporting 100% here said nothing and hid the
+    # number a user actually wants: how much of the footprint is ROOM rather
+    # than wall. Measured range is 82-92%, the remainder being the exterior
+    # ring and the internal partitions.
+    gross_sqft = units.area_sqft(plan.w * plan.h)
+    room_sqft = sum(r.area_sqft for r in placed)
     return LayoutFloor(
         floor_number=floor_idx, floor_label=_floor_label(floor_idx),
         net_width_ft=plot_w, net_length_ft=plot_h,
         rooms=placed,
-        floor_area_placed_sqft=round(sum(r.area_sqft for r in placed), 1),
-        floor_coverage_pct=100.0,   # partition covers the plot by construction
+        floor_area_placed_sqft=round(room_sqft, 1),
+        floor_coverage_pct=round(100.0 * room_sqft / gross_sqft, 1)
+        if gross_sqft else 0.0,
     )
 
 
@@ -225,6 +411,10 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
     n_floors = max(1, enriched.total_floors)
     multi = n_floors > 1
 
+    # size the building to the program before anything else sees the plot
+    plot_w, plot_h, footprint_notes = _footprint_for_program(
+        enriched, plot_w, plot_h, multi)
+
     config = EngineConfig()
     # The trained critic reorders candidates the rules already accepted.
     # Absent weights simply mean "rank by the rules", which is the engine's
@@ -238,6 +428,8 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
     drifts: List[float] = []
     scores: List[float] = []
     kept_note: List[str] = []
+
+    warnings.extend(footprint_notes)
 
     t0 = time.perf_counter()
     requests: List[EngineRequest] = []
@@ -261,7 +453,9 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
             if not floor.ok:
                 raise RuntimeError(
                     f"{_floor_label(floor.index)}: engine produced no valid "
-                    f"plan. " + "; ".join(building.warnings))
+                    f"plan." + _capacity_advice(enriched, floor.index,
+                                                plot_w, plot_h)
+                    + " " + "; ".join(building.warnings))
             warnings.extend(floor.notes)
         chosen = [(f.index, f.candidate, requests[f.index].k)
                   for f in building.floors]
@@ -270,13 +464,27 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
         if not result.best:
             reasons = sorted({c.notes[-1] for c in result.discarded if c.notes})
             raise RuntimeError(
-                f"{_floor_label(0)}: engine produced no valid plan. "
-                + ("Reasons: " + "; ".join(reasons) if reasons else ""))
+                f"{_floor_label(0)}: engine produced no valid plan."
+                + _capacity_advice(enriched, 0, plot_w, plot_h)
+                + (" Engine reasons: " + "; ".join(reasons[:2])
+                   if reasons else ""))
         warnings.extend(result.warnings)
         chosen = [(0, result.best, requests[0].k)]
 
+    vastu_floors: List[Dict] = []
     for i, best, k in chosen:
         floors.append(_floor_from_plan(best.plan, i, plot_w, plot_h))
+        # The Vastu scorecard. `vastu_enabled: true` on its own told a user
+        # nothing — and told it for months while the engine ignored Vastu
+        # entirely. This is the per-room account behind that flag.
+        report = vastu_report.build(best.plan, best.request or requests[i],
+                                    best.room_ids, best.verdict)
+        if report.active:
+            vastu_floors.append({"floor": i,
+                                 "floor_label": _floor_label(i),
+                                 **report.to_dict()})
+            warnings.extend(
+                f"{_floor_label(i)}: {n}" for n in report.notes)
         fidelities.append(best.fidelity or 0.0)
         drifts.append(float((best.verdict.breakdown or {}).get("area_drift", 0.0)))
         scores.append(best.verdict.soft_score)
@@ -331,4 +539,9 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
         "kept_candidates": "; ".join(kept_note),
         "best_score": f"{_avg(scores):.1f} avg",
     }
+    if vastu_floors:
+        grades = "; ".join(f"{v['floor_label']} {v['grade']} "
+                           f"({v['score']:.0%})" for v in vastu_floors)
+        notes["vastu"] = grades
+        notes["vastu_report"] = json.dumps(vastu_floors)
     return layout, svg_names, notes

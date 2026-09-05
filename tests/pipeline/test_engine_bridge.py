@@ -21,16 +21,36 @@ from api.engine_bridge import _build_floor_request  # noqa: E402
 
 
 def _room(room_type: str, display_name: str, sqft: float = 100.0,
-         floor: int = 0) -> SimpleNamespace:
-    return SimpleNamespace(room_type=room_type, display_name=display_name,
-                           target_area_sqft=sqft, preferred_floor=floor)
+          floor: int = 0, vastu=None, min_sqft=None,
+          max_sqft=None) -> SimpleNamespace:
+    """A stand-in for EnrichedRoom.
+
+    `min_area_sqft` / `max_area_sqft` are on the real model and the bridge
+    reads both: the ceiling is what stops the settler inflating a 45 sqft
+    bathroom to 266 on a large plot. Defaulted here from the room's own
+    target so a stub behaves like a real room rather than an unbounded one.
+    """
+    return SimpleNamespace(
+        room_type=room_type, display_name=display_name, vastu=vastu,
+        target_area_sqft=sqft, preferred_floor=floor,
+        min_area_sqft=min_sqft if min_sqft is not None else sqft * 0.7,
+        max_area_sqft=max_sqft if max_sqft is not None else sqft * 1.6)
 
 
-def _enriched(rooms):
+def _enriched(rooms, north_direction="N", vastu_enabled=False):
+    """A stand-in for EnrichedPlan.
+
+    `north_direction` and `vastu_enabled` are as required here as they are on
+    the real model: the bridge reads them to give the engine its compass
+    frame, and a stub without them is not an EnrichedPlan. Kept explicit
+    rather than defaulted away in the bridge, so a genuinely malformed plan
+    still fails loudly."""
     return SimpleNamespace(
         get_rooms_on_floor=lambda i: [r for r in rooms
                                       if r.preferred_floor == i],
         entrance_direction="south",
+        north_direction=north_direction,
+        vastu_enabled=vastu_enabled,
         total_floors=1)
 
 
@@ -60,10 +80,19 @@ class TestUnrecognizedRoomTypes(unittest.TestCase):
             warnings)
 
     def test_recognized_type_produces_no_warning(self):
+        """No UNRECOGNIZED-TYPE warning — which is what this test is about.
+
+        Asserting `warnings == []` was too broad: since phase 02 a floor may
+        also, legitimately, report that surplus area became a courtyard. That
+        is information the user wants, not a defect, so the assertion now
+        names the warning it actually cares about.
+        """
         enriched = _enriched([_room("living_room", "Living Room")])
         _req, warnings = _build_floor_request(
             enriched, 0, "run1", plot_w=30, plot_h=40, multi=False)
-        self.assertEqual(warnings, [])
+        self.assertFalse(
+            [w for w in warnings if "no specific engine rule" in w],
+            warnings)
 
 
 class TestUnsupportedRoomTypes(unittest.TestCase):

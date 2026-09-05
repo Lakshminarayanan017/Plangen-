@@ -65,7 +65,10 @@ class Orchestrator:
                  connector=None, validator=None, critic=None,
                  stair_fitter=None, config: Optional[EngineConfig] = None):
         self.config = config or EngineConfig()
-        self.proposer = proposer or PriorProposer()
+        # the config MUST reach the proposer: it carries `vastu_bias`, and
+        # constructing PriorProposer() bare gave it a default config, so the
+        # knob silently did nothing at every value
+        self.proposer = proposer or PriorProposer(config=self.config)
         self.realizer = realizer or HubRealizer(self.config)
         self.settler = settler or SqueezeSettler(self.config)
         self.stair_fitter = stair_fitter or StairFitter(self.config)
