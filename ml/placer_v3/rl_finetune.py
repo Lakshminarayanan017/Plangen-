@@ -175,7 +175,8 @@ def main(argv=None) -> int:
     p.add_argument("--clip-grad", type=float, default=1.0)
     p.add_argument("--critic-weight", type=float, default=0.4)
     p.add_argument("--preset", choices=["small", "large"], default="small")
-    p.add_argument("--eval-n", type=int, default=48)
+    p.add_argument("--eval-n", type=int, default=24)
+    p.add_argument("--eval-k", type=int, default=2)
     p.add_argument("--eval-seed", type=int, default=900000)
     p.add_argument("--brief-seed", type=int, default=20260905)
     p.add_argument("--seed", type=int, default=7)
@@ -213,7 +214,8 @@ def main(argv=None) -> int:
     critic = LearnedCritic.load_if_available(config=EngineConfig())
     optimizer = torch.optim.AdamW(net.parameters(), lr=args.lr)
     manager = CheckpointManager(args.out, keep_last=3, milestone_every=5)
-    key = eval_key_for("rl_eval", args.eval_n, args.eval_seed)
+    key = eval_key_for(f"rl_eval:k{args.eval_k}", args.eval_n,
+                       args.eval_seed)
     state = manager.resume(model=net, optimizer=optimizer, eval_key=key)
     state.stage = "stage_c_rl"
 
@@ -262,7 +264,8 @@ def main(argv=None) -> int:
         optimizer.zero_grad(set_to_none=True)
 
         with torch.no_grad():
-            metrics = engine_eval(net, args.eval_n, args.eval_seed, device)
+            metrics = engine_eval(net, args.eval_n, args.eval_seed,
+                                  device, k=args.eval_k)
         score = metrics["engine_score"]
         is_best = score > state.best_score
         if is_best:

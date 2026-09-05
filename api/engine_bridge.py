@@ -18,7 +18,7 @@ import dataclasses
 import hashlib
 import json
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from models import EnrichedPlan, LayoutFloor, LayoutPlan, PlacedRoom
 from modules.step4_generate.core import units
@@ -194,6 +194,107 @@ def _seed_from(run_id: str) -> int:
     """Deterministic per-run seed → same run_id reproduces the same plan,
     while REGENERATE (new run_id) explores a different candidate set."""
     return int(hashlib.sha256(run_id.encode()).hexdigest()[:8], 16)
+
+
+# Metrics worth telling a person apart on: (breakdown key, lower-is-better,
+# phrasing when this option is notably BETTER, phrasing when notably WORSE).
+_COMPARE = (
+    ("area_drift", True, "rooms closest to the sizes you asked for",
+     "rooms furthest from the sizes you asked for"),
+    ("worst_aspect", True, "squarest rooms", "most elongated rooms"),
+    ("wide_openings", False, "most open plan (social rooms flow together)",
+     "most compartmented (more doors between social rooms)"),
+    ("circulation_fraction", True, "least space given to corridors",
+     "most space given to corridors"),
+    ("hub_mean_dist", True, "rooms cluster tightest around the living hub",
+     "rooms sit furthest from the living hub"),
+    ("windowless", True, "every habitable room has a window",
+     "some habitable rooms have no window"),
+    ("stair_entrance_hops", True, "stair closest to the entrance",
+     "stair furthest from the entrance"),
+    ("vastu_sector_steps", True, "closest Vastu compliance",
+     "furthest from the Vastu ideal"),
+    ("narrow_passages", True, "no cramped passages", "some cramped passages"),
+)
+
+
+def _candidate_highlights(cand, peers) -> List[str]:
+    """What makes THIS option different from the others.
+
+    Two bugs are already fixed here and both are worth remembering.
+
+    The first version reported each candidate's OWN numbers, so every option
+    came back reading "rooms within 1% of their target size" — true,
+    identical, and useless for choosing.
+
+    The second compared each option against the BEST of the others, which
+    handed the same superlative to three options at once ("rooms furthest
+    from the sizes you asked for" appeared on 3 of 4 plans; only one can be
+    furthest). A superlative is a claim about RANK, so it is now computed as
+    one: a phrase is emitted only when this option is genuinely the extreme
+    of the set, and only when the spread is wide enough to be worth a
+    sentence.
+
+    An empty list is a valid, honest answer — sometimes the engine found four
+    variations on one idea.
+    """
+    mine = (cand.verdict.breakdown or {}) if cand.verdict else {}
+    if len(peers) < 2:
+        return []
+
+    scored = []
+    for key, lower_better, best_text, worst_text in _COMPARE:
+        value = mine.get(key)
+        if not isinstance(value, (int, float)) or isinstance(value, bool):
+            continue
+        values = []
+        for peer in peers:
+            v = (peer.verdict.breakdown or {}).get(key) if peer.verdict                 else None
+            if isinstance(v, (int, float)) and not isinstance(v, bool):
+                values.append(v)
+        if len(values) < 2:
+            continue
+
+        lo, hi = min(values), max(values)
+        spread = hi - lo
+        if spread <= 1e-9:
+            continue                       # every option is alike here
+        # relative spread: a 0.001 difference in area_drift is not news
+        if spread / max(abs(hi), abs(lo), 1e-9) < 0.15:
+            continue
+
+        best_value = lo if lower_better else hi
+        worst_value = hi if lower_better else lo
+        # ties: if several options share the extreme, none of them is "the"
+        # one, so say nothing rather than say it three times
+        if value == best_value and values.count(best_value) == 1:
+            scored.append((spread, best_text))
+        elif value == worst_value and values.count(worst_value) == 1:
+            scored.append((spread, worst_text))
+
+    scored.sort(key=lambda pair: -pair[0])
+    return [text for _, text in scored[:3]]
+
+
+def _preference_payload(candidates) -> Optional[Dict]:
+    """Feature vectors for critic/preferences.py, captured at generation.
+
+    Captured NOW rather than when the user picks, because by then the plans
+    are gone and re-deriving them would mean re-running the engine — which
+    would also risk producing different plans than the ones on screen.
+    """
+    try:
+        from modules.step4_generate.critic import features as feat
+        vectors, scores = [], []
+        for cand in candidates:
+            if cand.request is None or not cand.room_ids:
+                return None
+            vectors.append(feat.extract(cand.plan, cand.request,
+                                        cand.room_ids, cand.verdict).tolist())
+            scores.append(cand.verdict.soft_score if cand.verdict else 0.0)
+        return {"vectors": vectors, "soft_scores": scores}
+    except Exception:
+        return None                       # logging must never break a run
 
 
 def _footprint_for_program(enriched: EnrichedPlan, plot_w: int, plot_h: int,
@@ -440,6 +541,11 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
         requests.append(request)
         warnings.extend(fwarn)
 
+    alternatives: List[Dict] = []
+    preference_vectors: Optional[Dict] = None
+    single_result = None
+    max_alternatives = 6
+
     if multi:
         # Floors are planned BOTTOM-UP against each other: the staircase is
         # reserved over the flight below, wet rooms are pulled onto the
@@ -470,8 +576,49 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
                    if reasons else ""))
         warnings.extend(result.warnings)
         chosen = [(0, result.best, requests[0].k)]
+        single_result = result
 
     vastu_floors: List[Dict] = []
+    # ── alternatives: the engine already made these and threw them away ──
+    # `k` candidates survive the reviewer every run and only the top one was
+    # ever rendered. Offering the rest costs one SVG each, and it is the ONLY
+    # way the learned critic ever gets taste data: critic/preferences.jsonl
+    # has been built, live and empty since M6 because nothing has ever asked
+    # a user to choose.
+    #
+    # Single-floor only, deliberately. On a multi-floor building each floor
+    # is chosen against the one below it (VRT-001 pins the stair), so swapping
+    # the ground floor invalidates every floor above — that is a regenerate,
+    # not an alternative, and pretending otherwise would offer picks that
+    # cannot actually be built.
+    if not multi and single_result is not None:
+        for rank, cand in enumerate(single_result.ranked[:max_alternatives]):
+            slug = f"alternative_{rank + 1}.svg"
+            (Path(run_dir) / slug).write_text(
+                render_svg(cand.plan,
+                           title=f"Option {rank + 1} — {plot_w}' x {plot_h}'"),
+                encoding="utf-8")
+            entry = {
+                "rank": rank,
+                "svg": slug,
+                "score": round(cand.verdict.soft_score, 2),
+                "fidelity": round(cand.fidelity or 0.0, 3),
+                "rooms": len(cand.room_ids),
+                "is_best": rank == 0,
+                "highlights": _candidate_highlights(
+                    cand, single_result.ranked[:max_alternatives]),
+            }
+            report = vastu_report.build(cand.plan, cand.request or requests[0],
+                                        cand.room_ids, cand.verdict)
+            if report.active:
+                entry["vastu_grade"] = report.grade
+                entry["vastu_score"] = report.score
+            alternatives.append(entry)
+        # feature vectors for the preference log, captured now so a later
+        # pick costs no engine work
+        preference_vectors = _preference_payload(
+            single_result.ranked[:max_alternatives])
+
     for i, best, k in chosen:
         floors.append(_floor_from_plan(best.plan, i, plot_w, plot_h))
         # The Vastu scorecard. `vastu_enabled: true` on its own told a user
@@ -539,6 +686,10 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
         "kept_candidates": "; ".join(kept_note),
         "best_score": f"{_avg(scores):.1f} avg",
     }
+    if alternatives:
+        notes["alternatives"] = json.dumps(alternatives)
+        if preference_vectors:
+            notes["preference_vectors"] = json.dumps(preference_vectors)
     if vastu_floors:
         grades = "; ".join(f"{v['floor_label']} {v['grade']} "
                            f"({v['score']:.0%})" for v in vastu_floors)
