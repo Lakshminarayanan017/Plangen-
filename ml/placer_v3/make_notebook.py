@@ -56,6 +56,14 @@ current epoch and nothing else.
 - **R3/R4 — aspect, orientation, band, Vastu and scale-regime** are inputs
   and outputs now, not things the carver has to guess.
 
+### The reward is frozen
+
+Stages (b) and (c) are graded by the reviewer + critic, hashed as
+`reward_v1.json` (fingerprint `f1e8f7ebbe912ae2`, 44 rules, 39 weights).
+Every training entry point checks it on startup and stamps it into what it
+writes, so a corpus built under one reward can never be silently trained
+against another. Pass `--strict-reward` to refuse to run on drift.
+
 ### Safety measures baked in
 
 Atomic checkpoint writes · full optimizer/scheduler/AMP/RNG state · frozen
@@ -111,8 +119,8 @@ Either clone your repo, or upload a zip of the project root. The notebook
 only needs `models.py`, `modules/`, `ml/`, `sources/` and `data/`.
 """),
         code(r"""
-# ── OPTION A: clone (set your remote) ──────────────────────────────────
-# !git clone https://github.com/<you>/PlanGen.git /content/PlanGen
+# ── OPTION A: clone (recommended — the repo has a remote) ─────────────
+# !git clone https://github.com/Lakshminarayanan017/Plangen-.git /content/PlanGen
 
 # ── OPTION B: upload a zip of the project root ────────────────────────
 # from google.colab import files; files.upload()      # -> PlanGen.zip
@@ -156,12 +164,42 @@ did not upload it, regenerate it from `ml/data/normalized_extraction.json`.
         code(r"""
 import os, json
 PREP = 'ml/training/prepared'
-if os.path.exists(f'{PREP}/samples.jsonl'):
-    man = json.load(open(f'{PREP}/manifest.json'))
-    print(f"prepared: {man['n_prepared']} samples · {man['n_val']} val")
+
+# samples.jsonl (4 MB) and masks.npy (18 MB) are GITIGNORED, so a clone does
+# NOT bring them. manifest.json IS tracked and carries the frozen val split,
+# so it must match the data you upload.
+missing = [f for f in ('samples.jsonl', 'masks.npy')
+           if not os.path.exists(f'{PREP}/{f}')]
+if missing:
+    print(f'MISSING (gitignored, upload them): {missing}')
+    print('Run the cell below, or copy them from Drive.')
 else:
-    print('prepared/ missing — regenerating (needs normalized_extraction.json)')
-    !python -m ml.training.prep_cubicasa
+    man = json.load(open(f'{PREP}/manifest.json'))
+    print(f"prepared: {man['n_prepared']} samples · {man['n_val']} val split")
+"""),
+
+        code(r"""
+# Upload the two gitignored files (22 MB total) if the check above flagged them.
+# Faster alternative: put them in Drive once and copy from there each session.
+import os, shutil
+PREP = 'ml/training/prepared'
+DRIVE_PREP = f'{DRIVE_ROOT}/prepared'
+
+if os.path.exists(f'{DRIVE_PREP}/samples.jsonl'):
+    os.makedirs(PREP, exist_ok=True)
+    for f in ('samples.jsonl', 'masks.npy'):
+        shutil.copy(f'{DRIVE_PREP}/{f}', f'{PREP}/{f}')
+    print('copied from Drive')
+else:
+    from google.colab import files
+    print('Select ml/training/prepared/samples.jsonl and masks.npy')
+    up = files.upload()
+    os.makedirs(PREP, exist_ok=True)
+    os.makedirs(DRIVE_PREP, exist_ok=True)
+    for name in up:
+        shutil.move(name, f'{PREP}/{name}')
+        shutil.copy(f'{PREP}/{name}', f'{DRIVE_PREP}/{name}')  # cache for next time
+    print('uploaded and cached to Drive')
 """),
 
         md("""
@@ -191,6 +229,14 @@ Columns to watch:
 """),
         code(r"""
 EPOCHS_A = 70
+
+# DECIDE --eval-n, --eval-seed AND --eval-k NOW AND NEVER CHANGE THEM.
+# Together they form the eval key; changing one mid-run re-baselines
+# best_score, which is exactly what froze v2's best checkpoint at epoch 2.
+#
+# The eval runs the REAL carver and is CPU-bound: ~5.9s per brief at k=2.
+# n=24 every 3 epochs is ~2.3 min per eval, under an hour across 70
+# epochs. (n=48 at k=4 every epoch would have been ~11.7 hours of eval.)
 !python -m ml.placer_v3.train \
     --stage a \
     --out "$RUN_A" \
@@ -199,9 +245,7 @@ EPOCHS_A = 70
     --items-per-epoch 3000 \
     --lr 3e-4 \
     --accum 8 \
-    --eval-n 48 \
-    --eval-every 1 \
-    --milestone-every 10
+    --eval-n 24 \n    --eval-k 2 \n    --eval-every 3 \n    --milestone-every 10
 """),
 
         md("### Progress — is it still climbing?"),
@@ -253,12 +297,18 @@ distribution, runs the **algorithmic engine** at k=16 per brief, scores every
 candidate with the 33 reviewer rules blended with the learned critic, and
 keeps the top 2.
 
-Cost is CPU-bound (the carver), not GPU. Colab gives 2 vCPUs, so budget
-roughly **4–6 hours for 4000 briefs**. It is fully resumable — re-run the
-cell and it skips briefs already in the corpus.
+Cost is CPU-bound (the carver), not GPU — Colab's 2 vCPUs make it slow here.
 
-> Faster alternative: run this on your own machine with `--workers 8` and
-> upload `selfplay.jsonl` to `CORPUS`. Nothing about it needs a GPU.
+> **Run this on your own machine instead, in parallel with stage (a).**
+> ```
+> python -m ml.placer_v3.selfplay --briefs 4000 --k 16 --workers 8 >     --out ml/placer_v3/corpus
+> ```
+> Then upload `selfplay.jsonl` + `manifest.json` to `CORPUS` on Drive.
+> Nothing about it needs a GPU, and it costs you no Colab time at all.
+
+Fully resumable either way — re-run and it skips briefs already in the
+corpus. The manifest records the reward fingerprint the corpus was graded by,
+so a later reward change is detectable rather than silent.
 """),
         code(r"""
 !python -m ml.placer_v3.selfplay \
@@ -305,8 +355,7 @@ EPOCHS_B = 45
     --lr 1.5e-4 \
     --items-per-epoch 3000 \
     --reward-weighting \
-    --eval-n 48 \
-    --milestone-every 10
+    --eval-n 24 \n    --eval-k 2 \n    --eval-every 3 \n    --milestone-every 10
 """),
         code("curve(RUN_B, 'stage b')"),
 
@@ -332,7 +381,7 @@ the policy is exploiting the reward's seams. Raise `--beta-kl`.
     --group 6 \
     --lr 2e-5 \
     --beta-kl 0.02 \
-    --eval-n 48
+    --eval-n 24 \n    --eval-k 2
 """),
         code("curve(RUN_C, 'stage c (RL)')"),
 
@@ -385,7 +434,8 @@ briefs. Believe this result either way — that is what the gate is for.
 `ckpt_last.pt` with optimizer, scheduler, AMP and RNG state. You lose the
 current epoch only.
 
-**"EVAL SET CHANGED" on resume.** You changed `--eval-n` or `--eval-seed`.
+**"EVAL SET CHANGED" on resume.** You changed `--eval-n`, `--eval-seed`
+or `--eval-k` — all three form the eval key.
 `best_score` is reset because scores from different eval sets are not
 comparable — this is the exact bug that froze v2's best checkpoint at epoch
 2. Either change it back, or accept the re-baseline.

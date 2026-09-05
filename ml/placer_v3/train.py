@@ -132,13 +132,21 @@ def to_device(arrays: Dict, device: str) -> Dict[str, torch.Tensor]:
 # ── engine evaluation (the metric that decides checkpoints) ────────────────
 
 def engine_eval(net, n_briefs: int, seed: int, device: str,
-                tau: float = 0.0) -> Dict[str, float]:
+                tau: float = 0.0, k: int = 2) -> Dict[str, float]:
     """Run the model as a proposer through the real orchestrator.
 
     tau=0 means NEVER fall back: this measures the network, not the
     network-plus-safety-net. The deployed arm (with the real tau) is what the
     merge gate judges; this is what training should steer by, because a model
     that improves only by falling back has not improved.
+
+    COST. This is CPU-bound — every brief runs the real carver, settler,
+    connector and 44 reviewer rules. Measured at ~12.5s per brief at k=4, so
+    an eval over 48 briefs every epoch costs ~10 minutes and would dominate a
+    70-epoch run. k defaults to 2 rather than 4 for that reason: checkpoint
+    selection needs the model's proposal quality, not best-of-many. `k` is
+    part of the eval key, so changing it re-baselines loudly instead of
+    silently moving the number.
     """
     from modules.step4_generate.engine.contracts import EngineConfig
     from modules.step4_generate.engine.orchestrator import Orchestrator
@@ -151,7 +159,7 @@ def engine_eval(net, n_briefs: int, seed: int, device: str,
     scores, fidelities, planned = [], [], 0
     for i in range(n_briefs):
         request = brief_at(seed + i)
-        request.k = 4
+        request.k = k
         try:
             result = orch.generate(request)
         except Exception:
@@ -278,9 +286,14 @@ def main(argv=None) -> int:
     p.add_argument("--preset", choices=["small", "large"], default="small")
     p.add_argument("--amp", action="store_true", default=True)
     p.add_argument("--no-amp", dest="amp", action="store_false")
-    p.add_argument("--eval-n", type=int, default=48)
+    p.add_argument("--eval-n", type=int, default=24)
     p.add_argument("--eval-seed", type=int, default=900000)
-    p.add_argument("--eval-every", type=int, default=1)
+    p.add_argument("--eval-k", type=int, default=2,
+                   help="candidates per eval brief; part of the eval key")
+    p.add_argument("--eval-every", type=int, default=3,
+                   help="epochs between evals. The eval runs the real carver "
+                        "and is CPU-bound (~6s/brief), so every epoch would "
+                        "cost more wall time than the training does.")
     p.add_argument("--min-reward", type=float, default=0.0)
     p.add_argument("--reward-weighting", action="store_true", default=True)
     p.add_argument("--reward-baseline", type=float, default=65.0)
@@ -298,7 +311,7 @@ def main(argv=None) -> int:
         from ml.training.paths import PREPARED_DIR
         args.prepared = PREPARED_DIR
     if args.dry_run:
-        args.epochs, args.items_per_epoch, args.eval_n = 2, 20, 4
+        args.epochs, args.items_per_epoch, args.eval_n = 2, 20, 3
         args.warmup_steps = 5
         print(">>> DRY RUN — 20 items, 2 epochs, 4 eval briefs\n")
 
@@ -333,8 +346,8 @@ def main(argv=None) -> int:
 
     manager = CheckpointManager(args.out, keep_last=args.keep_last,
                                 milestone_every=args.milestone_every)
-    key = eval_key_for(f"selfplay_briefs_stage{args.stage}", args.eval_n,
-                       args.eval_seed)
+    key = eval_key_for(f"selfplay_briefs_stage{args.stage}:k{args.eval_k}",
+                       args.eval_n, args.eval_seed)
     state = manager.resume(model=net, optimizer=optimizer,
                            scheduler=scheduler, scaler=scaler, eval_key=key)
     state.stage = f"stage_{args.stage}"
@@ -367,7 +380,7 @@ def main(argv=None) -> int:
         if epoch % args.eval_every == 0 or epoch == args.epochs:
             with torch.no_grad():
                 metrics = engine_eval(net, args.eval_n, args.eval_seed,
-                                      device)
+                                      device, k=args.eval_k)
 
         score = metrics.get("engine_score", float("-inf"))
         is_best = score > state.best_score
@@ -388,14 +401,18 @@ def main(argv=None) -> int:
                              "reward_matches_frozen": reward_drift.matches},
                      is_best=is_best)
 
+        # an epoch with no eval shows "-", not 0.00: over 70 epochs a column
+        # of zeros reads as failure when it only means "not measured here"
+        if metrics:
+            cols = (f"{score:>8.2f} {metrics['fidelity']:>6.3f} "
+                    f"{metrics['plan_rate']:>6.2f} "
+                    f"{metrics['model_confidence']:>6.3f}")
+        else:
+            cols = f"{'-':>8} {'-':>6} {'-':>6} {'-':>6}"
         print(f"{epoch:>4} {train_parts['total']:>8.4f} "
               f"{train_parts['cell']:>7.4f} {train_parts['size']:>7.4f} "
               f"{train_parts['aspect']:>7.4f} {train_parts['band']:>7.4f} "
-              f"{score if score > -1e9 else 0:>8.2f} "
-              f"{metrics.get('fidelity', 0):>6.3f} "
-              f"{metrics.get('plan_rate', 0):>6.2f} "
-              f"{metrics.get('model_confidence', 0):>6.3f} "
-              f"{scheduler.get_last_lr()[0]:>9.2e} "
+              f"{cols} {scheduler.get_last_lr()[0]:>9.2e} "
               f"{row['minutes']:>6.1f}" + ("  <- best" if is_best else ""))
 
     print("-" * 96)

@@ -83,6 +83,15 @@ class PipelineRunRequest(BaseModel):
     session_id: str
     options: Optional[dict] = None
 
+class RegenerateRequest(BaseModel):
+    session_id: str
+    options: Optional[dict] = None
+
+class ChooseRequest(BaseModel):
+    session_id: str
+    rank: int
+    note: str = ""
+
 class SessionResponse(BaseModel):
     session_id: str
     created_at: str
@@ -268,6 +277,14 @@ def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
             "vastu": json.loads(engine_notes["vastu_report"])
             if engine_notes.get("vastu_report") else None,
             "program": enriched.program_plan,
+            "alternatives": json.loads(engine_notes["alternatives"])
+            if engine_notes.get("alternatives") else [],
+            # feature vectors for the preference log, captured at generation
+            # so a later pick costs no engine work and cannot disagree with
+            # the plans that were actually on screen
+            "_preference_vectors": json.loads(
+                engine_notes["preference_vectors"])
+            if engine_notes.get("preference_vectors") else None,
         }
         session["runs"][run_id] = run_data
         
@@ -284,6 +301,7 @@ def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
             "layout_plan": layout.model_dump(),
             "vastu": run_data["vastu"],
             "program": run_data["program"],
+            "alternatives": run_data["alternatives"],
         }
 
     except Exception as e:
@@ -315,6 +333,95 @@ def pipeline_run(req: PipelineRunRequest, background_tasks: BackgroundTasks):
     background_tasks.add_task(_run_pipeline_task, run_id, session, opts, run_dir)
 
     return {"run_id": run_id, "status": "started"}
+
+@app.post("/api/v1/pipeline/regenerate")
+def pipeline_regenerate(req: RegenerateRequest,
+                        background_tasks: BackgroundTasks):
+    """Another go at the same brief.
+
+    The engine seeds itself from the run_id (`engine_bridge._seed_from`), so a
+    new run explores a genuinely different candidate set while staying
+    reproducible — the same id always gives the same plans back.
+    """
+    session = _get_session(req.session_id)
+    if not session.get("requirements"):
+        raise HTTPException(400, "Step 1 not complete — no requirements data")
+
+    run_id = datetime.now().strftime("%Y%m%d_%H%M%S") + "_r"
+    run_dir = OUTPUT_DIR / run_id
+    run_dir.mkdir(parents=True, exist_ok=True)
+    pipeline_status[run_id] = {"status": "running", "step": 1, "logs": [],
+                               "run_id": run_id}
+    background_tasks.add_task(_run_pipeline_task, run_id, session,
+                              req.options or {}, run_dir)
+    return {"run_id": run_id, "status": "started", "regenerated": True}
+
+
+@app.get("/api/v1/runs/{run_id}/alternatives")
+def list_alternatives(session_id: str, run_id: str):
+    """The other plans the engine made for this brief.
+
+    They were always generated — `k` candidates survive the reviewer every
+    run — and until now only the top one was ever rendered.
+    """
+    session = _get_session(session_id)
+    run = session.get("runs", {}).get(run_id)
+    if run is None:
+        raise HTTPException(404, f"Run {run_id} not found in this session")
+    return {
+        "run_id": run_id,
+        "chosen_rank": run.get("chosen_rank"),
+        "alternatives": run.get("alternatives", []),
+    }
+
+
+@app.post("/api/v1/runs/{run_id}/choose")
+def choose_alternative(run_id: str, req: ChooseRequest):
+    """Record which plan the user preferred.
+
+    This is the only signal that teaches the critic TASTE. Perturbation
+    labels (critic/perturb.py) teach it to recognise damage; a real pick
+    among real options is the thing damage-detection cannot substitute for,
+    and it cannot be collected retroactively — hence logging from the first
+    day the UI can offer a choice.
+    """
+    session = _get_session(req.session_id)
+    run = session.get("runs", {}).get(run_id)
+    if run is None:
+        raise HTTPException(404, f"Run {run_id} not found in this session")
+    alts = run.get("alternatives", [])
+    if not 0 <= req.rank < len(alts):
+        raise HTTPException(400,
+                            f"rank {req.rank} outside 0..{len(alts) - 1}")
+
+    run["chosen_rank"] = req.rank
+    logged = False
+    payload = run.get("_preference_vectors")
+    if payload and len(payload.get("vectors", [])) == len(alts):
+        try:
+            from modules.step4_generate.critic.preferences import (
+                PreferenceRecord, DEFAULT_LOG,
+            )
+            import os as _os
+            record = PreferenceRecord(
+                brief=run_id, chosen=req.rank,
+                vectors=payload["vectors"],
+                soft_scores=payload.get("soft_scores", []),
+                timestamp=datetime.now().isoformat(timespec="seconds"),
+                note=req.note)
+            _os.makedirs(_os.path.dirname(_os.path.abspath(DEFAULT_LOG)),
+                         exist_ok=True)
+            with open(DEFAULT_LOG, "a", encoding="utf-8") as fh:
+                fh.write(record.to_json())
+                fh.write(chr(10))
+            logged = True
+        except Exception as exc:
+            # a failed log must never cost the user their choice
+            logger.warning("preference log failed for %s: %s", run_id, exc)
+
+    return {"run_id": run_id, "chosen_rank": req.rank,
+            "svg": alts[req.rank].get("svg"), "logged": logged}
+
 
 @app.get("/api/v1/pipeline/status/{run_id}")
 def pipeline_status_endpoint(run_id: str):
