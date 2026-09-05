@@ -55,6 +55,9 @@ from modules.step3_enrich.room_resolver import (
     ResolvedRoom,
     RoomResolver,
 )
+from modules.step3_enrich.program_synth import (
+    max_sqft_for, plan_program,
+)
 from modules.step3_enrich.vastu_mapper import VastuMapper
 from modules.step4_generate.room_budget import (
     assign_generation_order,
@@ -264,6 +267,16 @@ class Enricher:
         # ── 6c. Scale rooms to fit within net-buildable area per floor ───
         enriched = self._scale_rooms_to_fit(enriched, net_w, net_l, floors, warnings)
 
+        # ── 6d. Program synthesis: decide WHAT belongs on this plot ──────
+        # Before this, the program came from BHK statistics and was only ever
+        # scaled — inflated by one uniform factor on a large plot (measured
+        # 5.9x, a 45 sqft bath becoming 266) and compressed to NBC minimums
+        # on a small one. This adds rooms a plot can carry, sheds inferred
+        # extras a plot cannot, and gives every room a size ceiling.
+        enriched, program = self._synthesize_program(
+            enriched, net_w * net_l, floors, warnings, decisions)
+        program_plan = program.to_dict()
+
         # ── 7. Assign zones + compass directions ────────────────────────
         enriched = self._assign_zones(
             enriched, bundle, ent_dir, vastu_enabled, vastu_mapper
@@ -341,6 +354,7 @@ class Enricher:
             max_far_total_sqft       = max_far,
             total_target_area_sqft   = total_area,
             area_budget_ok           = area_budget_ok,
+            program_plan             = program_plan,
             enrichment_source        = enrichment_source,
             enrichment_warnings      = warnings,
             gemini_decisions         = decisions,
@@ -1027,6 +1041,95 @@ class Enricher:
             room.adjacency_preferences = rt_prefs
 
         return graph
+
+    # ── Step 6d: program synthesis ────────────────────────────────────────
+
+    def _synthesize_program(
+        self,
+        enriched:  List[EnrichedRoom],
+        net_per_floor: float,
+        floors:    int,
+        warnings:  List[str],
+        decisions: List[Dict[str, str]],
+    ) -> Tuple[List[EnrichedRoom], Any]:
+        """Adjust the program to the plot, and cap every room's growth.
+
+        Additive changes (a plot with room to spare gets a dining room rather
+        than a 30% larger bathroom) are applied silently-but-reported.
+        Reductive changes only ever remove rooms an earlier stage INFERRED —
+        a room the user asked for by name is never dropped here, only
+        flagged as tight. Both appear in `enrichment_warnings`, because a
+        plan that quietly differs from the brief is worse than one that
+        explains itself.
+        """
+        program = plan_program(enriched, net_per_floor, floors)
+
+        if program.dropped:
+            keep = set(program.dropped)
+            enriched = [r for r in enriched
+                        if r.display_name not in keep or not r.implicit_room]
+
+        for display in program.added:
+            room = self._make_room(display, enriched, floors)
+            if room is not None:
+                enriched.append(room)
+
+        # every room gets a ceiling, so the engine's settler distributes
+        # surplus to rooms that can use it instead of to all of them equally
+        for room in enriched:
+            room.max_area_sqft = max(
+                room.target_area_sqft,
+                max_sqft_for(room.room_type, room.target_area_sqft))
+
+        if program.headline:
+            warnings.append(f"Program: {program.headline}")
+        for d in program.decisions:
+            decisions.append({
+                "decision": f"program_{d.action}",
+                "reasoning": f"{d.room}: {d.reason}",
+                "confidence": "high",
+            })
+        log.info("Program synthesis (%s, %s): +%d -%d rooms",
+                 program.regime, program.capacity,
+                 len(program.added), len(program.dropped))
+        return enriched, program
+
+    def _make_room(self, display_name: str, existing: List[EnrichedRoom],
+                   floors: int) -> Optional[EnrichedRoom]:
+        """Build an EnrichedRoom for a room synthesis decided to add.
+
+        Marked `implicit_room=True` so it is visibly the system's suggestion,
+        and so a later compact-plot pass may drop it again."""
+        norm = {v: k for k, v in NORM_TO_DISPLAY.items()}.get(display_name)
+        if norm is None:
+            return None
+        idx = sum(1 for r in existing if r.room_type == norm) + 1
+        nbc = get_room_minimums(norm)
+        default = _get_india_default(norm)
+        width = default[0] if default else nbc["min_width_ft"] * 1.2
+        area = default[1] if default else nbc["min_area_sqft"] * 1.25
+        width = max(width, nbc["min_width_ft"])
+        area = max(area, nbc["min_area_sqft"])
+        return EnrichedRoom(
+            room_id=f"{norm}_{idx}",
+            room_type=norm,
+            display_name=display_name if idx == 1 else f"{display_name} {idx}",
+            quantity_index=idx,
+            implicit_room=True,
+            target_width_ft=round(width, 2),
+            target_length_ft=round(max(area / max(width, 0.1),
+                                       nbc["min_width_ft"]), 2),
+            target_area_sqft=round(area, 2),
+            min_width_ft=round(nbc["min_width_ft"], 2),
+            min_length_ft=round(nbc["min_width_ft"], 2),
+            min_area_sqft=round(nbc["min_area_sqft"], 2),
+            max_area_sqft=round(max_sqft_for(norm, area), 2),
+            ceiling_height_ft=_get_ceiling(norm),
+            preferred_floor=_get_floor_heuristic(norm, floors),
+            is_habitable=is_habitable(norm),
+            needs_exterior_wall=is_habitable(norm),
+            door_width_ft=get_door_width(norm),
+        )
 
     # ── Step 6b: Vastu floor conflict audit ───────────────────────────────
 

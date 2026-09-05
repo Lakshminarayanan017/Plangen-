@@ -23,9 +23,10 @@ import random
 from typing import Dict, List, Optional, Tuple
 
 from modules.step4_generate.engine.contracts import (
-    SEED_GRID, EngineRequest, LayoutProposal, Placement, RoomSpec,
+    SEED_GRID, EngineConfig, EngineRequest, LayoutProposal, Placement, RoomSpec,
 )
 from modules.step4_generate.engine.priors import ZonePriors
+from modules.step4_generate.engine.vastu.compass import CompassFrame
 
 _ZONE_ORDER = {"public": 0, "service": 1, "private": 2}
 
@@ -36,6 +37,47 @@ _HUB_TYPES = {"dining_room", "hallway", "foyer", "passage"}
 _BED_TYPES = {"master_bedroom", "bedroom"}
 _WET_TYPES = {"bathroom", "toilet"}
 _KITCHEN_HELPERS = {"utility", "store", "storage", "laundry"}
+
+
+def _from_grid(y: float, x: float, side: str) -> Tuple[float, float]:
+    """Inverse of `_to_grid`: a normalized (y, x) back to (depth, across).
+
+    Needed because Vastu speaks in ABSOLUTE compass — "the pooja room belongs
+    north-east" — while the proposer thinks in depth-from-entrance. The
+    compass frame converts a sector to a grid position; this converts that
+    position into the proposer's own coordinates so the two can be blended
+    instead of one overriding the other.
+    """
+    if side == "S":
+        return y, x
+    if side == "N":
+        return 1.0 - y, x
+    if side == "E":
+        return x, y
+    if side == "W":
+        return 1.0 - x, y
+    raise ValueError(f"bad entrance side {side!r}")
+
+
+def vastu_target(spec: RoomSpec, request: EngineRequest
+                 ) -> Optional[Tuple[float, float]]:
+    """(depth, across) the room's Vastu sector implies, or None.
+
+    Returns None for a room with no direction, for a non-Vastu request, and
+    for `center` — the Brahmasthan is a place rooms are kept OUT of, so
+    seeding one at the middle of the plot would invert the rule."""
+    if not getattr(request, "vastu", False) or not spec.vastu_dir:
+        return None
+    if spec.vastu_dir == "center" and spec.rtype != "ots":
+        # the Brahmasthan is a place rooms are kept OUT of, so seeding one at
+        # the middle of the plot would invert the rule. An open-to-sky court
+        # is the exception: `open_courtyard` is the mandala's own ideal use
+        # for that field, so a courtyard belongs exactly there.
+        return None
+    frame = CompassFrame(getattr(request, "north_side", "N") or "N")
+    n = SEED_GRID - 1
+    row, col = frame.sector_center(spec.vastu_dir, SEED_GRID, SEED_GRID)
+    return _from_grid(row / n, col / n, request.entrance_side)
 
 
 def _to_grid(depth: float, across: float, side: str) -> Tuple[int, int]:
@@ -82,8 +124,10 @@ class PriorProposer:
     index + request seed drive an rng so each of K candidates is
     distinct and reproducible."""
 
-    def __init__(self, priors: Optional[ZonePriors] = None):
+    def __init__(self, priors: Optional[ZonePriors] = None,
+                 config: Optional[EngineConfig] = None):
         self.priors = priors if priors is not None else ZonePriors()
+        self.config = config or EngineConfig()
 
     def _depth_base(self, rtype: str, zone: str) -> float:
         # a hub room living in the private zone (the bedroom passage) must
@@ -133,6 +177,8 @@ class PriorProposer:
                 depth = _clamp(self._depth_base(spec.rtype, zone)
                                + jd(-0.08, 0.08))
                 across = _clamp(across + jd(-0.05, 0.05))
+                depth, across = self._apply_vastu(
+                    spec, request, depth, across, rng)
                 anchor_pos[spec.name] = (depth, across)
                 placements.append(Placement(
                     room=spec.name,
@@ -152,6 +198,8 @@ class PriorProposer:
                     bed_cycle += 1
                 depth, across = self._beside(
                     target, anchor_pos, zone, rng)
+                depth, across = self._apply_vastu(
+                    spec, request, depth, across, rng)
                 placements.append(Placement(
                     room=spec.name,
                     seed_cell=_to_grid(depth, across, request.entrance_side),
@@ -159,6 +207,32 @@ class PriorProposer:
                 ))
 
         return LayoutProposal(placements=placements, source="fallback-prior")
+
+    def _apply_vastu(self, spec: RoomSpec, request: EngineRequest,
+                     depth: float, across: float,
+                     rng: random.Random) -> Tuple[float, float]:
+        """Pull a seed toward the room's Vastu sector.
+
+        A BLEND, not an override, and the weight is a config knob
+        (`vastu_bias`). Snapping every room onto its ideal sector would pile
+        the whole program into four corners and hand the carver a packing it
+        cannot band — the zone priors encode circulation and daylight the
+        compass knows nothing about. At the default 0.55 the seed lands
+        closer to the sector while the layout logic still has a say, and the
+        VAS rules score whichever way it came out."""
+        bias = getattr(self.config, "vastu_bias", 0.0)
+        if bias <= 0.0:
+            return depth, across
+        target = vastu_target(spec, request)
+        if target is None:
+            return depth, across
+        t_depth, t_across = target
+        # a HARD-strength room is pulled the whole way: a pooja room in the
+        # south-west is the failure the user would notice first
+        w = min(1.0, bias * (1.6 if spec.vastu_strength == "hard" else 1.0))
+        return (_clamp(depth + w * (t_depth - depth) + rng.uniform(-.03, .03)),
+                _clamp(across + w * (t_across - across)
+                       + rng.uniform(-.03, .03)))
 
     @staticmethod
     def _affinity_target(spec: RoomSpec, beds: List[RoomSpec],

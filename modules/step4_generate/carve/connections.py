@@ -120,11 +120,62 @@ def _try_opening(plan: GridPlan, a: int, b: int, kind: str,
 
 # ═════════════════════════ ENTRANCE ═════════════════════════════════════════
 
+def _pada_positions(plan: GridPlan, request: EngineRequest, room_id: int,
+                    side: str, width: int, stub: int
+                    ) -> List[Tuple[float, int]]:
+    """Candidate door positions on this room's exterior runs, each scored by
+    the Vastu pada it would sit on.
+
+    The 32-gate system marks 10 of the 32 perimeter padas hard-blocked and 9
+    ideal, and the engine already decides exactly where the main door goes —
+    so choosing a good pada costs nothing but asking. Returns
+    [(score, along_lo), ...] best first; empty when Vastu is off or the
+    mandala is unavailable, in which case the caller centres the door as
+    before.
+    """
+    if not getattr(request, "vastu", False):
+        return []
+    from modules.step4_generate.engine.vastu import mandala as mandala_mod
+    from modules.step4_generate.engine.vastu.compass import CompassFrame
+
+    mandala = mandala_mod.shared()
+    if not mandala.available:
+        return []
+    frame = CompassFrame(getattr(request, "north_side", "N") or "N")
+    ext = plan.ext_wall
+
+    scored: List[Tuple[float, int]] = []
+    for lo, hi in plan.exterior_runs(room_id, side):
+        if hi - lo < width + 2 * stub:
+            continue
+        # step across the run in half-door increments and score each centre
+        step = max(4, width // 2)
+        for along in range(lo + stub, hi - width - stub + 1, step):
+            centre = along + width // 2
+            if side in ("N", "S"):
+                row = ext if side == "N" else plan.h - ext - 1
+                col = centre
+            else:
+                row = centre
+                col = ext if side == "W" else plan.w - ext - 1
+            px, py = frame.pada_of(row, col, plan.h, plan.w)
+            gate = mandala.gate_at(px, py)
+            if gate is not None:
+                scored.append((gate.score, along))
+    scored.sort(key=lambda t: (-t[0], t[1]))
+    return scored
+
+
 def place_entrance(plan: GridPlan, request: EngineRequest,
                    room_ids: Dict[str, int],
                    widths: Tuple[int, ...] = (MAIN_DOOR_WIDTH,)) -> int:
     """Cut the main door on the entrance side; returns the entrance room id.
-    Raises CarveError if no room offers a long-enough exterior wall."""
+    Raises CarveError if no room offers a long-enough exterior wall.
+
+    With Vastu on, the position along the wall is chosen by pada score
+    (VAS-005) instead of being centred — the room is still picked by the
+    circulation priority ladder, because entering through the foyer matters
+    more than entering through an auspicious pada of the wrong room."""
     side = request.entrance_side
     candidates: List[Tuple[int, int]] = []          # (priority, room_id)
     for spec in request.rooms:
@@ -142,6 +193,15 @@ def place_entrance(plan: GridPlan, request: EngineRequest,
             f"for the main door")
     entry = min(candidates)[1]
     for width in widths:
+        for score, along in _pada_positions(plan, request, entry, side,
+                                            width, MIN_STUB):
+            if score <= 0.0:
+                break            # every remaining pada is hard-blocked
+            try:
+                plan.add_exterior_opening(entry, side, width=width, at=along)
+                return entry
+            except CarveError:
+                continue
         try:
             plan.add_exterior_opening(entry, side, width=width)
             return entry

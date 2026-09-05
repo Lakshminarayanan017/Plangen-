@@ -230,6 +230,9 @@ def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
             json.dump(enriched.model_dump(), f, indent=2, default=str)
 
         enrich_summary = enriched.summary()
+        if enriched.program_plan and enriched.program_plan.get("headline"):
+            update_status(3, "PROGRAM",
+                          msg=enriched.program_plan["headline"])
         update_status(3, "ENRICH", msg="Gap-filling completed.", p_log={"step": 3, "status": "complete", "label": "ENRICH", "summary": enrich_summary})
 
         # ── STEP 4+5: GENERATE (wall-graph engine) + RENDER ──────
@@ -240,6 +243,9 @@ def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
             json.dump(layout.model_dump(), f, indent=2, default=str)
 
         layout_summary = layout.summary()
+        if engine_notes.get("vastu"):
+            update_status(4, "VASTU",
+                          msg=f"Vastu compliance — {engine_notes['vastu']}")
         update_status(4, "GENERATE",
                       msg=f"Kept {engine_notes.get('kept_candidates', '?')} candidates; "
                           f"best score {engine_notes.get('best_score', '?')}. "
@@ -259,6 +265,9 @@ def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
             "step4_summary": layout_summary,
             "svg_files": svg_filenames,
             "layout_plan": layout.model_dump(),
+            "vastu": json.loads(engine_notes["vastu_report"])
+            if engine_notes.get("vastu_report") else None,
+            "program": enriched.program_plan,
         }
         session["runs"][run_id] = run_data
         
@@ -273,6 +282,8 @@ def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
             "step5": {"svg_files": svg_filenames},
             "svg_files": svg_filenames,
             "layout_plan": layout.model_dump(),
+            "vastu": run_data["vastu"],
+            "program": run_data["program"],
         }
 
     except Exception as e:

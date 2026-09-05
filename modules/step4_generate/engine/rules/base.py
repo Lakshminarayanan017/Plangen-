@@ -64,6 +64,45 @@ class ReviewContext:
         default=None, init=False, repr=False)
     _opening_graph: Optional[Dict[int, List[Tuple[int, Opening]]]] = field(
         default=None, init=False, repr=False)
+    _frame: Optional[object] = field(default=None, init=False, repr=False)
+    _mandala: Optional[object] = field(default=None, init=False, repr=False)
+    _sectors: Optional[Dict[int, str]] = field(
+        default=None, init=False, repr=False)
+
+    # ── Vastu frame (absolute compass) ───────────────────────────────────
+    def frame(self):
+        """The plot's orientation. Everything Vastu is measured through this;
+        without it the engine cannot tell north-east from top-right."""
+        if self._frame is None:
+            from modules.step4_generate.engine.vastu.compass import CompassFrame
+            self._frame = CompassFrame(
+                getattr(self.request, "north_side", "N") or "N")
+        return self._frame
+
+    def mandala(self):
+        """The 81-pada mandala from data/vastuRules1.json (process-cached)."""
+        if self._mandala is None:
+            from modules.step4_generate.engine.vastu import mandala as mod
+            self._mandala = mod.shared()
+        return self._mandala
+
+    def sector_of(self, rid: int) -> str:
+        """Which absolute compass sector a room's centroid sits in."""
+        if self._sectors is None:
+            self._sectors = {}
+        if rid not in self._sectors:
+            self._sectors[rid] = self.frame().sector_of_rect(
+                self.plan.face_bbox(rid), self.plan.h, self.plan.w)
+        return self._sectors[rid]
+
+    def vastu_active(self) -> bool:
+        """True when the user asked for Vastu AND some room carries a
+        direction. Both halves matter: a Vastu request whose rooms all came
+        back empty is a data failure the enricher already warns about, and
+        scoring it as perfect compliance would hide that."""
+        return bool(getattr(self.request, "vastu", False)
+                    and any(getattr(s, "has_vastu", False)
+                            for s in self.request.rooms))
 
     def shared_walls(self) -> List[SharedWall]:
         if self._shared_walls is None:
