@@ -22,10 +22,12 @@ ml/tier2_placer/weights/
 # tracked — they are the evidence, not the bulk.
 
 ml/tuning/results/corpus.json
-# Self-play corpus: regenerable bulk (ml.placer_v3.selfplay), and a partial
-# smoke-test run must never be mistaken for the real thing. The manifest,
-# which records the reward fingerprint the corpus was graded by, IS tracked.
-ml/placer_v3/corpus/*.jsonl
+# Self-play corpus: TRACKED on purpose. It is expensive to build (hours of
+# carver time on many cores) and Colab has 2 vCPUs, so the training notebook
+# gets it by cloning this repo rather than regenerating or uploading it.
+# 13 MB raw, ~1 MB in the pack since git compresses blobs. The manifest
+# beside it records the reward fingerprint the corpus was graded by, so a
+# later reward change is detectable rather than silent.
 ml/tuning/results/*.html
 
 # Frontend build artifacts
