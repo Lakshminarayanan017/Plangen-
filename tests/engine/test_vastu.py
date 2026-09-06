@@ -299,6 +299,87 @@ class TestVastuReport(unittest.TestCase):
                 self.assertTrue(room.advice,
                                 f"{room.room} missed with no advice")
 
+    # ── the grade has to mean something ─────────────────────────────────
+    #
+    # It is the number this product leads with, so it must move in the same
+    # direction as the plan's actual compliance. It did not: the Brahmasthan
+    # term was 1.0 / 0.0 across a 2% threshold and carried a full third of the
+    # grade, so a plan that went from 4 ideal / 1 near / 3 off to 6 ideal /
+    # 2 off — every room strictly better — dropped from B (89%) to C (60%)
+    # because a kitchen clipped 3% of the centre.
+
+    def _score(self, room_score, gate=None, intrusion=None):
+        """The grade formula alone, fed hand-built parts."""
+        rep = report_mod.VastuReport(active=True)
+        rooms = []
+        n = 10
+        ideal = int(round(room_score * n))
+        for i in range(n):
+            rooms.append(report_mod.RoomCompliance(
+                room=f"r{i}", rtype="bedroom", wanted="N", got="N",
+                status=(report_mod.STATUS_IDEAL if i < ideal
+                        else report_mod.STATUS_OFF)))
+        rep.rooms = rooms
+        parts = [(room_score, report_mod.W_ROOMS)]
+        if gate is not None:
+            parts.append((gate, report_mod.W_ENTRANCE))
+        if intrusion is not None:
+            parts.append((max(0.0, 1.0 - intrusion
+                              / report_mod.BRAHMA_FULL_VIOLATION),
+                          report_mod.W_BRAHMASTHAN))
+        total = sum(w for _, w in parts)
+        return sum(v * w for v, w in parts) / total
+
+    def test_grade_never_falls_when_every_room_improves(self):
+        """THE REGRESSION. Same entrance, a small new intrusion, and strictly
+        better rooms must not produce a worse grade."""
+        before = self._score(0.55, gate=1.0, intrusion=0.0)
+        after = self._score(0.80, gate=1.0, intrusion=0.03)
+        self.assertGreater(
+            after, before,
+            f"rooms improved 0.55 -> 0.80 and the grade went {before:.2f} "
+            f"-> {after:.2f}")
+
+    def test_brahmasthan_degrades_instead_of_cliffing(self):
+        scores = [self._score(0.7, gate=0.8, intrusion=i)
+                  for i in (0.0, 0.03, 0.10, 0.25, 0.50)]
+        for a, b in zip(scores, scores[1:]):
+            self.assertGreaterEqual(a, b, "intrusion must never help")
+        self.assertGreater(scores[0] - scores[1], 0.0,
+                           "3% must cost something")
+        self.assertLess(scores[0] - scores[1], 0.05,
+                        "3% must not cost a grade band")
+        self.assertEqual(scores[3], scores[4],
+                         "past the cap it is fully violated, not negative")
+
+    def test_rooms_dominate_the_grade(self):
+        """A user acts on the grade by moving rooms. If one pada of entrance
+        outweighed the whole room set, the advice this report gives would not
+        be the advice that raises the score."""
+        room_swing = (self._score(1.0, gate=0.5, intrusion=0.0)
+                      - self._score(0.0, gate=0.5, intrusion=0.0))
+        gate_swing = (self._score(0.5, gate=1.0, intrusion=0.0)
+                      - self._score(0.5, gate=0.0, intrusion=0.0))
+        self.assertGreater(room_swing, gate_swing * 2)
+
+    def test_a_clean_brahmasthan_cannot_rescue_a_bad_plan(self):
+        self.assertLess(self._score(0.1, gate=0.1, intrusion=0.0), 0.40)
+
+    def test_rule_book_health_is_not_user_advice(self):
+        """`data/vastuRules1.json` has two internal inconsistencies and the
+        report says so — but "marma endpoint 'W3_Mukhya' names a pada that
+        disagrees with gate W3" is a message for whoever maintains the rule
+        book, not for someone deciding where to put their kitchen. It was
+        being rendered in the user's Vastu panel."""
+        blob = self.report.to_dict()
+        self.assertIn("data_notes", blob)
+        for note in self.report.notes:
+            self.assertNotIn("marma endpoint", note)
+        self.assertTrue(
+            self.report.data_notes,
+            "the shipped mandala has known defects; they must still be "
+            "reported somewhere rather than dropped")
+
     def test_serialises(self):
         import json
         blob = json.dumps(self.report.to_dict())

@@ -152,9 +152,69 @@ python -m modules.diagnostics        # reports mandala health and any defects
 ```
 
 Every run returns a per-room compliance scorecard — what was asked, what was
-achieved, and what would have been better — under `vastu` in the run result.
-A non-Vastu request is scored exactly as it was before any of this existed;
-`tests/engine/test_vastu.py::TestNonVastuUnaffected` enforces that.
+achieved, and what would have been better — under `vastu` in the run result,
+and the UI shows it room by room. A non-Vastu request is scored exactly as it
+was before any of this existed; `tests/engine/test_vastu.py::TestNonVastuUnaffected`
+enforces that.
+
+The **grade** is weighted (rooms 0.60, entrance 0.25, Brahmasthan 0.15) and
+continuous. It used to average the three equally and score the Brahmasthan
+1.0/0.0 across a 2% threshold, which made it non-monotonic in the thing it
+reports: an edit that took a plan from 4 ideal / 1 near / 3 off to 6 ideal /
+2 off — every room strictly better — *dropped* it from B to C because a
+kitchen clipped 3% of the centre. Measured over 68 plans, intrusion is
+exactly zero on all of them, so that term was a constant 1.0 inflating every
+grade with a cliff underneath it.
+
+## Editing a plan
+
+The first plan is a draft. Say what is wrong and the engine re-runs:
+
+> "make the kitchen bigger, move the pooja room to the north east"
+
+Edits are parsed deterministically (`modules/step3_enrich/plan_edit.py`), so
+the UI shows what it understood — **and what it could not** — before spending
+a run. Nothing is silently ignored.
+
+An edit changes the **brief**, not the finished plan, and the pipeline runs
+again. Room sizes, floor assignment, bathroom attachment, Vastu directions and
+the adjacency graph are all derived from each other in step 3; editing the
+output directly leaves every one of them describing a house that no longer
+exists. Resize and re-orient are the exception — they are re-applied *after*
+enrichment, because step 3 would otherwise re-derive them from its own rules
+and discard what the user just asked for.
+
+Re-running produces a fresh carve, so **continuity is a property of the
+selection**, not a hope. The engine already builds `k` candidates every run;
+`modules/step4_generate/engine/continuity.py` re-ranks them by resemblance to
+the plan on screen blended with quality — the same shape as the learned critic
+in `orchestrator.blended_score` and vertical agreement in
+`multifloor._pick_floor` — with a relative quality floor so familiarity can
+never buy a worse plan. Measured on a 30x45 brief:
+
+| edit | seed only | + continuity |
+| --- | --- | --- |
+| living room much bigger | 94% | 94% |
+| add a study room | 66% | 66% |
+| move master bedroom to the north-east | 42% | **100%** |
+| kitchen 200 sqft + dining smaller | 40% | **92%** |
+
+The seed alone is enough for a simple resize; this earns its place on edits
+that restructure the program.
+
+The other candidates are offered rather than discarded. Picking one swaps the
+sheet **and** becomes the layout the next edit preserves — a choice the loop
+then ignored would be cosmetic. It is also the only signal that teaches the
+learned critic *taste*: perturbation labels teach it to recognise damage, and
+taste data cannot be collected retroactively, so `critic/preferences.jsonl`
+finally has a source.
+
+On a multi-floor building continuity applies to the **ground floor**, which is
+not a limitation — every floor above is planned against the one below (the
+stair is reserved over the flight, wet rooms are pulled onto the stacks), so
+holding floor 0 steady is what keeps the building recognisable. Alternatives
+stay single-floor for the same reason: swapping the ground floor invalidates
+every floor above it, which is a regenerate, not an alternative.
 
 ## The frozen reward
 

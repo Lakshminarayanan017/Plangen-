@@ -9,6 +9,8 @@ when `--eval-n` changed mid-run. These tests pin the detector.
 
 from __future__ import annotations
 
+import contextlib
+import io
 import json
 import os
 import shutil
@@ -126,13 +128,24 @@ class TestFreezeAndVerify(unittest.TestCase):
             self.assertIn(key, blob)
 
     def test_require_raises_only_when_strict(self):
+        """`require` PRINTS the drift banner by design — that is the whole
+        point of it in a real run. Captured here, because a test that emits
+        "REWARD DRIFT ... NOT comparable" into a passing suite reads as a
+        failure to anyone skimming the output (it did, on Colab, where the
+        summary line above it had been cut off by `tail`)."""
         reward_mod.freeze(self.path)
         drifted = EngineConfig(w_area_drift=95.0)
-        # non-strict: reports and continues
-        self.assertFalse(
-            reward_mod.require(self.path, config=drifted).matches)
-        with self.assertRaises(SystemExit):
-            reward_mod.require(self.path, config=drifted, strict=True)
+        buffer = io.StringIO()
+
+        with contextlib.redirect_stdout(buffer):
+            drift = reward_mod.require(self.path, config=drifted)
+        self.assertFalse(drift.matches)
+        # the banner still has to be produced — just not leaked to the suite
+        self.assertIn("REWARD DRIFT", buffer.getvalue())
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaises(SystemExit):
+                reward_mod.require(self.path, config=drifted, strict=True)
 
 
 class TestShippedSnapshot(unittest.TestCase):
