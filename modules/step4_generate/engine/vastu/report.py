@@ -39,6 +39,34 @@ STATUS_NONE = "unconstrained"  # this room has no Vastu opinion
 
 _GRADE_BANDS = ((0.90, "A"), (0.75, "B"), (0.60, "C"), (0.40, "D"))
 
+# How the grade is composed. Rooms lead because they are most of Vastu and the
+# only part a user can act on by editing; the entrance is one decision but a
+# decisive one; the Brahmasthan is a single fact that is clean on essentially
+# every plan.
+#
+# The old form averaged the three equally. MEASURED over the same 68 plans
+# (6 plot sizes x 3 programs x 4 orientations), equal thirds against these:
+#
+#     grades   old: A 19  B 10  C 26  D 8  E 5      mean 0.729
+#              new: A  8  B 43  C 11  D 6           mean 0.776
+#
+# The old distribution is bimodal — piles at A and at C with a hollow at B —
+# because the volatile per-pada entrance score carried a full third of the
+# grade while the Brahmasthan term contributed a constant 1.0 to every plan
+# (intrusion was exactly zero on 68/68). Weighting toward the rooms tracks the
+# part of Vastu the user can actually influence and removes the hollow.
+#
+# Stated plainly: the mean goes UP by ~0.05, so this is not a tightening. What
+# it buys is a grade that moves with room compliance instead of jumping on one
+# pada, and that never falls when every room improves.
+W_ROOMS = 0.60
+W_ENTRANCE = 0.25
+W_BRAHMASTHAN = 0.15
+
+# Share of the central 3x3 occupied by a barred use at which the Brahmasthan
+# counts as fully violated. Below it the term degrades linearly.
+BRAHMA_FULL_VIOLATION = 0.25
+
 
 @dataclass
 class RoomCompliance:
@@ -64,7 +92,15 @@ class VastuReport:
     entrance: Dict[str, object] = field(default_factory=dict)
     brahmasthan: Dict[str, object] = field(default_factory=dict)
     site: Dict[str, object] = field(default_factory=dict)
+    # advice a person can act on
     notes: List[str] = field(default_factory=list)
+    # health of the rule book itself. Kept, because a report that hides the
+    # condition of its own source is not honest — but kept SEPARATE, because
+    # "marma endpoint 'W3_Mukhya' names a pada that disagrees with gate W3"
+    # is a message for whoever maintains data/vastuRules1.json, not for
+    # someone deciding where to put their kitchen. `modules.diagnostics`
+    # is where it belongs on screen.
+    data_notes: List[str] = field(default_factory=list)
 
     @property
     def counts(self) -> Dict[str, int]:
@@ -84,6 +120,7 @@ class VastuReport:
             "brahmasthan": self.brahmasthan,
             "site": self.site,
             "notes": list(self.notes),
+            "data_notes": list(self.data_notes),
         }
 
     def summary_line(self) -> str:
@@ -213,12 +250,38 @@ def build(plan, request, room_ids: Dict[str, int],
     }
 
     # ── overall ─────────────────────────────────────────────────────────
-    parts = [room_score]
+    #
+    # WEIGHTED, AND CONTINUOUS IN THE BRAHMASTHAN. Both matter, and both were
+    # wrong.
+    #
+    # The old form averaged three parts equally and scored the Brahmasthan
+    # 1.0 / 0.0 on the same 2% threshold used for the display boolean. That
+    # made the grade NON-MONOTONIC in the thing it reports: an edit measured
+    # here took a plan from 4 ideal / 1 near / 3 off to 6 ideal / 2 off — every
+    # room strictly better, entrance unchanged — and the grade fell B (89%) to
+    # C (60%), because a kitchen clipped 3% of the centre. A user who asks for
+    # a Vastu-canonical change and watches their Vastu score collapse stops
+    # believing the feature, which is the opposite of leading with it.
+    #
+    # MEASURED, 68 plans over 6 plot sizes x 3 programs x 4 orientations:
+    # intrusion was EXACTLY zero on 100% of them. So this term is inert on
+    # ordinary plans — as a third of the grade it was pure inflation — and it
+    # only has to shape the rare real defect. It is now linear to a cap:
+    # a quarter of the centre occupied by a barred use counts as a full
+    # violation, 3% costs about a point of grade rather than 29.
+    #
+    # VAS-003 already scores the same quantity proportionally
+    # (`penalty += w_vastu_brahma * worst`); this brings the number the user
+    # reads into the same shape as the number the engine optimises.
+    parts: List[Tuple[float, float]] = [(room_score, W_ROOMS)]
     if gate_score is not None:
-        parts.append(gate_score)
+        parts.append((gate_score, W_ENTRANCE))
     if report.brahmasthan:
-        parts.append(1.0 if report.brahmasthan["clear"] else 0.0)
-    report.score = round(sum(parts) / len(parts), 3)
+        intrusion = float(report.brahmasthan["barred_use_share"])
+        parts.append((max(0.0, 1.0 - intrusion / BRAHMA_FULL_VIOLATION),
+                      W_BRAHMASTHAN))
+    total_weight = sum(w for _, w in parts) or 1.0
+    report.score = round(sum(v * w for v, w in parts) / total_weight, 3)
     report.grade = _grade(report.score)
 
     # ── honesty notes ───────────────────────────────────────────────────
@@ -227,7 +290,7 @@ def build(plan, request, room_ids: Dict[str, int],
             "The 81-pada mandala could not be loaded, so entrance-pada, "
             "Brahmasthan and marma checks did not run. Room sectors were "
             "still scored.")
-    report.notes.extend(mandala.warnings)
+    report.data_notes.extend(mandala.warnings)
     barred = [r for r in report.rooms if r.status == STATUS_BARRED]
     if barred:
         report.notes.append(
@@ -263,4 +326,6 @@ def format_text(report: VastuReport) -> str:
         lines += ["", f"  brahmasthan: {state}"]
     if report.notes:
         lines += [""] + [f"  note: {n}" for n in report.notes]
+    if report.data_notes:
+        lines += [""] + [f"  rule book: {n}" for n in report.data_notes]
     return "\n".join(lines)

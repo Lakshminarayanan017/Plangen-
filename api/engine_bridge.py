@@ -29,6 +29,7 @@ from modules.step4_generate.engine.contracts import (
 from modules.step4_generate.engine.multifloor import generate_building
 from modules.step4_generate.engine.orchestrator import Orchestrator
 from modules.step3_enrich.program_synth import capacity_for, plan_program
+from modules.step4_generate.engine import continuity as cont
 from modules.step4_generate.engine.vastu import report as vastu_report
 from modules.step4_generate.render.dxf_export import export_dxf
 from modules.step4_generate.render.svg_render import render_svg
@@ -499,12 +500,21 @@ def _floor_from_plan(plan, floor_idx: int, plot_w: int, plot_h: int
     )
 
 
-def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
+def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path,
+                    previous: Optional[cont.LayoutSignature] = None,
+                    continuity_weight: float = cont.DEFAULT_WEIGHT
                     ) -> Tuple[LayoutPlan, List[str], Dict[str, str]]:
     """Run the real engine once per floor. Returns (layout_plan,
     svg_filenames, tier_notes). Every floor is a genuine carved plan; raises
     RuntimeError with the engine's own reasons if a floor yields no valid
-    plan — never returns a fake plan."""
+    plan — never returns a fake plan.
+
+    `previous` is the layout an EDIT is changing. Given one, the winning
+    candidate is chosen by quality blended with resemblance to it, so
+    "make the kitchen bigger" returns the same house with a bigger kitchen
+    instead of a differently-arranged one. Absent (every first run), the
+    engine's own ranking is used untouched.
+    """
     import time
 
     plot_w = max(12, min(200, int(round(enriched.net_buildable_width_ft))))
@@ -543,7 +553,9 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
 
     alternatives: List[Dict] = []
     preference_vectors: Optional[Dict] = None
+    alternative_signatures: List[Dict] = []
     single_result = None
+    continuity_note = None
     max_alternatives = 6
 
     if multi:
@@ -551,10 +563,17 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
         # reserved over the flight below, wet rooms are pulled onto the
         # stacks, and a floor that breaks a vertical rule is rejected in
         # favour of the next candidate (engine/multifloor.py).
+        # an edit holds the GROUND floor; every floor above is planned
+        # against the one below, so preserving floor 0 preserves the building
         building = generate_building(
             requests[0], [r.rooms for r in requests], config=config,
-            orchestrator=orch)
+            orchestrator=orch, previous=previous,
+            continuity_weight=continuity_weight)
         warnings.extend(building.warnings)
+        if building.continuity is not None:
+            continuity_note = building.continuity
+            warnings.append(
+                f"Layout continuity: {building.continuity.describe()}.")
         for floor in building.floors:
             if not floor.ok:
                 raise RuntimeError(
@@ -567,6 +586,24 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
                   for f in building.floors]
     else:
         result = orch.generate(requests[0])
+        # an edit picks the candidate that best preserves the previous plan
+        if result.ranked and previous:
+            floor_ranked = cont.rank_candidates(
+                result.ranked, previous, weight=continuity_weight,
+                quality_floor=None)
+            if floor_ranked:
+                best_cand, score, _ = floor_ranked[0]
+                if best_cand is not result.ranked[0]:
+                    warnings.append(
+                        f"Kept the layout you had: chose a candidate scoring "
+                        f"{best_cand.verdict.soft_score:.1f} over the "
+                        f"top-scoring {result.ranked[0].verdict.soft_score:.1f} "
+                        f"because it preserves your plan ({score.describe()}).")
+                else:
+                    warnings.append(f"Layout continuity: {score.describe()}.")
+                result.ranked = [best_cand] + [c for c in result.ranked
+                                               if c is not best_cand]
+                continuity_note = score
         if not result.best:
             reasons = sorted({c.notes[-1] for c in result.discarded if c.notes})
             raise RuntimeError(
@@ -618,6 +655,14 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
         # pick costs no engine work
         preference_vectors = _preference_payload(
             single_result.ranked[:max_alternatives])
+        # ...and each option's layout signature, so that CHOOSING one makes it
+        # the plan a later edit preserves. Without this, picking option 3 and
+        # then asking for a bigger kitchen would hold option 1's layout — the
+        # loop would quietly ignore the choice it just asked the user to make.
+        alternative_signatures = [
+            cont.signature_to_dict(
+                cont.signature_of_plan(c.plan, c.room_ids))
+            for c in single_result.ranked[:max_alternatives]]
 
     for i, best, k in chosen:
         floors.append(_floor_from_plan(best.plan, i, plot_w, plot_h))
@@ -686,10 +731,29 @@ def generate_layout(enriched: EnrichedPlan, run_id: str, run_dir: Path
         "kept_candidates": "; ".join(kept_note),
         "best_score": f"{_avg(scores):.1f} avg",
     }
+    # The signature of what was actually chosen, built by the SAME function
+    # that ranked the candidates. The session stores this rather than
+    # recomputing from the LayoutPlan, so a later edit compares like with
+    # like by construction instead of by two builders agreeing on a frame.
+    ground = next((c for i, c, _ in chosen if i == 0), None)
+    if ground is not None:
+        notes["signature"] = json.dumps(cont.signature_to_dict(
+            cont.signature_of_plan(ground.plan, ground.room_ids)))
+    if continuity_note is not None:
+        notes["continuity"] = json.dumps({
+            "similarity": continuity_note.similarity,
+            "coverage": continuity_note.coverage,
+            "moved": continuity_note.moved,
+            "gained": continuity_note.gained,
+            "lost": continuity_note.lost,
+            "describes": continuity_note.describe(),
+        })
     if alternatives:
         notes["alternatives"] = json.dumps(alternatives)
         if preference_vectors:
             notes["preference_vectors"] = json.dumps(preference_vectors)
+        if alternative_signatures:
+            notes["alternative_signatures"] = json.dumps(alternative_signatures)
     if vastu_floors:
         grades = "; ".join(f"{v['floor_label']} {v['grade']} "
                            f"({v['score']:.0%})" for v in vastu_floors)

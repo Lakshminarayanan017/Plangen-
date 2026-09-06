@@ -92,6 +92,11 @@ class ChooseRequest(BaseModel):
     rank: int
     note: str = ""
 
+class EditRequest(BaseModel):
+    session_id: str
+    text: str
+    preview: bool = False        # parse and explain without generating
+
 class SessionResponse(BaseModel):
     session_id: str
     created_at: str
@@ -114,6 +119,31 @@ app.add_middleware(
 
 
 # ── Helper: get or create session ────────────────────────────────
+def _signature_of(layout):
+    """The ground floor's room positions, kept so a later edit can preserve
+    them. Ground floor only: on a multi-floor building each floor is chosen
+    against the one below (VRT-001 pins the stair), so the floors are not
+    independently swappable and a per-floor signature would imply they are.
+    """
+    try:
+        from modules.step4_generate.engine import continuity as cont
+        if not layout.floors:
+            return None
+        return cont.signature_of_floor(layout.floors[0])
+    except Exception:                      # never cost a run its result
+        return None
+
+
+def _signature_from_notes(engine_notes):
+    """The signature the engine ranked with, if it reported one."""
+    try:
+        from modules.step4_generate.engine import continuity as cont
+        blob = (engine_notes or {}).get("signature")
+        return cont.signature_from_dict(json.loads(blob)) if blob else None
+    except Exception:                      # never cost a run its result
+        return None
+
+
 def _get_session(session_id: str) -> dict:
     if session_id not in sessions:
         raise HTTPException(404, f"Session {session_id} not found")
@@ -199,6 +229,15 @@ def parse_answer(req: ParseAnswerRequest):
 # ══════════════════════════════════════════════════════════════════
 
 def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
+    """Steps 2-5. `opts` may carry:
+        requirements  a brief EDITED by plan_edit, used instead of the
+                      session's own — so an edit never mutates the original
+        overrides     resize / re-orient instructions applied AFTER step 3,
+                      because the enricher would otherwise re-derive them
+                      from its own rules and discard what the user asked
+        seed_from     hold the engine seed of a previous run, so an edited
+                      plan is the SAME house with the change, not a new one
+    """
     steps_log = []
     
     def update_status(step, label, status="running", msg="", p_log=None):
@@ -212,7 +251,8 @@ def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
     try:
         # ── Build requirements model ─────────────────────────────
         update_status(1, "SYS", msg="Starting PlanGen pipeline")
-        reqs = BuildingRequirements.model_validate(session["requirements"])
+        reqs = BuildingRequirements.model_validate(
+            opts.get("requirements") or session["requirements"])
         with open(run_dir / "step1_final.json", "w") as f:
             json.dump(session["requirements"], f, indent=2)
         update_status(1, "PARSE", msg=f"Blueprint boundaries detected. Processing requirements...", p_log={"step": 1, "status": "complete", "label": "PARSE"})
@@ -238,6 +278,16 @@ def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
         with open(run_dir / "step3_enriched_plan.json", "w") as f:
             json.dump(enriched.model_dump(), f, indent=2, default=str)
 
+        # post-enrichment overrides: the half of an edit step 3 would undo
+        override_notes: list = []
+        if opts.get("overrides"):
+            from modules.step3_enrich.plan_edit import apply_overrides
+            override_notes = apply_overrides(enriched, opts["overrides"])
+            for note in override_notes:
+                enriched.enrichment_warnings.append(f"Edit: {note}")
+            if override_notes:
+                update_status(3, "EDIT", msg="; ".join(override_notes[:3]))
+
         enrich_summary = enriched.summary()
         if enriched.program_plan and enriched.program_plan.get("headline"):
             update_status(3, "PROGRAM",
@@ -246,7 +296,15 @@ def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
 
         # ── STEP 4+5: GENERATE (wall-graph engine) + RENDER ──────
         update_status(4, "GENERATE", msg="Carving layout with the wall-graph partition engine (best of 6 candidates)...")
-        layout, svg_filenames, engine_notes = generate_layout(enriched, run_id, run_dir)
+        # An edit holds the previous run's seed so the layout stays
+        # recognisable — same house, changed room.
+        # An edit holds the previous run's seed AND its layout: the seed
+        # makes the carve start from the same place, and the signature makes
+        # candidate selection prefer the one that keeps the plan
+        # recognisable. Seed alone only made resemblance likely.
+        layout, svg_filenames, engine_notes = generate_layout(
+            enriched, opts.get("seed_from") or run_id, run_dir,
+            previous=opts.get("previous_signature"))
 
         with open(run_dir / "step4_layout_plan.json", "w") as f:
             json.dump(layout.model_dump(), f, indent=2, default=str)
@@ -279,12 +337,28 @@ def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
             "program": enriched.program_plan,
             "alternatives": json.loads(engine_notes["alternatives"])
             if engine_notes.get("alternatives") else [],
+            "edit": opts.get("edit_summary"),
+            "continuity": json.loads(engine_notes["continuity"])
+            if engine_notes.get("continuity") else None,
+            # kept so a FURTHER edit of this plan can preserve it too.
+            # The engine's own answer wins: it is the signature the candidate
+            # ranking used, so an edit compares like with like without
+            # depending on two builders sharing a coordinate frame.
+            "_signature": _signature_from_notes(engine_notes)
+            or _signature_of(layout),
+            "requirements": opts.get("requirements")
+            or session["requirements"],
             # feature vectors for the preference log, captured at generation
             # so a later pick costs no engine work and cannot disagree with
             # the plans that were actually on screen
             "_preference_vectors": json.loads(
                 engine_notes["preference_vectors"])
             if engine_notes.get("preference_vectors") else None,
+            # one per alternative, so choosing one makes it the plan a later
+            # edit preserves
+            "_alternative_signatures": json.loads(
+                engine_notes["alternative_signatures"])
+            if engine_notes.get("alternative_signatures") else None,
         }
         session["runs"][run_id] = run_data
         
@@ -302,6 +376,7 @@ def _run_pipeline_task(run_id: str, session: dict, opts: dict, run_dir: Path):
             "vastu": run_data["vastu"],
             "program": run_data["program"],
             "alternatives": run_data["alternatives"],
+            "continuity": run_data["continuity"],
         }
 
     except Exception as e:
@@ -357,6 +432,75 @@ def pipeline_regenerate(req: RegenerateRequest,
     return {"run_id": run_id, "status": "started", "regenerated": True}
 
 
+@app.post("/api/v1/runs/{run_id}/edit")
+def edit_plan(run_id: str, req: EditRequest,
+              background_tasks: BackgroundTasks):
+    """Change a plan in words: "make the kitchen bigger, move the pooja
+    room to the north east".
+
+    The edit is applied to the BRIEF and the pipeline runs again, rather
+    than the finished plan being mutated. Room sizes, floor assignment,
+    bathroom attachment and the adjacency graph are all derived from each
+    other in step 3; editing the output directly would leave every one of
+    them describing a house that no longer exists.
+
+    `preview: true` parses and explains without generating, so a user can
+    see what was understood before spending a run on it.
+    """
+    from modules.step3_enrich.plan_edit import (
+        apply_to_requirements, overrides_from, parse,
+    )
+
+    session = _get_session(req.session_id)
+    previous = session.get("runs", {}).get(run_id)
+    base_requirements = (previous or {}).get("requirements")         or session.get("requirements")
+    if not base_requirements:
+        raise HTTPException(400, "No brief to edit — run the pipeline first")
+
+    edit = parse(req.text)
+    if not edit.ok:
+        return {
+            "understood": False,
+            "summary": edit.summary(),
+            "unparsed": edit.unparsed,
+            "message": ("I could not turn that into a change. Try naming a "
+                        "room and what to do with it — for example \"make "
+                        "the kitchen bigger\" or \"move the pooja room to "
+                        "the north east\"."),
+        }
+
+    new_requirements, req_notes = apply_to_requirements(
+        base_requirements, [i for i in edit.intents if i.is_requirement])
+    overrides = overrides_from(edit.intents)
+
+    if req.preview:
+        return {"understood": True, "preview": True,
+                "summary": edit.summary(), "changes": req_notes,
+                "unparsed": edit.unparsed,
+                "intents": [i.to_dict() for i in edit.intents]}
+
+    new_run_id = datetime.now().strftime("%Y%m%d_%H%M%S") + "_e"
+    run_dir = OUTPUT_DIR / new_run_id
+    run_dir.mkdir(parents=True, exist_ok=True)
+    pipeline_status[new_run_id] = {"status": "running", "step": 1,
+                                   "logs": [], "run_id": new_run_id}
+    background_tasks.add_task(
+        _run_pipeline_task, new_run_id, session,
+        {"requirements": new_requirements,
+         "overrides": overrides,
+         "previous_signature": (previous or {}).get("_signature"),
+         # hold the ORIGINAL seed: same house, changed room
+         "seed_from": (previous or {}).get("seed_from") or run_id,
+         "edit_summary": {"text": req.text, "summary": edit.summary(),
+                          "changes": req_notes,
+                          "unparsed": edit.unparsed,
+                          "from_run": run_id}},
+        run_dir)
+    return {"understood": True, "run_id": new_run_id, "status": "started",
+            "edited_from": run_id, "summary": edit.summary(),
+            "changes": req_notes, "unparsed": edit.unparsed}
+
+
 @app.get("/api/v1/runs/{run_id}/alternatives")
 def list_alternatives(session_id: str, run_id: str):
     """The other plans the engine made for this brief.
@@ -395,6 +539,16 @@ def choose_alternative(run_id: str, req: ChooseRequest):
                             f"rank {req.rank} outside 0..{len(alts) - 1}")
 
     run["chosen_rank"] = req.rank
+    # The chosen plan becomes the one a later edit holds on to. Recording the
+    # pick and then editing a different layout would make the choice cosmetic.
+    sigs = run.get("_alternative_signatures")
+    if sigs and 0 <= req.rank < len(sigs):
+        try:
+            from modules.step4_generate.engine import continuity as cont
+            run["_signature"] = cont.signature_from_dict(sigs[req.rank])
+        except Exception as exc:
+            logger.warning("could not adopt option %s of %s: %s",
+                           req.rank, run_id, exc)
     logged = False
     payload = run.get("_preference_vectors")
     if payload and len(payload.get("vectors", [])) == len(alts):

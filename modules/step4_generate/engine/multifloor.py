@@ -29,6 +29,7 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Sequence, Tuple
 
 from modules.step4_generate.core.grid_plan import GridPlan
+from modules.step4_generate.engine import continuity as cont
 from modules.step4_generate.engine.contracts import (
     SEED_GRID, Candidate, EngineConfig, EngineRequest, LayoutProposal,
     Placement, RoomSpec,
@@ -168,6 +169,9 @@ class Floor:
 class BuildingResult:
     floors: List[Floor]
     warnings: List[str] = field(default_factory=list)
+    # how much of the previous plan the chosen ground floor kept, when this
+    # build was an edit of an earlier one
+    continuity: Optional[cont.ContinuityScore] = None
 
     @property
     def ok(self) -> bool:
@@ -221,13 +225,45 @@ def generate_building(request: EngineRequest,
                       floor_programs: Sequence[Sequence[RoomSpec]], *,
                       config: Optional[EngineConfig] = None,
                       orchestrator: Optional[Orchestrator] = None,
-                      proposer=None) -> BuildingResult:
+                      proposer=None,
+                      previous: Optional[cont.LayoutSignature] = None,
+                      continuity_weight: float = cont.DEFAULT_WEIGHT
+                      ) -> BuildingResult:
     """Plan every floor bottom-up.
 
     `floor_programs[i]` is floor i's room list (the ground floor first). The
     staircase is injected per floor by the program engine — every floor of a
     multi-floor building needs one, including the top, which is where the
     flight from below arrives.
+
+    `previous` is the GROUND FLOOR of the plan an edit is changing. It applies
+    to floor 0 only, and that is not a limitation — floor 0 is the only floor
+    with a free choice. Every floor above is planned against the one below
+    (the stair is reserved over the flight, wet rooms are pulled onto the
+    stacks), so holding the ground floor steady is what keeps the whole
+    building recognisable; ranking an upper floor for resemblance instead
+    would fight the vertical rules that make it buildable.
+
+    Without this, a multi-floor edit ignored continuity entirely and returned
+    a different building — and G+1 is the common case for the users this is
+    built for, not an edge case.
+
+    MEASURED, G+1 on a 30x45, two seeds x three edits, ground-floor
+    similarity of the edited plan against the original:
+
+        edit                                  w=0   w=0.35
+        kitchen much bigger (s4242)           74%      74%
+        living room bigger + dining smaller   97%      97%
+        bedroom much bigger (s4242)           95%      95%
+        kitchen much bigger (s909)            61%      61%
+        living room bigger + dining smaller   97%      97%
+        bedroom much bigger (s909)            60%      95%
+        ----------------------------------------------------
+        mean                                  81%      86%
+
+    Five of six were already stable on the seed alone and this changes
+    nothing there; it earns its place on the sixth, where the top-scoring
+    candidate happened to be a rearrangement.
     """
     config = config or EngineConfig()
     orch = orchestrator or Orchestrator(config=config, proposer=proposer)
@@ -237,6 +273,7 @@ def generate_building(request: EngineRequest,
     floors: List[Floor] = []
     warnings: List[str] = []
     context: Optional[FloorContext] = None
+    ground_continuity: Optional[cont.ContinuityScore] = None
 
     for index, rooms in enumerate(floor_programs):
         req = floor_request(request, index, rooms)
@@ -259,7 +296,10 @@ def generate_building(request: EngineRequest,
                 config, frozen_rooms=[reservation[0]] if reservation else [])
         result = orch.generate(req)
 
-        chosen, vertical, notes = _pick_floor(result, context, config, index)
+        chosen, vertical, notes = _pick_floor(
+            result, context, config, index,
+            previous=previous if index == 0 else None,
+            continuity_weight=continuity_weight)
         if chosen is None:
             reasons = sorted({c.notes[-1][:90] for c in result.discarded
                               if c.notes})
@@ -272,15 +312,21 @@ def generate_building(request: EngineRequest,
 
         floors.append(Floor(index=index, request=req, candidate=chosen,
                             vertical=vertical, notes=notes))
+        if index == 0 and previous:
+            ground_continuity = cont.compare(
+                previous, cont.signature_of_plan(chosen.plan, chosen.room_ids))
         context = FloorContext.from_plan(chosen.plan, chosen.room_ids)
 
     # leave the orchestrator exactly as we found it
     orch.proposer, orch.realizer = base_proposer, base_realizer
-    return BuildingResult(floors=floors, warnings=warnings)
+    return BuildingResult(floors=floors, warnings=warnings,
+                          continuity=ground_continuity)
 
 
 def _pick_floor(result, context: Optional[FloorContext],
-                config: EngineConfig, index: int
+                config: EngineConfig, index: int, *,
+                previous: Optional[cont.LayoutSignature] = None,
+                continuity_weight: float = cont.DEFAULT_WEIGHT
                 ) -> Tuple[Optional[Candidate], Optional[VerticalVerdict],
                            List[str]]:
     """Best candidate that ALSO satisfies the vertical rules.
@@ -296,6 +342,18 @@ def _pick_floor(result, context: Optional[FloorContext],
     if not result.ranked:
         return None, None, notes
     if context is None:
+        # The ground floor has no floor below to agree with, so its only
+        # other claim is on the plan the user is editing.
+        if previous and continuity_weight > 0:
+            ranked = cont.rank_candidates(result.ranked, previous,
+                                          weight=continuity_weight)
+            if ranked:
+                best, score, _ = ranked[0]
+                if best is not result.ranked[0]:
+                    notes.append(
+                        f"floor 0: kept the layout you had ({score.describe()})"
+                        f" over the top-scoring candidate")
+                return best, None, notes
         return result.ranked[0], None, notes
 
     scored = []

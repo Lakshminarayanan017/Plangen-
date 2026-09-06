@@ -17,8 +17,10 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import tempfile
 import unittest
+from pathlib import Path
 from unittest import mock
 
 from fastapi.testclient import TestClient
@@ -33,7 +35,7 @@ def _alternatives(n=3):
             for i in range(n)]
 
 
-def _seed_run(client, *, n_alts=3, with_vectors=True):
+def _seed_run(client, *, n_alts=3, with_vectors=True, with_sigs=False):
     """A session holding one finished run, without running the pipeline."""
     session_id = client.post("/api/v1/sessions").json()["session_id"]
     run_id = "20260906_120000"
@@ -42,11 +44,17 @@ def _seed_run(client, *, n_alts=3, with_vectors=True):
         payload = {"vectors": [[float(i)] * 47 for i in range(n_alts)],
                    "soft_scores": [100.0 - i for i in range(n_alts)]}
     sessions[session_id]["requirements"] = {"rooms": []}
-    sessions[session_id]["runs"] = {run_id: {
+    run = {
         "run_id": run_id,
         "alternatives": _alternatives(n_alts),
         "_preference_vectors": payload,
-    }}
+    }
+    if with_sigs:
+        # each option sits in a different place, so adopting one is visible
+        run["_alternative_signatures"] = [
+            {"kitchen": [0.1 * (i + 1), 0.1 * (i + 1), 0.2, 0.2, 1.0]}
+            for i in range(n_alts)]
+    sessions[session_id]["runs"] = {run_id: run}
     return session_id, run_id
 
 
@@ -148,9 +156,65 @@ class TestChooseEndpoint(unittest.TestCase):
         self.assertEqual(body["chosen_rank"], 1)
 
 
+class TestChoosingAdoptsTheLayout(unittest.TestCase):
+    """Recording a pick and then editing a DIFFERENT layout would make the
+    choice cosmetic — the loop would ask the user to choose and then ignore
+    it on the very next instruction."""
+
+    def setUp(self):
+        # /choose APPENDS to the real preference log. A test that writes
+        # synthetic 47-dim vectors into the file the critic will train on is
+        # poisoning it — three such rows were found in the live log.
+        self.tmp = tempfile.mkdtemp(prefix="prefs")
+        self.patch = mock.patch(
+            "modules.step4_generate.critic.preferences.DEFAULT_LOG",
+            os.path.join(self.tmp, "preferences.jsonl"))
+        self.patch.start()
+        self.client = TestClient(app)
+
+    def tearDown(self):
+        self.patch.stop()
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_the_chosen_option_becomes_the_edit_baseline(self):
+        sid, run_id = _seed_run(self.client, with_sigs=True)
+        run = sessions[sid]["runs"][run_id]
+        run["_signature"] = None
+        r = self.client.post(f"/api/v1/runs/{run_id}/choose",
+                             json={"session_id": sid, "rank": 2})
+        self.assertEqual(r.status_code, 200)
+        sig = run["_signature"]
+        self.assertTrue(sig, "choosing should adopt that option's layout")
+        self.assertAlmostEqual(sig.rooms["kitchen"].cx, 0.3, places=6)
+
+    def test_choose_still_works_without_signatures(self):
+        """Older runs in a live session have no per-option signatures; the
+        pick must still be recorded rather than 500."""
+        sid, run_id = _seed_run(self.client)
+        r = self.client.post(f"/api/v1/runs/{run_id}/choose",
+                             json={"session_id": sid, "rank": 1})
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(sessions[sid]["runs"][run_id]["chosen_rank"], 1)
+
+    def test_the_response_names_the_sheet_to_show(self):
+        sid, run_id = _seed_run(self.client, with_sigs=True)
+        body = self.client.post(f"/api/v1/runs/{run_id}/choose",
+                                json={"session_id": sid, "rank": 1}).json()
+        self.assertEqual(body["svg"], "alternative_2.svg")
+
+
 class TestRegenerateEndpoint(unittest.TestCase):
     def setUp(self):
+        # regenerate creates the run directory before the background task
+        # runs; redirect it so the suite leaves no empty folders behind
+        self._tmp = tempfile.mkdtemp(prefix="planregen")
+        self._out = mock.patch("api.server.OUTPUT_DIR", Path(self._tmp))
+        self._out.start()
         self.client = TestClient(app)
+
+    def tearDown(self):
+        self._out.stop()
+        shutil.rmtree(self._tmp, ignore_errors=True)
 
     def test_starts_a_distinct_run(self):
         sid, run_id = _seed_run(self.client)

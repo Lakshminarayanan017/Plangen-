@@ -152,14 +152,20 @@ engine and prints the subsystem self-check.
         code(r"""
 !python -m modules.diagnostics
 print()
-!python -m unittest discover -s tests/engine -t . 2>&1 | tail -5
+# grep for the verdict rather than tail: some tests legitimately print
+# alarming-looking text (the reward-drift detector proves itself by
+# triggering), and `tail` was cutting off the summary line that says OK.
+!python -m unittest discover -s tests/engine -t . 2>&1 | grep -E "^Ran |^OK|^FAILED|^ERROR:|^FAIL:"
 """),
 
         md("""
 ## 6 · Data check
 
-Stage **a** needs `ml/training/prepared/` (samples.jsonl + masks.npy). If you
-did not upload it, regenerate it from `ml/data/normalized_extraction.json`.
+Stage **a** needs `ml/training/prepared/` — `samples.jsonl` and `masks.npy`.
+
+If the clone already brought them, you are done here and can skip cell 7.
+(They were gitignored when this notebook was first written; if they are now
+committed, the clone has them and nothing needs uploading.)
 """),
         code(r"""
 import os, json
