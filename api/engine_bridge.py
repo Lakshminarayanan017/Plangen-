@@ -28,6 +28,7 @@ from modules.step4_generate.engine.contracts import (
 )
 from modules.step4_generate.engine.multifloor import generate_building
 from modules.step4_generate.engine.orchestrator import Orchestrator
+from modules.step4_generate.engine.rules.base import PARKING
 from modules.step3_enrich.program_synth import capacity_for, plan_program
 from modules.step4_generate.engine import continuity as cont
 from modules.step4_generate.engine.vastu import report as vastu_report
@@ -320,9 +321,14 @@ def _footprint_for_program(enriched: EnrichedPlan, plot_w: int, plot_h: int,
     notes: List[str] = []
     n_floors = max(1, enriched.total_floors)
     needed = 0.0
+    # Parking rooms are exterior (front setback), not inside the structural
+    # envelope — exclude them from the footprint-needed calculation.
+    _EXTERNAL_ROOM_TYPES = {"car_parking", "parking", "garage",
+                            "garden", "terrace", "verandah", "balcony", "barsati"}
     for i in range(n_floors):
         rooms = [r for r in enriched.get_rooms_on_floor(i)
-                 if r.room_type.lower() not in _UNSUPPORTED]
+                 if r.room_type.lower() not in _UNSUPPORTED
+                 and r.room_type.lower() not in _EXTERNAL_ROOM_TYPES]
         floor_sqft = sum(float(r.max_area_sqft or r.target_area_sqft)
                          for r in rooms)
         if multi and not any(r.room_type.lower() == "staircase"
@@ -440,15 +446,22 @@ def _build_floor_request(enriched: EnrichedPlan, floor_idx: int, run_id: str,
                if enriched.vastu_enabled else "") + ".")
 
     # Pre-scale over-tight programs so the request is always buildable.
+    # Parking rooms sit in the front setback, not inside the structural
+    # envelope — the same exclusion the enricher makes in _scale_rooms_to_fit.
+    # Including them inflated the "total" that drives the scale factor, causing
+    # indoor rooms to be crushed AND parking to end up sized incorrectly.
     plot_sqft = plot_w * plot_h
-    total = sum(s.target_sqft for s in specs)
-    if total > plot_sqft * 0.90:
-        scale = plot_sqft * 0.85 / total
-        specs = [dataclasses.replace(
-            s, target_sqft=round(s.target_sqft * scale, 1)) for s in specs]
+    indoor_specs = [s for s in specs if s.rtype not in PARKING]
+    parking_specs = [s for s in specs if s.rtype in PARKING]
+    total_indoor = sum(s.target_sqft for s in indoor_specs)
+    if total_indoor > plot_sqft * 0.90:
+        scale = plot_sqft * 0.85 / total_indoor
+        indoor_specs = [dataclasses.replace(
+            s, target_sqft=round(s.target_sqft * scale, 1)) for s in indoor_specs]
         warnings.append(
-            f"{_floor_label(floor_idx)}: program ({total:.0f} sqft) exceeded "
+            f"{_floor_label(floor_idx)}: indoor program ({total_indoor:.0f} sqft) exceeded "
             f"the footprint ({plot_sqft} sqft); targets scaled by {scale:.2f}.")
+    specs = indoor_specs + parking_specs
 
     request = EngineRequest(
         plot_w_ft=plot_w, plot_h_ft=plot_h,

@@ -164,8 +164,16 @@ def _connect_freespace(plan: GridPlan, request: EngineRequest,
 
 def _separate_swings(plan: GridPlan, request: EngineRequest,
                      room_ids: Dict[str, int]) -> List[str]:
-    """DOR-001: recompute live swing collisions; shift the second door of
-    each colliding pair toward the far end of its host wall run."""
+    """DOR-001: resolve swing collisions by trying, in order:
+      1. Shift the second door to the far end of its host wall run.
+      2. Flip that door's swing to open into the other room (inward swing).
+      3. Flip the first door's swing instead.
+    Wet-room doors (bathroom/toilet) are preferred candidates for inward
+    swing — an inward-opening bathroom door is architecturally standard
+    and resolves collisions on tight plots without relocating any wall.
+    """
+    from modules.step4_generate.engine.rules.base import WET
+
     notes: List[str] = []
     ctx = _review_ctx(plan, request, room_ids)
 
@@ -182,40 +190,82 @@ def _separate_swings(plan: GridPlan, request: EngineRequest,
                     out.append((a, b))
         return out
 
-    for _ in range(4):                       # bounded shifting rounds
+    def _try_flip(door) -> bool:
+        """Flip a door's swing direction; return True if it resolved cleanly."""
+        flipped = "b" if door.swing == "a" else "a"
+        plan.openings.remove(door)
+        try:
+            plan.add_opening(door.room_a, door.room_b, "door",
+                             width=door.width, swing=flipped,
+                             at=door.along_lo)
+            return True
+        except CarveError:
+            plan.openings.append(door)   # restore unchanged
+            return False
+
+    def _is_wet(op) -> bool:
+        return (plan.rooms[op.room_a].rtype in WET or
+                plan.rooms[op.room_b].rtype in WET)
+
+    for _ in range(6):                       # bounded repair rounds
         pairs = collisions()
         if not pairs:
             break
         moved = False
         for a, b in pairs:
+            # ── Strategy 1: shift door b along its wall ──────────────────
             host = [sw for sw in plan.shared_walls()
                     if sw.axis == b.axis
                     and sw.wall_lo == b.wall_lo and sw.wall_hi == b.wall_hi
                     and {sw.room_a, sw.room_b} == {b.room_a, b.room_b}]
-            if not host:
-                continue
-            run = max(host, key=lambda s: s.length)
-            plan.openings.remove(b)
-            # try the run end farther from door a's span first
-            far_first = run.along_hi - b.width if a.along_lo <= run.along_lo \
-                else run.along_lo
-            for at in (far_first, run.along_lo, run.along_hi - b.width):
-                try:
-                    plan.add_opening(b.room_a, b.room_b, "door",
-                                     width=b.width, swing=b.swing, at=at)
-                    notes.append(
-                        f"repair DOR-001: shifted door "
-                        f"{plan.rooms[b.room_a].name} <-> "
-                        f"{plan.rooms[b.room_b].name}")
-                    moved = True
-                    break
-                except CarveError:
-                    continue
-            else:
-                plan.openings.append(b)      # restore; unrepairable pair
-            # ctx caches are stale after a mutation — rebuild
+            if host:
+                run = max(host, key=lambda s: s.length)
+                plan.openings.remove(b)
+                far_first = run.along_hi - b.width if a.along_lo <= run.along_lo \
+                    else run.along_lo
+                shifted = False
+                for at in (far_first, run.along_lo, run.along_hi - b.width):
+                    try:
+                        plan.add_opening(b.room_a, b.room_b, "door",
+                                         width=b.width, swing=b.swing, at=at)
+                        notes.append(
+                            f"repair DOR-001: shifted door "
+                            f"{plan.rooms[b.room_a].name} <-> "
+                            f"{plan.rooms[b.room_b].name}")
+                        moved = True
+                        shifted = True
+                        break
+                    except CarveError:
+                        continue
+                if not shifted:
+                    plan.openings.append(b)   # restore before trying flip
+
+            # ── Strategy 2: flip swing of the wet-room door ───────────────
+            if not moved:
+                # prefer to flip whichever of the pair is a wet-room door
+                candidates = sorted([a, b], key=lambda d: (0 if _is_wet(d) else 1))
+                for door in candidates:
+                    if _try_flip(door):
+                        ctx = _review_ctx(plan, request, room_ids)
+                        # only keep the flip if it actually cleared the collision
+                        if not any(door in pair for pair in collisions()):
+                            notes.append(
+                                f"repair DOR-001: flipped swing on "
+                                f"{plan.rooms[door.room_a].name} <-> "
+                                f"{plan.rooms[door.room_b].name} "
+                                f"(now opens inward)")
+                            moved = True
+                            break
+                        else:
+                            # flip didn't help — undo it
+                            _try_flip(next(op for op in plan.openings
+                                           if op.room_a == door.room_a
+                                           and op.room_b == door.room_b
+                                           and op.kind == "door"))
+
             ctx = _review_ctx(plan, request, room_ids)
-            break
+            break  # one pair per round; re-detect after each mutation
+
         if not moved:
             break
     return notes

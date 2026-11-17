@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from modules.step4_generate.engine.rules.base import ReviewContext, rule
+from modules.step4_generate.engine.rules.base import PARKING, ReviewContext, rule
 
 # rtype → max hops from the entrance room
 _DEPTH_NORMS = {"living_room": 2, "drawing_room": 2, "dining_room": 2,
@@ -24,7 +24,11 @@ def reachability(ctx: ReviewContext) -> None:
     if ctx.entrance_room() is None:
         return                                  # CIR-001 already fired
     hops = ctx.hops_from_entrance()
-    unreachable = ctx.requested_ids() - set(hops)
+    # Parking rooms are accessed via their exterior vehicle gate (STR-003),
+    # not through interior pedestrian connections — exclude from reachability.
+    reachable_required = {rid for rid in ctx.requested_ids()
+                          if ctx.rtype(rid) not in PARKING}
+    unreachable = reachable_required - set(hops)
     if unreachable:
         names = ", ".join(sorted(ctx.rname(r) for r in unreachable))
         ctx.hard.append(f"CIR-002 unreachable rooms: {names}")

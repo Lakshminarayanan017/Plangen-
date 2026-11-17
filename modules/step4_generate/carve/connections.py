@@ -88,8 +88,11 @@ def _rule(rt_a: str, rt_b: str) -> Optional[Tuple[str, str]]:
         return ("door", "a" if rt_a in WET else "b")
     if _cross(rt_a, rt_b, SERVICE, SOCIAL):
         return ("door", "a" if rt_a in SERVICE else "b")
-    if _cross(rt_a, rt_b, PARKING, SOCIAL):
-        return ("door", "a" if rt_a in SOCIAL else "b")
+    # Parking rooms connect to the exterior only via the vehicle gate (STR-003).
+    # An interior pedestrian door to parking is both architecturally wrong and
+    # the source of swing collisions on tight plots — seal the wall instead.
+    if rt_a in PARKING or rt_b in PARKING:
+        return None
     return None
 
 
@@ -286,9 +289,13 @@ def reachable_rooms(plan: GridPlan, entry: int) -> Set[int]:
 def ensure_reachable(plan: GridPlan, entry: int,
                      room_ids: Dict[str, int]) -> List[str]:
     """Add privacy-preferring doors until every room is reachable from the
-    entrance. Raises CarveError if connectivity cannot be established."""
+    entrance. Raises CarveError if connectivity cannot be established.
+    Parking rooms are excluded — they are accessed via the exterior vehicle
+    gate only, not through interior pedestrian connections."""
     notes: List[str] = []
-    all_rooms = set(room_ids.values())
+    # Parking rooms are exterior-only; remove them from the reachability check.
+    all_rooms = {rid for rid in room_ids.values()
+                 if plan.rooms[rid].rtype not in PARKING}
     for _ in range(len(all_rooms)):
         got = reachable_rooms(plan, entry)
         missing = all_rooms - got
