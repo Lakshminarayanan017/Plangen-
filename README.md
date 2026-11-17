@@ -1,6 +1,14 @@
+﻿---
+title: PlanGen AI
+emoji: 🏢
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
 # PlanGen
 
-Architecture plan generator — natural-language brief in, carved multi-floor
+Architecture plan generator â€” natural-language brief in, carved multi-floor
 floor plans (SVG + DXF) out, tuned to Indian residential practice (NBC
 minimums, Vastu, setbacks/FAR).
 
@@ -9,14 +17,14 @@ minimums, Vastu, setbacks/FAR).
 The whole system is one numbered pipeline. Each step is a package under
 `modules/`, and each consumes the previous step's output:
 
-| Step | Package | In → Out |
+| Step | Package | In â†’ Out |
 |------|---------|----------|
-| 1 | `modules/step1_parse` | user text/image → `BuildingRequirements` |
-| 2 | `modules/step2_match` | requirements → `KnowledgeBundle` (stats from real plans) |
-| 3 | `modules/step3_enrich` | bundle → `EnrichedPlan` (sized, zoned, floored rooms) |
-| 4 | `modules/step4_generate` | enriched plan → carved geometry, SVG, DXF |
+| 1 | `modules/step1_parse` | user text/image â†’ `BuildingRequirements` |
+| 2 | `modules/step2_match` | requirements â†’ `KnowledgeBundle` (stats from real plans) |
+| 3 | `modules/step3_enrich` | bundle â†’ `EnrichedPlan` (sized, zoned, floored rooms) |
+| 4 | `modules/step4_generate` | enriched plan â†’ carved geometry, SVG, DXF |
 
-`api/server.py` runs steps 1–3 and hands off to `api/engine_bridge.py`, which
+`api/server.py` runs steps 1â€“3 and hands off to `api/engine_bridge.py`, which
 adapts the `EnrichedPlan` into an `EngineRequest` and drives step 4.
 
 ## Layout
@@ -24,7 +32,7 @@ adapts the `EnrichedPlan` into an `EngineRequest` and drives step 4.
 ```
 models.py            Pydantic schemas shared across every step
 api/                 FastAPI server + the bridge into the engine
-frontend/            the UI — plain HTML/CSS/JS, no build step
+frontend/            the UI â€” plain HTML/CSS/JS, no build step
   index.html         landing page
   chatPage.html      the brief -> plan conversation
   script.js          session, parse loop, pipeline polling, sheet rendering
@@ -43,20 +51,20 @@ modules/
     demos/           runnable visual demos
     room_budget.py   generation order + area fractions (used by step 3)
 sources/             config the code reads: enricher_rules.json, prompts/, key rotator
-data/                small distilled stats the RUNTIME reads (zone_patterns.json …)
-ml/                  training-time only — never imported by the request path
+data/                small distilled stats the RUNTIME reads (zone_patterns.json â€¦)
+ml/                  training-time only â€” never imported by the request path
   placer_v3/         Tier-2 seed proposer v3: state-conditioned model, three
                      -stage training (pretrain / distil / RL), self-play corpus
   tier2_placer/      v2 proposer, kept as the A/B baseline for the merge gate
-  training/          CubiCasa5K → training samples
+  training/          CubiCasa5K â†’ training samples
   tuning/            CMA-ES tuning of selector weights
   harness/           golden briefs + A/B harness
   data/              bulk corpora (gitignored)
 tests/
-  pipeline/          steps 1–3 + the engine bridge
+  pipeline/          steps 1â€“3 + the engine bridge
   engine/            step 4 (the engine itself)
   ml/                ml/ packages
-docs/                PRD, plans, paper, engine architecture notes — the ONLY
+docs/                PRD, plans, paper, engine architecture notes â€” the ONLY
                      home for planning documents
 output/              generated artifacts (gitignored)
 unwanted/            gitignored holding pen, never imported by anything
@@ -68,18 +76,18 @@ unwanted/            gitignored holding pen, never imported by anything
 
 ## Running
 
-Everything runs from the project root as a package — nothing injects
+Everything runs from the project root as a package â€” nothing injects
 `sys.path`.
 
 ```bash
-# run the app — serves the UI and the API on one port, no build step
+# run the app â€” serves the UI and the API on one port, no build step
 python -m uvicorn api.server:app --reload      # http://127.0.0.1:8000
 
 python -m unittest discover -s tests -t .      # the full suite
 python -m modules.data_prep.plan_indexer       # (re)build data/plan_index
 python -m modules.diagnostics                  # what is real vs on fallbacks
 python -m ml.harness.diagnose --worst 5        # why a brief scores what it does
-python -m modules.step4_generate.demos.demo_engine   # engine demo → output/
+python -m modules.step4_generate.demos.demo_engine   # engine demo â†’ output/
 python -m ml.harness.run_harness               # quality harness
 ```
 
@@ -95,7 +103,7 @@ be indistinguishable from a healthy one. It now says:
 python -m modules.diagnostics      # or GET /api/v1/diagnostics
 ```
 
-`ok` = working · `degraded` = running on a fallback · `missing` = a claimed
+`ok` = working Â· `degraded` = running on a fallback Â· `missing` = a claimed
 capability is absent. The server prints this at boot and the UI shows it in
 the brief's title block.
 
@@ -103,27 +111,27 @@ the brief's title block.
 
 The pipeline decides **what to build** before it decides where things go.
 Until phase 02 the program came from BHK statistics and was then only
-*scaled*: inflated by one uniform factor on a large plot — measured at 5.9x,
-a 45 sqft bathroom realised at 266 — and compressed toward NBC minimums on a
+*scaled*: inflated by one uniform factor on a large plot â€” measured at 5.9x,
+a 45 sqft bathroom realised at 266 â€” and compressed toward NBC minimums on a
 small one.
 
 `modules/step3_enrich/program_synth.py` reads the plot and decides:
 
-- **compact** (under 600 sqft buildable) — sheds rooms an earlier stage
+- **compact** (under 600 sqft buildable) â€” sheds rooms an earlier stage
   *inferred*, never one the user asked for by name, and says which
-- **normal** — leaves a fitting program alone
-- **spacious** (over 1800 sqft) — adds a dining room, pooja room, utility or
+- **normal** â€” leaves a fitting program alone
+- **spacious** (over 1800 sqft) â€” adds a dining room, pooja room, utility or
   study rather than inflating the rooms already there
 
 Every room carries a size ceiling, so surplus goes to rooms that can use it.
 What is still left over shrinks the **building**, not the rooms: a 2BHK on a
 large plot is a 2BHK house standing in a garden, and the open ground is
-reported rather than absorbed. A small remainder becomes a courtyard — which
+reported rather than absorbed. A small remainder becomes a courtyard â€” which
 is also what the Brahmasthan asks for, so the two requirements agree.
 
 The capacity curve is a measurement, not a guess: the engine was run over 14
 plot sizes x 7 program shapes and the largest program still scoring above 60
-was recorded. Note what it rules out — the reviewer's soft score always
+was recorded. Note what it rules out â€” the reviewer's soft score always
 prefers *fewer* rooms (a 1BHK scores 100 on a 4,200 sqft plot), so selecting
 a program by score would recommend a studio for a mansion.
 
@@ -134,7 +142,7 @@ things make it work, and all three are required:
 
 1. **A compass frame.** `EngineRequest.north_side` says which grid edge faces
    geographic north. Without it the engine cannot tell north-east from
-   top-right, and every Vastu rule is unexpressible — which is the state it
+   top-right, and every Vastu rule is unexpressible â€” which is the state it
    was in until phase 01.
 2. **Per-room directions.** Step 3 assigns each room a preferred and
    prohibited compass sector from `sources/enricher_rules.json`; the bridge
@@ -151,8 +159,8 @@ six marma diagonals, and the global structural modifiers.
 python -m modules.diagnostics        # reports mandala health and any defects
 ```
 
-Every run returns a per-room compliance scorecard — what was asked, what was
-achieved, and what would have been better — under `vastu` in the run result,
+Every run returns a per-room compliance scorecard â€” what was asked, what was
+achieved, and what would have been better â€” under `vastu` in the run result,
 and the UI shows it room by room. A non-Vastu request is scored exactly as it
 was before any of this existed; `tests/engine/test_vastu.py::TestNonVastuUnaffected`
 enforces that.
@@ -161,7 +169,7 @@ The **grade** is weighted (rooms 0.60, entrance 0.25, Brahmasthan 0.15) and
 continuous. It used to average the three equally and score the Brahmasthan
 1.0/0.0 across a 2% threshold, which made it non-monotonic in the thing it
 reports: an edit that took a plan from 4 ideal / 1 near / 3 off to 6 ideal /
-2 off — every room strictly better — *dropped* it from B to C because a
+2 off â€” every room strictly better â€” *dropped* it from B to C because a
 kitchen clipped 3% of the centre. Measured over 68 plans, intrusion is
 exactly zero on all of them, so that term was a constant 1.0 inflating every
 grade with a cliff underneath it.
@@ -173,23 +181,23 @@ The first plan is a draft. Say what is wrong and the engine re-runs:
 > "make the kitchen bigger, move the pooja room to the north east"
 
 Edits are parsed deterministically (`modules/step3_enrich/plan_edit.py`), so
-the UI shows what it understood — **and what it could not** — before spending
+the UI shows what it understood â€” **and what it could not** â€” before spending
 a run. Nothing is silently ignored.
 
 An edit changes the **brief**, not the finished plan, and the pipeline runs
 again. Room sizes, floor assignment, bathroom attachment, Vastu directions and
 the adjacency graph are all derived from each other in step 3; editing the
 output directly leaves every one of them describing a house that no longer
-exists. Resize and re-orient are the exception — they are re-applied *after*
+exists. Resize and re-orient are the exception â€” they are re-applied *after*
 enrichment, because step 3 would otherwise re-derive them from its own rules
 and discard what the user just asked for.
 
 Re-running produces a fresh carve, so **continuity is a property of the
 selection**, not a hope. The engine already builds `k` candidates every run;
 `modules/step4_generate/engine/continuity.py` re-ranks them by resemblance to
-the plan on screen blended with quality — the same shape as the learned critic
+the plan on screen blended with quality â€” the same shape as the learned critic
 in `orchestrator.blended_score` and vertical agreement in
-`multifloor._pick_floor` — with a relative quality floor so familiarity can
+`multifloor._pick_floor` â€” with a relative quality floor so familiarity can
 never buy a worse plan. Measured on a 30x45 brief:
 
 | edit | seed only | + continuity |
@@ -203,14 +211,14 @@ The seed alone is enough for a simple resize; this earns its place on edits
 that restructure the program.
 
 The other candidates are offered rather than discarded. Picking one swaps the
-sheet **and** becomes the layout the next edit preserves — a choice the loop
+sheet **and** becomes the layout the next edit preserves â€” a choice the loop
 then ignored would be cosmetic. It is also the only signal that teaches the
 learned critic *taste*: perturbation labels teach it to recognise damage, and
 taste data cannot be collected retroactively, so `critic/preferences.jsonl`
 finally has a source.
 
 On a multi-floor building continuity applies to the **ground floor**, which is
-not a limitation — every floor above is planned against the one below (the
+not a limitation â€” every floor above is planned against the one below (the
 stair is reserved over the flight, wet rooms are pulled onto the stacks), so
 holding floor 0 steady is what keeps the building recognisable. Alternatives
 stay single-floor for the same reason: swapping the ground floor invalidates
@@ -220,7 +228,7 @@ every floor above it, which is a regenerate, not an alternative.
 
 Stage (b) of the placer imitates plans the reviewer chose, and stage (c)
 optimises the reviewer's score directly. Both only mean something if the
-reward holds still — retune a weight or add a rule mid-training and every
+reward holds still â€” retune a weight or add a rule mid-training and every
 number from before that moment quietly stops being comparable.
 
 `modules/step4_generate/engine/reward_v1.json` is the snapshot: a hash over
@@ -242,7 +250,8 @@ what they write, and take `--strict-reward` to refuse to run on drift.
 
 They are easy to confuse, so:
 
-- **`data/`** — small, curated, **tracked**. Read at request time
+- **`data/`** â€” small, curated, **tracked**. Read at request time
   (`engine/priors.py` loads `zone_patterns.json` from here).
-- **`ml/data/`** — gigabytes of raw corpora, **gitignored**, only ever touched
+- **`ml/data/`** â€” gigabytes of raw corpora, **gitignored**, only ever touched
   by `ml/training/`. Nothing in the request path reads it.
+
